@@ -1,5 +1,5 @@
-
 import datetime
+import hashlib
 
 #Scheletro della classe utente così come è presente sul database
 class Utente:
@@ -7,11 +7,17 @@ class Utente:
         self.nome = nome
         self.cognome = cognome
         self.email = email
-        self.password = password
+        
         self.ruolo = ruolo
         self.dataNascita = dataNascita,
         self.partitaIVA = partitaIVA
         self.codice = codice
         self.indirizzo = indirizzo
+
+        # Hash the password
+        hash_object = hashlib.sha256(password.encode())
+        # Get the hexadecimal representation of the hash
+        hashed_password = hash_object.hexdigest()
+        self.password = hashed_password
 
 
