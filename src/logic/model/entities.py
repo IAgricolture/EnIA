@@ -1,6 +1,7 @@
 
 import datetime
 
+#Scheletro della classe utente così come è presente sul database
 class Utente:
     def __init__(self, nome: str, cognome: str, email: str, password:str, ruolo: str, dataNascita: datetime, partitaIVA: str, codice: str, indirizzo: str):
         self.nome = nome
