@@ -19,5 +19,9 @@ class Utente:
         # Get the hexadecimal representation of the hash
         hashed_password = hash_object.hexdigest()
         self.password = hashed_password
+    
+    def __init__(self):
+        pass
+
 
 
