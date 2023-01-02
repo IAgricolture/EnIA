@@ -23,7 +23,7 @@ class UtenteDAO():
 
 
 
-
+#PROVA SUL DATABASE
 utente = Utente("Benedetto", "Scala", "ben.scala@libero.it", "password", "farmer", datetime.datetime.now(), "partitaIVA", "codice","Via Molino 13")
 
 UtenteDAO.creaUtente(utente)
