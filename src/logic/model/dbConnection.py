@@ -5,6 +5,8 @@ from pymongo import MongoClient
 client = MongoClient("mongodb+srv://enia:vp7CMyN7V5Rl8FZR@cluster0.o0m35vt.mongodb.net/?retryWrites=true&w=majority")
 
 #Assegnazione alla variabile db il database enia
-db = client.enia
+db = client.EnIA
 
-#prova
+#Documenti utente
+utenti = db.users
+
