@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_login import LoginManager
-
+from flask_cors import CORS
 
 
 """
@@ -9,7 +9,9 @@ from flask_login import LoginManager
    such as routes, or gestioneUtenteControl
 """
 app = Flask(__name__, static_url_path="/templates", static_folder="templates")
-
+CORS(app)
+app.config["MONGO_URI"] = "mongodb+srv://enia:vp7CMyN7V5Rl8FZR@cluster0.o0m35vt.mongodb.net/EnIA"
+app.config["COMPRESS_ALGORITHM"] = 'gzip'  # disable default compression of all eligible requests
 app.config['SECRET_KEY'] = 'jshwifhjwieoajhf5847f5ae4eaws'
 login_manager = LoginManager(app)
 login_manager.login_view = "loginPage"

@@ -16,6 +16,3 @@ logger.addHandler(handler) # adds handler to the werkzeug WSGI logger
 def homepage():
     return render_template("index.html")
 
-@app.route("/login")
-def loginPage():
-    return render_template("login.html", cssfile=url_for("static",filename = "css/vertical-layout-light/style.css"))

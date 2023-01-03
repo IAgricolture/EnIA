@@ -1,5 +1,5 @@
 
-from src.logic.model.dbConnection import utenti
+from src.dbConnection import utenti
 from src.logic.model.Utente import Utente
 from flask import jsonify
 import datetime

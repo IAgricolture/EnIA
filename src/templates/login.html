@@ -3,8 +3,8 @@
   <link rel="stylesheet" href={{cssfile}}>
   <!-- endinject -->
 </head>
-<body>
-    <form class="forms-sample" method="post">
+<body id="principale">
+    <form class="forms-sample">
         <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
             <input type="email" class="form-control p-input" id="email" name = "email" aria-describedby="emailHelp" placeholder="Enter email">
@@ -15,7 +15,31 @@
             <input type="password" class="form-control p-input" id="password" name ="password" placeholder="Password">
         </div>
         <div class="col-12">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            
         </div>
+        
     </form>
+    <button onclick="login()" >Submit</button>
+    <script>
+        function login(){
+            var url = new URL("http://localhost:5000/login")
+
+            var email = document.getElementById("email").value
+            var password = document.getElementById("password").value
+            url.searchParams.append("email", email)
+            url.searchParams.append("password", password)
+            let response = fetch(url,
+            {
+              "method": "GET",
+              "headers": {},
+            }).then(res=>res.json())
+            .then(data=>{
+                console.log(data)
+                var testo = document.createElement('p')
+                var parent = document.getElementById("principale")
+                parent.appendChild(testo)
+                testo.innerHTML=data["successo"]
+            })
+        }
+    </script>
 </body>
