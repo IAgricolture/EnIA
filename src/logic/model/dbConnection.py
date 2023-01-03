@@ -8,5 +8,5 @@ client = MongoClient("mongodb+srv://enia:vp7CMyN7V5Rl8FZR@cluster0.o0m35vt.mongo
 db = client.EnIA
 
 #Documenti utente
-utenti = db.users
+utenti = db.Utente
 
