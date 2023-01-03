@@ -241,3 +241,40 @@ Here's some info
 127.0.0.1 - - [03/Jan/2023 12:01:06] "[33mGET /images/faces/face34.png HTTP/1.1[0m" 404 -
  * Detected change in 'c:\\Users\\scala\\OneDrive\\Desktop\\ISProgetto\\EnIA\\src\\logic\\GestioneUtente\\GestioneUtenteControl.py', reloading
  * Restarting with stat
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 643-578-677
+127.0.0.1 - - [03/Jan/2023 15:05:59] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 15:05:59] "[33mGET /vendors/typicons.font/font/typicons.css HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:05:59] "[33mGET /vendors/css/vendor.bundle.base.css HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:05:59] "[33mGET /css/vertical-layout-light/style.css HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:06:00] "[33mGET /vendors/js/vendor.bundle.base.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:06:00] "[33mGET /js/off-canvas.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:06:00] "[33mGET /js/hoverable-collapse.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:06:00] "[33mGET /js/template.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:06:00] "[33mGET /images/faces/face4.jpg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:06:00] "[33mGET /images/faces/face2.jpg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:06:00] "[33mGET /images/logo-mini.svg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:06:00] "[33mGET /images/faces/face3.jpg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:06:00] "[33mGET /js/settings.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:06:00] "[33mGET /js/todolist.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:06:00] "[33mGET /vendors/progressbar.js/progressbar.min.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:06:00] "[33mGET /vendors/chart.js/Chart.min.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:06:00] "[33mGET /js/dashboard.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:06:00] "[33mGET /images/logo.svg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:06:00] "[33mGET /images/faces/face29.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:06:00] "[33mGET /images/faces/face30.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:06:00] "[33mGET /images/faces/face32.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:06:00] "[33mGET /images/faces/face31.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:06:01] "[33mGET /images/faces/face33.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:06:01] "[33mGET /images/faces/face34.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:06:01] "[33mGET /images/favicon.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:06:08] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 15:06:08] "GET /static/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 15:06:08] "[33mGET /fonts/Roboto/Roboto-Regular.woff2 HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:06:08] "[33mGET /fonts/Roboto/Roboto-Regular.woff HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:06:08] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 15:06:08] "[33mGET /fonts/Roboto/Roboto-Regular.ttf HTTP/1.1[0m" 404 -
