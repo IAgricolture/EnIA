@@ -1,6 +1,6 @@
 
 from src.logic.model.dbConnection import licenze
-from src.logic.model.LicenzaEntities import Licenza
+from src.logic.model.Licenza import Licenza
 from flask import jsonify
 from bson.objectid import ObjectId
 
