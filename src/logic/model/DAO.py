@@ -8,6 +8,10 @@ from bson.objectid import ObjectId
 class UtenteDAO():
 
     def findUtenteByEmail(email: str) -> Utente:
+        """
+            This method find one user in the database, using his email
+            :return: Utente
+        """
         trovato = utenti.find_one({"email" : email})
         utenteTrovato = Utente()
         utenteTrovato.id = str(trovato.get("_id"))
@@ -21,7 +25,11 @@ class UtenteDAO():
         utenteTrovato.password = trovato.get("password")
         return utenteTrovato
 
-    def findUtente(id : str):
+    def findUtente(id : str) -> Utente:
+        """
+            This method find one user in the database, using his ObjectId
+            :return: Utente
+        """
         trovato = utenti.find_one({"_id" : ObjectId(id)})
         utenteTrovato = Utente()
         utenteTrovato.id = str(trovato.get("_id"))
@@ -38,6 +46,9 @@ class UtenteDAO():
 
     
     def creaUtente(utente : Utente):
+        """
+            This method instantiate one utente on the database
+        """
         utenti.insert_one({
             "nome" : utente.nome,
             "cognome": utente.cognome,
