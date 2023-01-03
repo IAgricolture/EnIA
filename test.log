@@ -1,0 +1,243 @@
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:5000
+[33mPress CTRL+C to quit[0m
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:5000
+[33mPress CTRL+C to quit[0m
+Here's some info
+127.0.0.1 - - [03/Jan/2023 10:49:51] "[35m[1mGET / HTTP/1.1[0m" 500 -
+Here's some info
+127.0.0.1 - - [03/Jan/2023 10:50:05] "[35m[1mGET / HTTP/1.1[0m" 500 -
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [03/Jan/2023 11:05:35] "[35m[1mGET / HTTP/1.1[0m" 500 -
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [03/Jan/2023 11:06:10] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 11:06:10] "[33mGET /vendors/typicons.font/font/typicons.css HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:10] "[33mGET /vendors/css/vendor.bundle.base.css HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:10] "[33mGET /css/vertical-layout-light/style.css HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:10] "[33mGET /vendors/js/vendor.bundle.base.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:10] "[33mGET /js/off-canvas.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:10] "[33mGET /js/hoverable-collapse.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:10] "[33mGET /js/template.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:10] "[33mGET /js/settings.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:10] "[33mGET /js/todolist.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:10] "[33mGET /vendors/progressbar.js/progressbar.min.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:10] "[33mGET /vendors/chart.js/Chart.min.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:10] "[33mGET /js/dashboard.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:10] "[33mGET /images/logo.svg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:10] "[33mGET /images/logo-mini.svg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:10] "[33mGET /images/faces/face4.jpg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:10] "[33mGET /images/faces/face2.jpg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:10] "[33mGET /images/faces/face3.jpg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:10] "[33mGET /images/faces/face29.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:10] "[33mGET /images/faces/face30.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:10] "[33mGET /images/faces/face31.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:10] "[33mGET /images/faces/face32.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:10] "[33mGET /images/faces/face33.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:10] "[33mGET /images/faces/face34.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:18] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 11:06:18] "GET /static/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 11:06:18] "[33mGET /maps/vertical-layout-light/style.css.map HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:18] "[33mGET /fonts/Roboto/Roboto-Regular.woff2 HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:18] "[33mGET /fonts/Roboto/Roboto-Regular.woff HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:06:18] "[33mGET /fonts/Roboto/Roboto-Regular.ttf HTTP/1.1[0m" 404 -
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [03/Jan/2023 11:08:41] "[35m[1mGET /login HTTP/1.1[0m" 500 -
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [03/Jan/2023 11:11:09] "[35m[1mGET /login HTTP/1.1[0m" 500 -
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [03/Jan/2023 11:17:30] "[35m[1mGET /login HTTP/1.1[0m" 500 -
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [03/Jan/2023 11:26:05] "[35m[1mGET /login HTTP/1.1[0m" 500 -
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [03/Jan/2023 11:29:44] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 11:29:44] "GET /static/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 11:29:44] "[33mGET /fonts/Roboto/Roboto-Regular.woff2 HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:29:44] "[33mGET /fonts/Roboto/Roboto-Regular.woff HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:29:44] "[33mGET /fonts/Roboto/Roboto-Regular.ttf HTTP/1.1[0m" 404 -
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [03/Jan/2023 11:38:26] "[35m[1mGET /login HTTP/1.1[0m" 500 -
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [03/Jan/2023 11:40:57] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 11:40:57] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jan/2023 11:40:57] "[33mGET /fonts/Roboto/Roboto-Regular.woff2 HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:40:57] "[33mGET /fonts/Roboto/Roboto-Regular.woff HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:40:57] "[33mGET /fonts/Roboto/Roboto-Regular.ttf HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:41:26] "[31m[1mPOST /login HTTP/1.1[0m" 405 -
+127.0.0.1 - - [03/Jan/2023 11:41:34] "[31m[1mPOST /login HTTP/1.1[0m" 405 -
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [03/Jan/2023 11:42:44] "[35m[1mGET /login HTTP/1.1[0m" 500 -
+127.0.0.1 - - [03/Jan/2023 11:42:57] "[35m[1mGET /login HTTP/1.1[0m" 500 -
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [03/Jan/2023 11:43:45] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 11:43:45] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jan/2023 11:43:46] "[33mGET /fonts/Roboto/Roboto-Regular.woff2 HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:43:46] "[33mGET /fonts/Roboto/Roboto-Regular.woff HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:43:46] "[33mGET /fonts/Roboto/Roboto-Regular.ttf HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:43:51] "[35m[1mPOST /login HTTP/1.1[0m" 500 -
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [03/Jan/2023 11:46:53] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 11:46:53] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jan/2023 11:46:53] "[33mGET /fonts/Roboto/Roboto-Regular.woff2 HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:46:53] "[33mGET /fonts/Roboto/Roboto-Regular.woff HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:46:53] "[33mGET /fonts/Roboto/Roboto-Regular.ttf HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:46:58] "[35m[1mPOST /login HTTP/1.1[0m" 500 -
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 725-636-923
+127.0.0.1 - - [03/Jan/2023 11:48:37] "[35m[1mPOST /login HTTP/1.1[0m" 500 -
+127.0.0.1 - - [03/Jan/2023 11:48:37] "GET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 11:48:37] "GET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 11:48:37] "GET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 11:48:37] "[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 725-636-923
+ * Detected change in 'c:\\Users\\scala\\OneDrive\\Desktop\\ISProgetto\\EnIA\\src\\__init__.py', reloading
+ * Restarting with stat
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 725-636-923
+ * Detected change in 'c:\\Users\\scala\\OneDrive\\Desktop\\ISProgetto\\EnIA\\src\\__init__.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 725-636-923
+ * Detected change in 'c:\\Users\\scala\\OneDrive\\Desktop\\ISProgetto\\EnIA\\src\\__init__.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 725-636-923
+ * Detected change in 'c:\\Users\\scala\\OneDrive\\Desktop\\ISProgetto\\EnIA\\src\\logic\\model\\DAO.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 725-636-923
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 725-636-923
+127.0.0.1 - - [03/Jan/2023 11:55:32] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 11:55:32] "[33mGET /vendors/typicons.font/font/typicons.css HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:32] "[33mGET /vendors/css/vendor.bundle.base.css HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:32] "[33mGET /css/vertical-layout-light/style.css HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:32] "[33mGET /vendors/js/vendor.bundle.base.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:32] "[33mGET /js/off-canvas.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:32] "[33mGET /js/hoverable-collapse.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:32] "[33mGET /js/template.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:32] "[33mGET /images/faces/face2.jpg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:33] "[33mGET /images/faces/face3.jpg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:33] "[33mGET /images/logo-mini.svg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:33] "[33mGET /images/faces/face4.jpg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:33] "[33mGET /js/settings.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:33] "[33mGET /js/todolist.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:33] "[33mGET /vendors/progressbar.js/progressbar.min.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:33] "[33mGET /vendors/chart.js/Chart.min.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:33] "[33mGET /js/dashboard.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:33] "[33mGET /images/logo.svg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:33] "[33mGET /images/faces/face29.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:33] "[33mGET /images/faces/face30.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:33] "[33mGET /images/faces/face31.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:33] "[33mGET /images/faces/face32.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:33] "[33mGET /images/faces/face33.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:33] "[33mGET /images/faces/face34.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:34] "[33mGET /images/favicon.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:35] "[33mGET /log HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:38] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 11:55:38] "GET /static/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 11:55:39] "[33mGET /fonts/Roboto/Roboto-Regular.woff2 HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:39] "[33mGET /fonts/Roboto/Roboto-Regular.woff HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:39] "[33mGET /fonts/Roboto/Roboto-Regular.ttf HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 11:55:44] "POST /login HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 11:55:51] "GET /login HTTP/1.1" 200 -
+ * Detected change in 'c:\\Users\\scala\\OneDrive\\Desktop\\ISProgetto\\EnIA\\src\\logic\\GestioneUtente\\GestioneUtenteControl.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 725-636-923
+127.0.0.1 - - [03/Jan/2023 11:56:37] "POST /login HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 11:56:43] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 11:56:45] "POST /login HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 11:58:07] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 11:58:10] "POST /login HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 11:58:27] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 11:58:30] "[35m[1mPOST /login HTTP/1.1[0m" 500 -
+127.0.0.1 - - [03/Jan/2023 11:58:30] "GET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 11:58:30] "GET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 11:58:30] "GET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 11:58:31] "[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+ * Detected change in 'c:\\Users\\scala\\OneDrive\\Desktop\\ISProgetto\\EnIA\\src\\logic\\model\\entities.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 725-636-923
+ * Detected change in 'c:\\Users\\scala\\OneDrive\\Desktop\\ISProgetto\\EnIA\\src\\logic\\model\\DAO.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 725-636-923
+ * Detected change in 'c:\\Users\\scala\\OneDrive\\Desktop\\ISProgetto\\EnIA\\src\\logic\\model\\DAO.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 725-636-923
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 725-636-923
+127.0.0.1 - - [03/Jan/2023 12:01:04] "POST /login HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jan/2023 12:01:05] "[33mGET /vendors/typicons.font/font/typicons.css HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 12:01:05] "[33mGET /vendors/css/vendor.bundle.base.css HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 12:01:05] "[33mGET /css/vertical-layout-light/style.css HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 12:01:05] "[33mGET /js/off-canvas.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 12:01:05] "[33mGET /vendors/js/vendor.bundle.base.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 12:01:05] "[33mGET /js/hoverable-collapse.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 12:01:05] "[33mGET /js/template.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 12:01:05] "[33mGET /images/faces/face2.jpg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 12:01:05] "[33mGET /images/logo-mini.svg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 12:01:05] "[33mGET /images/faces/face3.jpg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 12:01:05] "[33mGET /images/faces/face4.jpg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 12:01:05] "[33mGET /js/settings.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 12:01:05] "[33mGET /js/todolist.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 12:01:05] "[33mGET /vendors/progressbar.js/progressbar.min.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 12:01:05] "[33mGET /vendors/chart.js/Chart.min.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 12:01:05] "[33mGET /images/logo.svg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 12:01:05] "[33mGET /js/dashboard.js HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 12:01:05] "[33mGET /images/faces/face29.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 12:01:05] "[33mGET /images/faces/face30.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 12:01:06] "[33mGET /images/faces/face31.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 12:01:06] "[33mGET /images/faces/face32.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 12:01:06] "[33mGET /images/faces/face33.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [03/Jan/2023 12:01:06] "[33mGET /images/faces/face34.png HTTP/1.1[0m" 404 -
+ * Detected change in 'c:\\Users\\scala\\OneDrive\\Desktop\\ISProgetto\\EnIA\\src\\logic\\GestioneUtente\\GestioneUtenteControl.py', reloading
+ * Restarting with stat

@@ -1,14 +1,30 @@
-from dbConnection import utenti
-from entities import Utente
+
+from src.logic.model.dbConnection import utenti
+from src.logic.model.entities import Utente
 from flask import jsonify
 import datetime
 from bson.objectid import ObjectId
 
 class UtenteDAO():
 
+    def findUtenteByEmail(email: str) -> Utente:
+        trovato = utenti.find_one({"email" : email})
+        utenteTrovato = Utente()
+        utenteTrovato.id = str(trovato.get("_id"))
+        utenteTrovato.nome = trovato.get("nome")
+        utenteTrovato.cognome = trovato.get("cognome")
+        utenteTrovato.email = trovato.get("email")
+        utenteTrovato.ruolo = trovato.get("ruolo")
+        utenteTrovato.dataNascita = trovato.get("dataNascita")
+        utenteTrovato.codice = trovato.get("codice")
+        utenteTrovato.indirizzo = trovato.get("indirizzo")
+        utenteTrovato.password = trovato.get("password")
+        return utenteTrovato
+
     def findUtente(id : str):
         trovato = utenti.find_one({"_id" : ObjectId(id)})
         utenteTrovato = Utente()
+        utenteTrovato.id = str(trovato.get("_id"))
         utenteTrovato.nome = trovato.get("nome")
         utenteTrovato.cognome = trovato.get("cognome")
         utenteTrovato.email = trovato.get("email")
@@ -36,6 +52,3 @@ class UtenteDAO():
 
 
 
-#PROVA SUL DATABASE
-utente = UtenteDAO.findUtente("63b3486913135b0e3b2cfcbb")
-print(utente.password)
