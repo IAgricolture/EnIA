@@ -1,4 +1,4 @@
-from src.logic.model.dbConnection import terreni
+from src.dbConnection import terreni
 from src.logic.model.Terrenoentity import Terreno
 from flask import jsonify
 import datetime
