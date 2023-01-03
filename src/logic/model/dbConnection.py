@@ -12,3 +12,5 @@ utenti = db.users
 
 #Documenti licenza
 licenze = db.Licenza
+
+terreno = db.Terreno
