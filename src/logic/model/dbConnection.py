@@ -10,6 +10,5 @@ db = client.EnIA
 #Documenti utente
 utenti = db.users
 
-
-terreni = db.Terreno   
-
+#Documenti licenza
+licenze = db.Licenza

@@ -1,7 +1,7 @@
 import hashlib
-from src.logic.model.entities import Utente
+from src.logic.model.Utente import Utente
 
-from src.logic.model.DAO import UtenteDAO
+from src.logic.model.UtenteDAO import UtenteDAO
 from datetime import timedelta
 
 from flask import request, render_template

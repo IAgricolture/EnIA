@@ -3,12 +3,12 @@ import hashlib
 
 #Scheletro della classe utente così come è presente sul database
 class Utente():
-    def __init__(self,id:str, nome: str, cognome: str, email: str, password:str, ruolo: str, dataNascita: datetime, partitaIVA: str, codice: str, indirizzo: str):
+    def __init__(self, id:str, nome: str, cognome: str, email: str, licenza: str, password:str, ruolo: str, dataNascita: datetime, partitaIVA: str, codice: str, indirizzo: str):
         self.id = id
         self.nome = nome
         self.cognome = cognome
         self.email = email
-        
+        self.licenza = licenza
         self.ruolo = ruolo
         self.dataNascita = dataNascita,
         self.partitaIVA = partitaIVA
