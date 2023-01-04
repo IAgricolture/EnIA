@@ -22,17 +22,19 @@ class MetodoDiPagamentoDAO():
         metodoTrovato = MetodoDiPagamento(id, num_carta, titolare, scadenza, cvv, proprietario)
         return metodoTrovato
     
-    def creaMetodo(metodo : MetodoDiPagamento):
+    def creaMetodo(metodo : MetodoDiPagamento) -> str:
         """
             Questo metodo instanzia un Metodo si pagamento sul database
         """
-        metodi_di_pagamento.insert_one({
+        result = metodi_di_pagamento.insert_one({
             "numero_carta" : metodo.num_carta,
             "titolare" : metodo.titolare,
             "scadenza" : metodo.scadenza,
             "cvv" : metodo.cvv,
             "proprietario" : metodo.proprietario
         })
+
+        return str(result.inserted_id)
 
 
 

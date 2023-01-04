@@ -25,11 +25,11 @@ class LicenzaDAO():
 
         return licenzaTrovata
     
-    def creaLicenza(licenza : Licenza):
+    def creaLicenza(licenza : Licenza) -> str:
         """
             Questo metodo instanzia una licenza sul database
         """
-        licenze.insert_one({
+        result = licenze.insert_one({
             "tipo" : licenza.tipo,
             "costo" : licenza.costo,
             "data_attivazione" : licenza.data_attivazione,
@@ -37,6 +37,9 @@ class LicenzaDAO():
             "scaduta" : licenza.scaduta,
             "proprietario" : licenza.proprietario
         })
+
+        return str(result.inserted_id)
+
 
 
 

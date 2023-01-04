@@ -23,16 +23,20 @@ class ScheduleDAO():
         
         return scheduleTrovato
 
-    def creaSchedule(sched: Schedule):
+    def creaSchedule(sched: Schedule) -> str:
         """
             Questo metodo instanzia un schedule sul database
         """
         data = date.min
 
-        schedule.insert_one({
+        result = schedule.insert_one({
             "inizio": datetime.combine(data, sched.inizio),
             "fine": datetime.combine(data, sched.fine),
             "modalita": sched.modalita
         })
+
+        return str(result.inserted_id)
+
+        
 
 

@@ -22,11 +22,11 @@ class EventoDAO():
         eventoTrovato = Evento(id, titolo, descrizione, orario, tipo, azione_umana, visto)
         return eventoTrovato
     
-    def creaEvento(evento : Evento):
+    def creaEvento(evento : Evento) -> str:
         """
             Questo metodo instanzia un evento sul database
         """
-        eventi.insert_one({
+        result = eventi.insert_one({
             "titolo" : evento.titolo,
             "descrizione" : evento.descrizione,
             "orario" : evento.orario,
@@ -34,6 +34,8 @@ class EventoDAO():
             "azione_umana" : evento.azione_umana,
             "visto" : evento.visto
         })
+
+        return str(result.inserted_id)
 
 
 

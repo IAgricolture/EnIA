@@ -5,11 +5,11 @@ import datetime
 from bson.objectid import ObjectId
 
 class TerrenoDAO():
-    def InserisciTerreno(terreno : Terreno):
+    def InserisciTerreno(terreno : Terreno)->str:
         """
         Questo metodo istanzia un oggetto AmbienteAgricolo sul database
         """
-        terreno.insert_one({
+        result = terreno.insert_one({
             "Nome" : terreno.nome,
             "Coltura" : terreno.coltura,
             "Posizione" : terreno.posizione,
@@ -17,6 +17,9 @@ class TerrenoDAO():
             "Priorita" : terreno.priorita,
             "ListaUtenti" : terreno.listautenti 
         })
+
+        return str(result.inserted_id)
+        
 
 
     def TrovaTerreno(id : str) -> Terreno:

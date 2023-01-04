@@ -22,16 +22,19 @@ class ImpiantoDiIrrigazioneDAO():
 
         return impiantoTrovato
     
-    def creaImpianto(impianto : ImpiantoDiIrrigazione):
+    def creaImpianto(impianto : ImpiantoDiIrrigazione) -> str:
         """
             Questo metodo instanzia un impianto di irrigazione sul database
         """
-        impianti.insert_one({
+        result = impianti.insert_one({
             "nome" : impianto.nome,
             "tipo" : impianto.tipo,
             "codice" : impianto.codice,
             "attivo" : impianto.attivo
         })
+        
+        return str(result.inserted_id)
+
 
 
 
