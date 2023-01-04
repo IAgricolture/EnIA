@@ -13,11 +13,14 @@ class ScheduleDAO():
             :return: Schedule
         """
         trovato = schedule.find_one({"_id": ObjectId(id)})
-        scheduleTrovato = Schedule()
-        scheduleTrovato.id = str(trovato.get("_id"))
-        scheduleTrovato.inizio = trovato.get("inizio").time()
-        scheduleTrovato.fine = trovato.get("fine").time()
-        scheduleTrovato.modalita = str(trovato.get("modalita"))
+        
+        id = str(trovato.get("_id"))
+        inizio = trovato.get("inizio").time()
+        fine = trovato.get("fine").time()
+        modalita = str(trovato.get("modalita"))
+
+        scheduleTrovato = Schedule(id, inizio, fine, modalita)
+        
         return scheduleTrovato
 
     def creaSchedule(sched: Schedule):
