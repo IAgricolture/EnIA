@@ -45,7 +45,7 @@ class UtenteControl():
         email = richiesta.get("email")
         nome = richiesta.get("nome")
         cognome = richiesta.get("cognome")
-        password = richiesta.get("password")
+        password = hashlib.sha512(richiesta.get("password").encode()).hexdigest()
         print(str(richiesta.get("dataNascita")))
         dataDiNascita = datetime.strptime(richiesta.get("dataNascita"), "%Y-%m-%d")
         codiceDiAccesso = richiesta.get("codiceDiAccesso")
