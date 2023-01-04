@@ -8,9 +8,5 @@ class Schedule():
         self.inizio = inizio
         self.fine = fine
         self.modalita = modalita
-    
-    def __init__(self):
-        pass
-
 
 
