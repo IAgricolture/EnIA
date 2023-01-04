@@ -1,4 +1,4 @@
-from src.dbConnection import terreni
+from src.dbConnection import terreno
 from src.logic.model.Terreno import Terreno
 from flask import jsonify
 import datetime
@@ -9,7 +9,7 @@ class TerrenoDAO():
         """
         Questo metodo istanzia un oggetto AmbienteAgricolo sul database
         """
-        terreni.insert_one({
+        terreno.insert_one({
             "Nome" : terreno.nome,
             "Coltura" : terreno.coltura,
             "Posizione" : terreno.posizione,
@@ -23,7 +23,7 @@ class TerrenoDAO():
         '''
         Questo metodo dato un id in input retituisce un terreno con l'id corrispondenti
         '''
-        trovato = terreni.find_one({"_id" : ObjectId(id)})
+        trovato = terreno.find_one({"_id" : ObjectId(id)})
         if(trovato == None):
             return None
         id = str(trovato.get("_id"))
@@ -33,28 +33,28 @@ class TerrenoDAO():
         preferito = bool(trovato.get("preferito"))
         priorita = int(str(trovato.get("priorita")))
         listautenti = str(trovato.get("listautenti"))
-        temp = Terreno(id, nome, coltura, posizione, preferito, priorita, listautenti)
+        temp = Terreno(id, nome, coltura, posizione, preferito, priorita)
         return temp
 
     def RimuoviTerreno(terreno: Terreno):
-        trovato = terreni.delete_one({"_id": ObjectId(id)})
+        trovato = terreno.delete_one({"_id": ObjectId(id)})
         if trovato.deleted_count == 1:
             print("Eliminato")
         else:
             print("Errore nel eliminazione")
     
-    def modificaTerreno(terreno : Terreno): 
+    def modificaTerreno(terrenoMod : Terreno): 
         """ Il metodo modifica un'entità terreno presente nel database, trasformandola in quella passata come parametro."""  
-        trovato = TerrenoDAO.TrovaTerreno(str(terreno.id))
+        trovato = TerrenoDAO.trovaTerreno(str(terrenoMod.id))
         print(trovato.nome)
         if(trovato == None):
             return None
-        terreni.update_one({"_id": ObjectId(trovato.id)},
+        terreno.update_one({"_id": ObjectId(trovato.id)},
         {"$set": {
-            "nome" : terreno.nome,
-            "coltura": terreno.coltura,
-            "posizione": terreno.posizione,
-            "preferito": terreno.preferito,
-            "priorita": terreno.priorita,
-            "listautenti" : terreno.listautenti,
+            "nome" : terrenoMod.nome,
+            "coltura": terrenoMod.coltura,
+            "posizione": terrenoMod.posizione,
+            "preferito": terrenoMod.preferito,
+            "priorita": terrenoMod.priorita,
+            "listautenti" : terrenoMod.listautenti,
         }})

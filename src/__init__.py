@@ -20,8 +20,3 @@ login_manager.login_message_category = "info"
 from src.logic.GestioneUtente import GestioneUtenteAuth
 from src import routes
 from src.logic.GestioneUtente import GestioneUtenteControl
-from src.logic.model.TerrenoDAO import TerrenoDAO
-from src.logic.model.Terreno import Terreno
-a = Terreno("63b44df803c374bfea70f9e1", "ada", "bada", "sada", False, "15")
-TerrenoDAO.modificaTerreno(a)
-print("Terreno modificato")
