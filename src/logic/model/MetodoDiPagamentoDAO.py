@@ -12,13 +12,13 @@ class MetodoDiPagamentoDAO():
             :return: MetodoDiPagamento
         """
         trovato = metodi_di_pagamento.find_one({"_id" : ObjectId(id)})
-        metodoTrovato = MetodoDiPagamento()
-        metodoTrovato.id = str(trovato.get("_id"))
-        metodoTrovato.num_carta = str(trovato.get("numero_carta"))
-        metodoTrovato.titolare = str(trovato.get("titolare"))
-        metodoTrovato.scadenza = str(trovato.get("scadenza"))
-        metodoTrovato.cvv = str(trovato.get("cvv"))
+        id = str(trovato.get("_id"))
+        num_carta = str(trovato.get("numero_carta"))
+        titolare = str(trovato.get("titolare"))
+        scadenza = str(trovato.get("scadenza"))
+        cvv = str(trovato.get("cvv"))
         
+        metodoTrovato = MetodoDiPagamento(id, num_carta, titolare, scadenza,cvv)
         return metodoTrovato
     
     def creaMetodo(metodo : MetodoDiPagamento):

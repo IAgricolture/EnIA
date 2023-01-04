@@ -10,8 +10,3 @@ class MetodoDiPagamento():
         self.scadenza = scadenza
         self.cvv = cvv
     
-    def __init__(self):
-        pass
-
-
-
