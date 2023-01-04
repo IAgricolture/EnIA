@@ -12,13 +12,17 @@ class LicenzaDAO():
             :return: Licenza
         """
         trovato = licenze.find_one({"_id" : ObjectId(id)})
-        licenzaTrovata = Licenza()
-        licenzaTrovata.id = str(trovato.get("_id"))
-        licenzaTrovata.tipo = trovato.get("tipo")
-        licenzaTrovata.costo = trovato.get("costo")
-        licenzaTrovata.data_attivazione = trovato.get("data_attivazione")
-        licenzaTrovata.data_scadenza = trovato.get("data_scadenza")
-        licenzaTrovata.scaduta = trovato.get("scaduta")
+        
+        id = str(trovato.get("_id"))
+        tipo = trovato.get("tipo")
+        costo = trovato.get("costo")
+        data_attivazione = trovato.get("data_attivazione")
+        data_scadenza = trovato.get("data_scadenza")
+        scaduta = trovato.get("scaduta")
+        proprietario = trovato.get("proprietario")
+
+        licenzaTrovata = Licenza(id, tipo, costo, data_attivazione, data_scadenza, scaduta, proprietario)
+
         return licenzaTrovata
     
     def creaLicenza(licenza : Licenza):
@@ -30,7 +34,8 @@ class LicenzaDAO():
             "costo" : licenza.costo,
             "data_attivazione" : licenza.data_attivazione,
             "data_scadenza" : licenza.data_scadenza,
-            "scaduta" : licenza.scaduta
+            "scaduta" : licenza.scaduta,
+            "proprietario" : licenza.proprietario
         })
 
 

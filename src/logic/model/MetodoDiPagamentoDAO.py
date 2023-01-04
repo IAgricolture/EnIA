@@ -17,8 +17,9 @@ class MetodoDiPagamentoDAO():
         titolare = str(trovato.get("titolare"))
         scadenza = str(trovato.get("scadenza"))
         cvv = str(trovato.get("cvv"))
-        
-        metodoTrovato = MetodoDiPagamento(id, num_carta, titolare, scadenza,cvv)
+        proprietario = str(trovato.get("proprietario"))
+
+        metodoTrovato = MetodoDiPagamento(id, num_carta, titolare, scadenza, cvv, proprietario)
         return metodoTrovato
     
     def creaMetodo(metodo : MetodoDiPagamento):
@@ -29,7 +30,8 @@ class MetodoDiPagamentoDAO():
             "numero_carta" : metodo.num_carta,
             "titolare" : metodo.titolare,
             "scadenza" : metodo.scadenza,
-            "cvv" : metodo.cvv
+            "cvv" : metodo.cvv,
+            "proprietario" : metodo.proprietario
         })
 
 
