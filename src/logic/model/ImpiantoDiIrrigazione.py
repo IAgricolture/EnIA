@@ -9,9 +9,5 @@ class ImpiantoDiIrrigazione():
         self.tipo = tipo
         self.codice = codice
         self.attivo = attivo
-    
-    def __init__(self):
-        pass
-
 
 
