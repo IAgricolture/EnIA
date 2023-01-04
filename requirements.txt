@@ -1,4 +1,6 @@
 flask
 flask_login
+flask_pymongo
+flask_cors
 pymongo
 requests

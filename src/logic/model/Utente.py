@@ -3,17 +3,21 @@ import hashlib
 
 #Scheletro della classe utente così come è presente sul database
 class Utente():
-    def __init__(self,id:str, nome: str, cognome: str, email: str, password:str, ruolo: str, dataNascita: datetime, partitaIVA: str, codice: str, indirizzo: str):
+    def __init__(self, id:str, nome: str, cognome: str, email: str, password:str, ruolo: str, dataNascita: datetime, partitaIVA: str, codice: str, indirizzo: str):
         self.id = id
         self.nome = nome
         self.cognome = cognome
         self.email = email
-        
         self.ruolo = ruolo
         self.dataNascita = dataNascita,
-        self.partitaIVA = partitaIVA
-        self.codice = codice
         self.indirizzo = indirizzo
+        if ruolo == "farmer":
+            self.partitaIVA = partitaIVA
+            self.codice = None
+        else: 
+            self.codice = codice
+            self.partitaIVA = None
+    
 
         # Hash the password
         hash_object = hashlib.sha512(password.encode())
@@ -26,9 +30,6 @@ class Utente():
             return str(self.id)
         except AttributeError:
             raise NotImplementedError("No `id` attribute - override `get_id`")
-    
-    def __init__(self):
-        pass
 
 
 
