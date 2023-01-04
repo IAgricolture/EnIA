@@ -19,3 +19,6 @@ terreni = db.terreni
 
 #Documenti metodo di pagamento
 metodi_di_pagamento = db.Metodo_di_pagamento
+
+#Documenti evento
+eventi = db.Evento
