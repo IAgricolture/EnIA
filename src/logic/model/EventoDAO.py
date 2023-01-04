@@ -12,14 +12,14 @@ class EventoDAO():
             :return: Evento
         """
         trovato = eventi.find_one({"_id" : ObjectId(id)})
-        eventoTrovato = Evento()
-        eventoTrovato.id = str(trovato.get("_id"))
-        eventoTrovato.titolo = str(trovato.get("titolo"))
-        eventoTrovato.descrizione = str(trovato.get("descrizione"))
-        eventoTrovato.orario = trovato.get("orario")
-        eventoTrovato.tipo = str(trovato.get("tipo"))
-        eventoTrovato.azione_umana = bool(trovato.get("azione_umana"))
-        eventoTrovato.visto = bool(trovato.get("visto"))
+        id = str(trovato.get("_id"))
+        titolo = str(trovato.get("titolo"))
+        descrizione = str(trovato.get("descrizione"))
+        orario = trovato.get("orario")
+        tipo = str(trovato.get("tipo"))
+        azione_umana = bool(trovato.get("azione_umana"))
+        visto = bool(trovato.get("visto"))
+        eventoTrovato = Evento(id, titolo, descrizione, orario, tipo, azione_umana, visto)
         return eventoTrovato
     
     def creaEvento(evento : Evento):

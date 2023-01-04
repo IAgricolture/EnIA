@@ -12,8 +12,5 @@ class Evento():
         self.azione_umana = azione_umana
         self.visto = visto
     
-    def __init__(self):
-        pass
-
 
 
