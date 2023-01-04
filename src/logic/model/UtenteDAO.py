@@ -71,12 +71,12 @@ class UtenteDAO():
         utenteTrovato = Utente(id, nome, cognome, email, ruolo, dataNascita, codice, indirizzo, password, partitaIVA)
         return utenteTrovato
     
-    def creaUtente(utente : Utente):
+    def creaUtente(utente : Utente) -> str:
         """
             This method instantiate one utente on the database
         """
         if utente.ruolo == "farmer":
-            utenti.insert_one({
+            result = utenti.insert_one({
                 "nome" : utente.nome,
                 "cognome": utente.cognome,
                 "email": utente.email,
@@ -87,7 +87,7 @@ class UtenteDAO():
                 "indirizzo": utente.indirizzo,
             })
         else:
-            utenti.insert_one({
+            result = utenti.insert_one({
                 "nome" : utente.nome,
                 "cognome": utente.cognome,
                 "email": utente.email,
@@ -97,6 +97,8 @@ class UtenteDAO():
                 "codice": utente.codice,
                 "indirizzo": utente.indirizzo,
             })
+
+        return str(result.inserted_id)
 
 
     def eliminaUtente(id : str):
