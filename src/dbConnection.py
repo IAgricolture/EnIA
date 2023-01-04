@@ -25,3 +25,6 @@ eventi = db.Evento
 
 #Documenti schedule
 schedule = db.Schedule
+
+#Documenti impianto di irrigazione
+impianti = db.Impianto_di_irrigazione
