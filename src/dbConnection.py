@@ -22,3 +22,6 @@ metodi_di_pagamento = db.Metodo_di_pagamento
 
 #Documenti evento
 eventi = db.Evento
+
+#Documenti schedule
+schedule = db.Schedule
