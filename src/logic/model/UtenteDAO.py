@@ -52,6 +52,27 @@ class UtenteDAO():
         return utenteTrovato
         
 
+    def trovaUtenteByCodiceDiAccesso(codice: str) -> Utente:
+        """
+            This method find one user in the database, using his codiceDiAccesso
+            :return: Utente
+        """
+        trovato = utenti.find_one({"codice" : codice})
+        if trovato == None:
+            return None
+        utenteTrovato = Utente()
+        utenteTrovato.id = str(trovato.get("_id"))
+        utenteTrovato.nome = trovato.get("nome")
+        utenteTrovato.cognome = trovato.get("cognome")
+        utenteTrovato.email = trovato.get("email")
+        utenteTrovato.ruolo = trovato.get("ruolo")
+        utenteTrovato.dataNascita = trovato.get("dataNascita")
+        utenteTrovato.codice = trovato.get("codice")
+        utenteTrovato.indirizzo = trovato.get("indirizzo")
+        utenteTrovato.password = trovato.get("password")
+        utenteTrovato.licenza = str(trovato.get("licenza"))
+        utenteTrovato.partitaIVA = trovato.get("partitaIVA")
+        return utenteTrovato
     
     def creaUtente(utente : Utente):
         """
