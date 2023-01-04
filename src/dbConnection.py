@@ -28,3 +28,6 @@ schedule = db.Schedule
 
 #Documenti impianto di irrigazione
 impianti = db.Impianto_di_irrigazione
+
+#Documenti dati meteo
+datimeteo = db.Dati_Meteo
