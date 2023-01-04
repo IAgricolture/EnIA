@@ -11,12 +11,15 @@ class ImpiantoDiIrrigazioneDAO():
             :return: ImpiantoDiIrrigazione
         """
         trovato = impianti.find_one({"_id" : ObjectId(id)})
-        impiantoTrovato = ImpiantoDiIrrigazione()
-        impiantoTrovato.id = str(trovato.get("_id"))
-        impiantoTrovato.nome = str(trovato.get("nome"))
-        impiantoTrovato.tipo = str(trovato.get("tipo"))
-        impiantoTrovato.codice = str(trovato.get("codice"))
-        impiantoTrovato.attivo = bool(trovato.get("attivo"))
+        
+        id = str(trovato.get("_id"))
+        nome = str(trovato.get("nome"))
+        tipo = str(trovato.get("tipo"))
+        codice = str(trovato.get("codice"))
+        attivo = bool(trovato.get("attivo"))
+
+        impiantoTrovato = ImpiantoDiIrrigazione(id, nome, tipo, codice, attivo)
+
         return impiantoTrovato
     
     def creaImpianto(impianto : ImpiantoDiIrrigazione):
