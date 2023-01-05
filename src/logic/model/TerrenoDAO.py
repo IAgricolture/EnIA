@@ -38,7 +38,7 @@ class TerrenoDAO():
 
 
     def RimuoviTerreno(terreno : Terreno):
-        trovato = terreni.delete_one({"_id" : ObjectId(id)})
+        trovato = terreni.delete_one({"_id" : ObjectId(terreno.id)})
         if trovato.deleted_count == 1:
             print("Eliminato")
         else:

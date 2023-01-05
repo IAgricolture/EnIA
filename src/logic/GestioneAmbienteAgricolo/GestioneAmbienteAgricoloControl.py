@@ -48,3 +48,23 @@ class AmbienteAgricoloControl():
             return jsonify({"terrenoJSON": None, "trovato" : "false"})
         else:  
             return jsonify({"terrenoJSON": terreno, "trovato": "true"})
+
+
+    @app.route("/eliminaTerreno", methods = ["GET"])
+    def elimina():
+        """ 
+        #TODO Scrivere documenzione
+        """
+        idTerreno : str = request.args.get("idTerreno") #Se non str, sicuramente fallisce, trovaTerreno si aspetta str
+        print("idTerreno inserito: " + idTerreno)
+        if len(idTerreno) != 24:    #Controllo che sia un id MongoDB valido
+            print("Errore: Id inserito non valido.")
+            
+        terreno = TerrenoDAO.TrovaTerreno(idTerreno)
+        if terreno is None: #Non l'ha trovato
+            print("Nessun Terreno trovato con questo id")
+            return jsonify({"trovato" : "false"})
+        else:  
+            TerrenoDAO.RimuoviTerreno(terreno)
+            print("Terreno Eliminato ")
+            return jsonify({ "trovato": "true"})
