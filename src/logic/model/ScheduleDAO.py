@@ -13,23 +13,30 @@ class ScheduleDAO():
             :return: Schedule
         """
         trovato = schedule.find_one({"_id": ObjectId(id)})
-        scheduleTrovato = Schedule()
-        scheduleTrovato.id = str(trovato.get("_id"))
-        scheduleTrovato.inizio = trovato.get("inizio").time()
-        scheduleTrovato.fine = trovato.get("fine").time()
-        scheduleTrovato.modalita = str(trovato.get("modalita"))
+        
+        id = str(trovato.get("_id"))
+        inizio = trovato.get("inizio").time()
+        fine = trovato.get("fine").time()
+        modalita = str(trovato.get("modalita"))
+
+        scheduleTrovato = Schedule(id, inizio, fine, modalita)
+        
         return scheduleTrovato
 
-    def creaSchedule(sched: Schedule):
+    def creaSchedule(sched: Schedule) -> str:
         """
             Questo metodo instanzia un schedule sul database
         """
         data = date.min
 
-        schedule.insert_one({
+        result = schedule.insert_one({
             "inizio": datetime.combine(data, sched.inizio),
             "fine": datetime.combine(data, sched.fine),
             "modalita": sched.modalita
         })
+
+        return str(result.inserted_id)
+
+        
 
 

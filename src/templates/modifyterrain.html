@@ -6,7 +6,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>CelestialUI Admin</title>
+  <title>Modifica Terreni</title>
   <!-- base:css -->
   <link rel="stylesheet" href="vendors/typicons.font/font/typicons.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
@@ -29,29 +29,14 @@
               <div class="brand-logo">
                 <img src="images/enia.png" alt="logo">
               </div>
-              <h4>Benvenuto!</h4>
-              <h6 class="font-weight-light">Fai il login per continuare</h6>
+              <h4>Sezione Modifica dei Terreni</h4>
+              <h6 class="font-weight-light">Inserisci l'id del terreno che vuoi modificare</h6> <!--TODO: Mostrare tutti i terreni, con button per prenderne i dati. -->
               <form class="pt-3">
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="E-Mail">
-                </div>
-                <div class="form-group">
-                  <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Password">
+                  <input type="email" class="form-control form-control-lg" id="idTerreno" name="idTerreno" placeholder="">
                 </div>
                 <div class="mt-3">
-                  <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" onclick="login()">SIGN IN</a>
-                </div>
-                <div class="my-2 d-flex justify-content-between align-items-center">
-                  <div class="form-check">
-                    <label class="form-check-label text-muted">
-                      <input type="checkbox" class="form-check-input">
-                      Ricordami
-                    </label>
-                  </div>
-                  <a href="#" class="auth-link text-black">Password dimenticata?</a>
-                </div>
-                <div class="text-center mt-4 font-weight-light">
-                  Non sei ancora registrato? <a href="register.html" class="text-primary">Diventa un farmer</a>
+                  <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" onclick="cerca()">CERCA</a>
                 </div>
               </form>
             </div>
@@ -73,13 +58,11 @@
   <script src="js/settings.js"></script>
   <script src="js/todolist.js"></script>
   <script>
-    function login(){
-        var url = new URL("http://localhost:5000/login")
+    function cerca(){
+        var url = new URL("http://localhost:5000/modifyterrain")
 
-        var email = document.getElementById("email").value
-        var password = document.getElementById("password").value
-        url.searchParams.append("email", email)
-        url.searchParams.append("password", password)
+        var idTerreno = document.getElementById("idTerreno").value
+        url.searchParams.append("idTerreno", idTerreno)
         let response = fetch(url,
         {
           "method": "GET",
@@ -89,12 +72,12 @@
           var div = document.createElement('div')
           var testo = document.createElement('strong')
           var parent = document.getElementById("principale")
-          console.log(data["successo"])
-          if(data["successo"] =="true"){
-            testo.innerHTML="Il login ha avuto successo"
+          console.log(data)
+          if(data["trovato"] =="true"){
+            testo.innerHTML="Trovato terreno con questo id"
             div.className = "alert alert-success"
           } else {
-            testo.innerHTML="Il login non ha avuto successo"
+            testo.innerHTML="terreno con questo id"
             div.className = "alert alert-danger"
           } 
           div.appendChild(testo) 

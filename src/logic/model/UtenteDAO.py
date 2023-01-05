@@ -15,18 +15,17 @@ class UtenteDAO():
         trovato = utenti.find_one({"email" : email})
         if(trovato == None):
             return None
-        utenteTrovato = Utente()
-        utenteTrovato.id = str(trovato.get("_id"))
-        utenteTrovato.nome = trovato.get("nome")
-        utenteTrovato.cognome = trovato.get("cognome")
-        utenteTrovato.email = trovato.get("email")
-        utenteTrovato.ruolo = trovato.get("ruolo")
-        utenteTrovato.dataNascita = trovato.get("dataNascita")
-        utenteTrovato.codice = trovato.get("codice")
-        utenteTrovato.indirizzo = trovato.get("indirizzo")
-        utenteTrovato.password = trovato.get("password")
-        utenteTrovato.licenza = str(trovato.get("licenza"))
-        utenteTrovato.partitaIVA = trovato.get("partitaIVA")
+        id = str(trovato.get("_id"))
+        nome = trovato.get("nome")
+        cognome = trovato.get("cognome")
+        email = trovato.get("email")
+        ruolo = trovato.get("ruolo")
+        dataNascita = trovato.get("dataNascita")
+        codice = trovato.get("codice")
+        indirizzo = trovato.get("indirizzo")
+        password = trovato.get("password")
+        partitaIVA = trovato.get("partitaIVA")  
+        utenteTrovato = Utente(id, nome, cognome, email, ruolo, dataNascita, codice, indirizzo, password, partitaIVA)
         return utenteTrovato
 
     def trovaUtente(id : str) -> Utente:
@@ -37,18 +36,17 @@ class UtenteDAO():
         trovato = utenti.find_one({"_id" : ObjectId(id)})
         if trovato == None:
             return None
-        utenteTrovato = Utente()
-        utenteTrovato.id = str(trovato.get("_id"))
-        utenteTrovato.nome = trovato.get("nome")
-        utenteTrovato.cognome = trovato.get("cognome")
-        utenteTrovato.email = trovato.get("email")
-        utenteTrovato.ruolo = trovato.get("ruolo")
-        utenteTrovato.dataNascita = trovato.get("dataNascita")
-        utenteTrovato.codice = trovato.get("codice")
-        utenteTrovato.indirizzo = trovato.get("indirizzo")
-        utenteTrovato.password = trovato.get("password")
-        utenteTrovato.licenza = str(trovato.get("licenza"))
-        utenteTrovato.partitaIVA = trovato.get("partitaIVA")
+        id = str(trovato.get("_id"))
+        nome = trovato.get("nome")
+        cognome = trovato.get("cognome")
+        email = trovato.get("email")
+        ruolo = trovato.get("ruolo")
+        dataNascita = trovato.get("dataNascita")
+        codice = trovato.get("codice")
+        indirizzo = trovato.get("indirizzo")
+        password = trovato.get("password")
+        partitaIVA = trovato.get("partitaIVA")
+        utenteTrovato = Utente(id, nome, cognome, email, ruolo, dataNascita, codice, indirizzo, password, partitaIVA)
         return utenteTrovato
         
 
@@ -60,36 +58,48 @@ class UtenteDAO():
         trovato = utenti.find_one({"codice" : codice})
         if trovato == None:
             return None
-        utenteTrovato = Utente()
-        utenteTrovato.id = str(trovato.get("_id"))
-        utenteTrovato.nome = trovato.get("nome")
-        utenteTrovato.cognome = trovato.get("cognome")
-        utenteTrovato.email = trovato.get("email")
-        utenteTrovato.ruolo = trovato.get("ruolo")
-        utenteTrovato.dataNascita = trovato.get("dataNascita")
-        utenteTrovato.codice = trovato.get("codice")
-        utenteTrovato.indirizzo = trovato.get("indirizzo")
-        utenteTrovato.password = trovato.get("password")
-        utenteTrovato.licenza = str(trovato.get("licenza"))
-        utenteTrovato.partitaIVA = trovato.get("partitaIVA")
+        id = str(trovato.get("_id"))
+        nome = trovato.get("nome")
+        cognome = trovato.get("cognome")
+        email = trovato.get("email")
+        ruolo = trovato.get("ruolo")
+        dataNascita = trovato.get("dataNascita")
+        codice = trovato.get("codice")
+        indirizzo = trovato.get("indirizzo")
+        password = trovato.get("password")
+        partitaIVA = trovato.get("partitaIVA")
+        utenteTrovato = Utente(id, nome, cognome, email, ruolo, dataNascita, codice, indirizzo, password, partitaIVA)
         return utenteTrovato
     
-    def creaUtente(utente : Utente):
+    def creaUtente(utente : Utente) -> str:
         """
             This method instantiate one utente on the database
         """
-        utenti.insert_one({
-            "nome" : utente.nome,
-            "cognome": utente.cognome,
-            "email": utente.email,
-            "password": utente.password,
-            "ruolo": utente.ruolo,
-            "dataNascita" : str(utente.dataNascita),
-            "partitaIVA": utente.partitaIVA,
-            "codice": utente.codice,
-            "indirizzo": utente.indirizzo,
-            "licenza" : utente.licenza
-        })
+        if utente.ruolo == "farmer":
+            result = utenti.insert_one({
+                "nome" : utente.nome,
+                "cognome": utente.cognome,
+                "email": utente.email,
+                "password": utente.password,
+                "ruolo": utente.ruolo,
+                "dataNascita" : utente.dataNascita,
+                "partitaIVA": utente.partitaIVA,
+                "indirizzo": utente.indirizzo,
+            })
+        else:
+            result = utenti.insert_one({
+                "nome" : utente.nome,
+                "cognome": utente.cognome,
+                "email": utente.email,
+                "password": utente.password,
+                "ruolo": utente.ruolo,
+                "dataNascita" : utente.dataNascita,
+                "codice": utente.codice,
+                "indirizzo": utente.indirizzo,
+            })
+
+        return str(result.inserted_id)
+
 
     def eliminaUtente(id : str):
         """
@@ -105,29 +115,32 @@ class UtenteDAO():
         trovato = UtenteDAO.trovaUtente(str(utente.id))
         if(trovato == None):
             return None
-        trovato.nome = utente.nome
-        trovato.cognome = utente.cognome
-        trovato.dataNascita = utente.dataNascita
-        trovato.email = utente.email
-        trovato.indirizzo = utente.indirizzo
-        trovato.partitaIVA = utente.partitaIVA
-        trovato.password = utente.password
-        trovato.ruolo = utente.ruolo
-        trovato.codice = utente.codice
-        trovato.licenza = str(trovato.licenza)
-        utenti.update_one({"_id": ObjectId(trovato.id)},
-        {"$set": {
-            "nome" : utente.nome,
-            "cognome": utente.cognome,
-            "email": utente.email,
-            "password": utente.password,
-            "ruolo": utente.ruolo,
-            "dataNascita" : str(utente.dataNascita),
-            "partitaIVA": utente.partitaIVA,
-            "codice": utente.codice,
-            "indirizzo": utente.indirizzo,
-            "licenza" : utente.licenza
-        }})
+
+        if utente.ruolo == "farmer":
+            utenti.update_one({"_id": ObjectId(trovato.id)},
+            {"$set": {
+                "nome" : utente.nome,
+                "cognome": utente.cognome,
+                "email": utente.email,
+                "password": utente.password,
+                "ruolo": utente.ruolo,
+                "dataNascita" : utente.dataNascita,
+                "partitaIVA": utente.partitaIVA,
+                "indirizzo": utente.indirizzo,
+            }})
+        else:
+            utenti.update_one({"_id": ObjectId(trovato.id)},
+            {"$set": {
+                "nome" : utente.nome,
+                "cognome": utente.cognome,
+                "email": utente.email,
+                "password": utente.password,
+                "ruolo": utente.ruolo,
+                "dataNascita" : utente.dataNascita,
+                "codice": utente.codice,
+                "indirizzo": utente.indirizzo,
+            }})
+
 
     def listaUtentiTutti():
         """

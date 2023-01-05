@@ -15,7 +15,7 @@ utenti = db.Utente
 licenze = db.Licenza
 
 #Documenti terreni
-terreni = db.Terreno
+terreno = db.Terreno
 
 #Documenti metodo di pagamento
 metodi_di_pagamento = db.Metodo_di_pagamento
@@ -25,3 +25,9 @@ eventi = db.Evento
 
 #Documenti schedule
 schedule = db.Schedule
+
+#Documenti impianto di irrigazione
+impianti = db.Impianto_di_irrigazione
+
+#Documenti dati meteo
+datimeteo = db.Dati_Meteo
