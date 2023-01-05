@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Modifica Terreni</title>
+  <!-- base:css -->
+  <link rel="stylesheet" href="vendors/typicons.font/font/typicons.css">
+  <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="css/vertical-layout-light/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="images/favicon.png" />
+</head>
+
+<body>
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth px-0">
+        <div class="row w-100 mx-0">
+          <div class="col-lg-4 mx-auto">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5" id="principale">
+              <div class="brand-logo">
+                <img src="images/enia.png" alt="logo">
+              </div>
+              <h4>Sezione Modifica dei Terreni</h4>
+              <h6 class="font-weight-light">Inserisci l'id del terreno che vuoi modificare</h6> <!--TODO: Mostrare tutti i terreni, con button per prenderne i dati. -->
+              <form class="pt-3">
+                <div class="form-group">
+                  <input type="email" class="form-control form-control-lg" id="idTerreno" name="idTerreno" placeholder="">
+                </div>
+                <div class="mt-3">
+                  <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" onclick="cerca()">CERCA</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- base:js -->
+  <script src="vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- inject:js -->
+  <script src="js/off-canvas.js"></script>
+  <script src="js/hoverable-collapse.js"></script>
+  <script src="js/template.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/todolist.js"></script>
+  <script>
+    function cerca(){
+        var url = new URL("http://localhost:5000/modifyterrain")
+
+        var idTerreno = document.getElementById("idTerreno").value
+        url.searchParams.append("idTerreno", idTerreno)
+        let response = fetch(url,
+        {
+          "method": "GET",
+          "headers": {},
+        }).then(res=>res.json())
+        .then(data=>{
+          var div = document.createElement('div')
+          var testo = document.createElement('strong')
+          var parent = document.getElementById("principale")
+          console.log(data)
+          if(data["trovato"] =="true"){
+            testo.innerHTML="Trovato terreno con questo id"
+            div.className = "alert alert-success"
+          } else {
+            testo.innerHTML="Nessun terreno con questo id"
+            div.className = "alert alert-danger"
+          } 
+          div.appendChild(testo) 
+          parent.appendChild(div)
+        })
+    }
+</script>
+  <!-- endinject -->
+</body>
+
+</html>

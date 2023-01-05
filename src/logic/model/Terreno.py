@@ -1,7 +1,6 @@
 from bson.objectid import ObjectId
 from typing import List
 class Terreno():
-
     def __init__(self, id:str, nome: str, coltura: str, posizione: str, preferito: bool, priorita:int):
 
         self.id = id
@@ -10,7 +9,7 @@ class Terreno():
         self.posizione = posizione
         self.preferito = preferito
         self.priorita = priorita
-        self.listautenti = None #Quando avremo l'utente andremo ad implementarlo bene
+        self.listautenti = None  #Quando avremo l'utente andremo ad implementarlo bene
 
     def getid(self):
         return str(self.id)
@@ -32,3 +31,5 @@ class Terreno():
         
     def getpriorita(self):
         return int(self.priorita)
+
+    
