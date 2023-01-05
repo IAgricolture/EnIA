@@ -25,7 +25,7 @@
       <div class="content-wrapper d-flex align-items-center auth px-0">
         <div class="row w-100 mx-0">
           <div class="col-lg-4 mx-auto">
-            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5" id="principale">
               <div class="brand-logo">
                 <img src="images/enia.png" alt="logo">
               </div>
@@ -64,14 +64,14 @@
   </div>
   <!-- container-scroller -->
   <!-- base:js -->
-  <script src="/vendors/js/vendor.bundle.base.js"></script>
+  <script src="vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- inject:js -->
-  <script src="/js/off-canvas.js"></script>
-  <script src="/js/hoverable-collapse.js"></script>
-  <script src="/js/template.js"></script>
-  <script src="/js/settings.js"></script>
-  <script src="/js/todolist.js"></script>
+  <script src="js/off-canvas.js"></script>
+  <script src="js/hoverable-collapse.js"></script>
+  <script src="js/template.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/todolist.js"></script>
   <script>
     function login(){
         var url = new URL("http://localhost:5000/login")
@@ -86,11 +86,19 @@
           "headers": {},
         }).then(res=>res.json())
         .then(data=>{
-            console.log(data)
-            var testo = document.createElement('p')
-            var parent = document.getElementById("principale")
-            parent.appendChild(testo)
-            testo.innerHTML=data["successo"]
+          var div = document.createElement('div')
+          var testo = document.createElement('strong')
+          var parent = document.getElementById("principale")
+          console.log(data["successo"])
+          if(data["successo"] =="true"){
+            testo.innerHTML="Il login ha avuto successo"
+            div.className = "alert alert-success"
+          } else {
+            testo.innerHTML="Il login non ha avuto successo"
+            div.className = "alert alert-danger"
+          } 
+          div.appendChild(testo) 
+          parent.appendChild(div)
         })
     }
 </script>
