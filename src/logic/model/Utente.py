@@ -19,11 +19,7 @@ class Utente():
             self.partitaIVA = None
     
 
-        # Hash the password
-        hash_object = hashlib.sha512(password.encode())
-        # Get the hexadecimal representation of the hash
-        hashed_password = hash_object.hexdigest()
-        self.password = hashed_password
+        self.password = password
 
     def get_id(self):
         try:

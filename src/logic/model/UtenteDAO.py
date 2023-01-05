@@ -25,7 +25,7 @@ class UtenteDAO():
         indirizzo = trovato.get("indirizzo")
         password = trovato.get("password")
         partitaIVA = trovato.get("partitaIVA")  
-        utenteTrovato = Utente(id, nome, cognome, email, ruolo, dataNascita, codice, indirizzo, password, partitaIVA)
+        utenteTrovato = Utente(id, nome, cognome, email, password, ruolo, dataNascita, partitaIVA, codice, indirizzo)
         return utenteTrovato
 
     def trovaUtente(id : str) -> Utente:
