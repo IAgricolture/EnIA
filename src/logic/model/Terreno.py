@@ -1,8 +1,9 @@
 from bson.objectid import ObjectId
 from typing import List
 class Terreno():
-    def __init__(self, nome: str, coltura: str, posizione: str, preferito: bool, priorita:int):
+    def __init__(self, id:str, nome: str, coltura: str, posizione: str, preferito: bool, priorita:int):
 
+        self.id = id
         self.nome = nome
         self.coltura = coltura
         self.posizione = posizione

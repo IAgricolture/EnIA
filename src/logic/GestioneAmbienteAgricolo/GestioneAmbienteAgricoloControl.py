@@ -5,6 +5,34 @@ from src.logic.model.Terreno import Terreno
 from src.logic.model.TerrenoDAO import TerrenoDAO
 
 class AmbienteAgricoloControl():
+
+    @app.route("/aggiuntaterreno")
+    def aggiungiTerreno():
+        richiesta = request.args
+        print(richiesta)
+        id = None
+        nome = richiesta.get("nome")
+        coltura = richiesta.get("coltura")
+        posizione = richiesta.get("posizione")
+        preferito = richiesta.get("preferito")
+        priorita = richiesta.get("priorita")
+        
+
+        risposta = {
+            "TerrenoAggiunto" : False
+        }
+
+        #MeMO: per salvarlo ne DB
+        NewTerreno = Terreno(id,nome,coltura,posizione,preferito,priorita)
+        TerrenoDAO.InserisciTerreno(NewTerreno)
+
+        risposta["TerrenoAggiunto"] = True
+        #TODO implememtare i controlli per l'aggiunta
+
+        #Invio della risposta al server in formato json
+        return jsonify(risposta)
+
+
     @app.route("/modifyterrain", methods = ["GET"])
     def cerca():
         """ Chiama il metodo TrovaTerreno da TerrenoDAO, se lo trova lo restituisce, assieme ad un messaggio di successo,
