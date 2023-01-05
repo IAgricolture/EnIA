@@ -30,8 +30,8 @@
                 <img src="images/enia.png" alt="logo">
               </div>
               <h4>Sezione Modifica dei Terreni</h4>
-              <h6 class="font-weight-light">Inserisci l'id del terreno che vuoi modificare</h6> <!--TODO: Mostrare tutti i terreni, con button per prenderne i dati. -->
-              <form class="pt-3">
+              <h6 id = "scrittaricerca" class="font-weight-light">Inserisci l'id del terreno che vuoi modificare</h6> <!--TODO: Mostrare tutti i terreni, con button per prenderne i dati. -->
+              <form id = "casellaricerca" class="pt-3">
                 <div class="form-group">
                   <input type="email" class="form-control form-control-lg" id="idTerreno" name="idTerreno" placeholder="">
                 </div>
@@ -39,6 +39,39 @@
                   <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" onclick="cerca()">CERCA</a>
                 </div>
               </form>
+              <!-- Form a comparsa dopo avere inserito l'id-->
+              <form id = "formnascosto" class="pt-3" hidden>
+                <div class="form-group form-group">
+                  <label for="input-field" id="labelEmail">Nome</label>
+                  <input type="text" class="form-control form-control-sm" id="nome">
+                </div>
+                <div class="form-group form-group">
+                  <label for="input-field" id="labelEmail">Coltura</label>
+                  <input type="text" class="form-control form-control-sm" id="coltura">
+                </div>
+                <div class="form-group form-group">
+                  <label for="input-field" id="labelEmail">Posizione</label>
+                  <input type="text" class="form-control form-control-sm" id="posizione">
+                </div>
+                <div class="form-group">
+                  <label for="input-field" id="labelPassword">Preferito</label>
+                  <input type="checkbox" class="form-control form-control-sm" id="preferito" value="True">
+                </div>
+                <div class="form-group">
+                  <label for="input-field">Priorita</label>
+                  <input type="text" class="form-control form-control-sm" id="priorita">
+                </div>
+                <div class="mb-4">
+                </div>
+                <div class="mt-3">
+                  <a class="btn btn-block btn-success btn-lg font-weight-medium auth-form-btn" onclick="modifica()">INSERISCI TERRENO</a>
+                </div>
+              </form>
+
+              <!-- Questo button va eliminato, serviva da prova perchè Flask non mi va-->
+              <div id="buttonMostra" class="mt-3">
+                  <a class="btn btn-block btn-success btn-lg font-weight-medium auth-form-btn" onclick="mostra()">MOSTRA FORM</a>
+              </div>
             </div>
           </div>
         </div>
@@ -58,6 +91,19 @@
   <script src="js/settings.js"></script>
   <script src="js/todolist.js"></script>
   <script>
+     <!-- Questo script viene accorpato in cerca, serviva da prova perchè Flask non mi va-->
+    function mostra()
+    {
+      var form = document.getElementById("formnascosto")
+      var scrittaricerca = document.getElementById("scrittaricerca")
+      var casellaricerca = document.getElementById("casellaricerca")
+      var buttonMostra = document.getElementById("buttonMostra")
+      form.hidden = false
+      casellaricerca.hidden = true
+      scrittaricerca.hidden = true
+      buttonMostra.hidden = true
+    }
+
     function cerca(){
         var url = new URL("http://localhost:5000/modifyterrain")
 
@@ -76,6 +122,8 @@
           if(data["trovato"] =="true"){
             testo.innerHTML="Trovato terreno con questo id"
             div.className = "alert alert-success"
+            var terreno = data["terrenoJSON"] 
+            console.log(terreno)
           } else {
             testo.innerHTML="Nessun terreno con questo id"
             div.className = "alert alert-danger"
