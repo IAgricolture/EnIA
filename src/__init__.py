@@ -20,3 +20,4 @@ login_manager.login_message_category = "info"
 from src.logic.GestioneUtente import GestioneUtenteAuth
 from src import routes
 from src.logic.GestioneUtente import GestioneUtenteControl
+from src.logic.AmbienteAgricolo import TerrenoControl

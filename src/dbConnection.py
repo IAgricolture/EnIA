@@ -15,7 +15,7 @@ utenti = db.Utente
 licenze = db.Licenza
 
 #Documenti terreni
-terreni = db.terreni
+terreni = db.Terreno
 
 #Documenti metodo di pagamento
 metodi_di_pagamento = db.Metodo_di_pagamento
