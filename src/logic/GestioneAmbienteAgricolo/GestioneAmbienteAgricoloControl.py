@@ -1,6 +1,7 @@
 from flask import jsonify, request, render_template
 from src import app
 from flask import url_for
+import json
 from src.logic.model.Terreno import Terreno
 from src.logic.model.TerrenoDAO import TerrenoDAO
 
@@ -47,7 +48,8 @@ class AmbienteAgricoloControl():
         if terreno is None: #Non l'ha trovato
             return jsonify({"terrenoJSON": None, "trovato" : "false"})
         else:  
-            return jsonify({"terrenoJSON": terreno, "trovato": "true"})
+            json1 = json.dumps(terreno.__dict__)
+            return jsonify({"terrenoJSON": json1, "trovato": "true"})
 
 
     @app.route("/eliminaTerreno", methods = ["GET"])

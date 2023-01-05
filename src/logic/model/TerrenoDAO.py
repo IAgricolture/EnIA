@@ -28,11 +28,11 @@ class TerrenoDAO():
         if(trovato == None):
             return None
         id2 = str(trovato.get("_id"))
-        nome = str(trovato.get("nome"))
-        coltura = str(trovato.get("coltura"))
-        posizione = str(trovato.get("posizione"))
-        preferito = bool(trovato.get("preferito"))
-        priorita = trovato.get("priorita")   
+        nome = str(trovato.get("Nome"))
+        coltura = str(trovato.get("Coltura"))
+        posizione = str(trovato.get("Posizione"))
+        preferito = bool(trovato.get("Preferito"))
+        priorita = trovato.get("Priorita")   
         NewTerreno = Terreno(id2,nome,coltura,posizione,preferito,priorita)
         return NewTerreno
 
