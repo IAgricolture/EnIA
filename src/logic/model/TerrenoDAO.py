@@ -31,8 +31,9 @@ class TerrenoDAO():
         nome = str(trovato.get("Nome"))
         coltura = str(trovato.get("Coltura"))
         posizione = str(trovato.get("Posizione"))
-        preferito = bool(trovato.get("Preferito"))
-        priorita = trovato.get("Priorita")   
+        preferito = (trovato.get("Preferito"))
+        print(preferito)
+        priorita = int(trovato.get("Priorita"))  
         NewTerreno = Terreno(id2,nome,coltura,posizione,preferito,priorita)
         return NewTerreno
 
@@ -47,15 +48,15 @@ class TerrenoDAO():
     def modificaTerreno(terrenoMod : Terreno): 
         """ Il metodo modifica un'entità terreno presente nel database, trasformandola in quella passata come parametro."""  
         trovato = TerrenoDAO.TrovaTerreno(str(terrenoMod.id))
-        print(trovato.nome)
+        print(terrenoMod.preferito)
         if(trovato == None):
             return None
         terreni.update_one({"_id": ObjectId(trovato.id)},
         {"$set": {
-            "nome" : terrenoMod.nome,
-            "coltura": terrenoMod.coltura,
-            "posizione": terrenoMod.posizione,
-            "preferito": terrenoMod.preferito,
-            "priorita": terrenoMod.priorita,
-            "listautenti" : terrenoMod.listautenti,
+            "Nome" : terrenoMod.nome,
+            "Coltura": terrenoMod.coltura,
+            "Posizione": terrenoMod.posizione,
+            "Preferito": terrenoMod.preferito,
+            "Priorita": terrenoMod.priorita,
+            "ListaUtenti" : terrenoMod.listautenti,
         }})
