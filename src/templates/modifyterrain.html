@@ -123,14 +123,8 @@
 
     function resetMap()
     {
-      
-      map.eachLayer(function (layer) {
-      if (!!layer.toGeoJSON)
-      {
-        map.removeLayer(layer);
-      }
-      });
-      L.polygon(points).remove();
+      window.polygon.remove()
+      window.points = [];
     }
 
     function modifica()
