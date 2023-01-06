@@ -33,7 +33,7 @@
               <h6 id = "scrittaricerca" class="font-weight-light">Inserisci l'id del terreno che vuoi modificare</h6> <!--TODO: Mostrare tutti i terreni, con button per prenderne i dati. -->
               <form id = "casellaricerca" class="pt-3">
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-lg" id="idTerreno" name="idTerreno" placeholder="">
+                  <input type="text" class="form-control form-control-lg" id="idTerreno" name="idTerreno" placeholder="">
                 </div>
                 <div class="mt-3">
                   <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" onclick="cerca()">CERCA</a>
@@ -55,7 +55,7 @@
                 </div>
                 <div class="form-group">
                   <label for="input-field" id="labelPassword">Preferito</label>
-                  <input type="checkbox" class="form-control form-control-sm" id="preferito" value="True">
+                  <input type="checkbox" class="form-control form-control-sm" id="preferito">
                 </div>
                 <div class="form-group">
                   <label for="input-field">Priorita</label>
@@ -64,14 +64,9 @@
                 <div class="mb-4">
                 </div>
                 <div class="mt-3">
-                  <a class="btn btn-block btn-success btn-lg font-weight-medium auth-form-btn" onclick="modifica()">INSERISCI TERRENO</a>
+                  <a class="btn btn-block btn-success btn-lg font-weight-medium auth-form-btn" onclick="modifica()">MODIFICA TERRENO</a>
                 </div>
               </form>
-
-              <!-- Questo button va eliminato, serviva da prova perchè Flask non mi va-->
-              <div id="buttonMostra" class="mt-3">
-                  <a class="btn btn-block btn-success btn-lg font-weight-medium auth-form-btn" onclick="mostra()">MOSTRA FORM</a>
-              </div>
             </div>
           </div>
         </div>
@@ -91,21 +86,48 @@
   <script src="js/settings.js"></script>
   <script src="js/todolist.js"></script>
   <script>
-     <!-- Questo script viene accorpato in cerca, serviva da prova perchè Flask non mi va-->
-    function mostra()
+
+    function modifica()
+    {
+      var url = new URL("http://localhost:5000/modifyterrain?action=modify")
+      url.searchParams.append("idTerreno", document.getElementById("idTerreno").value)
+      url.searchParams.append("nome", document.getElementById("nome").value)
+      url.searchParams.append("coltura", document.getElementById("coltura").value)
+      url.searchParams.append("posizione", document.getElementById("posizione").value)
+      url.searchParams.append("preferito", document.getElementById("preferito").checked)
+      url.searchParams.append("priorita", document.getElementById("priorita").value)
+      let response = fetch(url,
+        {
+          "method": "GET",
+          "headers": {},
+        }).then(res=>res.json())
+        .then(data=>{ 
+          console.log(data)
+          var div = document.createElement('div')
+          var testo = document.createElement('strong')
+          var parent = document.getElementById("principale")
+          if(data["modificato"] =="true"){
+            testo.innerHTML="Il terreno è stato modificato con successo!"
+            div.className = "alert alert-success"
+            } else {
+              testo.innerHTML="Si è verificato un errore nella modifica del terreno."
+              div.className = "alert alert-danger"
+            }
+        div.appendChild(testo) 
+        parent.appendChild(div)
+        setTimeout('hide(div)', 20000)
+        })
+    }
+
+     <!-- Questo script viene usato in cerca()--> 
+    function mostraDatiTerreno()
     {
       var form = document.getElementById("formnascosto")
-      var scrittaricerca = document.getElementById("scrittaricerca")
-      var casellaricerca = document.getElementById("casellaricerca")
-      var buttonMostra = document.getElementById("buttonMostra")
       form.hidden = false
-      casellaricerca.hidden = true
-      scrittaricerca.hidden = true
-      buttonMostra.hidden = true
     }
 
     function cerca(){
-        var url = new URL("http://localhost:5000/modifyterrain")
+        var url = new URL("http://localhost:5000/modifyterrain?action=search")
 
         var idTerreno = document.getElementById("idTerreno").value
         url.searchParams.append("idTerreno", idTerreno)
@@ -122,11 +144,23 @@
           if(data["trovato"] =="true"){
             testo.innerHTML="Trovato terreno con questo id"
             div.className = "alert alert-success"
-            var terreno = data["terrenoJSON"] 
+            var terreno = JSON.parse(data["terrenoJSON"]) 
             console.log(terreno)
+            //Prendo i campi del form e sostituisco i valori
+            document.getElementById('nome').value = terreno.nome
+            document.getElementById('coltura').value = terreno.coltura
+            document.getElementById('posizione').value = terreno.posizione
+            document.getElementById('priorita').value = terreno.priorita
+            console.log(terreno.preferito)
+            if(terreno.preferito === 'true')
+            {
+              document.getElementById('preferito').checked = true
+            }
+            else document.getElementById('preferito').checked = false
+            mostraDatiTerreno()
           } else {
             testo.innerHTML="Nessun terreno con questo id"
-            div.className = "alert alert-danger"
+            div.className = "alert alert-danger"  
           } 
           div.appendChild(testo) 
           parent.appendChild(div)
