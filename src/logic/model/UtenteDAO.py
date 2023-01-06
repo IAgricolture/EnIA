@@ -46,7 +46,7 @@ class UtenteDAO():
         indirizzo = trovato.get("indirizzo")
         password = trovato.get("password")
         partitaIVA = trovato.get("partitaIVA")
-        utenteTrovato = Utente(id, nome, cognome, email, ruolo, dataNascita, codice, indirizzo, password, partitaIVA)
+        utenteTrovato = Utente(id, nome, cognome, email, password, ruolo, dataNascita, partitaIVA, codice, indirizzo)
         return utenteTrovato
         
 
@@ -55,7 +55,8 @@ class UtenteDAO():
             This method find one user in the database, using his codiceDiAccesso
             :return: Utente
         """
-        trovato = utenti.find_one({"codice" : codice})
+        trovato = utenti.find_one({"codice" : codice, "ruolo": {"$ne": "farmer"}})
+        
         if trovato == None:
             return None
         id = str(trovato.get("_id"))
@@ -68,7 +69,7 @@ class UtenteDAO():
         indirizzo = trovato.get("indirizzo")
         password = trovato.get("password")
         partitaIVA = trovato.get("partitaIVA")
-        utenteTrovato = Utente(id, nome, cognome, email, ruolo, dataNascita, codice, indirizzo, password, partitaIVA)
+        utenteTrovato = Utente(id, nome, cognome, email, password, ruolo, dataNascita, partitaIVA, codice, indirizzo)
         return utenteTrovato
     
     def creaUtente(utente : Utente) -> str:

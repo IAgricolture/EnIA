@@ -34,7 +34,6 @@ class UtenteControl():
                 print("Utente non registrato")
                 successo = False
             
-            print(login_attempt.password + " e " + hashed_password)
             if login_attempt.password == hashed_password:
                 login_user(login_attempt, duration=timedelta(days=365), force=True)
                 successo = True
@@ -50,47 +49,49 @@ class UtenteControl():
         else:
             return render_template("login.html")
 
-    @app.route("/register")
+    @app.route("/register", methods = ["GET", "POST"])
     def registrazioneConCodiceDiAccesso():
-        richiesta = request.args
-        print(richiesta)
-        email = richiesta.get("email")
-        nome = richiesta.get("nome")
-        cognome = richiesta.get("cognome")
-        password = hashlib.sha512(richiesta.get("password").encode()).hexdigest()
-        print(str(richiesta.get("dataNascita")))
-        dataDiNascita = datetime.strptime(richiesta.get("dataNascita"), "%Y-%m-%d")
-        codiceDiAccesso = richiesta.get("codiceDiAccesso")
-        #TODO: Implementare la verifica dell'indirizzo
-        indirizzo = richiesta.get("indirizzo")
-        slotUtente = UtenteDAO.trovaUtenteByCodiceDiAccesso(codiceDiAccesso)
-        risposta = {
-            "emailUsata": False,
-            "codiceNonValido": False,
-            "utenteRegistrato" : False
-        }
+        if request.method == "POST": 
+            richiesta = request.form
+            email = richiesta.get("email")
+            nome = richiesta.get("nome")
+            cognome = richiesta.get("cognome")
+            password = hashlib.sha512(richiesta.get("password").encode()).hexdigest()
+            dataDiNascita = datetime.strptime(richiesta.get("dataNascita"), "%Y-%m-%d")
+            codiceDiAccesso = richiesta.get("codice")
+            #TODO: Implementare la verifica dell'indirizzo
+            indirizzo = richiesta.get("indirizzo")
+            slotUtente = UtenteDAO.trovaUtenteByCodiceDiAccesso(codiceDiAccesso)
+            risposta = {
+                "emailUsata": False,
+                "codiceNonValido": False,
+                "utenteRegistrato" : False
+            }
 
-        #Se l'email è già usata il server avviserà il front-end
-        if UtenteDAO.trovaUtenteByEmail(email) != None:
-            risposta["emailUsata"] = True
-        #Se il codice è già usato oppure non è valido il server avviserà il front end
-        elif slotUtente == None or slotUtente.nome != None:
-            risposta["codiceNonValido"] = True
-        #Altrimenti si recupera lo slot Utente dal database lo si modifica con i dati utente
+            #Se l'email è già usata il server avviserà il front-end
+            if UtenteDAO.trovaUtenteByEmail(email) != None:
+                risposta["emailUsata"] = True
+            #Se il codice è già usato oppure non è valido il server avviserà il front end
+            elif slotUtente == None or slotUtente.nome != None:
+                risposta["codiceNonValido"] = True
+            #Altrimenti si recupera lo slot Utente dal database lo si modifica con i dati utente
+            else:
+                slotUtente.nome = nome
+                slotUtente.cognome = cognome
+                slotUtente.password = password
+                slotUtente.email = email
+                slotUtente.dataNascita = dataDiNascita
+                slotUtente.indirizzo = indirizzo
+                UtenteDAO.modificaUtente(slotUtente)
+                risposta["utenteRegistrato"] = True 
+                
+            return jsonify(risposta)
         else:
-            slotUtente.nome = nome
-            slotUtente.cognome = cognome
-            slotUtente.password = password
-            slotUtente.email = email
-            slotUtente.dataNascita = dataDiNascita
-            slotUtente.indirizzo = indirizzo
-            UtenteDAO.modificaUtente(slotUtente)
-            risposta["utenteRegistrato"] = True 
-        
+            return render_template("register.html")
+            
     @app.route("/registerf")
     def registrazioneFarmer():
         richiesta = request.args
-        print(richiesta)
         email = richiesta.get("email")
         nome = richiesta.get("nome")
         cognome = richiesta.get("cognome")
