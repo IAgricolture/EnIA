@@ -11,37 +11,44 @@ from datetime import datetime
 
 from flask import jsonify, request, render_template
 from src import app
-from flask_login import login_user
+from flask_login import current_user, login_user
 from flask import url_for
 
 
 class UtenteControl():
-    @app.route("/login", methods = ["GET"])
+    @app.route("/login", methods = ["GET", "POST"])
     def login():
         """
         Reads the users credentials from a https request if they match with one entry
         on the database, the system change his state from anonymous to logged user
         :return: redirect to index page
         """
-        
-        email = request.args.get("email")
-        password = request.args.get("password")
-        hashed_password = hashlib.sha512(password.encode()).hexdigest()
-        login_attempt : Utente = UtenteDAO.trovaUtenteByEmail(email)
+        if request.method == "POST" :
+            successo = False
+            email = request.form.get("email")
+            password = request.form.get("password")
+            hashed_password = hashlib.sha512(password.encode()).hexdigest()
+            login_attempt : Utente = UtenteDAO.trovaUtenteByEmail(email)
 
-        if not login_attempt:
-            #TODO:Gestire Errore
-            print("Utente non registrato")
-            return jsonify({"successo": "false"})
-        
-        print(login_attempt.password + " e " + hashed_password)
-        if login_attempt.password == hashed_password:
-            login_user(login_attempt, duration=timedelta(days=365), force=True)
+            if not login_attempt:
+                print("Utente non registrato")
+                successo = False
+            
+            print(login_attempt.password + " e " + hashed_password)
+            if login_attempt.password == hashed_password:
+                login_user(login_attempt, duration=timedelta(days=365), force=True)
+                successo = True
+                
+            else:
+                print("password errata")
+                successo = False
+
+            if successo:
+                return "email utente loggato: " + current_user.email
+            else:
+                return render_template("login.html")        
         else:
-            #TODO
-            print("password errata")
-            return jsonify({"successo:": "false"})
-        return jsonify({"successo": "true"})
+            return render_template("login.html")
 
     @app.route("/register")
     def registrazioneConCodiceDiAccesso():
