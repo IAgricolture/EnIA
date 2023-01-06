@@ -32,7 +32,7 @@ class AmbienteAgricoloControl():
         return jsonify(risposta)
 
 
-    @app.route("/modifyterrain", methods = ["GET"])
+    @app.route("/modifyterrain", methods = ["POST", "GET"])
     def cerca():
         """ Chiama il metodo TrovaTerreno da TerrenoDAO, se lo trova lo restituisce, assieme ad un messaggio di successo,
             altrimenti restituisce None ed un messaggio di errore.
@@ -52,17 +52,18 @@ class AmbienteAgricoloControl():
                 return jsonify({"terrenoJSON": json1, "trovato": "true"})
       
         elif request.args.get("action") == "modify":
-            idTerreno : str = request.args.get("idTerreno")
-            nome : str = request.args.get("nome")
-            coltura : str = request.args.get("coltura")
-            posizione : str = request.args.get("posizione")
-            preferito : bool = request.args.get("preferito")
-            priorita : int = request.args.get("priorita")
+            richiesta = request.get_json()
+            idTerreno = richiesta.get("idTerreno")
+            nome = richiesta.get("nome")
+            coltura = richiesta.get("coltura")
+            posizione = richiesta.get("posizione")
+            preferito = richiesta.get("preferito")
+            priorita = richiesta.get("priorita")
             terreno = Terreno(idTerreno, nome, coltura, posizione, preferito, priorita)
             print(terreno)
-            print(terreno.preferito)
             TerrenoDAO.modificaTerreno(terreno)
-            return jsonify({"modificato": "true"}) #TODO: AGGIUNGERE ERROR HANDLING A MODIFICATERRENO
+            return jsonify({"modificato": "true"}) #TODO: AGGIUNGERE ERROR HANDLING A MODIFICATERRENO"""
+
 
 
 
