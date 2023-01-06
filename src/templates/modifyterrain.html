@@ -12,6 +12,15 @@
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- plugin css for this page -->
+   <!-- plugin css for this page -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+     crossorigin=""/>
+     <style>
+      #map{
+          height: 400px;
+      }
+  </style>
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="css/vertical-layout-light/style.css">
@@ -21,11 +30,11 @@
 
 <body>
   <div class="container-scroller">
-    <div class="container-fluid page-body-wrapper full-page-wrapper">
-      <div class="content-wrapper d-flex align-items-center auth px-0">
+    <div class="container-fluid page-body-wrapper full-page-wrapper" >
+      <div class="content-wrapper d-flex align-items-center auth px-0" style="background-image: url('images/carousel/banner.jpg'); background-repeat: no-repeat;">
         <div class="row w-100 mx-0">
-          <div class="col-lg-4 mx-auto">
-            <div class="auth-form-light text-left py-5 px-4 px-sm-5" id="principale">
+          <div class="col-lg-12 mx-auto">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
               <div class="brand-logo">
                 <img src="images/enia.png" alt="logo">
               </div>
@@ -61,6 +70,8 @@
                   <label for="input-field">Priorita</label>
                   <input type="text" class="form-control form-control-sm" id="priorita">
                 </div>
+                <div id="map" hidden>
+                </div>
                 <div class="mb-4">
                 </div>
                 <div class="mt-3">
@@ -85,7 +96,33 @@
   <script src="js/template.js"></script>
   <script src="js/settings.js"></script>
   <script src="js/todolist.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+  integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+  crossorigin=""></script>
   <script>
+
+    var map = L.map('map').setView([51.505, -0.09], 13);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    var points = [];
+    var polygon
+    map.on('click', function(e) {
+        points.push(e.latlng);
+        if (points.length >= 3) {
+            if (polygon != null){
+                polygon.remove()
+            }
+            
+            polygon = L.polygon(points).addTo(map);
+        }
+    });
+    var popup = L.popup();
+
+
+
 
     function modifica()
     {
@@ -123,7 +160,9 @@
     function mostraDatiTerreno()
     {
       var form = document.getElementById("formnascosto")
+      var map = document.getElementById("map")
       form.hidden = false
+      map.hidden = false
     }
 
     function cerca(){
@@ -151,12 +190,18 @@
             document.getElementById('coltura').value = terreno.coltura
             document.getElementById('posizione').value = terreno.posizione
             document.getElementById('priorita').value = terreno.priorita
-            console.log(terreno.preferito)
             if(terreno.preferito === 'true')
             {
               document.getElementById('preferito').checked = true
             }
             else document.getElementById('preferito').checked = false
+            //NUOVO, GESTIONE MAPPA
+            posizione = terreno.posizione
+            console.log(posizione)
+            L.geoJSON(posizione).addTo(map)
+            //points = terreno.posizione.geometry;
+            //polygon = L.polygon(points).addTo(map);
+            //map.fitBounds(polygon.getBounds());
             mostraDatiTerreno()
           } else {
             testo.innerHTML="Nessun terreno con questo id"
