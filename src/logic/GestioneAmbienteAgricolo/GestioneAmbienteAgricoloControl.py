@@ -7,17 +7,15 @@ from src.logic.model.TerrenoDAO import TerrenoDAO
 
 class AmbienteAgricoloControl():
 
-    @app.route("/aggiuntaterreno")
+    @app.route("/aggiuntaterreno", methods=["POST"])
     def aggiungiTerreno():
-        richiesta = request.args
-        print(richiesta)
+        richiesta = request.get_json()
         id = None
         nome = richiesta.get("nome")
         coltura = richiesta.get("coltura")
         posizione = richiesta.get("posizione")
         preferito = richiesta.get("preferito")
         priorita = richiesta.get("priorita")
-        
 
         risposta = {
             "TerrenoAggiunto" : False

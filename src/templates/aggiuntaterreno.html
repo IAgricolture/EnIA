@@ -11,6 +11,14 @@
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- plugin css for this page -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+     crossorigin=""/>
+     <style>
+      #map{
+          height: 400px;
+      }
+  </style>
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="css/vertical-layout-light/style.css">
@@ -51,6 +59,8 @@
                   <label for="input-field">Priorita</label>
                   <input type="text" class="form-control form-control-sm" id="priorita">
                 </div>
+                <div id="map">
+                </div>
                 <div class="mb-4">
                 </div>
                 <div class="mt-3">
@@ -75,7 +85,32 @@
   <script src="js/template.js"></script>
   <script src="js/settings.js"></script>
   <script src="js/todolist.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+  integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+  crossorigin=""></script>
   <script>
+    var map = L.map('map').setView([51.505, -0.09], 13);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    var points = [];
+    var polygon
+    map.on('click', function(e) {
+        points.push(e.latlng);
+        if (points.length >= 3) {
+            if (polygon != null){
+                polygon.remove()
+            }
+            
+            polygon = L.polygon(points).addTo(map);
+        }
+    });
+    var popup = L.popup();
+
+
+
     function insert(){
         console.log("Test0")
         var nome = document.getElementById("nome").value
@@ -93,10 +128,30 @@
           url.searchParams.append("preferito", preferito)
           url.searchParams.append("priorita", priorita)
           console.log("Test2")
+          data = new FormData()
+          console.log(polygon.toGeoJSON())
+          data.append("nome", nome)
+          data.append("coltura", coltura)
+          data.append("preferito", preferito)
+          data.append("priorita", priorita)
+          geoJson = polygon.toGeoJSON()
+          
+          var data = {
+                nome : nome,
+                coltura : coltura,
+                preferito : preferito,
+                priorita : priorita,
+                posizione : geoJson
+          }
+          console.log(JSON.stringify(data))
+          console.log(data)
           let response = fetch(url,
           {
-            "method": "GET",
-            "headers": {},
+            "method": "POST",
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            "body": JSON.stringify(data)
           }).then(res=>res.json())
           .then(data=>{
               console.log(data)
@@ -105,6 +160,9 @@
         
     }
   </script>
+  <script>
+    
+</script>
   <!-- endinject -->
 </body>
 </html>
