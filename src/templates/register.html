@@ -7,16 +7,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Registrazione</title>
   <!-- base:css -->
-  <link rel="stylesheet" href="vendors/typicons.font/font/typicons.css">
-  <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="/static/vendors/typicons.font/font/typicons.css">
+  <link rel="stylesheet" href="/static/vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
+
   <link rel="stylesheet" href="css/vertical-layout-light/style.css">
   <link rel="stylesheet" href="css/stile.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="images/enia.png" />
+
 </head>
 
 <body>
@@ -27,7 +29,7 @@
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
               <div class="brand-logo">
-                <img src="images/enia.png" alt="logo">
+                <img src="/static/images/enia.png" alt="logo">
               </div>
               <h4>Nuovo Utetente??</h4>
               <h6 class="font-weight-light">Iscriversi è facile. Bastano pochi passaggi</h6>
@@ -89,14 +91,14 @@
   </div>
   <!-- container-scroller -->
   <!-- base:js -->
-  <script src="vendors/js/vendor.bundle.base.js"></script>
+  <script src="/static/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- inject:js -->
-  <script src="js/off-canvas.js"></script>
-  <script src="js/hoverable-collapse.js"></script>
-  <script src="js/template.js"></script>
-  <script src="js/settings.js"></script>
-  <script src="js/todolist.js"></script>
+  <script src="/static/js/off-canvas.js"></script>
+  <script src="/static/js/hoverable-collapse.js"></script>
+  <script src="/static/js/template.js"></script>
+  <script src="/static/js/settings.js"></script>
+  <script src="/static/js/todolist.js"></script>
   <script>
     function register(){
         
@@ -114,7 +116,8 @@
         var formPassword = document.getElementById("password")
         var labelPassword = document.getElementById("labelPassword")
         var labelCodice = document.getElementById("labelCodice")
-        
+        var formRegistrazione = document.getElementById("formRegistrazione")
+        console.log(formRegistrazione.data)
         if( password != confermaPassword){
           
           labelPassword.innerHTML = "Le due password non corrispondono"
@@ -122,18 +125,21 @@
           formPassword.classList.add("has-feedback")
         }
         else{
-          var url = new URL("http://localhost:5000/register")
-          url.searchParams.append("email", email)
-          url.searchParams.append("nome", nome)
-          url.searchParams.append("cognome", cognome)
-          url.searchParams.append("password", password)
-          url.searchParams.append("codiceDiAccesso", codiceDiAccesso)
-          url.searchParams.append("indirizzo", indirizzo)
-          url.searchParams.append("dataNascita", dataNascita)
-          let response = fetch(url,
+          
+          var data = new FormData()
+          data.append("nome", nome)
+          data.append("cognome", cognome)
+          data.append("email", email)
+          data.append("password", password)
+          data.append("codice", codiceDiAccesso)
+          data.append("indirizzo", indirizzo)
+          data.append("dataNascita", dataNascita)
+
+          let response = fetch("register",
           {
-            "method": "GET",
+            "method": "POST",
             "headers": {},
+            "body":data
           }).then(res=>res.json())
           .then(data=>{
               console.log(data)
