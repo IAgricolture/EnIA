@@ -22,3 +22,12 @@
     border-radius: 0;
     font-size: .9375rem;
 }
+
+.form-check .form-check-label input[type="checkbox"] + .input-helper::before {
+    border: 2px solid  #4DBAF6 !important;
+}
+
+.form-check .form-check-label input[type="checkbox"]:checked + .input-helper:before {
+    background: #4DBAF6 !important;
+    border-width: 0;
+}
