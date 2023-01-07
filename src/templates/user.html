@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>
+            User
+        </title>
+    </head>
+    <body>
+        <div class="content" style="text-align: center; margin-top: 10%;">
+            <div id="view">
+                Nome: {{user.nome}} <p id="nome"></p>
+                <br>
+                Cognome: <p id="cognome"></p>
+                <br>
+                Email: <p id="email"></p>
+                <br>
+                Ruolo: <p id="ruolo"></p>
+                <br>
+                Data di Nascita: <p id="nascita"></p>
+                <br>
+                Indirizzo: <p id="indirizzo"></p>
+                <div id="userview" style="display: none;">
+                    Codice: <p id="codice"></p>
+                </div>
+                <div id="farmerview" style="display: none;">
+                    PartitaIVA: <p id="partitaiva"></p>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script src="/static/javascript/user.js"></script> 
+    <script>
+       load('{{user}}');
+    </script>
+</html>

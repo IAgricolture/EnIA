@@ -1,4 +1,5 @@
 import hashlib
+import json
 from src.logic.model.Utente import Utente
 
 from src.logic.model.UtenteDAO import UtenteDAO
@@ -9,7 +10,7 @@ from src.logic.model.MetodoDiPagamento import MetodoDiPagamento
 from datetime import timedelta
 from datetime import datetime
 
-from flask import jsonify, request, render_template
+from flask import jsonify, request, render_template, session, redirect
 from src import app
 from flask_login import current_user, login_user
 from flask import url_for
@@ -43,7 +44,8 @@ class UtenteControl():
                 successo = False
 
             if successo:
-                return "email utente loggato: " + current_user.email
+                session["user"] = json.dumps(login_attempt.__dict__)
+                return redirect("user")
             else:
                 return render_template("login.html")        
         else:
@@ -127,7 +129,12 @@ class UtenteControl():
         #Invio della risposta al server in formato json
         return jsonify(risposta)
 
-        
+    @app.route("/user", methods = ["GET", "POST"])
+    def user():
+        if request.method == "POST":
+            u="aaaaa"
+    
+        return render_template("user.html", user = session.get("user"))
         
 
         
