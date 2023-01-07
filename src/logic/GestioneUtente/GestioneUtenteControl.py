@@ -44,7 +44,6 @@ class UtenteControl():
                 successo = False
 
             if successo:
-                session["user"] = json.dumps(login_attempt.__dict__)
                 return redirect("user")
             else:
                 return render_template("login.html")        
@@ -59,7 +58,7 @@ class UtenteControl():
             nome = richiesta.get("nome")
             cognome = richiesta.get("cognome")
             password = hashlib.sha512(richiesta.get("password").encode()).hexdigest()
-            dataDiNascita = datetime.strptime(richiesta.get("dataNascita"), "%Y-%m-%d")
+            dataDiNascita = richiesta.get("dataNascita")
             codiceDiAccesso = richiesta.get("codice")
             #TODO: Implementare la verifica dell'indirizzo
             indirizzo = richiesta.get("indirizzo")
@@ -98,7 +97,7 @@ class UtenteControl():
         nome = richiesta.get("nome")
         cognome = richiesta.get("cognome")
         password = hashlib.sha512(richiesta.get("password").encode()).hexdigest()
-        dataDiNascita = datetime.strptime(richiesta.get("dataNascita"), "%Y-%m-%d")
+        dataDiNascita = richiesta.get("dataNascita")
         partitaiva = richiesta.get("partitaiva")
         licenza = richiesta.get("licenza")
         numerocarta = richiesta.get("numerocarta")
@@ -120,7 +119,7 @@ class UtenteControl():
             utente = Utente("", nome, cognome, email, password, "farmer", dataDiNascita, partitaiva, None, indirizzo)
             id = UtenteDAO.creaUtente(utente)
             #TODO decidere i parametri delle licenze
-            l = Licenza("", licenza, 5000, datetime.now(), datetime.now(), False, id)
+            l = Licenza("", licenza, 5000, datetime.now().isoformat(), datetime.now().isoformat(), False, id)
             LicenzaDAO.creaLicenza(l)
             m = MetodoDiPagamento("", numerocarta, titolare, scadenza, cvv, id)
             MetodoDiPagamentoDAO.creaMetodo(m)
@@ -134,7 +133,7 @@ class UtenteControl():
         if request.method == "POST":
             u="aaaaa"
     
-        return render_template("user.html", user = session.get("user"))
+        return render_template("user.html")
         
 
         

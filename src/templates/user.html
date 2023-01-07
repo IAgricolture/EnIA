@@ -7,23 +7,26 @@
     <body>
         <div class="content" style="text-align: center; margin-top: 10%;">
             <div id="view">
-                Nome: {{user.nome}} <p id="nome"></p>
+                Nome: {{current_user.nome}} <p id="nome"></p>
                 <br>
-                Cognome: <p id="cognome"></p>
+                Cognome: {{current_user.cognome}} <p id="cognome"></p>
                 <br>
-                Email: <p id="email"></p>
+                Email: {{current_user.email}} <p id="email"></p>
                 <br>
-                Ruolo: <p id="ruolo"></p>
+                Ruolo: {{current_user.ruolo}}<p id="ruolo"></p>
                 <br>
-                Data di Nascita: <p id="nascita"></p>
+                Data di Nascita:{{current_user.dataNascita}} <p id="nascita"></p>
                 <br>
-                Indirizzo: <p id="indirizzo"></p>
+                Indirizzo: {{current_user.indirizzo}} <p id="indirizzo"></p>
+                {%if current_user.ruolo != "farmer"%}
                 <div id="userview" style="display: none;">
-                    Codice: <p id="codice"></p>
+                    Codice:{{current_user.codice}} <p id="codice"></p>
                 </div>
-                <div id="farmerview" style="display: none;">
-                    PartitaIVA: <p id="partitaiva"></p>
+                {%else%}
+                <div id="farmerview">
+                    PartitaIVA: {{current_user.partitaIVA}}<p id="partitaiva"></p>
                 </div>
+                {%endif%}
             </div>
         </div>
     </body>

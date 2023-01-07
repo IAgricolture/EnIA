@@ -1,16 +1,17 @@
-import datetime
+from datetime import datetime
 import hashlib
+import json
 
 #Scheletro della classe utente così come è presente sul database
 class Utente():
-    def __init__(self, id:str, nome: str, cognome: str, email: str, password:str, ruolo: str, dataNascita: datetime, partitaIVA: str, codice: str, indirizzo: str):
+    def __init__(self, id:str, nome: str, cognome: str, email: str, password:str, ruolo: str, dataNascita: str, partitaIVA: str, codice: str, indirizzo: str):
         self.id = id
         self.nome = nome
         self.cognome = cognome
         self.email = email
         self.ruolo = ruolo
-        self.dataNascita = dataNascita,
         self.indirizzo = indirizzo
+        self.dataNascita = dataNascita
         if ruolo == "farmer":
             self.partitaIVA = partitaIVA
             self.codice = None
@@ -20,6 +21,8 @@ class Utente():
     
 
         self.password = password
+
+    
 
     def get_id(self):
         try:
