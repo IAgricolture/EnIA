@@ -119,7 +119,7 @@ class UtenteControl():
             utente = Utente("", nome, cognome, email, password, "farmer", dataDiNascita, partitaiva, None, indirizzo)
             id = UtenteDAO.creaUtente(utente)
             #TODO decidere i parametri delle licenze
-            l = Licenza("", licenza, 5000, datetime.now().isoformat(), datetime.now().isoformat(), False, id)
+            l = Licenza("", licenza, 5000, datetime.now().date().isoformat(), datetime.now().date().isoformat(), False, id)
             LicenzaDAO.creaLicenza(l)
             m = MetodoDiPagamento("", numerocarta, titolare, scadenza, cvv, id)
             MetodoDiPagamentoDAO.creaMetodo(m)
@@ -132,7 +132,9 @@ class UtenteControl():
     def user():
         if request.method == "POST":
             u="aaaaa"
-    
+
+        session["licenza"] = LicenzaDAO.findLicenzaByProprietario(current_user.id).__dict__
+        session["metodo"] = MetodoDiPagamentoDAO.findMetodoByProprietario(current_user.id).__dict__
         return render_template("user.html")
         
 

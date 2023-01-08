@@ -7,24 +7,46 @@
     <body>
         <div class="content" style="text-align: center; margin-top: 10%;">
             <div id="view">
-                Nome: {{current_user.nome}} <p id="nome"></p>
+                <h2>User</h2>
                 <br>
-                Cognome: {{current_user.cognome}} <p id="cognome"></p>
+                Nome: {{current_user.nome}} 
                 <br>
-                Email: {{current_user.email}} <p id="email"></p>
+                Cognome: {{current_user.cognome}} 
                 <br>
-                Ruolo: {{current_user.ruolo}}<p id="ruolo"></p>
+                Email: {{current_user.email}} 
                 <br>
-                Data di Nascita:{{current_user.dataNascita}} <p id="nascita"></p>
+                Ruolo: {{current_user.ruolo}}
                 <br>
-                Indirizzo: {{current_user.indirizzo}} <p id="indirizzo"></p>
+                Data di Nascita:{{current_user.dataNascita}} 
+                <br>
+                Indirizzo: {{current_user.indirizzo}} 
                 {%if current_user.ruolo != "farmer"%}
-                <div id="userview" style="display: none;">
-                    Codice:{{current_user.codice}} <p id="codice"></p>
+                <div id="userview">
+                    Codice:{{current_user.codice}} 
                 </div>
                 {%else%}
                 <div id="farmerview">
-                    PartitaIVA: {{current_user.partitaIVA}}<p id="partitaiva"></p>
+                    PartitaIVA: {{current_user.partitaIVA}}
+                    <br>
+                    <h2>Licenza</h2>
+                    <br>
+                    Tipo: {{session["licenza"].tipo}}
+                    <br>
+                    Costo: {{session["licenza"].costo}}
+                    <br>
+                    Data attivazione: {{session["licenza"].data_attivazione}}
+                    <br>
+                    Data scadenza: {{session["licenza"].data_scadenza}}
+                    <br>
+                    <h2>Metodo di pagamento</h2>
+                    <br>
+                    Numero carta: {{session["metodo"].num_carta}}
+                    <br>
+                    Titolare: {{session["metodo"].titolare}}
+                    <br>
+                    Scadenza: {{session["metodo"].scadenza}}
+                    <br>
+                    CVV: {{session["metodo"].cvv}}
                 </div>
                 {%endif%}
             </div>
@@ -33,6 +55,6 @@
 
     <script src="/static/javascript/user.js"></script> 
     <script>
-       load('{{user}}');
+       
     </script>
 </html>

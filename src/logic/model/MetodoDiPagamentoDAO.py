@@ -36,5 +36,20 @@ class MetodoDiPagamentoDAO():
 
         return str(result.inserted_id)
 
+    def findMetodoByProprietario(id : str) -> MetodoDiPagamento:
+        """
+            Questo metodo trova un Metodo di pagamento sul database, usando l'identificativo del suo proprietario
+            :return: MetodoDiPagamento
+        """
+        trovato = metodi_di_pagamento.find_one({"proprietario" : id})
+        id = str(trovato.get("_id"))
+        num_carta = str(trovato.get("numero_carta"))
+        titolare = str(trovato.get("titolare"))
+        scadenza = str(trovato.get("scadenza"))
+        cvv = str(trovato.get("cvv"))
+        proprietario = str(trovato.get("proprietario"))
+
+        metodoTrovato = MetodoDiPagamento(id, num_carta, titolare, scadenza, cvv, proprietario)
+        return metodoTrovato
 
 
