@@ -1,4 +1,5 @@
 import hashlib
+import json
 from src.logic.model.Utente import Utente
 
 from src.logic.model.UtenteDAO import UtenteDAO
@@ -9,7 +10,7 @@ from src.logic.model.MetodoDiPagamento import MetodoDiPagamento
 from datetime import timedelta
 from datetime import datetime
 
-from flask import jsonify, request, render_template
+from flask import jsonify, request, render_template, session, redirect
 from src import app
 from flask_login import current_user, login_user
 from flask import url_for
@@ -43,7 +44,7 @@ class UtenteControl():
                 successo = False
 
             if successo:
-                return "email utente loggato: " + current_user.email
+                return redirect("user")
             else:
                 return render_template("login.html")        
         else:
@@ -57,7 +58,7 @@ class UtenteControl():
             nome = richiesta.get("nome")
             cognome = richiesta.get("cognome")
             password = hashlib.sha512(richiesta.get("password").encode()).hexdigest()
-            dataDiNascita = datetime.strptime(richiesta.get("dataNascita"), "%Y-%m-%d")
+            dataDiNascita = richiesta.get("dataNascita")
             codiceDiAccesso = richiesta.get("codice")
             #TODO: Implementare la verifica dell'indirizzo
             indirizzo = richiesta.get("indirizzo")
@@ -96,7 +97,7 @@ class UtenteControl():
         nome = richiesta.get("nome")
         cognome = richiesta.get("cognome")
         password = hashlib.sha512(richiesta.get("password").encode()).hexdigest()
-        dataDiNascita = datetime.strptime(richiesta.get("dataNascita"), "%Y-%m-%d")
+        dataDiNascita = richiesta.get("dataNascita")
         partitaiva = richiesta.get("partitaiva")
         licenza = richiesta.get("licenza")
         numerocarta = richiesta.get("numerocarta")
@@ -118,7 +119,7 @@ class UtenteControl():
             utente = Utente("", nome, cognome, email, password, "farmer", dataDiNascita, partitaiva, None, indirizzo)
             id = UtenteDAO.creaUtente(utente)
             #TODO decidere i parametri delle licenze
-            l = Licenza("", licenza, 5000, datetime.now(), datetime.now(), False, id)
+            l = Licenza("", licenza, 5000, datetime.now().date().isoformat(), datetime.now().date().isoformat(), False, id)
             LicenzaDAO.creaLicenza(l)
             m = MetodoDiPagamento("", numerocarta, titolare, scadenza, cvv, id)
             MetodoDiPagamentoDAO.creaMetodo(m)
@@ -127,7 +128,38 @@ class UtenteControl():
         #Invio della risposta al server in formato json
         return jsonify(risposta)
 
+    @app.route("/user", methods = ["GET", "POST"])
+    def user():
+        if request.method == "POST":
+            richiesta = request.form
+            tipo = richiesta.get("type")
+            if tipo == "user":
+                current_user.nome = richiesta.get("nome")
+                current_user.cognome = richiesta.get("cognome")
+                current_user.email = richiesta.get("email")
+                current_user.dataNascita = richiesta.get("dataNascita")
+                current_user.indirizzo = richiesta.get("indirizzo")
+                if current_user.ruolo == "farmer":
+                    current_user.partitaiva = richiesta.get("partitaIVA")
+                
+                UtenteDAO.modificaUtente(current_user)
+            elif tipo == "licenza":
+                #TODO decidere come far avvenire il cambio licenza
+                print(richiesta.get("licenza"))
+            elif tipo == "metodo":
+                metodo = MetodoDiPagamento(**session["metodo"])
+                
+                metodo.num_carta = richiesta.get("num_carta")
+                metodo.titolare = richiesta.get("titolare")
+                metodo.scadenza = richiesta.get("scadenza")
+                metodo.cvv = richiesta.get("cvv")
         
+                MetodoDiPagamentoDAO.modificaMetodo(metodo)
+                
+        if current_user.ruolo == "farmer":
+            session["licenza"] = LicenzaDAO.findLicenzaByProprietario(current_user.id).__dict__
+            session["metodo"] = MetodoDiPagamentoDAO.findMetodoByProprietario(current_user.id).__dict__
+        return render_template("user.html")
         
 
         
