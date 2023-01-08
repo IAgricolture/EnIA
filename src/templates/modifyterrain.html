@@ -127,6 +127,68 @@
       window.points = [];
     }
 
+    function validate() 
+    /*Controlla che i dati siano stati correttamente inseriti nei form.
+      Funzionamento: creo una Regexp, che viene poi modificata a seconda del form type. validAll indica 
+      che tutti i campi sono corretti, validThisForm che quello considerato lo sia. 
+      Per ogni form, controlla che non sia vuoto o incorretto: altrimenti, crea una notifica di errore, se
+      non esiste già. Se invece il form è corretto e la notifica esiste, la rimuove.*/
+    {
+      var regexp = /^[a-zA-Z0-9]{1,50}$/  //Regex per testo alfanumerico, da 1 a 50 caratteri, senza spazi
+      var validAll = true
+      var forms = [ document.getElementById('nome'), document.getElementById('coltura'), document.getElementById('priorita')]     
+      forms.forEach(function(form){   //Per ogni form, controlla se ha testo al suo interno e se ha formato corretto con REGEXP.
+        console.log("Controllo form" + form.id)
+        var validThisForm = true
+        var div = document.createElement('div')
+        div.className = "alert alert-danger"
+        var testo = document.createElement('strong')
+        var notifiche = form.parentElement.getElementsByClassName("alert alert-danger")
+        if(form.type == "number")   //Cambio regex per i numeri
+        {
+          regexp = /^[0-9]/
+        }
+        if(!(form.value))
+        {
+          validThisForm = false
+          testo.innerHTML="Errore: necessario compilare il campo."
+        }
+        if(!(regexp.test(form.value)))
+        {
+          validThisForm = false
+          if(regexp == /^[a-zA-Z0-9]{1,50}$/)
+          {
+            testo.innerHTML="Errore: il valore inserito non è corretto. Riprovare, usando solo caratteri alfanumerici senza spazi."
+          }
+          else
+          {
+            testo.innerHTML="Errore: il valore inserito non è corretto. Riprovare, usando un unico numero."
+          }
+        }
+        if(!(validThisForm))
+        {
+          validAll = false
+          div.appendChild(testo)
+          if(!(notifiche.length > 0))
+          {
+            form.parentElement.appendChild(div)
+          }
+        }
+        else
+        {
+          if(notifiche.length > 0)
+          {
+            while(notifiche.length > 0){
+            notifiche[0].parentNode.removeChild(notifiche[0])
+            }
+          }
+        }
+        console.log("Risultato controllo, form è corretto: " + validThisForm)
+      })
+      console.log("Risultato controllo, form sono corretti: " + validAll)
+      return validAll
+    }
+
     function modifica()
     {
       var url = new URL("http://localhost:5000/modifyterrain?action=modify")
@@ -136,6 +198,10 @@
       url.searchParams.append("posizione", document.getElementById("posizione").value)
       url.searchParams.append("preferito", document.getElementById("preferito").checked)
       url.searchParams.append("priorita", document.getElementById("priorita").value)*/
+      if(!(validate()))
+      {
+        return //FORSE ESISTE UN ALTRO MODO?
+      }
       var data = {
                 idTerreno   :  document.getElementById('idTerreno').value,
                 nome :  document.getElementById('nome').value,
@@ -182,7 +248,6 @@
 
     function cerca(){
         var url = new URL("http://localhost:5000/modifyterrain?action=search")
-
         var idTerreno = document.getElementById("idTerreno").value
         url.searchParams.append("idTerreno", idTerreno)
         let response = fetch(url,
@@ -192,6 +257,7 @@
         }).then(res=>res.json())
         .then(data=>{
           var div = document.createElement('div')
+          div.setAttribute("name", "notificacerca")
           var testo = document.createElement('strong')
           var parent = document.getElementById("casellaricerca")
           console.log(data)
@@ -212,6 +278,7 @@
             //NUOVO, GESTIONE MAPPA
             posizione = terreno.posizione
             console.log(posizione)
+            polygon = L.geoJSON(posizione)
             confini = L.geoJSON(posizione).addTo(map)
             map.fitBounds(confini.getBounds())
             mostraDatiTerreno()
@@ -219,6 +286,14 @@
             testo.innerHTML="Nessun terreno con questo id"
             div.className = "alert alert-danger"  
           } 
+          //Controlla che non esista già la notifica
+          var notifiche = document.getElementsByName("notificacerca")
+          if(notifiche.length > 0)
+          {
+            while(notifiche.length > 0){
+            notifiche[0].parentNode.removeChild(notifiche[0])
+            }
+          }
           div.appendChild(testo) 
           parent.appendChild(div)
         })
