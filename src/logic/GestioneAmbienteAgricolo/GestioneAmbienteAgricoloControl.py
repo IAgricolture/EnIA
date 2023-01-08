@@ -72,3 +72,9 @@ class AmbienteAgricoloControl():
             TerrenoDAO.RimuoviTerreno(terreno)
             print("Terreno Eliminato ")
             return jsonify({ "trovato": "true"})
+        
+    @app.route("/dettagliterreno", methods = ["POST", "GET"])
+    def dettagli():
+        idTerreno = request.args.get("idTerreno")
+        terreno = TerrenoDAO.TrovaTerreno(idTerreno)
+        return render_template("dettagliterreno.html", terreno = terreno)
