@@ -23,11 +23,14 @@
                 {%if current_user.ruolo != "farmer"%}
                 <div id="userview">
                     Codice:{{current_user.codice}} 
+                    <br>
+                    <input type="button" value="Modifica" onclick="ModUser()">
                 </div>
                 {%else%}
                 <div id="farmerview">
                     PartitaIVA: {{current_user.partitaIVA}}
                     <br>
+                    <input type="button" value="Modifica" onclick="ModUser()">
                     <h2>Licenza</h2>
                     <br>
                     Tipo: {{session["licenza"].tipo}}
@@ -38,6 +41,7 @@
                     <br>
                     Data scadenza: {{session["licenza"].data_scadenza}}
                     <br>
+                    <input type="button" value="Modifica" onclick="ModLicenza()">
                     <h2>Metodo di pagamento</h2>
                     <br>
                     Numero carta: {{session["metodo"].num_carta}}
@@ -47,14 +51,57 @@
                     Scadenza: {{session["metodo"].scadenza}}
                     <br>
                     CVV: {{session["metodo"].cvv}}
+                    <br>
+                    <input type="button" value="Modifica" onclick="ModMetodo()">
                 </div>
                 {%endif%}
+            </div>
+            <div id="usermod" style="display: none;">
+                <form method="post" action="/user">
+                    <input type="hidden" name="type" value="user">
+                    Nome: <input type="text" name="nome" value="{{current_user.nome}}">
+                    <br>
+                    Cognome: <input type="text" name="cognome" value="{{current_user.cognome}}">
+                    <br>
+                    Email: <input type="text" name="email" value="{{current_user.email}}">
+                    <br>
+                    Data di Nascita: <input type="date" name="dataNascita" value="{{current_user.dataNascita}}"> 
+                    <br>
+                    Indirizzo: <input type="text" name="indirizzo" value="{{current_user.indirizzo}}">
+                    {%if current_user.ruolo == "farmer"%}
+                        <br>
+                        PartitaIVA: <input type="text" name="partitaIVA" value="{{current_user.partitaIVA}}">
+                    {%endif%}
+                    <input type="submit" value="Modifica">
+                </form>
+            </div>
+            <div id="licenzamod" style="display: none;">
+                <form method="post" action="/user">
+                    <input type="hidden" name="type" value="licenza">
+                    <input type="radio" id="standard" name="licenza" value="standard">
+                    <label for="standard">Standard</label>
+                    <br>
+                    <input type="radio" id="premium" name="licenza" value="premium">
+                    <label for="premium">Premium</label>
+                    <br>
+                    <input type="submit" value="Modifica">
+                </form>
+            </div>
+            <div id="metodomod" style="display: none;">
+                <form method="post" action="/user">
+                    <input type="hidden" name="type" value="metodo">
+                    Numero carta: <input type="text" name="num_carta" value="{{session['metodo'].num_carta}}">
+                    <br>
+                    Titolare: <input type="text" name="titolare" value="{{session['metodo'].titolare}}">
+                    <br>
+                    Scadenza: <input type="text" name="scadenza" value="{{session['metodo'].scadenza}}">
+                    <br>
+                    CVV: <input type="text" name="cvv" value="{{session['metodo'].cvv}}">
+                    <input type="submit" value="Modifica">
+                </form>
             </div>
         </div>
     </body>
 
-    <script src="/static/javascript/user.js"></script> 
-    <script>
-       
-    </script>
+    <script src="/static/javascript/user.js"></script>
 </html>

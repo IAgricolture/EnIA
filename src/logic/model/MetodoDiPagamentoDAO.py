@@ -53,3 +53,18 @@ class MetodoDiPagamentoDAO():
         return metodoTrovato
 
 
+    def modificaMetodo(metodo : MetodoDiPagamento): 
+        """
+            Questo metodo prende in ingresso un oggetto Metodo di pagamento e lo modifica nel database
+        """  
+        trovato = MetodoDiPagamentoDAO.findMetodo(metodo.id)
+        if(trovato == None):
+            return None
+
+        metodi_di_pagamento.update_one({"_id": ObjectId(trovato.id)},
+        {"$set": {
+            "numero_carta" : metodo.num_carta,
+            "titolare": metodo.titolare,
+            "scadenza": metodo.scadenza,
+            "cvv": metodo.cvv,
+        }})
