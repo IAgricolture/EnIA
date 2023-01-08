@@ -114,8 +114,7 @@
     });
 
     
-
-    if("{{terreno.preferito}}" == "on"){
+    if("{{terreno.preferito}}" == "True"){
       document.getElementById("preferito").checked = true
     } else {
       document.getElementById("preferito").checked = false
@@ -210,7 +209,7 @@
                 idTerreno   :  "{{terreno.id}}",
                 nome :  document.getElementById('nome').value,
                 coltura : document.getElementById('coltura').value,
-                preferito : document.getElementById('preferito').value,
+                preferito : document.getElementById('preferito').checked,
                 priorita : document.getElementById('priorita').value,
                 posizione : polygon.toGeoJSON()
            }
@@ -228,6 +227,7 @@
         .then(data=>{ 
           console.log(data)
           var div = document.createElement('div')
+          div.setAttribute("name", "notificamodifica")
           var testo = document.createElement('strong')
           var parent = document.getElementById("formnascosto")
           if(data["modificato"] =="true"){
@@ -238,7 +238,7 @@
               div.className = "alert alert-danger"
             }
         //Controlla che non esista già la notifica
-        var notifiche = document.getElementsByName("notificacerca")
+        var notifiche = document.getElementsByName("notificamodifica")
         if(notifiche.length > 0)
         {
           while(notifiche.length > 0){
