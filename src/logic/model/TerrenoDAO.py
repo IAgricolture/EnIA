@@ -30,9 +30,9 @@ class TerrenoDAO():
         id2 = str(trovato.get("_id"))
         nome = str(trovato.get("Nome"))
         coltura = str(trovato.get("Coltura"))
-        posizione = str(trovato.get("Posizione"))
+        posizione = trovato.get("Posizione")
+        print(posizione)
         preferito = (trovato.get("Preferito"))
-        print(preferito)
         priorita = int(trovato.get("Priorita"))  
         NewTerreno = Terreno(id2,nome,coltura,posizione,preferito,priorita)
         return NewTerreno
