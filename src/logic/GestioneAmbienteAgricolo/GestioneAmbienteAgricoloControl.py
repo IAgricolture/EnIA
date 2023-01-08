@@ -32,27 +32,15 @@ class AmbienteAgricoloControl():
         return jsonify(risposta)
 
 
-    @app.route("/modifyterrain", methods = ["POST", "GET"])
-    def cerca():
-        """ Chiama il metodo TrovaTerreno da TerrenoDAO, se lo trova lo restituisce, assieme ad un messaggio di successo,
-            altrimenti restituisce None ed un messaggio di errore.
-        """
-        if request.args.get("action") == "search":
-
-            idTerreno : str = request.args.get("idTerreno") #Se non str, sicuramente fallisce, trovaTerreno si aspetta str
-            print("idTerreno inserito: " + idTerreno)
-            if len(idTerreno) != 24:    #Controllo che sia un id MongoDB valido
-                print("Errore: Id inserito non valido.")
-                return jsonify({"terrenoJSON": None, "trovato" : "false"})
+    @app.route("/modificaTerreno", methods=["POST", "GET"])
+    def cercaModificata():
+        if request.method != "POST":
+            idTerreno = request.args.get("idTerreno")
             terreno = TerrenoDAO.TrovaTerreno(idTerreno)
-            if terreno is None: #Non l'ha trovato
-                return jsonify({"terrenoJSON": None, "trovato" : "false"})
-            else:  
-                json1 = json.dumps(terreno.__dict__)
-                return jsonify({"terrenoJSON": json1, "trovato": "true"})
-      
-        elif request.args.get("action") == "modify":
+            return render_template("modifyterrain.html", terreno = terreno, posizione = terreno.posizione)
+        elif request.method == "POST":
             richiesta = request.get_json()
+            print(str(richiesta))
             idTerreno = richiesta.get("idTerreno")
             nome = richiesta.get("nome")
             coltura = richiesta.get("coltura")
@@ -62,9 +50,7 @@ class AmbienteAgricoloControl():
             terreno = Terreno(idTerreno, nome, coltura, posizione, preferito, priorita)
             print(terreno)
             TerrenoDAO.modificaTerreno(terreno)
-            return jsonify({"modificato": "true"}) #TODO: AGGIUNGERE ERROR HANDLING A MODIFICATERRENO"""
-
-
+            return jsonify({"modificato": "true"})
 
 
 
