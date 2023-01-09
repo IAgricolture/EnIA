@@ -90,43 +90,53 @@ class UtenteControl():
         else:
             return render_template("register.html")
             
-    @app.route("/registerf")
+    @app.route("/registerf", methods = ["GET", "POST"],  methods = ["GET", "POST"])
     def registrazioneFarmer():
-        richiesta = request.args
-        email = richiesta.get("email")
-        nome = richiesta.get("nome")
-        cognome = richiesta.get("cognome")
-        password = hashlib.sha512(richiesta.get("password").encode()).hexdigest()
-        dataDiNascita = richiesta.get("dataNascita")
-        partitaiva = richiesta.get("partitaiva")
-        licenza = richiesta.get("licenza")
-        numerocarta = richiesta.get("numerocarta")
-        titolare = richiesta.get("titolare")
-        scadenza = richiesta.get("scadenza")
-        cvv = richiesta.get("cvv") 
-        #TODO: Implementare la verifica dell'indirizzo
-        indirizzo = richiesta.get("indirizzo")
-        risposta = {
-            "emailUsata": False,
-            "codiceNonValido": False,
-            "utenteRegistrato" : False
-        }
+        if request.method == "POST": 
+            richiesta = request.form
+            email = richiesta.get("email")
+            nome = richiesta.get("nome")
+            cognome = richiesta.get("cognome")
+            password = hashlib.sha512(richiesta.get("password").encode()).hexdigest()
+            dataDiNascita = richiesta.get("dataNascita")
+            partitaiva = richiesta.get("partitaiva")
+            licenza = richiesta.get("licenza")
+            numerocarta = richiesta.get("numerocarta")
+            titolare = richiesta.get("titolare")
+            scadenza = richiesta.get("scadenza")
+            cvv = richiesta.get("cvv") 
+            #TODO: Implementare la verifica dell'indirizzo
+            indirizzo = richiesta.get("indirizzo")
+            risposta = {
+                "emailUsata": False
+            }
 
-        #Se l'email è già usata il server avviserà il front-end
-        if UtenteDAO.trovaUtenteByEmail(email) != None:
-            risposta["emailUsata"] = True
-        else:
-            utente = Utente("", nome, cognome, email, password, "farmer", dataDiNascita, partitaiva, None, indirizzo)
-            id = UtenteDAO.creaUtente(utente)
-            #TODO decidere i parametri delle licenze
-            l = Licenza("", licenza, 5000, datetime.now().date().isoformat(), datetime.now().date().isoformat(), False, id)
-            LicenzaDAO.creaLicenza(l)
-            m = MetodoDiPagamento("", numerocarta, titolare, scadenza, cvv, id)
-            MetodoDiPagamentoDAO.creaMetodo(m)
+            #Se l'email è già usata il server avviserà il front-end
+            if UtenteDAO.trovaUtenteByEmail(email) != None:
+                risposta["emailUsata"] = True
+            else:
+                utente = Utente("", nome, cognome, email, password, "farmer", dataDiNascita, partitaiva, None, indirizzo)
+                id = UtenteDAO.creaUtente(utente)
+                #TODO decidere i parametri delle licenze
+                l = Licenza("", licenza, 5000, datetime.now().date().isoformat(), datetime.now().date().isoformat(), False, id)
+                LicenzaDAO.creaLicenza(l)
+                m = MetodoDiPagamento("", numerocarta, titolare, scadenza, cvv, id)
+                MetodoDiPagamentoDAO.creaMetodo(m)
+            #Se l'email è già usata il server avviserà il front-end
+            if UtenteDAO.trovaUtenteByEmail(email) != None:
+                risposta["emailUsata"] = True
+            else:
+                utente = Utente("", nome, cognome, email, password, "farmer", dataDiNascita, partitaiva, None, indirizzo)
+                id = UtenteDAO.creaUtente(utente)
+                #TODO decidere i parametri delle licenze
+                l = Licenza("", licenza, 5000, datetime.now().date().isoformat(), datetime.now().date().isoformat(), False, id)
+                LicenzaDAO.creaLicenza(l)
+                m = MetodoDiPagamento("", numerocarta, titolare, scadenza, cvv, id)
+                MetodoDiPagamentoDAO.creaMetodo(m)
 
-            risposta["utenteRegistrato"] = True 
-        #Invio della risposta al server in formato json
-        return jsonify(risposta)
+                return render_template("login.html")
+        
+        return render_template("registerfarmer.html")
 
     @app.route("/user", methods = ["GET", "POST"])
     def user():
