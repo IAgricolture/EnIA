@@ -322,6 +322,7 @@
               <div class="col-sm-6">
                 <div class="d-flex align-items-center justify-content-md-end">
                   <div class="mb-3 mb-xl-0 pr-1">
+                    <button type="button" class="btn btn-primary" onclick = "rimandamodifica()" >Modifica</button>
                   </div>
                 </div>
               </div>
@@ -358,7 +359,6 @@
                               <div class="text-danger small">Alert</div>
                               <div class="text-warning small">Notifica</div>
                             </div>
-                            <canvas id="eventChart"></canvas>
                           </div>
                         </div>
                       </div>
@@ -385,12 +385,11 @@
                               <div id = "coltura" class="text-muted"></div>
                             </div>
                             <div class="d-flex justify-content-between mb-4">
-                              <div>Preferito</div>
-                              <div id = "heart"></div>
-                            </div>
-                            <div class="d-flex justify-content-between mb-4">
                               <div>Priorità</div>
                               <div id = "priorita" class="text-muted"></div>
+                            </div>
+                            <div class="d-flex justify-content-between mb-4">
+                              <div id = "preferito"></div>
                             </div>
                           </div>
                         </div>
@@ -406,6 +405,7 @@
                   <div class="card-body">
                     <div class="d-flex flex-wrap justify-content-between">
                       <h4 class="card-title mb-3">Dati meteo</h4>
+                      <canvas id="line-chart" width="800" height="450"></canvas>
                     </div>
                   </div>
                 </div>
@@ -415,22 +415,25 @@
                   <div class="card-body">
                     <div class="d-flex flex-wrap justify-content-between">
                       <h4 class="card-title mb-3">Dati inquinamento</h4>
+                      <canvas id="doughnut-chart" width="800" height="450"></canvas>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             <div class="row">
-              <div class="col-lg-6 d-flex grid-margin stretch-card">
+              <div class="col-lg-4 d-flex grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="d-flex flex-wrap justify-content-between">
-                      <h4 class="card-title mb-3">Codice QR</h4>
+                      <h4 class="card-title mb-3">Report</h4>
+                          <div class="col-sm-12">
+                              <button type="button" class="btn btn-secondary">Genera QR</button>
+                          </div>
                     </div>
-                  </div>
-                </div>
-              </div>
+                 </div>
+             </div>
             </div>
+          </div>
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
           <footer class="footer">
@@ -468,6 +471,11 @@
 
     <script>
 
+      function rimandamodifica()
+      {
+        window.location.href = "http://localhost:5000/modificaTerreno?idTerreno=" + terreno.id 
+      }
+
       var map = L.map('map').setView([51.505, -0.09], 13);
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
@@ -497,6 +505,66 @@
       var points = [];
       var polygon = L.geoJSON(u).addTo(map)
       map.fitBounds(polygon.getBounds())
+
+      new Chart(document.getElementById("line-chart"), {
+        type: 'line',
+        data: {
+          labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
+          datasets: [{ 
+              data: [86,114,106,106,107,111,133,221,783,2478],
+              label: "Africa",
+              borderColor: "#3e95cd",
+              fill: false
+            }, { 
+              data: [282,350,411,502,635,809,947,1402,3700,5267],
+              label: "Asia",
+              borderColor: "#8e5ea2",
+              fill: false
+            }, { 
+              data: [168,170,178,190,203,276,408,547,675,734],
+              label: "Europe",
+              borderColor: "#3cba9f",
+              fill: false
+            }, { 
+              data: [40,20,10,16,24,38,74,167,508,784],
+              label: "Latin America",
+              borderColor: "#e8c3b9",
+              fill: false
+            }, { 
+              data: [6,3,2,2,7,26,82,172,312,433],
+              label: "North America",
+              borderColor: "#c45850",
+              fill: false
+            }
+          ]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'World population per region (in millions)'
+          }
+        }
+      });
+
+      new Chart(document.getElementById("doughnut-chart"), {
+        type: 'doughnut',
+        data: {
+          labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+          datasets: [
+            {
+              label: "Population (millions)",
+              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+              data: [2478,5267,734,784,433]
+            }
+          ]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'Predicted world population (millions) in 2050'
+          }
+        }
+    });
     </script>
 
     <!-- End custom js for this page-->
