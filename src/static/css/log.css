@@ -22,3 +22,10 @@
     border-radius: 0;
     font-size: .9375rem;
 }
+
+.card{
+    border-top-left-radius: 3rem;
+    border-top-right-radius: 3rem;
+    border-bottom-right-radius: 3rem;
+    border-bottom-left-radius: 3rem;
+}
