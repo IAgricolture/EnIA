@@ -53,33 +53,34 @@ function register(){
       formPassword.classList.add("has-feedback")
     }
     else{
-      var url = new URL("http://localhost:5000/registerf")
-      url.searchParams.append("email", email)
-      url.searchParams.append("nome", nome)
-      url.searchParams.append("cognome", cognome)
-      url.searchParams.append("password", password)
-      url.searchParams.append("indirizzo", indirizzo)
-      url.searchParams.append("dataNascita", dataNascita)
-      url.searchParams.append("partitaiva", partitaiva)
-      url.searchParams.append("licenza", licenza)
-      url.searchParams.append("numerocarta", numerocarta)
-      url.searchParams.append("titolare", titolare)
-      url.searchParams.append("scadenza", scadenza)
-      url.searchParams.append("cvv", cvv)
+      var data = new FormData()
+      data.append("email", email)
+      data.append("nome", nome) 
+      data.append("cognome", cognome)
+      data.append("password", password)
+      data.append("indirizzo", indirizzo)
+      data.append("dataNascita", dataNascita)
+      data.append("partitaiva", partitaiva)
+      data.append("licenza", licenza)
+      data.append("numerocarta", numerocarta)
+      data.append("titolare", titolare)
+      data.append("scadenza", scadenza)
+      data.append("cvv", cvv)
 
-      let response = fetch(url,
+      let response = fetch("registerf",
       {
-        "method": "GET",
+        "method": "POST",
         "headers": {},
+        "body": data
       }).then(res=>res.json())
       .then(data=>{
           console.log(data)
           if(data["emailUsata"]){
             labelEmail.innerHTML += ":email già usata"
           } else if (data["utenteRegistrato"]){
-            labelCodice.innerHTML += ":utenteNonRegistrato"
+            labelCodice.innerHTML += ":utenteRegistrato"
           } else{
-            labelCodice.innerHTML += "utenteRegistrato"
+            labelCodice.innerHTML += "utenteNonRegistrato"
           }
       })
     }

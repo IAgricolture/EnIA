@@ -2,7 +2,7 @@ import datetime
 
 #Scheletro della classe licenza così come è presente sul database
 class Licenza():
-    def __init__(self, id:str, tipo: str, costo: float, data_attivazione: datetime, data_scadenza:datetime, scaduta: bool, proprietario: str):
+    def __init__(self, id:str, tipo: str, costo: float, data_attivazione: str, data_scadenza:str, scaduta: bool, proprietario: str):
         
         self.id = id
         self.tipo = tipo

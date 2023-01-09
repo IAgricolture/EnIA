@@ -40,6 +40,23 @@ class LicenzaDAO():
 
         return str(result.inserted_id)
 
+    def findLicenzaByProprietario(id : str) -> Licenza:
+        """
+            Questo metodo trova una licenza non scaduta sul database, usando l'identificativo del suo proprietario
+            :return: Licenza
+        """
+        trovato = licenze.find_one({"proprietario" : id, "scaduta": False})
+        
+        id = str(trovato.get("_id"))
+        tipo = trovato.get("tipo")
+        costo = trovato.get("costo")
+        data_attivazione = trovato.get("data_attivazione")
+        data_scadenza = trovato.get("data_scadenza")
+        scaduta = trovato.get("scaduta")
+        proprietario = trovato.get("proprietario")
 
+        licenzaTrovata = Licenza(id, tipo, costo, data_attivazione, data_scadenza, scaduta, proprietario)
+
+        return licenzaTrovata
 
 

@@ -1,0 +1,33 @@
+.auth .auth-form-light {
+    background: #D1DFE2!important;
+    border-radius: 3rem !important;
+}
+
+.btn-primary {
+    color: #fff !important;
+    background-color: #4DBAF6 !important;
+    border-color: #4DBAF6 !important;
+}
+
+.btn-lg, .btn-group-lg > .btn {
+    border-radius: 3rem !important;
+}
+
+.text-primary, .list-wrapper .completed .remove {
+    color: #4DBAF6 !important;
+}
+
+.auth form .form-group .form-control, .auth form .form-group .select2-container--default .select2-selection--single, .select2-container--default .auth form .form-group .select2-selection--single, .auth form .form-group .select2-container--default .select2-selection--single .select2-search__field, .select2-container--default .select2-selection--single .auth form .form-group .select2-search__field, .auth form .form-group .typeahead, .auth form .form-group .tt-query, .auth form .form-group .tt-hint {
+    background: white !important;
+    border-radius: 0;
+    font-size: .9375rem;
+}
+
+.form-check .form-check-label input[type="checkbox"] + .input-helper::before {
+    border: 2px solid  #4DBAF6 !important;
+}
+
+.form-check .form-check-label input[type="checkbox"]:checked + .input-helper:before {
+    background: #4DBAF6 !important;
+    border-width: 0;
+}
