@@ -90,7 +90,7 @@ class UtenteControl():
         else:
             return render_template("register.html")
             
-    @app.route("/registerf", methods = ["GET", "POST"],  methods = ["GET", "POST"])
+    @app.route("/registerf", methods = ["GET", "POST"])
     def registrazioneFarmer():
         if request.method == "POST": 
             richiesta = request.form
