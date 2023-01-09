@@ -64,13 +64,13 @@ class AmbienteAgricoloControl():
         #TODO Scrivere documenzione
         """
         if(request.method != "POST"):
-            return render_template("eliminaterreno.html")
+            idTerreno = request.args.get("idTerreno")
+            terreno = TerrenoDAO.TrovaTerreno(idTerreno)
+            return render_template("eliminaterreno.html", terreno = terreno)
         elif request.method == "POST":
-            idTerreno : str = request.args.get("idTerreno") #Se non str, sicuramente fallisce, trovaTerreno si aspetta str
-            print("idTerreno inserito: " + idTerreno)
-            if len(idTerreno) != 24:    #Controllo che sia un id MongoDB valido
-                print("Errore: Id inserito non valido.")
-                
+            richiesta = request.get_json()
+            print(str(richiesta))
+            idTerreno = str(richiesta)   
             terreno = TerrenoDAO.TrovaTerreno(idTerreno)
             if terreno is None: #Non l'ha trovato
                 print("Nessun Terreno trovato con questo id")
