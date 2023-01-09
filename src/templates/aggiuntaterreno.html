@@ -5,32 +5,40 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Aggiunta Terrano</title>
+  <title>Aggiunta Terreno</title>
   <!-- base:css -->
-  <link rel="stylesheet" href="vendors/typicons.font/font/typicons.css">
-  <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="/static/vendors/typicons.font/font/typicons.css">
+  <link rel="stylesheet" href="/static/vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- plugin css for this page -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+     crossorigin=""/>
+     <style>
+      #map{
+          height: 400px;
+      }
+  </style>
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="css/vertical-layout-light/style.css">
+  <link rel="stylesheet" href="/static/css/vertical-layout-light/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="images/favicon.png" />
+  <link rel="shortcut icon" href="/static/images/favicon.png" />
 </head>
 
 <body>
   <div class="container-scroller">
     <div class="container-fluid page-body-wrapper full-page-wrapper" >
-      <div class="content-wrapper d-flex align-items-center auth px-0" style="background-image: url('images/carousel/banner.jpg'); background-repeat: no-repeat;">
+      <div class="content-wrapper d-flex align-items-center auth px-0" style="background-image: url('/static/images/carousel/banner.jpg'); background-repeat: no-repeat;">
         <div class="row w-100 mx-0">
           <div class="col-lg-12 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
               <div class="brand-logo">
-                <img src="images/enia.png" alt="logo">
+                <img src="/static/images/enia.png" alt="logo">
               </div>
-              <h4>New here?</h4>
-              <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
-              <form class="pt-3">
+              <h4>Inserimento terreno</h4>
+              <h6 class="font-weight-light">Inserire i dettagli del terreno nei campi seguenti, indicandone i confini sulla mappa.</h6>
+              <form class="pt-3" id = "form1">
                 <div class="form-group form-group">
                   <label for="input-field" id="labelEmail">Nome</label>
                   <input type="text" class="form-control form-control-sm" id="nome">
@@ -39,22 +47,20 @@
                   <label for="input-field" id="labelEmail">Coltura</label>
                   <input type="text" class="form-control form-control-sm" id="coltura">
                 </div>
-                <div class="form-group form-group">
-                  <label for="input-field" id="labelEmail">Posizione</label>
-                  <input type="text" class="form-control form-control-sm" id="posizione">
-                </div>
                 <div class="form-group">
                   <label for="input-field" id="labelPassword">Preferito</label>
                   <input type="checkbox" class="form-control form-control-sm" id="preferito" value="True">
                 </div>
                 <div class="form-group">
                   <label for="input-field">Priorita</label>
-                  <input type="text" class="form-control form-control-sm" id="priorita">
+                  <input type="number" class="form-control form-control-sm" id="priorita">
+                </div>
+                <div id="map">
                 </div>
                 <div class="mb-4">
                 </div>
                 <div class="mt-3">
-                  <a class="btn btn-block btn-success btn-lg font-weight-medium auth-form-btn" onclick="insert()">INSESCI TERRENO</a>
+                  <a class="btn btn-block btn-success btn-lg font-weight-medium auth-form-btn" onclick="insert()">INSERISCI TERRENO</a>
                 </div>
               </form>
             </div>
@@ -67,44 +73,178 @@
   </div>
   <!-- container-scroller -->
   <!-- base:js -->
-  <script src="vendors/js/vendor.bundle.base.js"></script>
+  <script src="/static/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- inject:js -->
-  <script src="js/off-canvas.js"></script>
-  <script src="js/hoverable-collapse.js"></script>
-  <script src="js/template.js"></script>
-  <script src="js/settings.js"></script>
-  <script src="js/todolist.js"></script>
+  <script src="/static/js/off-canvas.js"></script>
+  <script src="/static/js/hoverable-collapse.js"></script>
+  <script src="/static/js/template.js"></script>
+  <script src="/static/js/settings.js"></script>
+  <script src="/static/js/todolist.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+  integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+  crossorigin=""></script>
   <script>
+    var map = L.map('map').setView([51.505, -0.09], 13);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    var points = [];
+    var polygon
+    map.on('click', function(e) {
+        points.push(e.latlng);
+        if (points.length >= 1) {
+            if (polygon != null){
+                polygon.remove()
+            }
+            
+            polygon = L.polygon(points).addTo(map);
+        }
+    });
+    var popup = L.popup();
+
+
+
     function insert(){
-        console.log("Test0")
+
         var nome = document.getElementById("nome").value
         var coltura = document.getElementById("coltura").value
-        var posizione = document.getElementById("posizione").value
         var preferito = document.getElementById("preferito").checked
         var priorita = document.getElementById("priorita").value
         
-        console.log("Test1")
-        
-          var url = new URL("http://localhost:5000/aggiuntaterreno")
-          url.searchParams.append("nome", nome)
-          url.searchParams.append("coltura", coltura)
-          url.searchParams.append("posizione", posizione)
-          url.searchParams.append("preferito", preferito)
-          url.searchParams.append("priorita", priorita)
-          console.log("Test2")
+          var url = new URL("http://localhost:5000/aggiuntaTerreno")
+          data = new FormData()
+          console.log(polygon.toGeoJSON())
+          data.append("nome", nome)
+          data.append("coltura", coltura)
+          data.append("preferito", preferito)
+          data.append("priorita", priorita)
+          geoJson = polygon.toGeoJSON()
+          
+          var data = {
+                nome : nome,
+                coltura : coltura,
+                preferito : preferito,
+                priorita : priorita,
+                posizione : geoJson
+          }
+          console.log(JSON.stringify(data))
+          console.log(data)
+
+          if(!(validate()))
+            {
+            return //FORSE ESISTE UN ALTRO MODO?
+            }
           let response = fetch(url,
           {
-            "method": "GET",
-            "headers": {},
+            "method": "POST",
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            "body": JSON.stringify(data)
           }).then(res=>res.json())
           .then(data=>{
               console.log(data)
+              var div = document.createElement('div')
+              div.setAttribute("name", "notificamodifica")
+              var testo = document.createElement('strong')
+              var parent = document.getElementById("form1")
+              if(data["TerrenoAggiunto"] =="True"){
+                testo.innerHTML="Il terreno è stato inserito con successo!"
+                div.className = "alert alert-success"
+                } else {
+                  testo.innerHTML="Si è verificato un errore nell' inserimento del terreno!"
+                  div.className = "alert alert-danger"
+                }
+            //Controlla che non esista già la notifica
+            var notifiche = document.getElementsByName("notificamodifica")
+            if(notifiche.length > 0)
+            {
+              while(notifiche.length > 0){
+              notifiche[0].parentNode.removeChild(notifiche[0])
+              }
+            }
+            div.appendChild(testo) 
+            parent.appendChild(div)
           })
         
         
     }
+
+    function validate() 
+    /*Controlla che i dati siano stati correttamente inseriti nei form.
+      Funzionamento: creo una Regexp, che viene poi modificata a seconda del form type. validAll indica 
+      che tutti i campi sono corretti, validThisForm che quello considerato lo sia. 
+      Per ogni form, controlla che non sia vuoto o incorretto: altrimenti, crea una notifica di errore, se
+      non esiste già. Se invece il form è corretto e la notifica esiste, la rimuove.*/
+    {
+      var regexp = /^[a-zA-Z0-9]{1,50}$/  //Regex per testo alfanumerico, da 1 a 50 caratteri, senza spazi
+      var validAll = true
+      var forms = [ document.getElementById('nome'), document.getElementById('coltura'), document.getElementById('priorita')]     
+      forms.forEach(function(form){   //Per ogni form, controlla se ha testo al suo interno e se ha formato corretto con REGEXP.
+        console.log("Controllo form" + form.id)
+        var validThisForm = true
+        var div = document.createElement('div')
+        div.className = "alert alert-danger"
+        var testo = document.createElement('strong')
+        var notifiche = form.parentElement.getElementsByClassName("alert alert-danger")
+        if(form.type == "number")   //Cambio regex per i numeri
+        {
+         var regexp = /^[0-9]/
+        }else
+        {
+         var regexp = /^[a-zA-Z0-9]{1,50}$/
+        }
+
+        if(!(form.value))
+        {
+          validThisForm = false
+          testo.innerHTML="Errore: necessario compilare il campo."
+        }else
+        {
+          if(!(regexp.test(form.value)))
+        {
+          validThisForm = false
+          if(regexp == /^[a-zA-Z0-9]{1,50}$/)
+          {
+            testo.innerHTML="Errore: il valore inserito non è corretto. Riprovare, usando solo caratteri alfanumerici senza spazi."
+          }
+          else
+          {
+            testo.innerHTML="Errore: il valore inserito non è corretto. Riprovare, usando un unico numero."
+          }
+        }
+        }
+        if(!(validThisForm))
+        {
+          validAll = false
+          div.appendChild(testo)
+          if(!(notifiche.length > 0))
+          {
+            form.parentElement.appendChild(div)
+          }
+        }
+        else
+        {
+          if(notifiche.length > 0)
+          {
+            while(notifiche.length > 0){
+            notifiche[0].parentNode.removeChild(notifiche[0])
+            }
+          }
+        }
+        console.log("Risultato controllo, form è corretto: " + validThisForm)
+      })
+      console.log("Risultato controllo, form sono corretti: " + validAll)
+      return validAll
+    }
+
   </script>
+  <script>
+    
+</script>
   <!-- endinject -->
 </body>
 </html>

@@ -28,17 +28,18 @@ class TerrenoDAO():
         if(trovato == None):
             return None
         id2 = str(trovato.get("_id"))
-        nome = str(trovato.get("nome"))
-        coltura = str(trovato.get("coltura"))
-        posizione = str(trovato.get("posizione"))
-        preferito = bool(trovato.get("preferito"))
-        priorita = trovato.get("priorita")   
+        nome = str(trovato.get("Nome"))
+        coltura = str(trovato.get("Coltura"))
+        posizione = trovato.get("Posizione")
+        print(posizione)
+        preferito = (trovato.get("Preferito"))
+        priorita = int(trovato.get("Priorita"))  
         NewTerreno = Terreno(id2,nome,coltura,posizione,preferito,priorita)
         return NewTerreno
 
 
     def RimuoviTerreno(terreno : Terreno):
-        trovato = terreni.delete_one({"_id" : ObjectId(id)})
+        trovato = terreni.delete_one({"_id" : ObjectId(terreno.id)})
         if trovato.deleted_count == 1:
             print("Eliminato")
         else:
@@ -47,15 +48,15 @@ class TerrenoDAO():
     def modificaTerreno(terrenoMod : Terreno): 
         """ Il metodo modifica un'entità terreno presente nel database, trasformandola in quella passata come parametro."""  
         trovato = TerrenoDAO.TrovaTerreno(str(terrenoMod.id))
-        print(trovato.nome)
+        print(terrenoMod.preferito)
         if(trovato == None):
             return None
         terreni.update_one({"_id": ObjectId(trovato.id)},
         {"$set": {
-            "nome" : terrenoMod.nome,
-            "coltura": terrenoMod.coltura,
-            "posizione": terrenoMod.posizione,
-            "preferito": terrenoMod.preferito,
-            "priorita": terrenoMod.priorita,
-            "listautenti" : terrenoMod.listautenti,
+            "Nome" : terrenoMod.nome,
+            "Coltura": terrenoMod.coltura,
+            "Posizione": terrenoMod.posizione,
+            "Preferito": terrenoMod.preferito,
+            "Priorita": terrenoMod.priorita,
+            "ListaUtenti" : terrenoMod.listautenti,
         }})
