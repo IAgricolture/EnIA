@@ -22,14 +22,14 @@ class AmbienteAgricoloControl():
             priorita = richiesta.get("priorita")
 
             risposta = {
-                "TerrenoAggiunto" : False
+                "TerrenoAggiunto" : "False"
             }
 
             #MeMO: per salvarlo ne DB
             NewTerreno = Terreno(id,nome,coltura,posizione,preferito,priorita)
             TerrenoDAO.InserisciTerreno(NewTerreno)
 
-            risposta["TerrenoAggiunto"] = True
+            risposta["TerrenoAggiunto"] = "True"
             #TODO implememtare i controlli per l'aggiunta
 
             #Invio della risposta al server in formato json

@@ -147,14 +147,19 @@
         var notifiche = form.parentElement.getElementsByClassName("alert alert-danger")
         if(form.type == "number")   //Cambio regex per i numeri
         {
-          regexp = /^[0-9]/
+         var regexp = /^[0-9]/
+        }else
+        {
+         var regexp = /^[a-zA-Z0-9]{1,50}$/
         }
+
         if(!(form.value))
         {
           validThisForm = false
           testo.innerHTML="Errore: necessario compilare il campo."
-        }
-        if(!(regexp.test(form.value)))
+        }else
+        {
+          if(!(regexp.test(form.value)))
         {
           validThisForm = false
           if(regexp == /^[a-zA-Z0-9]{1,50}$/)
@@ -165,6 +170,7 @@
           {
             testo.innerHTML="Errore: il valore inserito non è corretto. Riprovare, usando un unico numero."
           }
+        }
         }
         if(!(validThisForm))
         {
