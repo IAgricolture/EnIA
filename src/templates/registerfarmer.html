@@ -18,6 +18,12 @@
   <link rel="stylesheet" href="static/css/stile.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="static/images/enia.png" />
+
+  <style>
+    p{
+      color: red;
+    }
+  </style>
 </head>
 
 <body>
@@ -33,73 +39,89 @@
               </div>
               <h4>Nuovo Utente</h4>
               <h6 class="font-weight-light">Iscriversi è facile. Bastano pochi passaggi</h6>
-              <form class="pt-3" method="post" action="/registerf">
+              <form class="pt-3" id="form" method="post" action="/registerf">
                 <div class="form-group" id="1">
                   <label for="input-field" id="labelName">Nome</label>
                   <input type="text" class="form-control form-control-sm" id="nome" name="nome">
+                  <p id="nomeerr"></p>
                 </div>
                 <div class="form-group" id="1">
                   <label for="input-field" id="labelCognome">Cognome</label>
                   <input type="text" class="form-control form-control-sm" id="cognome" name="cognome">
+                  <p id="cognomeerr"></p>
                 </div>
                 <div class="form-group" id="1">
                   <label for="input-field" id="labelEmail">E-mail</label>
                   <input type="email" class="form-control form-control-sm" id="email" name="email">
+                  <p id="emailerr"></p>
                 </div>
                 <div class="form-group" id="1">
                   <label for="input-field" id="labelPassword">Password</label>
                   <input type="password" class="form-control form-control-sm" id="password" name="password">
+                  <p id="passerr"></p>
                 </div>
                 <div class="form-group" id="1">
                   <label for="input-field">Conferma password</label>
                   <input type="password" class="form-control form-control-sm" id="confermaPassword">
+                  <p id="conferr"></p>
                 </div>
                 <div class="form-group" id="1">
                   <label for="input-field" id="labelIndirizzo">Indirizzo</label>
                   <input type="text" class="form-control form-control-sm" id="indirizzo" name="indirizzo">
+                  <p id="indirizzoerr"></p>
                 </div>
                 <div class="form-group" id="1">
                   <label for="input-field" id="labeldataNascita">Data di nascita</label>
                   <input type="date" class="form-control form-control-sm" id="dataNascita" name="dataNascita">
+                  <p id="dataerr"></p>
                 </div>
                 <div class="form-group" id="1">
                   <label for="input-field" id="labelPartitaIva">Partita IVA</label>
                   <input type="text" class="form-control form-control-sm" id="partitaiva" name="partitaiva">
+                  <p id="partitaivaerr"></p>
                 </div>
                 <div class="form-group myform" id="2" style="display: none;">
-                  <input type="radio" id="licenza" name="licenza" value="licenza standard" />
-                  <label for="1">Licenza standard</label>
-                  <input type="radio" id="licenza" name="licenza" value="licenza premium" />
-                  <label for="2">Licenza premium</label>
+                  <input type="radio" id="standard" name="licenza" value="licenza standard" />
+                  <label for="radio">Licenza standard</label>
+                  <input type="radio" id="premium" name="licenza" value="licenza premium" />
+                  <label for="radio">Licenza premium</label>
+                  <p id="licenzaerr"></p>
                 </div>
+
+                <div class="form-group" id="3" style="display: none;">
+                  <label for="input-field" id="labelNumeroCarta">Numero carta</label>
+                  <input type="text" class="form-control form-control-sm" id="numerocarta" name="numerocarta">
+                  <p id="numerocartaerr"></p>
+                </div>
+                <div class="form-group" id="3" style="display: none;">
+                  <label for="input-field" id="labelTitolare">Titolare</label>
+                  <input type="text" class="form-control form-control-sm" id="titolare" name="titolare">
+                  <p id="titolareerr"></p>
+                </div>
+                <div class="form-group" id="3" style="display: none;">
+                  <label for="input-field" id="labelScadenza">Scadenza</label>
+                  <input type="text" class="form-control form-control-sm" id="scadenza" name="scadenza">
+                  <p id="scadenzaerr"></p>
+                </div>
+                <div class="form-group" id="3" style="display: none;">
+                  <label for="input-field" id="labelCvv">Cvv</label>
+                  <input type="text" class="form-control form-control-sm" id="cvv" name="cvv">
+                  <p id="cvverr"></p>
+                  <div class="mt-3">
+                    <input class="btn btn-block btn-success btn-lg font-weight-medium auth-form-btn" type="button"
+                      value="Registrati" onclick="Check()">
+                  </div>
+                </div>
+                <div class="mt-3" id="avanti">
+                  <a class="btn btn-block btn-success btn-lg font-weight-medium auth-form-btn"
+                    onclick="Avanti()">Avanti</a>
+                </div>
+                <div class="mt-3" id="dietro" style="display: none;">
+                  <a class="btn btn-block btn-success btn-lg font-weight-medium auth-form-btn"
+                    onclick="Dietro()">Dietro</a>
+                </div>
+              </form>
             </div>
-            <div class="form-group" id="3" style="display: none;">
-              <label for="input-field" id="labelNumeroCarta">Numero carta</label>
-              <input type="text" class="form-control form-control-sm" id="numerocarta" name="numerocarta">
-            </div>
-            <div class="form-group" id="3" style="display: none;">
-              <label for="input-field" id="labelTitolare">Titolare</label>
-              <input type="text" class="form-control form-control-sm" id="titolare" name="titolare">
-            </div>
-            <div class="form-group" id="3" style="display: none;">
-              <label for="input-field" id="labelScadenza">Scadenza</label>
-              <input type="text" class="form-control form-control-sm" id="scadenza" name="scadenza">
-            </div>
-            <div class="form-group" id="3" style="display: none;">
-              <label for="input-field" id="labelCvv">Cvv</label>
-              <input type="text" class="form-control form-control-sm" id="cvv" name="cvv">
-              <div class="mt-3">
-                <input class="btn btn-block btn-success btn-lg font-weight-medium auth-form-btn" type="submit"
-                  value="Registrati">
-              </div>
-            </div>
-            <div class="mt-3">
-              <a class="btn btn-block btn-success btn-lg font-weight-medium auth-form-btn" onclick="Avanti()">Avanti</a>
-            </div>
-            <div class="mt-3">
-              <a class="btn btn-block btn-success btn-lg font-weight-medium auth-form-btn" onclick="Dietro()">Dietro</a>
-            </div>
-            </form>
           </div>
         </div>
       </div>
