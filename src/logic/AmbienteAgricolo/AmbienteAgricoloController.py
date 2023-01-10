@@ -3,9 +3,9 @@ from src import app
 from flask import url_for
 import json
 from src.logic.model.Terreno import Terreno
-from src.logic.model.TerrenoDAO import TerrenoDAO
+from src.logic.AmbienteAgricolo.AmbienteAgricoloService import AmbienteAgricoloService
 
-class AmbienteAgricoloControl():
+class AmbienteAgricoloController():
 
     @app.route("/aggiuntaTerreno", methods=["POST", "GET"])
     def aggiungiTerreno():
@@ -14,22 +14,16 @@ class AmbienteAgricoloControl():
         elif request.method == "POST":
             
             richiesta = request.get_json()
-            id = None
             nome = richiesta.get("nome")
             coltura = richiesta.get("coltura")
             posizione = richiesta.get("posizione")
             preferito = richiesta.get("preferito")
             priorita = richiesta.get("priorita")
-
+            
+            risultato = AmbienteAgricoloService.aggiungiTerreno(nome, coltura, posizione, preferito, priorita)
             risposta = {
-                "TerrenoAggiunto" : "False"
+                "TerrenoAggiunto" : "True" #TODO:QUI CI VA IL RISULTATO
             }
-
-            #MeMO: per salvarlo ne DB
-            NewTerreno = Terreno(id,nome,coltura,posizione,preferito,priorita)
-            TerrenoDAO.InserisciTerreno(NewTerreno)
-
-            risposta["TerrenoAggiunto"] = "True"
             #TODO implememtare i controlli per l'aggiunta
 
             #Invio della risposta al server in formato json
@@ -40,7 +34,7 @@ class AmbienteAgricoloControl():
     def cercaModificata():
         if request.method != "POST":
             idTerreno = request.args.get("idTerreno")
-            terreno = TerrenoDAO.TrovaTerreno(idTerreno)
+            terreno = AmbienteAgricoloService.trovaTerreno(idTerreno)
             return render_template("modifyterrain.html", terreno = terreno, posizione = terreno.posizione)
         elif request.method == "POST":
             richiesta = request.get_json()
@@ -51,9 +45,7 @@ class AmbienteAgricoloControl():
             posizione = richiesta.get("posizione")
             preferito = richiesta.get("preferito")
             priorita = richiesta.get("priorita")
-            terreno = Terreno(idTerreno, nome, coltura, posizione, preferito, priorita)
-            print(terreno)
-            TerrenoDAO.modificaTerreno(terreno)
+            risultato = AmbienteAgricoloService.modificaTerreno(idTerreno, nome, coltura, posizione, preferito, priorita)
             return jsonify({"modificato": "true"})
 
 
@@ -65,23 +57,21 @@ class AmbienteAgricoloControl():
         """
         if(request.method != "POST"):
             idTerreno = request.args.get("idTerreno")
-            terreno = TerrenoDAO.TrovaTerreno(idTerreno)
+            terreno = AmbienteAgricoloService.trovaTerreno(idTerreno)
             return render_template("eliminaterreno.html", terreno = terreno)
         elif request.method == "POST":
             richiesta = request.get_json()
             print(str(richiesta))
             idTerreno = str(richiesta)   
-            terreno = TerrenoDAO.TrovaTerreno(idTerreno)
-            if terreno is None: #Non l'ha trovato
-                print("Nessun Terreno trovato con questo id")
+            risultato = AmbienteAgricoloService.eliminaTerreno(idTerreno)
+            #TODO:MIGLIORARE CON BOOLEANI
+            if(risultato):
+                return jsonify({"trovato" : "true"})
+            else:
                 return jsonify({"trovato" : "false"})
-            else:  
-                TerrenoDAO.RimuoviTerreno(terreno)
-                print("Terreno Eliminato ")
-                return jsonify({ "trovato": "true"})
         
     @app.route("/dettagliterreno", methods = ["POST", "GET"])
     def dettagli():
         idTerreno = request.args.get("idTerreno")
-        terreno = TerrenoDAO.TrovaTerreno(idTerreno)
+        terreno = AmbienteAgricoloService.trovaTerreno(idTerreno)
         return render_template("dettagliterreno.html", terreno = terreno)
