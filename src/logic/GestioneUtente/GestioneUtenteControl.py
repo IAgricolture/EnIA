@@ -122,17 +122,6 @@ class UtenteControl():
                 LicenzaDAO.creaLicenza(l)
                 m = MetodoDiPagamento("", numerocarta, titolare, scadenza, cvv, id)
                 MetodoDiPagamentoDAO.creaMetodo(m)
-            #Se l'email è già usata il server avviserà il front-end
-            if UtenteDAO.trovaUtenteByEmail(email) != None:
-                risposta["emailUsata"] = True
-            else:
-                utente = Utente("", nome, cognome, email, password, "farmer", dataDiNascita, partitaiva, None, indirizzo)
-                id = UtenteDAO.creaUtente(utente)
-                #TODO decidere i parametri delle licenze
-                l = Licenza("", licenza, 5000, datetime.now().date().isoformat(), datetime.now().date().isoformat(), False, id)
-                LicenzaDAO.creaLicenza(l)
-                m = MetodoDiPagamento("", numerocarta, titolare, scadenza, cvv, id)
-                MetodoDiPagamentoDAO.creaMetodo(m)
 
                 return render_template("login.html")
         
