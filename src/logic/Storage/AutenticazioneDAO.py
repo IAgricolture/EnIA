@@ -5,7 +5,7 @@ from flask import jsonify
 import datetime
 from bson.objectid import ObjectId
 
-class UtenteDAO():
+class AutenticazioneDAO():
 
     def trovaUtenteByEmail(email: str) -> Utente:
         """
@@ -113,7 +113,7 @@ class UtenteDAO():
         """
             Questo metodo prende in ingresso un oggetto utente e lo modifica nel database
         """  
-        trovato = UtenteDAO.trovaUtente(str(utente.id))
+        trovato = AutenticazioneDAO.trovaUtente(str(utente.id))
         if(trovato == None):
             return None
 

@@ -17,7 +17,12 @@ login_manager = LoginManager(app)
 login_manager.login_view = "loginPage"
 login_manager.login_message_category = "info"
 
-from src.logic.GestioneUtente import GestioneUtenteAuth
+
 from src import routes
-from src.logic.GestioneUtente import GestioneUtenteControl
-from src.logic.GestioneAmbienteAgricolo import GestioneAmbienteAgricoloControl
+from src.logic.Autenticazione import AutenticazioneController
+from src.logic.Registrazione import RegistrazioneController
+from src.logic.Utente import GestioneUtenteController
+from src.logic.AmbienteAgricolo import AmbienteAgricoloController
+from src.logic.DecisionIntelligence import DecisionIntelligenceController
+from src.logic.GestioneEventi import GestioneEventiController
+from src.logic.GestionePagamento import GestionePagamentoController
