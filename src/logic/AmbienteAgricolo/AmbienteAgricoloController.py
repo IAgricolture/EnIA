@@ -74,4 +74,5 @@ class AmbienteAgricoloController():
     def dettagli():
         idTerreno = request.args.get("idTerreno")
         terreno = AmbienteAgricoloService.trovaTerreno(idTerreno)
-        return render_template("dettagliterreno.html", terreno = terreno)
+        posizioneapi = AmbienteAgricoloService.cercaPosizione(idTerreno)
+        return render_template("dettagliterreno.html", terreno = terreno, posizioneapi = posizioneapi)

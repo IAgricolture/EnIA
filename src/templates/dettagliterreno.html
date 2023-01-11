@@ -26,7 +26,7 @@
           z-index: 1;
       }
       #heart {
-        position: relative;
+        position: absolute;
         width: 50px;
         height: 45px;
         margin-top: 10px;
@@ -392,8 +392,12 @@
                               <div>Priorità</div>
                               <div id = "priorita" class="text-muted"></div>
                             </div>
-                            <div class="d-flex justify-content-between mb-4">
-                              <div id = "preferito"></div>
+                            <div class="d-flex justify-content-center mb-4">
+                              <div>Posizione</div>
+                            </div>
+                            <div id = "posizione" class="text-muted"></div>
+                            <div class = "d-flex justify-content-between mb-4"></div>
+                              <div id = "heart"></div>
                             </div>
                           </div>
                         </div>
@@ -500,14 +504,21 @@
         priorita: {{terreno.priorita}},
         posizione: {{terreno.posizione|tojson}} 
       }
+
+      //Ci sono altri campi, ma mi serve solo questo
+      var posizioneapi = {
+        display_name : "{{posizioneapi.display_name}}"
+      }
+      console.log(posizioneapi.display_name)
       console.log(terreno)
       document.getElementById("nomeTerreno").innerHTML = terreno.nome
       document.getElementById("nome").innerHTML = terreno.nome
       document.getElementById("coltura").innerHTML = terreno.coltura
       if(terreno.preferito == "False")
       {
-        document.getElementById("heart").setAttribute("hidden", "")
+        document.getElementById("heart").setAttribute("hidden", true)
       }
+      document.getElementById("posizione").innerHTML = posizioneapi.display_name
       document.getElementById("priorita").innerHTML = terreno.priorita
 
       u = terreno.posizione

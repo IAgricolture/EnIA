@@ -1,5 +1,6 @@
 from src.logic.model.Terreno import Terreno
 from src.logic.Storage.TerrenoDAO import TerrenoDAO
+import requests
 
 #TODO: ERROR HANDLING DAO TERRENO
 class AmbienteAgricoloService():
@@ -25,4 +26,17 @@ class AmbienteAgricoloService():
         else:
             TerrenoDAO.RimuoviTerreno(terreno)
             return True
-        
+    
+    def cercaPosizione(id:str):
+        terreno = TerrenoDAO.TrovaTerreno(id)
+        if(terreno is None):
+            return None
+        else:
+            #Estraggo latitudine e longitudine del primo punto del terreno, di cui prendo la posizione
+            lat = terreno.posizione["geometry"]["coordinates"][0][0][1]
+            lon = terreno.posizione["geometry"]["coordinates"][0][0][0]
+            print(lat)
+            print(lon)
+            datiapi = requests.get("https://nominatim.openstreetmap.org/reverse?lat="+ str(lat) + "&lon=" + str(lon) + "&format=json&zoom=10").json()
+            print(datiapi)
+            return datiapi  #JSON
