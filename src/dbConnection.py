@@ -31,3 +31,6 @@ impianti = db.Impianto_di_irrigazione
 
 #Documenti dati meteo
 datimeteo = db.Dati_Meteo
+
+#Documenti dati inquinamento
+datiinqui = db.Dati_Inquinamento
