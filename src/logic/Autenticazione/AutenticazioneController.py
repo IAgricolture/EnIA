@@ -1,6 +1,6 @@
 from src import login_manager
 
-from src.logic.Autenticazione import AutenticazioneService
+from src.logic.Autenticazione.AutenticazioneService import AutenticazioneService
 
 from flask import request, render_template, redirect
 from src import app
@@ -13,7 +13,7 @@ class AutenticazioneController():
             This method tells flask how to load a user from its session using an unique id
             :return: Utente
         """
-        return AutenticazioneService.trovaUtenteByEmail()
+        return AutenticazioneService.trovaUtenteById(user_id)
 
     @app.route("/login", methods = ["GET", "POST"])
     def login():
@@ -25,7 +25,7 @@ class AutenticazioneController():
         if request.method == "POST" :
             email = request.form.get("email")
             password = request.form.get("password")
-            successo = AutenticazioneService.login()
+            successo = AutenticazioneService.login(email, password)
             if successo:
                 return redirect("user")
             else:

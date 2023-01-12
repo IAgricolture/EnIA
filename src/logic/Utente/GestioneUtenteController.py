@@ -2,7 +2,7 @@ from src.logic.Storage.AutenticazioneDAO import AutenticazioneDAO
 from src.logic.Storage.LicenzaDAO import LicenzaDAO
 from src.logic.Storage.MetodoDiPagamentoDAO import MetodoDiPagamentoDAO
 from src.logic.model.MetodoDiPagamento import MetodoDiPagamento
-from src.logic.GestioneUtente import GestioneUtenteService
+from src.logic.Utente.GestioneUtenteService import GestioneUtenteService
 
 from flask import request, render_template, session
 from src import app
@@ -28,11 +28,12 @@ class GestioneUtenteController():
                 #TODO decidere come far avvenire il cambio licenza
                 print(richiesta.get("licenza"))
             elif tipo == "metodo":
+                mp = MetodoDiPagamento(**session["metodo"])
                 num_carta = richiesta.get("num_carta")
                 titolare = richiesta.get("titolare")
                 scadenza = richiesta.get("scadenza")
                 cvv = richiesta.get("cvv")
-                GestioneUtenteService.modificaMetodo(**session["metodo"], num_carta, titolare, scadenza, cvv)
+                GestioneUtenteService.modificaMetodo(mp, num_carta, titolare, scadenza, cvv)
                 
         if current_user.ruolo == "farmer":
             session["licenza"] = GestioneUtenteService.findLicenzaByProprietario(current_user.id).__dict__

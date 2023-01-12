@@ -1,6 +1,6 @@
 import hashlib
 
-from src.logic.Registrazione import RegistrazioneService
+from src.logic.Registrazione.RegistrazioneService import RegistrazioneService
 
 from flask import jsonify, request, render_template
 from src import app
@@ -53,5 +53,5 @@ class RegistrazioneController():
                 m = RegistrazioneService.creaMetodoDiPagamento(numerocarta, titolare, scadenza, cvv, id)
 
                 return render_template("login.html")
-            
+        else:
             return render_template("registerfarmer.html")

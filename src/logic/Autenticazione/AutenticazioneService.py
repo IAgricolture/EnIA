@@ -28,6 +28,6 @@ class AutenticazioneService():
         
         return successo
     
-    def trovaUtenteByEmail(id:str)-> Utente:
-        return AutenticazioneDAO.trovaUtenteByEmail(id)
+    def trovaUtenteById(id:str)-> Utente:
+        return AutenticazioneDAO.trovaUtente(id)
         
