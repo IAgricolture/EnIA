@@ -26,6 +26,12 @@
           z-index: 1;
       }
 
+      #mapAggiungiIrrigatore{
+        height: 400px;
+        width: 100%;
+        z-index: 1;
+      }
+
       #mapIrrigazione{
         height: 400px;
         width: 100%;
@@ -480,6 +486,9 @@
                           </div>
                           <p>Stato: <span class="btn btn-success rounded-pill active btn-sm p-1">Attivo</span></p>
                         </div>
+                        <div class="row mt-3">
+                          <button type="button" class="btn ml-3 btn-primary my-custom-bg-color btn-sm p-1" onclick="aggiungiIrrigatore()">Aggiungi Irrigatore</button>
+                        </div>
                       </div>
                     </div>
                     </div>
@@ -494,6 +503,23 @@
                               </div>
                               <div class="form-group" id="mapIrrigazione">
     
+                              </div>
+                              <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" id="aggiungiIrrigatore" hidden>
+                      <div class="col-12">
+                        <div class="row" >
+                          <div class="col-sm-12">
+                            <form>
+                              <div class="form-group">
+                                <label for="NomeImpianto">Nome Impianto</label>
+                                <input type="text" class="form-control" id="NomeImpianto" aria-describedby="emailHelp" placeholder="Scrivi il nome dell'impianto">
+                              </div>
+                              <div class="form-group" id="mapAggiungiIrrigatore">
                               </div>
                               <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
@@ -542,8 +568,17 @@
 
     <script>
 
+      function aggiungiIrrigatore(){
+        document.getElementById("btnIndietro").removeAttribute("hidden");
+        document.getElementById("aggiungiIrrigatore").removeAttribute("hidden");
+        document.getElementById("listaIrrigatori").setAttribute("hidden", "true");
+        mapAggiungiIrrigatore.invalidateSize()
+        mapAggiungiIrrigatore.fitBounds(polygon.getBounds())
+      }
+
       function tornaIndietro(){
         document.getElementById("modificaIrrigatore").setAttribute("hidden", "true");
+        document.getElementById("aggiungiIrrigatore").setAttribute("hidden", "true");
         document.getElementById("listaIrrigatori").removeAttribute("hidden");
         document.getElementById("btnIndietro").setAttribute("hidden", "true");
       }
@@ -557,12 +592,16 @@
       function modificaIrrigatore()
       {
         console.log("mammt")
-
         document.getElementById("btnIndietro").removeAttribute("hidden");
         document.getElementById("modificaIrrigatore").removeAttribute("hidden");
         document.getElementById("listaIrrigatori").setAttribute("hidden", "true");
-        mapIrrigazione.invalidateSize()
-        mapIrrigazione.fitBounds(polygon.getBounds())
+        mapModificaIrrigatore.invalidateSize()
+        mapModificaIrrigatore.fitBounds(polygon.getBounds())
+      }
+
+      function isMarkerInsidePolygon(marker, polygon) {
+        // utilizziamo la funzione leaflet contains() per verificare se il marker è all'interno del poligono
+        return polygon.getBounds().contains(marker.getLatLng());
       }
 
       function rimandamodifica()
@@ -581,12 +620,36 @@
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       }).addTo(map);
 
-      var mapIrrigazione = L.map('mapIrrigazione').setView([51.505, -0.09], 13);
+      var mapModificaIrrigatore = L.map('mapIrrigazione').setView([51.505, -0.09], 13);
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      }).addTo(mapIrrigazione);
+      }).addTo(mapModificaIrrigatore);
 
+      var mapAggiungiIrrigatore = L.map('mapAggiungiIrrigatore').setView([51.505, -0.09], 13);
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(mapAggiungiIrrigatore);
+
+      var markerModificaIrrigatore
+      mapModificaIrrigatore.on('click', function(e) {
+        if(markerModificaIrrigatore != undefined)
+          mapModificaIrrigatore.removeLayer(markerModificaIrrigatore);
+        markerModificaIrrigatore = L.marker([e.latlng.lat, e.latlng.lng])
+        if(isMarkerInsidePolygon(markerModificaIrrigatore,polygonModificaIrrigazione))
+          markerModificaIrrigatore.addTo(mapModificaIrrigatore);
+      });
+
+
+      var markerAggiungiIrrigatore
+      mapAggiungiIrrigatore.on('click', function(e) {
+        if(markerAggiungiIrrigatore != undefined)
+          mapAggiungiIrrigatore.removeLayer(markerAggiungiIrrigatore);
+        markerAggiungiIrrigatore = L.marker([e.latlng.lat, e.latlng.lng])
+        if(isMarkerInsidePolygon(markerAggiungiIrrigatore, polygonAggiungiIrrigazione))
+          markerAggiungiIrrigatore.addTo(mapAggiungiIrrigatore);
+      });
 
       var terreno = {
         id : "{{terreno.id}}",
@@ -616,9 +679,10 @@
       u = terreno.posizione
       var points = [];
       var polygon = L.geoJSON(u).addTo(map)
-      var polygonIrrigazione = L.geoJSON(u).addTo(mapIrrigazione)
+      var polygonModificaIrrigazione = L.geoJSON(u).addTo(mapModificaIrrigatore)
+      var polygonAggiungiIrrigazione = L.geoJSON(u).addTo(mapAggiungiIrrigatore)
       map.fitBounds(polygon.getBounds())
-      mapIrrigazione.fitBounds(polygon.getBounds())
+      
 
       new Chart(document.getElementById("line-chart"), {
         type: 'line',
