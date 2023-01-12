@@ -1,9 +1,18 @@
 from src.dbConnection import impianti
 from src.logic.model.ImpiantoDiIrrigazione import ImpiantoDiIrrigazione
+from src.logic.Storage.TerrenoDAO import TerrenoDAO
 from flask import jsonify
 from bson.objectid import ObjectId
 
+
 class ImpiantoDiIrrigazioneDAO():
+
+
+    def findImpiantiByTerreno(idTerreno:str):
+        
+        #trova impianti sul database con l'id del terreno
+        impiantiTrovati = impianti.find({"id_terreno" : idTerreno})
+        return list(impiantiTrovati)
 
     def findImpianto(id : str) -> ImpiantoDiIrrigazione:
         """
@@ -22,15 +31,18 @@ class ImpiantoDiIrrigazioneDAO():
 
         return impiantoTrovato
     
-    def creaImpianto(impianto : ImpiantoDiIrrigazione) -> str:
+    def creaImpianto(impianto : ImpiantoDiIrrigazione, idTerreno: str) -> str:
         """
             Questo metodo instanzia un impianto di irrigazione sul database
-        """
+        """  
+           
         result = impianti.insert_one({
             "nome" : impianto.nome,
             "tipo" : impianto.tipo,
             "codice" : impianto.codice,
-            "attivo" : impianto.attivo
+            "attivo" : impianto.attivo,
+            "posizione": impianto.posizione,
+            "terreno": ObjectId(idTerreno)
         })
         
         return str(result.inserted_id)

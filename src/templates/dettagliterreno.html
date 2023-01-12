@@ -460,8 +460,8 @@
                           <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">Irrigatore 1</h5>
                             <div>
-                              <button type="button" class="btn btn-primary btn-sm p-1">Elimina</button>
-                              <button type="button" class="btn btn-primary my-custom-bg-color btn-sm p-1">Modifica</button>
+                              <button type="button" class="btn btn-primary btn-sm p-1" onclick="eliminaIrrigatore()">Elimina</button>
+                              <button type="button" class="btn btn-primary my-custom-bg-color btn-sm p-1" onclick="modificaIrrigatore()">Modifica</button>
                             </div>
                           </div>
                           <p>Stato: <span class="btn btn-success rounded-pill active btn-sm p-1">Attivo</span></p>
@@ -470,8 +470,8 @@
                           <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">Irrigatore 1</h5>
                             <div>
-                              <button type="button" class="btn btn-primary btn-sm p-1">Elimina</button>
-                              <button type="button" class="btn btn-primary my-custom-bg-color btn-sm p-1">Modifica</button>
+                              <button type="button" class="btn btn-primary btn-sm p-1" onclick="eliminaIrrigatore()">Elimina</button>
+                              <button type="button" class="btn btn-primary my-custom-bg-color btn-sm p-1" onclick="modificaIrrigatore()">Modifica</button>
                             </div>
                           </div>
                           <p>Stato: <span class="btn btn-success rounded-pill active btn-sm p-1">Attivo</span></p>
@@ -502,7 +502,6 @@
                                 <input type="text" class="form-control" id="NomeImpianto" aria-describedby="emailHelp" placeholder="Scrivi il nome dell'impianto">
                               </div>
                               <div class="form-group" id="mapIrrigazione">
-    
                               </div>
                               <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
@@ -514,15 +513,15 @@
                       <div class="col-12">
                         <div class="row" >
                           <div class="col-sm-12">
-                            <form>
+                            <div >
                               <div class="form-group">
                                 <label for="NomeImpianto">Nome Impianto</label>
-                                <input type="text" class="form-control" id="NomeImpianto" aria-describedby="emailHelp" placeholder="Scrivi il nome dell'impianto">
+                                <input type="text" class="form-control" id="NomeImpiantoAggiungiIrrigatore" aria-describedby="emailHelp" placeholder="Scrivi il nome dell'impianto">
                               </div>
                               <div class="form-group" id="mapAggiungiIrrigatore">
                               </div>
-                              <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
+                              <button type="submit" onclick="inviaIrrigatoreCreato()">Submit</button>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -567,6 +566,23 @@
   crossorigin=""></script>
 
     <script>
+
+      function inviaIrrigatoreCreato(){
+        var nomeIrrigatore = document.getElementById("NomeImpiantoAggiungiIrrigatore").value;
+        var posizioneIrrigatore = markerAggiungiIrrigatore.toGeoJSON();
+        console.log(posizioneIrrigatore)
+
+        fetch('aggiungiIrrigatore', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            nomeIrrigatore: nomeIrrigatore,
+            posizioneIrrigatore: posizioneIrrigatore
+          })
+        })
+      }
 
       function aggiungiIrrigatore(){
         document.getElementById("btnIndietro").removeAttribute("hidden");

@@ -1,3 +1,5 @@
+from src.logic.Storage.ImpiantoDiIrrigazioneDAO import ImpiantoDiIrrigazioneDAO
+from src.logic.model.ImpiantoDiIrrigazione import ImpiantoDiIrrigazione
 from src.logic.model.Terreno import Terreno
 from src.logic.Storage.TerrenoDAO import TerrenoDAO
 import requests
@@ -40,3 +42,13 @@ class AmbienteAgricoloService():
             datiapi = requests.get("https://nominatim.openstreetmap.org/reverse?lat="+ str(lat) + "&lon=" + str(lon) + "&format=json&zoom=10").json()
             print(datiapi)
             return datiapi  #JSON
+        
+    def aggiungiIrrigatore(id_terreno: str, nome_irrigatore: str, posizione_irrigatore: str):
+        impianto = ImpiantoDiIrrigazione("", nome_irrigatore, "irrigatore", "", posizione_irrigatore, False)
+        ImpiantoDiIrrigazioneDAO.creaImpianto(impianto, id_terreno)
+        return True
+    
+    def visualizzaListaIrrigatori(idTerreno: str):
+        return ImpiantoDiIrrigazioneDAO.findImpiantiByTerreno(idTerreno)
+        
+        

@@ -76,3 +76,21 @@ class AmbienteAgricoloController():
         terreno = AmbienteAgricoloService.trovaTerreno(idTerreno)
         posizioneapi = AmbienteAgricoloService.cercaPosizione(idTerreno)
         return render_template("dettagliterreno.html", terreno = terreno, posizioneapi = posizioneapi)
+    
+    @app.route("/aggiungiIrrigatore", methods=["POST", "GET"])
+    def aggiungiIrrigatore():
+        if request.method == "POST":
+            richiesta = request.get_json()
+            idTerreno = richiesta.get("idTerreno")
+            nomeIrrigatore = richiesta.get("nomeIrrigatore")
+            posizioneIrrigatore = richiesta.get("posizioneIrrigatore")
+            AmbienteAgricoloService.aggiungiIrrigatore(idTerreno, nomeIrrigatore, posizioneIrrigatore)
+            return "aoh"
+        
+    @app.route("/visualizzaIrrigatori", methods=["POST", "GET"])
+    def visualizzaIrrigatori():
+        if request.method == "GET":
+            richiesta = request.get_json()
+            idTerreno = richiesta.get("idTerreno")
+            irrigatori = AmbienteAgricoloService.visualizzaIrrigatori(idTerreno)
+            return jsonify(irrigatori)
