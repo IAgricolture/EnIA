@@ -17,6 +17,7 @@ class TerrenoDAO():
             "Preferito" : terreno.preferito,
             "Priorita" : terreno.priorita,
             "ListaUtenti" : terreno.listautenti 
+            #TODO: Se errore, gestire eccezione
         })
 
 
@@ -51,7 +52,7 @@ class TerrenoDAO():
         print(terrenoMod.preferito)
         if(trovato == None):
             return None
-        terreni.update_one({"_id": ObjectId(trovato.id)},
+        return terreni.update_one({"_id": ObjectId(trovato.id)},
         {"$set": {
             "Nome" : terrenoMod.nome,
             "Coltura": terrenoMod.coltura,

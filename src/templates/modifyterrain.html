@@ -45,6 +45,8 @@
               <div class="mt-3">
                 <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" onclick="resetMap(points)">MODIFICA CONFINI</a>
               </div>
+              <div id = "spazioNotifica" class="mb-4">
+              </div>
               <!-- Form a comparsa dopo avere inserito l'id-->
               <form id = "formnascosto" class="pt-3" >
                 <div class="form-group form-group">
@@ -194,17 +196,44 @@
         console.log("Risultato controllo, form è corretto: " + validThisForm)
       })
       console.log("Risultato controllo, form sono corretti: " + validAll)
-      return validAll
+      var validMap = validateMap()
+      console.log("Risultato controllo, mappa è corretta: " + validMap)
+      console.log("Risultato: " + validAll && validMap)
+      return validAll && validMap
+    }
+
+    function validateMap()
+    {
+       //Controllo per la mappa che sia inserito almeno un punto: altrimenti, crash. Divisa perchè altrimenti esce una funzione enorme, ripetuta tra l'altro.
+       var validMap = true
+       var parent = document.getElementById("spazioNotifica")
+       var notifica = document.getElementById("notificamappa")
+       if(points.length < 1)
+       {
+         validMap = false
+         var div = document.createElement('div')
+         div.setAttribute("id", "notificamappa")
+         div.className = "alert alert-danger"
+         var testo = document.createElement('strong')
+         testo.innerHTML = "Errore: Inserire almeno un punto sulla mappa, che rappresenti il terreno. Per inserire, bisogna fare clic sinistro."
+         div.appendChild(testo)
+         if(notifica == null)
+         {
+            parent.appendChild(div)
+         }
+       }
+       else
+       {
+        if(notifica != null)
+        {
+          parent.removeChild(notifica)
+        }
+       }
+       return validMap
     }
 
     function modifica()
     {
-      /*url.searchParams.append("idTerreno", document.getElementById("idTerreno").value)
-      url.searchParams.append("nome", document.getElementById("nome").value)
-      url.searchParams.append("coltura", document.getElementById("coltura").value)
-      url.searchParams.append("posizione", document.getElementById("posizione").value)
-      url.searchParams.append("preferito", document.getElementById("preferito").checked)
-      url.searchParams.append("priorita", document.getElementById("priorita").value)*/
       if(!(validate()))
       {
         return //FORSE ESISTE UN ALTRO MODO?

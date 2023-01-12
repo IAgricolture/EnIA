@@ -35,6 +35,7 @@ class AmbienteAgricoloController():
         if request.method != "POST":
             idTerreno = request.args.get("idTerreno")
             terreno = AmbienteAgricoloService.trovaTerreno(idTerreno)
+            print(terreno)
             return render_template("modifyterrain.html", terreno = terreno, posizione = terreno.posizione)
         elif request.method == "POST":
             richiesta = request.get_json()
