@@ -25,6 +25,17 @@
           width: 100%;
           z-index: 1;
       }
+
+      #mapIrrigazione{
+        height: 400px;
+        width: 100%;
+        z-index: 1;
+    }
+
+    .my-custom-bg-color {
+      background-color: blue;
+      border-color: blue;
+    }
       #heart {
         position: absolute;
         width: 50px;
@@ -427,16 +438,71 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-4 d-flex grid-margin stretch-card">
+          </div>
+          <div class="row  mt-3">
+            <div class="col-xl-6 d-flex grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title mb-3">Report</h4>
-                    <div class="col-sm-12">
-                      <button type="button" class="btn btn-secondary">Genera QR</button>
+                    <div class="d-flex flex-wrap justify-content-between mb-3">
+                          <h4 class="card-title">Gestione Irrigazione</h4>
+                          <button class="btn btn-success" id="btnIndietro" onclick="tornaIndietro()" hidden>Torna Indietro</button>
+                    </div>
+                    <div class="row" id="listaIrrigatori">
+                      <div class="col-12">
+                      <div class="list-group" >
+                        <div href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                          <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Irrigatore 1</h5>
+                            <div>
+                              <button type="button" class="btn btn-primary btn-sm p-1">Elimina</button>
+                              <button type="button" class="btn btn-primary my-custom-bg-color btn-sm p-1">Modifica</button>
+                            </div>
+                          </div>
+                          <p>Stato: <span class="btn btn-success rounded-pill active btn-sm p-1">Attivo</span></p>
+                        </div>
+                        <div href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                          <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Irrigatore 1</h5>
+                            <div>
+                              <button type="button" class="btn btn-primary btn-sm p-1">Elimina</button>
+                              <button type="button" class="btn btn-primary my-custom-bg-color btn-sm p-1">Modifica</button>
+                            </div>
+                          </div>
+                          <p>Stato: <span class="btn btn-success rounded-pill active btn-sm p-1">Attivo</span></p>
+                        </div>
+                        <div href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                          <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Irrigatore 1</h5>
+                            <div>
+                              <button type="button" class="btn btn-primary btn-sm p-1" onclick="eliminaIrrigatore()">Elimina</button>
+                              <button type="button" class="btn btn-primary my-custom-bg-color btn-sm p-1" onclick="modificaIrrigatore()">Modifica</button>
+                            </div>
+                          </div>
+                          <p>Stato: <span class="btn btn-success rounded-pill active btn-sm p-1">Attivo</span></p>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                    <div class="row" id="modificaIrrigatore" hidden>
+                      <div class="col-12">
+                        <div class="row" >
+                          <div class="col-sm-12">
+                            <form>
+                              <div class="form-group">
+                                <label for="NomeImpianto">Nome Impianto</label>
+                                <input type="text" class="form-control" id="NomeImpianto" aria-describedby="emailHelp" placeholder="Scrivi il nome dell'impianto">
+                              </div>
+                              <div class="form-group" id="mapIrrigazione">
+    
+                              </div>
+                              <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                 </div>
               </div>
-            </div>
           </div>
         </div>
           <!-- content-wrapper ends -->
@@ -476,6 +542,29 @@
 
     <script>
 
+      function tornaIndietro(){
+        document.getElementById("modificaIrrigatore").setAttribute("hidden", "true");
+        document.getElementById("listaIrrigatori").removeAttribute("hidden");
+        document.getElementById("btnIndietro").setAttribute("hidden", "true");
+      }
+
+      function eliminaIrrigatore()
+      {
+        document.getElementById("modificaIrrigatore").setAttribute("hidden", "true");
+        document.getElementById("listaIrrigatori").setAttribute("hidden", "false");
+      }
+
+      function modificaIrrigatore()
+      {
+        console.log("mammt")
+
+        document.getElementById("btnIndietro").removeAttribute("hidden");
+        document.getElementById("modificaIrrigatore").removeAttribute("hidden");
+        document.getElementById("listaIrrigatori").setAttribute("hidden", "true");
+        mapIrrigazione.invalidateSize()
+        mapIrrigazione.fitBounds(polygon.getBounds())
+      }
+
       function rimandamodifica()
       {
         window.location.href = "http://localhost:5000/modificaTerreno?idTerreno=" + terreno.id 
@@ -491,6 +580,12 @@
       maxZoom: 19,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       }).addTo(map);
+
+      var mapIrrigazione = L.map('mapIrrigazione').setView([51.505, -0.09], 13);
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(mapIrrigazione);
 
 
       var terreno = {
@@ -521,7 +616,9 @@
       u = terreno.posizione
       var points = [];
       var polygon = L.geoJSON(u).addTo(map)
+      var polygonIrrigazione = L.geoJSON(u).addTo(mapIrrigazione)
       map.fitBounds(polygon.getBounds())
+      mapIrrigazione.fitBounds(polygon.getBounds())
 
       new Chart(document.getElementById("line-chart"), {
         type: 'line',
