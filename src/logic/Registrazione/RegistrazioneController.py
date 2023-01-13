@@ -49,7 +49,7 @@ class RegistrazioneController():
             else:
                 id = RegistrazioneService.creaFarmer(nome,cognome, email, password, dataDiNascita, partitaiva, indirizzo)
                 #TODO decidere i parametri delle licenze
-                l = RegistrazioneService.creaLicenza(licenza, id)
+                l = RegistrazioneService.creaLicenza(id, tipo)
                 m = RegistrazioneService.creaMetodoDiPagamento(numerocarta, titolare, scadenza, cvv, id)
 
                 return render_template("login.html")
