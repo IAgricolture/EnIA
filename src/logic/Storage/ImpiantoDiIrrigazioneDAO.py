@@ -71,6 +71,13 @@ class ImpiantoDiIrrigazioneDAO():
                 }
             }
         )
+        
+    def eliminaImpianto(id : str):
+        """
+            Questo metodo elimina un impianto di irrigazione sul database
+        """  
+        impianti.delete_one({"_id" : ObjectId(id)})
+
 
 
 

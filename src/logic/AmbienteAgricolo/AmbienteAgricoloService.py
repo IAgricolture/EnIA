@@ -43,10 +43,10 @@ class AmbienteAgricoloService():
             print(datiapi)
             return datiapi  #JSON
         
-    def aggiungiIrrigatore(id_terreno: str, nome_irrigatore: str, posizione_irrigatore: str):
+    def aggiungiIrrigatore(id_terreno: str, nome_irrigatore: str, posizione_irrigatore: str) -> str:
         impianto = ImpiantoDiIrrigazione("", nome_irrigatore, "irrigatore", "", posizione_irrigatore, False)
-        ImpiantoDiIrrigazioneDAO.creaImpianto(impianto, id_terreno)
-        return True
+        id = ImpiantoDiIrrigazioneDAO.creaImpianto(impianto, id_terreno)
+        return id
     
     def modificaIrrigatore(idIrrigatore: str, nomeIrrigatore: str, posizioneIrrigatore: str):
         impianto = ImpiantoDiIrrigazione(idIrrigatore, nomeIrrigatore, "irrigatore", "", posizioneIrrigatore, False)
@@ -58,5 +58,8 @@ class AmbienteAgricoloService():
     
     def visualizzaListaIrrigatori(idTerreno: str):
         return ImpiantoDiIrrigazioneDAO.findImpiantiByTerreno(idTerreno)
+    
+    def eliminaIrrigatore(idIrrigatore: str):
+        return ImpiantoDiIrrigazioneDAO.eliminaImpianto(idIrrigatore)
         
         

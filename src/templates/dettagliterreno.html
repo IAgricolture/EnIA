@@ -550,6 +550,7 @@
         const newDiv = document.createElement("div");
         newDiv.setAttribute("href", "#");
         newDiv.setAttribute("class", "list-group-item list-group-item-action flex-column align-items-start");
+        newDiv.setAttribute("id", idIrrigatore)
 
         const innerDiv = document.createElement("div");
         innerDiv.setAttribute("class", "d-flex w-100 justify-content-between");
@@ -601,6 +602,12 @@
             posizioneIrrigatore: posizioneIrrigatore,
             idTerreno: terreno.id
           })
+        }).then(function(response) {
+          return response.json();
+        }).then(function(data) {
+          aggiungiIrrigatoreAlDom(nomeIrrigatore, data.idIrrigatore);
+          markerAggiungiIrrigatore.remove();
+          tornaIndietro();
         })
       }
 
@@ -613,7 +620,8 @@
       }
 
       function tornaIndietro(){
-        markerModificaIrrigatore.remove()
+        if(markerModificaIrrigatore != null)
+          markerModificaIrrigatore.remove()
         document.getElementById("modificaIrrigatore").setAttribute("hidden", "true");
         document.getElementById("aggiungiIrrigatore").setAttribute("hidden", "true");
         document.getElementById("listaIrrigatori").removeAttribute("hidden");
@@ -622,8 +630,22 @@
 
       function eliminaIrrigatore(idIrrigatore)
       {
-        document.getElementById("modificaIrrigatore").setAttribute("hidden", "true");
-        document.getElementById("listaIrrigatori").setAttribute("hidden", "false");
+        //elimina irrigatore
+        fetch('eliminaIrrigatore', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            idIrrigatore: idIrrigatore
+          })
+        }).then(function(response) {
+          return response.json()
+        }).then(function(data) {
+          console.log(data)
+          //elimina irrigatore dal document
+          document.getElementById(idIrrigatore).remove()
+        })
       }
 
       function modificaIrrigatore(idIrrigatore)
@@ -675,6 +697,11 @@
               posizioneIrrigatore: posizioneIrrigatore,
               idIrrigatore: idIrrigatore
             })
+          }).then(function(response) {
+            return response.json();
+          }).then(function(data) {
+            console.log(data)
+            tornaIndietro();
           })
         })
         
