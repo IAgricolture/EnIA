@@ -9,9 +9,16 @@ class ImpiantoDiIrrigazioneDAO():
 
 
     def findImpiantiByTerreno(idTerreno:str):
-        
         #trova impianti sul database con l'id del terreno
-        impiantiTrovati = impianti.find({"id_terreno" : idTerreno})
+        impiantiTrovati = impianti.find({"terreno" : ObjectId(idTerreno)})
+        impiantiTrovati = list(impiantiTrovati)
+        
+        #cast all objectid to string
+        for impianto in impiantiTrovati:
+            impianto["_id"] = str(impianto["_id"])
+            impianto["terreno"] = str(impianto["terreno"])
+        
+        
         return list(impiantiTrovati)
 
     def findImpianto(id : str) -> ImpiantoDiIrrigazione:

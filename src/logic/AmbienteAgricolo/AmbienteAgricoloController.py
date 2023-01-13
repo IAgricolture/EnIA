@@ -89,8 +89,9 @@ class AmbienteAgricoloController():
         
     @app.route("/visualizzaIrrigatori", methods=["POST", "GET"])
     def visualizzaIrrigatori():
-        if request.method == "GET":
+        if request.method == "POST":
             richiesta = request.get_json()
             idTerreno = richiesta.get("idTerreno")
-            irrigatori = AmbienteAgricoloService.visualizzaIrrigatori(idTerreno)
+            irrigatori = AmbienteAgricoloService.visualizzaListaIrrigatori(idTerreno)
             return jsonify(irrigatori)
+        

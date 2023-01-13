@@ -48,6 +48,7 @@ class AmbienteAgricoloService():
         ImpiantoDiIrrigazioneDAO.creaImpianto(impianto, id_terreno)
         return True
     
+    
     def visualizzaListaIrrigatori(idTerreno: str):
         return ImpiantoDiIrrigazioneDAO.findImpiantiByTerreno(idTerreno)
         
