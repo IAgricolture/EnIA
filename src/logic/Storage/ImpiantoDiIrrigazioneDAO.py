@@ -21,7 +21,7 @@ class ImpiantoDiIrrigazioneDAO():
         
         return list(impiantiTrovati)
 
-    def findImpianto(id : str) -> ImpiantoDiIrrigazione:
+    def findImpiantoById(id : str) -> ImpiantoDiIrrigazione:
         """
             Questo metodo trova un Impianto di irrigazione sul database, usando il suo ObjectId
             :return: ImpiantoDiIrrigazione
@@ -33,8 +33,9 @@ class ImpiantoDiIrrigazioneDAO():
         tipo = str(trovato.get("tipo"))
         codice = str(trovato.get("codice"))
         attivo = bool(trovato.get("attivo"))
+        posizione = trovato.get("posizione")
 
-        impiantoTrovato = ImpiantoDiIrrigazione(id, nome, tipo, codice, attivo)
+        impiantoTrovato = ImpiantoDiIrrigazione(id, nome, tipo, codice, posizione, attivo)
 
         return impiantoTrovato
     
@@ -53,6 +54,23 @@ class ImpiantoDiIrrigazioneDAO():
         })
         
         return str(result.inserted_id)
+    
+    def modificaImpianto(impianto : ImpiantoDiIrrigazione):
+        """
+            Questo metodo modifica un impianto di irrigazione sul database
+        """  
+        impianti.update_one(
+            {"_id" : ObjectId(impianto.id)},
+            {
+                "$set" : {
+                    "nome" : impianto.nome,
+                    "tipo" : impianto.tipo,
+                    "codice" : impianto.codice,
+                    "attivo" : impianto.attivo,
+                    "posizione": impianto.posizione
+                }
+            }
+        )
 
 
 

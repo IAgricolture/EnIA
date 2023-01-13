@@ -468,15 +468,13 @@
                       <div class="col-12">
                         <div class="row" >
                           <div class="col-sm-12">
-                            <form>
                               <div class="form-group">
                                 <label for="NomeImpianto">Nome Impianto</label>
-                                <input type="text" class="form-control" id="NomeImpianto" aria-describedby="emailHelp" placeholder="Scrivi il nome dell'impianto">
+                                <input type="text" class="form-control" id="NomeImpiantoModificaIrrigatore" aria-describedby="emailHelp" placeholder="Scrivi il nome dell'impianto">
                               </div>
                               <div class="form-group" id="mapIrrigazione">
                               </div>
                               <button type="submit" class="btn btn-primary" id="btnModificaIrrigatore">Submit</button>
-                            </form>
                           </div>
                         </div>
                       </div>
@@ -615,6 +613,7 @@
       }
 
       function tornaIndietro(){
+        markerModificaIrrigatore.remove()
         document.getElementById("modificaIrrigatore").setAttribute("hidden", "true");
         document.getElementById("aggiungiIrrigatore").setAttribute("hidden", "true");
         document.getElementById("listaIrrigatori").removeAttribute("hidden");
@@ -629,14 +628,38 @@
 
       function modificaIrrigatore(idIrrigatore)
       {
+
         document.getElementById("btnIndietro").removeAttribute("hidden");
         document.getElementById("modificaIrrigatore").removeAttribute("hidden");
         document.getElementById("listaIrrigatori").setAttribute("hidden", "true");
         mapModificaIrrigatore.invalidateSize()
         mapModificaIrrigatore.fitBounds(polygon.getBounds())
 
+        //get posizione of irrigatore
+        fetch('getIrrigatore', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            idIrrigatore: idIrrigatore
+          })
+        }).then(function(response) {
+          return response.json();
+        }).then(function(data) {
+          console.log(data)
+          var lat = data.posizioneIrrigatore.geometry.coordinates[1]
+          var len = data.posizioneIrrigatore.geometry.coordinates[0]
+          //add marker to map
+          markerModificaIrrigatore = L.marker([lat, len], {draggable: true}).addTo(mapModificaIrrigatore);
+
+          //set nome for form with id NomeImpianto
+          document.getElementById("NomeImpiantoModificaIrrigatore").value = data.nomeIrrigatore;
+          
+        })
+
         //set on click listener for submit
-        /*
+        
         document.getElementById("btnModificaIrrigatore").addEventListener("click", function(){
           var nomeIrrigatore = document.getElementById("NomeImpiantoModificaIrrigatore").value;
           var posizioneIrrigatore = markerModificaIrrigatore.toGeoJSON();
@@ -654,7 +677,7 @@
             })
           })
         })
-        */
+        
       }
 
       function isMarkerInsidePolygon(marker, polygon) {
