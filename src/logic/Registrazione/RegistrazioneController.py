@@ -42,7 +42,7 @@ class RegistrazioneController():
             indirizzo = richiesta.get("indirizzo")
             risposta = {
                 "emailUsata": False
-                }
+             }
             #Se l'email è già usata il server avviserà il front-end
             if RegistrazioneService.trovaUtenteByEmail(email) != None:
                 risposta["emailUsata"] = True
@@ -55,3 +55,4 @@ class RegistrazioneController():
                 return render_template("login.html")
         else:
             return render_template("registerfarmer.html")
+
