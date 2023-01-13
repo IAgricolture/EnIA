@@ -1,20 +1,9 @@
 from src import login_manager
-import hashlib
-import json
-from src.logic.model.Utente import Utente
 
-from src.logic.Storage.AutenticazioneDAO import AutenticazioneDAO
-from src.logic.Storage.LicenzaDAO import LicenzaDAO
-from src.logic.model.Licenza import Licenza
-from src.logic.Storage.MetodoDiPagamentoDAO import MetodoDiPagamentoDAO
-from src.logic.model.MetodoDiPagamento import MetodoDiPagamento
-from datetime import timedelta
-from datetime import datetime
+from src.logic.Autenticazione.AutenticazioneService import AutenticazioneService
 
-from flask import jsonify, request, render_template, session, redirect
+from flask import request, render_template, redirect
 from src import app
-from flask_login import current_user, login_user
-from flask import url_for
 
 class AutenticazioneController():
     #This method is mandatory to use the flask_login module
@@ -24,7 +13,7 @@ class AutenticazioneController():
             This method tells flask how to load a user from its session using an unique id
             :return: Utente
         """
-        return AutenticazioneDAO.trovaUtente(user_id)
+        return AutenticazioneService.trovaUtenteById(user_id)
 
     @app.route("/login", methods = ["GET", "POST"])
     def login():
@@ -34,24 +23,9 @@ class AutenticazioneController():
         :return: redirect to index page
         """
         if request.method == "POST" :
-            successo = False
             email = request.form.get("email")
             password = request.form.get("password")
-            hashed_password = hashlib.sha512(password.encode()).hexdigest()
-            login_attempt : Utente = AutenticazioneDAO.trovaUtenteByEmail(email)
-
-            if not login_attempt:
-                print("Utente non registrato")
-                successo = False
-            
-            if login_attempt.password == hashed_password:
-                login_user(login_attempt, duration=timedelta(days=365), force=True)
-                successo = True
-                
-            else:
-                print("password errata")
-                successo = False
-
+            successo = AutenticazioneService.login(email, password)
             if successo:
                 return redirect("user")
             else:
