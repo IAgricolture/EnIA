@@ -76,4 +76,16 @@ class AmbienteAgricoloController():
         idTerreno = request.args.get("idTerreno")
         terreno = AmbienteAgricoloService.trovaTerreno(idTerreno)
         posizioneapi = AmbienteAgricoloService.cercaPosizione(idTerreno)
-        return render_template("dettagliterreno.html", terreno = terreno, posizioneapi = posizioneapi)
+        print(posizioneapi)
+        #Ottengo dati dal display_name in quanto funziona per qualsiasi località (per altre non italiane, cambiano i nomi delle chiavi json)
+        posizione = posizioneapi["display_name"].split(", ") #Ottengo in una lista i dati
+        print(posizione)
+        citta = posizione[0]    #Inutilizzata per adesso, lasciata qui se dovesse servire
+        comune = posizione[1]
+        regione = posizione[2]
+        if(len(posizione) == 4):   #Parse per evitare il codice postale, soluzione temporanea.
+            nazione = posizione[3]
+        else:
+            nazione = posizione[4]
+        inquinamentoapi = AmbienteAgricoloService.cercaInquinamento(comune, regione, nazione)
+        return render_template("dettagliterreno.html", terreno = terreno, posizioneapi = posizioneapi, inquinamentoapi = inquinamentoapi)

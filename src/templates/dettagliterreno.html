@@ -420,9 +420,38 @@
             <div class="col-xl-6 d-flex grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <div class="d-flex flex-wrap justify-content-between">
-                    <h4 class="card-title mb-3">Dati inquinamento</h4>
-                    <canvas id="doughnut-chart" width="800" height="450"></canvas>
+                    <h4 id = "datiInquinamento" class="card-title mb-4">Dati inquinamento</h4>
+                    <!-- <canvas id="doughnut-chart" width="800" height="450"></canvas> <!-->
+                        <div class="col-sm-12">
+                              <div class="d-flex justify-content-between mb-4">
+                                <div id = "tsinq" class="text-muted"></div> <!--Timestamp inquinamento-->
+                              </div>
+                              <div class="d-flex justify-content-between mb-4">
+                                <div>AQI</div>
+                                <div id = "aqi" class="text-muted"></div>
+                              </div>
+                              <div class="d-flex justify-content-between mb-4">
+                                <div>CO</div>
+                                <div id = "co" class="text-muted"></div>
+                              </div>
+                              <div class="d-flex justify-content-between mb-4">
+                                <div>NO2</div>
+                                <div id = "no2" class="text-muted"></div>
+                              </div>
+                              <div class="d-flex justify-content-between mb-4">
+                                <div>PM1</div>
+                                <div id = "pm1" class="text-muted"></div>
+                              </div>
+                              <div class="d-flex justify-content-between mb-4">
+                                <div>PM2,5</div>
+                                <div id = "pm25" class="text-muted"></div>
+                              </div>
+                              <div class="d-flex justify-content-between mb-4">
+                                <div>PM10</div>
+                                <div id = "pm10" class="text-muted"></div>
+                          </div>
+                        </div>
+                      </div>
                   </div>
                 </div>
               </div>
@@ -506,7 +535,47 @@
       var posizioneapi = {
         display_name : "{{posizioneapi.display_name}}"
       }
+
+      var comune = posizioneapi.display_name.split(", ")[0]
       console.log(posizioneapi.display_name)
+      console.log(comune)
+      var messaggioInquinamento;
+      var inquinamentoapi = {{inquinamentoapi | safe}} //NON togliere safe, altrimenti si rompe perchè flask inserisce caratteri di escape che rompono js
+      console.log(inquinamentoapi.result)
+      //Non è detto che il comune esista nei risultati dell'API
+      if(comune in inquinamentoapi.result)
+      {
+        inquinamento = inquinamentoapi.result[comune]
+        console.log(inquinamento)
+        //Tolgo i dati che non ci interessano per l'inquinamento
+        delete inquinamento.comune
+        delete inquinamento.nazione
+        delete inquinamento.regione
+        delete inquinamento.provincia
+        delete inquinamento.temperatura
+        delete inquinamento.umidita
+        console.log(inquinamento)
+        //Riempio le div con i dati dell'inquinamento
+        //AGGIUNGERE CONTROLLO PER DATI CHE NON CI SONO SEMPRE, COME O3, SO2? Grafico poi diventa un problema
+        document.getElementById("tsinq").innerHTML = "Orario rilevamento: " + inquinamento.timestamp
+        document.getElementById("aqi").innerHTML = String(inquinamento.aqi) //api lo restituisce come float, giusto per essere sicuri
+        document.getElementById("co").innerHTML = inquinamento.co
+        document.getElementById("no2").innerHTML = inquinamento.no2
+        document.getElementById("pm1").innerHTML = inquinamento.pm1
+        document.getElementById("pm25").innerHTML = inquinamento.pm2_5
+        document.getElementById("pm10").innerHTML = inquinamento.pm10
+      }
+      else
+      {
+        //Aggiungi messaggio di errore
+        var parent = document.getElementById("datiInquinamento")
+        var div = document.createElement('div')
+        div.className = "alert alert-warning"
+        var testo = document.createElement('strong')
+        testo.innerHTML=  "Errore API inquinamento: Non sono disponibili dati per il comune richiesto."
+        div.appendChild(testo)
+        parent.appendChild(div)
+      }
       console.log(terreno)
       document.getElementById("nomeTerreno").innerHTML = terreno.nome
       document.getElementById("nome").innerHTML = terreno.nome
@@ -563,7 +632,7 @@
         }
       });
 
-      new Chart(document.getElementById("doughnut-chart"), {
+      /*new Chart(document.getElementById("doughnut-chart"), {
         type: 'doughnut',
         data: {
           labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
@@ -581,7 +650,7 @@
             text: 'Predicted world population (millions) in 2050'
           }
         }
-    });
+    });*/
     </script>
 
     <!-- End custom js for this page-->

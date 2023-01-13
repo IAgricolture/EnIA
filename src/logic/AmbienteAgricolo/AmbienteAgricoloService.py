@@ -40,3 +40,21 @@ class AmbienteAgricoloService():
             datiapi = requests.get("https://nominatim.openstreetmap.org/reverse?lat="+ str(lat) + "&lon=" + str(lon) + "&format=json&zoom=10").json()
             print(datiapi)
             return datiapi  #JSON
+        
+    def cercaInquinamento(comune:str, regione:str, nazione:str):
+        url = "https://square.sensesquare.eu:5001/placeView"
+        body = {
+            "apikey": "3BK3D0LWE8DQ", #Codice API, NON MODIFICARE
+            "tempo": "giorno",
+            "date": "2022-11-28",
+            "time": "00:00",
+            "nazione": nazione,
+            "regione": regione,
+            "provincia": comune,
+            "zoom": "3", #0 per tutte le nazioni, 1 per tutte le regioni, 2 per tutte le province, 3 per tutti i comuni
+            "predictions": "true", #NON TOCCARE
+            "fonti":"[]" #NON TOCCARE
+            }
+        datiapi = requests.post(url=url, data = body).json()
+        print(datiapi)
+        return datiapi
