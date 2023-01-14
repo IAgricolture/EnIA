@@ -77,3 +77,61 @@ class AmbienteAgricoloController():
         terreno = AmbienteAgricoloService.trovaTerreno(idTerreno)
         posizioneapi = AmbienteAgricoloService.cercaPosizione(idTerreno)
         return render_template("dettagliterreno.html", terreno = terreno, posizioneapi = posizioneapi)
+    
+    @app.route("/aggiungiIrrigatore", methods=["POST", "GET"])
+    def aggiungiIrrigatore():
+        if request.method == "POST":
+            richiesta = request.get_json()
+            idTerreno = richiesta.get("idTerreno")
+            nomeIrrigatore = richiesta.get("nomeIrrigatore")
+            posizioneIrrigatore = richiesta.get("posizioneIrrigatore")
+            idTerreno = AmbienteAgricoloService.aggiungiIrrigatore(idTerreno, nomeIrrigatore, posizioneIrrigatore)
+            return jsonify({"risposta": "true", "idIrrigatore": idTerreno})
+    
+    @app.route("/getIrrigatore", methods=["POST", "GET"])
+    def getIrrigatore():
+        if request.method == "POST":
+            richiesta = request.get_json()
+            idIrrigatore = richiesta.get("idIrrigatore")
+            irrigatore = AmbienteAgricoloService.getIrrigatore(idIrrigatore)
+            return jsonify({"idIrrigatore": irrigatore.id, "nomeIrrigatore": irrigatore.nome, "posizioneIrrigatore": irrigatore.posizione})
+    
+    @app.route("/modificaIrrigatore", methods=["POST", "GET"])
+    def modificaIrrigatore():
+        if request.method == "POST":
+            richiesta = request.get_json()
+            idIrrigatore = richiesta.get("idIrrigatore")
+            nomeIrrigatore = richiesta.get("nomeIrrigatore")
+            posizioneIrrigatore = richiesta.get("posizioneIrrigatore")
+            AmbienteAgricoloService.modificaIrrigatore(idIrrigatore, nomeIrrigatore, posizioneIrrigatore)
+            return jsonify({"risposta": "true"})
+    
+    @app.route("/visualizzaIrrigatori", methods=["POST", "GET"])
+    def visualizzaIrrigatori():
+        if request.method == "POST":
+            richiesta = request.get_json()
+            idTerreno = richiesta.get("idTerreno")
+            irrigatori = AmbienteAgricoloService.visualizzaListaIrrigatori(idTerreno)
+            return jsonify(irrigatori)
+
+    @app.route("/eliminaIrrigatore", methods=["POST", "GET"])
+    def eliminaIrrigatore():
+        if request.method == "POST":
+            richiesta = request.get_json()
+            idIrrigatore = richiesta.get("idIrrigatore")
+            AmbienteAgricoloService.eliminaIrrigatore(idIrrigatore)
+            return jsonify({"risposta": "true"})
+        
+    @app.route("/attivaDisattivaIrrigatore", methods=["POST", "GET"])
+    def attivaDisattivaIrrigatore():
+        if request.method == "POST":
+            richiesta = request.get_json()
+            print(richiesta)
+            idIrrigatore = richiesta.get("idIrrigatore")
+            risposta = AmbienteAgricoloService.attivaDisattivaIrrigatore(idIrrigatore)
+            if risposta:
+                return jsonify({"risposta": "attivato"})
+            else:
+                return jsonify({"risposta": "disattivato"})
+                
+        
