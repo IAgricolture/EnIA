@@ -121,3 +121,16 @@ class AmbienteAgricoloController():
             AmbienteAgricoloService.eliminaIrrigatore(idIrrigatore)
             return jsonify({"risposta": "true"})
         
+    @app.route("/attivaDisattivaIrrigatore", methods=["POST", "GET"])
+    def attivaDisattivaIrrigatore():
+        if request.method == "POST":
+            richiesta = request.get_json()
+            print(richiesta)
+            idIrrigatore = richiesta.get("idIrrigatore")
+            risposta = AmbienteAgricoloService.attivaDisattivaIrrigatore(idIrrigatore)
+            if risposta:
+                return jsonify({"risposta": "attivato"})
+            else:
+                return jsonify({"risposta": "disattivato"})
+                
+        

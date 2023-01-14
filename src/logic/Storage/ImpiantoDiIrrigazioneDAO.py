@@ -71,12 +71,43 @@ class ImpiantoDiIrrigazioneDAO():
                 }
             }
         )
-        
+    
+    def attivaImpianto(id : str):
+        """
+            Questo metodo attiva un impianto di irrigazione sul database
+        """  
+        result = impianti.update_one(
+            {"_id" : ObjectId(id)},
+            {
+                "$set" : {
+                    "attivo" : True
+                }
+            }
+        )
+        #se non è stato trovato nessun impianto con quell'id
+        return result.modified_count == 1
+    
+    def disattivaImpianto(id : str):
+        """
+            Questo metodo disattiva un impianto di irrigazione sul database
+        """  
+        result = impianti.update_one(
+            {"_id" : ObjectId(id)},
+            {
+                "$set" : {
+                    "attivo" : False
+                }
+            }
+        )
+        #se non è stato trovato nessun impianto con quell'id
+        return result.modified_count == 1
+    
     def eliminaImpianto(id : str):
         """
             Questo metodo elimina un impianto di irrigazione sul database
         """  
         impianti.delete_one({"_id" : ObjectId(id)})
+        
 
 
 

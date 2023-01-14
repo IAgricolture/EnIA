@@ -61,5 +61,13 @@ class AmbienteAgricoloService():
     
     def eliminaIrrigatore(idIrrigatore: str):
         return ImpiantoDiIrrigazioneDAO.eliminaImpianto(idIrrigatore)
+    
+    def attivaDisattivaIrrigatore(idIrrigatore:str):
+        if(ImpiantoDiIrrigazioneDAO.findImpiantoById(idIrrigatore).attivo == True):
+            ImpiantoDiIrrigazioneDAO.disattivaImpianto(idIrrigatore)
+            return False
+        else:
+            ImpiantoDiIrrigazioneDAO.attivaImpianto(idIrrigatore)
+            return True
         
         

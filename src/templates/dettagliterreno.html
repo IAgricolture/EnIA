@@ -26,6 +26,12 @@
           z-index: 1;
       }
 
+      #mapTuttiIrrigatori{
+        height: 400px;
+        width: 100%;
+        z-index: 1;
+      }
+
       #mapAggiungiIrrigatore{
         height: 400px;
         width: 100%;
@@ -455,12 +461,21 @@
                     </div>
                     <div class="row">
                       <div class="col-12">
-                      <div class="list-group" id="listaIrrigatori">
-                        <div id="sprinklers">
-                        </div>
-                        <div class="row mt-3">
-                          <button type="button" class="btn ml-3 btn-primary my-custom-bg-color btn-sm p-1" onclick="aggiungiIrrigatore()">Aggiungi Irrigatore</button>
-                        </div>
+                        <div class="list-group" id="listaIrrigatori">
+                          <div id="sprinklers"></div>
+                          <div class="row mt-3">
+                            <button type="button" class="btn ml-3 btn-primary my-custom-bg-color btn-sm p-1" onclick="aggiungiIrrigatore()">Aggiungi Irrigatore</button>
+                            <button type="button" class="btn ml-3 btn-primary my-custom-bg-color btn-sm p-1" onclick="visualizzaMappaIrrigatori()">Visualizza Mappa Irrigatori</button>
+                          </div>
+                        </div> 
+                      </div>
+                    </div>
+                    <div class="row" id="visualizzaMappaIrrigatori" hidden>
+                      <div class="col-12">
+                        <div class="row" >
+                          <div class="col-sm-12">
+                              <div id="mapTuttiIrrigatori"></div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -545,8 +560,14 @@
         posizione: {{terreno.posizione|tojson}} 
       }
       
+      var sprinklerIcon = L.icon({
+        iconUrl: '/static/images/sprinkler.png',
+        iconSize: [38, 38],
+        iconAnchor: [19, 18],
+        popupAnchor: [0, 0],
+      });
 
-      function aggiungiIrrigatoreAlDom(nomeIrrigatore, idIrrigatore){
+      function aggiungiIrrigatoreAlDom(nomeIrrigatore, idIrrigatore, statoIrrigatore){
         const newDiv = document.createElement("div");
         newDiv.setAttribute("href", "#");
         newDiv.setAttribute("class", "list-group-item list-group-item-action flex-column align-items-start");
@@ -579,12 +600,68 @@
         innerDiv.appendChild(buttonsDiv);
 
         const p = document.createElement("p");
-        p.innerHTML = "Stato: <span class='btn btn-success rounded-pill active btn-sm p-1'>Attivo</span>";
+        if(statoIrrigatore)
+          p.innerHTML = "Stato: <button class='btn btn-success rounded-pill active btn-sm p-1' onclick='attivaDisattivaIrrigatore(&quot;"+idIrrigatore+"&quot;)'>Attivo</button>";
+        else
+          p.innerHTML = "Stato: <button class='btn btn-danger rounded-pill active btn-sm p-1' onclick='attivaDisattivaIrrigatore(&quot;"+idIrrigatore+"&quot;)'>Disattivo</button>";
 
         newDiv.appendChild(innerDiv);
         newDiv.appendChild(p);
 
         document.getElementById("sprinklers").appendChild(newDiv);
+      }
+
+      var markers =[];
+
+      function visualizzaMappaIrrigatori(){
+        document.getElementById("btnIndietro").removeAttribute("hidden");
+        document.getElementById("visualizzaMappaIrrigatori").removeAttribute("hidden");
+        document.getElementById("listaIrrigatori").setAttribute("hidden", "true");
+        mapTuttiIrrigatori.invalidateSize()
+        mapTuttiIrrigatori.fitBounds(polygon.getBounds())
+        fetch('visualizzaIrrigatori' , {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            idTerreno: terreno.id
+          })
+        }).then(function(response) {
+            return response.json();
+        }).then(function(data) {
+          console.log(data);
+          for(var i = 0; i < data.length; i++){
+            var lat = data[i].posizione.geometry.coordinates[1]
+            var len = data[i].posizione.geometry.coordinates[0]
+            console.log(lat + " " + len)
+            marker = L.marker([lat,len], {icon: sprinklerIcon}).addTo(mapTuttiIrrigatori);
+            markers.push(marker);
+            marker.bindPopup("<b>"+data[i].nome+"</b><br>Stato: "+data[i].attivo);
+          }
+        });
+      }
+
+      function attivaDisattivaIrrigatore(idIrrigatore){
+        fetch('attivaDisattivaIrrigatore' , {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            idIrrigatore: idIrrigatore
+          })
+        }).then(function(response) {
+          return response.json();
+        }).then(function(data) {
+          if(data.risposta == "attivato"){
+            document.getElementById(idIrrigatore).getElementsByTagName("button")[2].setAttribute("class", "btn btn-success rounded-pill active btn-sm p-1");
+            document.getElementById(idIrrigatore).getElementsByTagName("button")[2].innerText = "Attivo";
+          }else{
+            document.getElementById(idIrrigatore).getElementsByTagName("button")[2].setAttribute("class", "btn btn-danger rounded-pill active btn-sm p-1");
+            document.getElementById(idIrrigatore).getElementsByTagName("button")[2].innerText = "Disattivo";
+          }
+      });
       }
 
       function inviaIrrigatoreCreato(){
@@ -620,8 +697,17 @@
       }
 
       function tornaIndietro(){
+        if(markers.length > 0){
+          for(var i = 0; i < markers.length; i++){
+            markers[i].remove();
+          }
+        }
+        if(markerAggiungiIrrigatore != null)
+          markerAggiungiIrrigatore.remove()
         if(markerModificaIrrigatore != null)
           markerModificaIrrigatore.remove()
+
+        document.getElementById("visualizzaMappaIrrigatori").setAttribute("hidden", "true");
         document.getElementById("modificaIrrigatore").setAttribute("hidden", "true");
         document.getElementById("aggiungiIrrigatore").setAttribute("hidden", "true");
         document.getElementById("listaIrrigatori").removeAttribute("hidden");
@@ -674,7 +760,7 @@
           var len = data.posizioneIrrigatore.geometry.coordinates[0]
           //add marker to map
           markerModificaIrrigatore = L.marker([lat, len], {draggable: true}).addTo(mapModificaIrrigatore);
-
+          markerModificaIrrigatore.setIcon(sprinklerIcon);
           //set nome for form with id NomeImpianto
           document.getElementById("NomeImpiantoModificaIrrigatore").value = data.nomeIrrigatore;
           
@@ -740,6 +826,12 @@
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       }).addTo(mapAggiungiIrrigatore);
 
+      var mapTuttiIrrigatori = L.map('mapTuttiIrrigatori').setView([51.505, -0.09], 13);
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(mapTuttiIrrigatori);
+
       var markerModificaIrrigatore
       mapModificaIrrigatore.on('click', function(e) {
         if(markerModificaIrrigatore != undefined)
@@ -747,6 +839,7 @@
         markerModificaIrrigatore = L.marker([e.latlng.lat, e.latlng.lng])
         if(isMarkerInsidePolygon(markerModificaIrrigatore,polygonModificaIrrigazione))
           markerModificaIrrigatore.addTo(mapModificaIrrigatore);
+          markerModificaIrrigatore.setIcon(sprinklerIcon)
       });
 
 
@@ -757,6 +850,8 @@
         markerAggiungiIrrigatore = L.marker([e.latlng.lat, e.latlng.lng])
         if(isMarkerInsidePolygon(markerAggiungiIrrigatore, polygonAggiungiIrrigazione))
           markerAggiungiIrrigatore.addTo(mapAggiungiIrrigatore);
+          //aggiungi png personalizzato al marker
+          markerAggiungiIrrigatore.setIcon(sprinklerIcon)
       });
 
       
@@ -782,6 +877,7 @@
       var polygon = L.geoJSON(u).addTo(map)
       var polygonModificaIrrigazione = L.geoJSON(u).addTo(mapModificaIrrigatore)
       var polygonAggiungiIrrigazione = L.geoJSON(u).addTo(mapAggiungiIrrigatore)
+      var polygonTuttiIrrigatori = L.geoJSON(u).addTo(mapTuttiIrrigatori)
       map.fitBounds(polygon.getBounds())
       
 
@@ -857,8 +953,8 @@
     .then(data=>{
       //per ogni irrigatore chiama aggiungiIrrigatoreAlDom con argomento il nome dell'irrigatore
       data.forEach(irrigatore => {
-        console.log(irrigatore._id)
-        aggiungiIrrigatoreAlDom(irrigatore.nome, irrigatore._id)
+        console.log(irrigatore.attivo)
+        aggiungiIrrigatoreAlDom(irrigatore.nome, irrigatore._id, irrigatore.attivo)
       });
 
     });
