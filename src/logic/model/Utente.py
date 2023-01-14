@@ -4,7 +4,7 @@ import json
 
 #Scheletro della classe utente così come è presente sul database
 class Utente():
-    def __init__(self, id:str, nome: str, cognome: str, email: str, password:str, ruolo: str, dataNascita: str, partitaIVA: str, codice: str, indirizzo: str):
+    def __init__(self, id:str, nome: str, cognome: str, email: str, password:str, ruolo: str, dataNascita: str, partitaIVA: str, codice: str, indirizzo: str, datore: str):
         self.id = id
         self.nome = nome
         self.cognome = cognome
@@ -15,7 +15,9 @@ class Utente():
         if ruolo == "farmer":
             self.partitaIVA = partitaIVA
             self.codice = None
+            self.datore = None
         else: 
+            self.datore = datore
             self.codice = codice
             self.partitaIVA = None
     

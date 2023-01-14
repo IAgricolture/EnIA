@@ -4,6 +4,7 @@ from flask import url_for
 import json
 from src.logic.model.Terreno import Terreno
 from src.logic.AmbienteAgricolo.AmbienteAgricoloService import AmbienteAgricoloService
+from flask_login import current_user
 
 class AmbienteAgricoloController():
 
@@ -19,8 +20,9 @@ class AmbienteAgricoloController():
             posizione = richiesta.get("posizione")
             preferito = richiesta.get("preferito")
             priorita = richiesta.get("priorita")
+            proprietario = current_user.id
             
-            risultato = AmbienteAgricoloService.aggiungiTerreno(nome, coltura, posizione, preferito, priorita)
+            risultato = AmbienteAgricoloService.aggiungiTerreno(nome, coltura, posizione, preferito, priorita, proprietario)
             risposta = {
                 "TerrenoAggiunto" : "True" #TODO:QUI CI VA IL RISULTATO
             }

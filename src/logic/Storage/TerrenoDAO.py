@@ -16,7 +16,7 @@ class TerrenoDAO():
             "Posizione" : terreno.posizione,
             "Preferito" : terreno.preferito,
             "Priorita" : terreno.priorita,
-            "ListaUtenti" : terreno.listautenti 
+            "proprietario" : terreno.proprietario 
             #TODO: Se errore, gestire eccezione
         })
 
@@ -32,10 +32,10 @@ class TerrenoDAO():
         nome = str(trovato.get("Nome"))
         coltura = str(trovato.get("Coltura"))
         posizione = trovato.get("Posizione")
-        print(posizione)
         preferito = (trovato.get("Preferito"))
         priorita = int(trovato.get("Priorita"))  
-        NewTerreno = Terreno(id2,nome,coltura,posizione,preferito,priorita)
+        proprietario = str(trovato.get("proprietario"))
+        NewTerreno = Terreno(id2,nome,coltura,posizione,preferito,priorita,proprietario)
         return NewTerreno
 
 
@@ -59,5 +59,4 @@ class TerrenoDAO():
             "Posizione": terrenoMod.posizione,
             "Preferito": terrenoMod.preferito,
             "Priorita": terrenoMod.priorita,
-            "ListaUtenti" : terrenoMod.listautenti,
         }})

@@ -27,3 +27,8 @@ function ModMetodo()
     licenzamod.style.display = "none"
     metodomod.style.display = "flex"
 }
+
+function Visualizza()
+{
+    window.location.href = "/AziendaAgricola"   
+}
