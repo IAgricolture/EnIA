@@ -421,8 +421,7 @@
               <div class="card">
                 <div class="card-body">
                     <h4 id = "datiInquinamento" class="card-title mb-4">Dati inquinamento</h4>
-                    <!-- <canvas id="doughnut-chart" width="800" height="450"></canvas> <!-->
-                        <div class="col-sm-12">
+                        <div id="tabellainq" class="col-sm-12">
                               <div class="d-flex justify-content-between mb-4">
                                 <div id = "tsinq" class="text-muted"></div> <!--Timestamp inquinamento-->
                               </div>
@@ -449,12 +448,17 @@
                               <div class="d-flex justify-content-between mb-4">
                                 <div>PM10</div>
                                 <div id = "pm10" class="text-muted"></div>
+                              </div>
                           </div>
-                        </div>
-                      </div>
+                           <div class="btn-group-sm mr-2" role="group">
+                            <button type="button" id="bottoneinq1" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Tabella</button>
+                            <button type="button" id="bottoneinq2" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Grafico1</button>
+                            <button type="button" id="bottoneinq3" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Grafico2</button>
+                            <button type="button" id="bottoneinq4" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Storico</button>
+                          </div>
+                    </div>
                   </div>
-                </div>
-              </div>
+               </div>
             </div>
             <div class="col-lg-4 d-flex grid-margin stretch-card">
               <div class="card">
@@ -504,6 +508,158 @@
   crossorigin=""></script>
 
     <script>
+
+      var viewinqcorrente = 1; //Necessaria per la funzione sotto, deve essere globale.
+      function gestisciViewInquinamento(id) //Controlla i bottoni di dati inquinamento
+      {
+        var parent = document.getElementById("datiInquinamento")
+        switch(id)
+        {
+          case "bottoneinq1":
+
+            switch(viewinqcorrente)
+            {
+              case 2:
+               document.getElementById("doughnut").remove()
+               break
+              
+              case 3:
+                document.getElementById("polarArea").remove()
+                break
+              
+              case 4:
+                //Cancella lo Storico
+                break
+              
+              default:
+              break
+            }
+            document.getElementById("tabellainq").hidden = false //Ci voleva un sacco di tempo per creare tutti i documenti, meglio lasciarlo nascosto e riattivarlo così.
+            viewinqcorrente = 1
+            break
+          
+          case "bottoneinq2":
+
+            switch(viewinqcorrente)
+            {
+              case 1:
+                document.getElementById("tabellainq").hidden = true
+                break
+
+              case 3:
+                document.getElementById("polarArea").remove()
+                break
+              
+              case 4:
+                //Cancella lo Storico
+                break
+              
+              default:
+              break
+            }
+            //Inserisci il grafico
+            if(document.getElementById("doughnut") == null)  //Serve perchè altrimenti lo ricrea se uno preme lo stesso pulsante
+            {
+              var canvas = document.createElement("canvas")
+              canvas.id = "doughnut"
+              canvas.width = "800"
+              canvas.height = "595" //NON modificare, stessa altezza del testo così non esplode quando clicchiamo.
+              parent.appendChild(canvas)
+              new Chart(document.getElementById("doughnut"), {
+                type: 'doughnut',
+                data: {
+                  labels: ['CO','NO2'],
+                  datasets: [{
+                    label: 'Agenti inquinanti',
+                    data: [inquinamento.co, inquinamento.no2],
+                    backgroundColor: ['rgb(255, 205, 86)','rgb(255, 99, 132)'],
+                    hoverOffset: 4
+                    }]
+                  },
+                options: {
+                  title: {
+                    display: true,
+                    text: "Agenti inquinanti"
+                  }
+                }
+               })
+             }
+             viewinqcorrente = 2
+             break
+
+          case "bottoneinq3":
+            switch(viewinqcorrente)
+            {
+              case 1:
+                document.getElementById("tabellainq").hidden = true
+                break
+
+              case 2:
+                document.getElementById("doughnut").remove()
+                break
+            
+              case 4:
+                //Cancella lo Storico
+                break
+            
+              default:
+              break
+            }
+            //Crea il grafico
+            if(document.getElementById("polarArea") == null)  //Serve perchè altrimenti lo ricrea se uno preme lo stesso pulsante
+            {
+              var canvas = document.createElement("canvas")
+              canvas.id = "polarArea"
+              canvas.width = "800"
+              canvas.height = "595" //NON modificare, stessa altezza del testo così non esplode quando clicchiamo.
+              parent.appendChild(canvas)
+              new Chart(document.getElementById("polarArea"), {
+                type: 'polarArea',
+                data: {
+                  labels: ['PM1','PM2,5', 'PM10'],
+                  datasets: [{
+                    label: 'Indici particolato',
+                    data: [inquinamento.pm1, inquinamento.pm2_5, inquinamento.pm10],
+                    backgroundColor: ['rgb(82, 235, 52)','rgb(75, 192, 192)', 'rgb(204,52,235)']
+                    }]
+                  },
+                  options: {
+                    title: {
+                      display: true,
+                      text: "Indici particolato"
+                    }
+                  }
+               })
+            }
+            viewinqcorrente = 3
+            break
+
+          case "bottoneinq4":
+          switch(viewinqcorrente)
+          {
+            case 1:
+              document.getElementById("tabellainq").hidden = true
+
+            case 2:
+              document.getElementById("doughnut").remove()
+              break
+            
+            case 3:
+              document.getElementById("polarArea").remove()
+              break  
+
+            default:
+              break
+            }
+            //Crea il form, fa submit (?) e genera il grafico del risultato
+            console.log("TODO!")
+            viewinqcorrente = 4
+            break
+
+          default:
+          break
+        }
+      }
 
       function rimandamodifica()
       {
@@ -631,26 +787,6 @@
           }
         }
       });
-
-      /*new Chart(document.getElementById("doughnut-chart"), {
-        type: 'doughnut',
-        data: {
-          labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
-          datasets: [
-            {
-              label: "Population (millions)",
-              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-              data: [2478,5267,734,784,433]
-            }
-          ]
-        },
-        options: {
-          title: {
-            display: true,
-            text: 'Predicted world population (millions) in 2050'
-          }
-        }
-    });*/
     </script>
 
     <!-- End custom js for this page-->
