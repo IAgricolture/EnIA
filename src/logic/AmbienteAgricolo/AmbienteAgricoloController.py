@@ -88,4 +88,5 @@ class AmbienteAgricoloController():
         else:
             nazione = posizione[4]
         inquinamentoapi = AmbienteAgricoloService.cercaInquinamento(comune, regione, nazione)
-        return render_template("dettagliterreno.html", terreno = terreno, posizioneapi = posizioneapi, inquinamentoapi = inquinamentoapi)
+        storicoinquinamentoapi = AmbienteAgricoloService.cercaStoricoInquinamento("2022-09-01", "2022-09-30", citta, regione, nazione, comune)
+        return render_template("dettagliterreno.html", terreno = terreno, posizioneapi = posizioneapi, inquinamentoapi = inquinamentoapi, storicoinquinamentoapi = storicoinquinamentoapi)
