@@ -133,7 +133,7 @@ class AmbienteAgricoloService():
         
     def cercaMeteo(lat:float, lon:float):
         url = "https://api.open-meteo.com/v1/forecast?"\
-        "latitude="+str(lat)+"&longitude="+str(lon)+ "&hourly=temperature_2m"
+        "latitude="+str(lat)+"&longitude="+str(lon)+ "&hourly=temperature_2m,relativehumidity_2m,precipitation"
         data = requests.get(url).json()
         print(data)
         return data

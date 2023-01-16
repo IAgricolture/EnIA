@@ -737,14 +737,18 @@
           delete meteoapi.elevation
           delete meteoapi.hourly_units
           delete meteoapi.time
-          delete meteoapi.rain 
+          delete meteoapi.temperature_2m
+          delete meteoapi.relativehumidity_2m 
+          delete meteoapi.precipitation  
           var temp = []
           var n = meteoapi.hourly.time.length
           for(var i=0; i<n ; i++)
           {
             var temp2 = {
               temperature: meteoapi.hourly.temperature_2m[i],
-              time: meteoapi.hourly.time[i]
+              time: meteoapi.hourly.time[i],
+              humidity: meteoapi.hourly.relativehumidity_2m[i],
+              precipitation: meteoapi.hourly.precipitation[i]
             }
             temp.push(temp2)
           }
