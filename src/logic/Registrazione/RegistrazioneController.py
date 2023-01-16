@@ -33,7 +33,7 @@ class RegistrazioneController():
             password = hashlib.sha512(richiesta.get("password").encode()).hexdigest()
             dataDiNascita = richiesta.get("dataNascita")
             partitaiva = richiesta.get("partitaiva")
-            licenza = richiesta.get("licenza")
+            tipo = richiesta.get("licenza")
             numerocarta = richiesta.get("numerocarta")
             titolare = richiesta.get("titolare")
             scadenza = richiesta.get("scadenza")

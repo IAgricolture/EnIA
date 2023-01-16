@@ -1,3 +1,4 @@
+import hashlib
 from src.logic.Storage.AutenticazioneDAO import AutenticazioneDAO
 from src.logic.Storage.LicenzaDAO import LicenzaDAO
 from src.logic.Storage.MetodoDiPagamentoDAO import MetodoDiPagamentoDAO
@@ -20,6 +21,9 @@ class GestioneUtenteController():
                 current_user.email = richiesta.get("email")
                 current_user.dataNascita = richiesta.get("dataNascita")
                 current_user.indirizzo = richiesta.get("indirizzo")
+                print(richiesta.get("password")!= None)
+                if richiesta.get("password") != None:
+                    current_user.password = hashlib.sha512(richiesta.get("password").encode()).hexdigest()
                 if current_user.ruolo == "farmer":
                     current_user.partitaiva = richiesta.get("partitaIVA")
                 

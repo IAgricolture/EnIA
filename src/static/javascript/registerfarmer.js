@@ -117,7 +117,7 @@ function Check() {
     if(email == "")
       emailerr.innerHTML = "Campo Richiesto"
     else
-      email.innerHTML = "Formato non valido"
+      emailerr.innerHTML = "Formato non valido"
     register = false
   }
 
@@ -148,11 +148,13 @@ function Check() {
   if(dataNascita == "")
   {
     dataNascitaerr.innerHTML = "Campo Richiesto"
+    register = false
   }
 
   if(partitaiva == "")
   {
     partitaivaerr.innerHTML = "Campo Richiesto"
+    register = false
   }
 
   if(!cartareg.test(numerocarta))
@@ -194,6 +196,7 @@ function Check() {
   if(!standard.checked && !premium.checked)
   {
     licenzaerr.innerHTML = "Campo Richiesto"
+    register = false
   }
   else
   {
