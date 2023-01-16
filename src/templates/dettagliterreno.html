@@ -434,7 +434,7 @@
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex flex-wrap justify-content-between">
-                    <h4 class="card-title mb-3">Dati meteo</h4>
+                    <h4 id = "datiMeteo" class="card-title mb-3">Dati meteo</h4>
                     <canvas id="line-chart" width="800" height="450"></canvas>
                   </div>
                 </div>
@@ -670,6 +670,8 @@
         })
       }
 
+
+
       function convertiStoricoInquinamento(storicoinquinamentoapi)  //Converte il dato ottenuto da flask in un array javascript di json, per usarlo in maniera decente
       {
         var numGiorniInq = storicoinquinamentoapi.length
@@ -689,6 +691,113 @@
           delete arrayGiorniInq[c].o3
         } 
         return arrayGiorniInq
+      }
+
+      function convertiMeteo(meteoapi)  //Converte il dato ottenuto da flask in un array javascript di json, per usarlo in maniera decente
+      {
+          //Cancello i dati che non mi servono
+          delete meteoapi.latitude
+          delete meteoapi.longitude
+          delete meteoapi.generationtime_ms
+          delete meteoapi.utc_offset_seconds
+          delete meteoapi.timezone_abbreviation
+          delete meteoapi.timezone
+          delete meteoapi.elevation
+          delete meteoapi.hourly_units
+          delete meteoapi.time
+          delete meteoapi.rain 
+          var temp = []
+          var n = meteoapi.hourly.time.length
+          for(var i=0; i<n ; i++)
+          {
+            var temp2 = {
+              temperature: meteoapi.hourly.temperature_2m[i],
+              time: meteoapi.hourly.time[i]
+            }
+            temp.push(temp2)
+          }
+          console.log(temp)
+        return temp
+      }
+
+
+      function creaGraficoMeteo()
+      {
+        /*
+        DOCUMENTAZIONE: Questa funzione crea un grafico line chart a partire da dati già ottenuti come variabili globali.
+        Può essere adattato per realizzare anche altri line chart cambiando i dati, va invece riscritto se cambia il
+        tipo di grafico.
+        
+        Variabili globali usate:
+        arrayGiorniMeteo, contiene i dati per ogni giorno di quello che vogliamo inserire.
+        */
+
+        var parent = document.getElementById("datiMeteo")
+        var canvas = document.createElement("canvas")
+        canvas.id = "lineChartmeteo"
+        canvas.width = "800"
+        canvas.height = "595" //NON modificare, stessa altezza del testo così non esplode quando clicchiamo.
+        parent.appendChild(canvas)
+        //Genero dinamicamente i dati per il grafico, siccome non so quanti elementi
+        //Array dei colori, abbastanza da non averne bisogno dopo.
+        var colors = ["rgb(255, 0, 0)", "rgb(255, 102, 0)", "rgb(255, 204, 0)", "rgb(153, 204, 0)", "rgb(0, 204, 0)", "rgb(0, 255, 204)", "rgb(0, 51, 204)", "rgb(102, 0, 255)", "rgb(255, 51, 204)", "rgb(102, 0, 102)", "rgb(0, 51, 0)"]
+        var labelsData = []   //Asse x
+        var labels = [] //Nomi dei dati
+        var values = []//Valori dei dati: values[0] ha tutti i dati per la prima label.
+        var datasets = [] //Serve per creare il grafico
+        var time = [] //Serve per ripristinare il grafico dopo averlo chiuso.
+        //Riempio labelsData e values
+        for(var c = 0; c < arrayGiorniMeteo.length; c++)
+        {
+          labelsData.push(arrayGiorniMeteo[c].time.split("T")[0]) //Prendo solo la data dal timestamp
+          time.push(arrayGiorniMeteo[c].time)
+          delete arrayGiorniMeteo[c].time //Lo rimuovo in modo da poter iterare sugli altri campi per prenderne i valori
+          values.push(Object.values(arrayGiorniMeteo[c]))
+        }
+        //Riempio labels
+        for(var i = 0; i < Object.keys(arrayGiorniMeteo[0]).length; i++) //Per ogni campo di un oggetto
+        {
+          labels.push(Object.keys(arrayGiorniMeteo[0])[i])
+        }
+        console.log(labelsData)
+        console.log(labels)
+        console.log(values)    
+        //Creo i dataset con i dati compilati, uno per lineChart
+        for(var c = 0; c < labels.length; c++)
+        {
+          var data = []
+          for(var k = 0; k < values.length; k++)
+          {
+            data.push(values[k][c])
+          }
+          console.log(data)
+          //Adesso ho tutti i valori di una label, posso costruirne il dataset
+          var dataset = {
+            label : labels[c],
+            data: data,
+            fill: false,
+            borderColor: colors[c],
+            tension: 0.1
+          }
+          console.log(dataset)
+          //Costruito, lo inserisco nell'insieme per creare il grafico
+          datasets.push(dataset)
+        }
+        console.log(datasets)
+        //Finito il parsing dei dati, posso creare finalmente il grafico
+        new Chart(document.getElementById("lineChartmeteo"), {
+          type: 'line',
+          data: {
+            labels: labelsData,
+            datasets: datasets
+          },
+          options: {
+            title: {
+              display: true,
+              text: "Previsioni Meteo"
+            }
+          }
+        })
       }
 
       var viewinqcorrente = 1; //Necessaria per la funzione sotto, deve essere globale.
@@ -1207,6 +1316,16 @@
 
       var arrayGiorniInq = convertiStoricoInquinamento(storicoinquinamentoapi)
       console.log(arrayGiorniInq)
+
+      //Per il meteo
+      var meteoapi = {{meteoapi | safe}}
+      console.log(meteoapi)
+
+      var arrayGiorniMeteo = convertiMeteo(meteoapi)
+      creaGraficoMeteo()
+      console.log(arrayGiorniMeteo)
+
+
 
       console.log(terreno)
       document.getElementById("titolopagina").innerHTML = terreno.nome
