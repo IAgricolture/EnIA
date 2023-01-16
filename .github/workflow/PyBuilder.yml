@@ -6,11 +6,11 @@ name: PyBuilder
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches-ignore: 
-      -main
+    branches:
+      -'**'
   pull_request:
-    branches-ignore: 
-     -main
+    branches:
+      -'**'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
