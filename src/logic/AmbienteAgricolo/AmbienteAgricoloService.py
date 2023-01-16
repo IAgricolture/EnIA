@@ -1,3 +1,5 @@
+from src.logic.Storage.ImpiantoDiIrrigazioneDAO import ImpiantoDiIrrigazioneDAO
+from src.logic.model.ImpiantoDiIrrigazione import ImpiantoDiIrrigazione
 from src.logic.model.Terreno import Terreno
 from src.logic.Storage.TerrenoDAO import TerrenoDAO
 import requests
@@ -83,3 +85,32 @@ class AmbienteAgricoloService():
         print(len(arrayDati))
         arrayDati.pop(len(arrayDati) - 1) #Rimuovo un elemento vuoto creato con lo split, all'ultimo posto
         return arrayDati
+
+    def aggiungiIrrigatore(id_terreno: str, nome_irrigatore: str, posizione_irrigatore: str) -> str:
+        impianto = ImpiantoDiIrrigazione("", nome_irrigatore, "irrigatore", "", posizione_irrigatore, False)
+        id = ImpiantoDiIrrigazioneDAO.creaImpianto(impianto, id_terreno)
+        return id
+    
+    def modificaIrrigatore(idIrrigatore: str, nomeIrrigatore: str, posizioneIrrigatore: str):
+        impianto = ImpiantoDiIrrigazione(idIrrigatore, nomeIrrigatore, "irrigatore", "", posizioneIrrigatore, False)
+        ImpiantoDiIrrigazioneDAO.modificaImpianto(impianto)
+        return True
+    
+    def getIrrigatore(idIrrigatore: str):
+        return ImpiantoDiIrrigazioneDAO.findImpiantoById(idIrrigatore)
+    
+    def visualizzaListaIrrigatori(idTerreno: str):
+        return ImpiantoDiIrrigazioneDAO.findImpiantiByTerreno(idTerreno)
+    
+    def eliminaIrrigatore(idIrrigatore: str):
+        return ImpiantoDiIrrigazioneDAO.eliminaImpianto(idIrrigatore)
+    
+    def attivaDisattivaIrrigatore(idIrrigatore:str):
+        if(ImpiantoDiIrrigazioneDAO.findImpiantoById(idIrrigatore).attivo == True):
+            ImpiantoDiIrrigazioneDAO.disattivaImpianto(idIrrigatore)
+            return False
+        else:
+            ImpiantoDiIrrigazioneDAO.attivaImpianto(idIrrigatore)
+            return True
+        
+        
