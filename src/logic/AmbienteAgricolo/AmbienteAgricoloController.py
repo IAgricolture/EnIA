@@ -89,7 +89,10 @@ class AmbienteAgricoloController():
             nazione = posizione[4]
         inquinamentoapi = AmbienteAgricoloService.cercaInquinamento(comune, regione, nazione)
         storicoinquinamentoapi = AmbienteAgricoloService.cercaStoricoInquinamento("2022-09-01", "2022-09-30", citta, regione, nazione, comune)
-        return render_template("dettagliterreno.html", terreno = terreno, posizioneapi = posizioneapi, inquinamentoapi = inquinamentoapi, storicoinquinamentoapi = storicoinquinamentoapi)
+        lat = AmbienteAgricoloService.cercalat(idTerreno)
+        lon = AmbienteAgricoloService.cercalon(idTerreno)
+        meteoapi = AmbienteAgricoloService.cercaMeteo(lat,lon)
+        return render_template("dettagliterreno.html", terreno = terreno, posizioneapi = posizioneapi, inquinamentoapi = inquinamentoapi, storicoinquinamentoapi = storicoinquinamentoapi,meteoapi=meteoapi)
     
     @app.route("/aggiungiIrrigatore", methods=["POST", "GET"])
     def aggiungiIrrigatore():

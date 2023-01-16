@@ -113,4 +113,27 @@ class AmbienteAgricoloService():
             ImpiantoDiIrrigazioneDAO.attivaImpianto(idIrrigatore)
             return True
         
+    def cercalat(id:str):
+        terreno = TerrenoDAO.TrovaTerreno(id)
+        if(terreno is None):
+            return None
+        else:
+            #Estraggo latitudine e longitudine del primo punto del terreno, di cui prendo la posizione
+            lat = terreno.posizione["geometry"]["coordinates"][0][0][1]
+            return lat
         
+    def cercalon(id:str):
+        terreno = TerrenoDAO.TrovaTerreno(id)
+        if(terreno is None):
+            return None
+        else:
+            #Estraggo latitudine e longitudine del primo punto del terreno, di cui prendo la posizione
+            lon = terreno.posizione["geometry"]["coordinates"][0][0][0]
+            return lon
+        
+    def cercaMeteo(lat:float, lon:float):
+        url = "https://api.open-meteo.com/v1/forecast?"\
+        "latitude="+str(lat)+"&longitude="+str(lon)+ "&hourly=temperature_2m"
+        data = requests.get(url).json()
+        print(data)
+        return data
