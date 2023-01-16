@@ -91,6 +91,28 @@ class AmbienteAgricoloController():
         storicoinquinamentoapi = AmbienteAgricoloService.cercaStoricoInquinamento("2022-09-01", "2022-09-30", citta, regione, nazione, comune)
         return render_template("dettagliterreno.html", terreno = terreno, posizioneapi = posizioneapi, inquinamentoapi = inquinamentoapi, storicoinquinamentoapi = storicoinquinamentoapi)
     
+    @app.route("/getStoricoInquinamento", methods=["POST"])
+    def getStoricoInquinamento():
+        richiesta = request.get_json()
+        idTerreno = richiesta.get("idTerreno")
+        dataInizio = richiesta.get("dataInizio")
+        dataFine = richiesta.get("dataFine")
+        terreno = AmbienteAgricoloService.trovaTerreno(idTerreno)
+        posizioneapi = AmbienteAgricoloService.cercaPosizione(idTerreno)
+        print(posizioneapi)
+        #Ottengo dati dal display_name in quanto funziona per qualsiasi località (per altre non italiane, cambiano i nomi delle chiavi json)
+        posizione = posizioneapi["display_name"].split(", ") #Ottengo in una lista i dati
+        print(posizione)
+        citta = posizione[0]    #Inutilizzata per adesso, lasciata qui se dovesse servire
+        comune = posizione[1]
+        regione = posizione[2]
+        if(len(posizione) == 4):   #Parse per evitare il codice postale, soluzione temporanea.
+            nazione = posizione[3]
+        else:
+            nazione = posizione[4]
+        storicoinquinamentoapi = AmbienteAgricoloService.cercaStoricoInquinamento(dataInizio, dataFine, citta, regione, nazione, comune)
+        return jsonify(storicoinquinamentoapi)
+    
     @app.route("/aggiungiIrrigatore", methods=["POST", "GET"])
     def aggiungiIrrigatore():
         if request.method == "POST":
