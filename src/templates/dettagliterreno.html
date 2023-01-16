@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>CelestialUI Admin</title>
+    <title id = "titolopagina">Dettagli del terreno</title>
     <!-- base:css -->
     <link rel="stylesheet" href="/static/vendors/typicons.font/font/typicons.css">
     <link rel="stylesheet" href="/static/vendors/css/vendor.bundle.base.css">
@@ -443,12 +443,45 @@
             <div class="col-xl-6 d-flex grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <div class="d-flex flex-wrap justify-content-between">
-                    <h4 class="card-title mb-3">Dati inquinamento</h4>
-                    <canvas id="doughnut-chart" width="800" height="450"></canvas>
+                    <h4 id = "datiInquinamento" class="card-title mb-4">Dati inquinamento</h4>
+                        <div id="tabellainq" class="col-sm-12">
+                              <div class="d-flex justify-content-between mb-4">
+                                <div id = "tsinq" class="text-muted"></div> <!--Timestamp inquinamento-->
+                              </div>
+                              <div class="d-flex justify-content-between mb-4">
+                                <div>AQI</div>
+                                <div id = "aqi" class="text-muted"></div>
+                              </div>
+                              <div class="d-flex justify-content-between mb-4">
+                                <div>CO</div>
+                                <div id = "co" class="text-muted"></div>
+                              </div>
+                              <div class="d-flex justify-content-between mb-4">
+                                <div>NO2</div>
+                                <div id = "no2" class="text-muted"></div>
+                              </div>
+                              <div class="d-flex justify-content-between mb-4">
+                                <div>PM1</div>
+                                <div id = "pm1" class="text-muted"></div>
+                              </div>
+                              <div class="d-flex justify-content-between mb-4">
+                                <div>PM2,5</div>
+                                <div id = "pm25" class="text-muted"></div>
+                              </div>
+                              <div class="d-flex justify-content-between mb-4">
+                                <div>PM10</div>
+                                <div id = "pm10" class="text-muted"></div>
+                              </div>
+                          </div>
+                           <div class="btn-group-sm mr-2" role="group">
+                            <button type="button" id="bottoneinq1" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Tabella</button>
+                            <button type="button" id="bottoneinq2" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Grafico1</button>
+                            <button type="button" id="bottoneinq3" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Grafico2</button>
+                            <button type="button" id="bottoneinq4" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Storico</button>
+                          </div>
+                    </div>
                   </div>
-                </div>
-              </div>
+               </div>
             </div>
           </div>
           <div class="row  mt-3">
@@ -551,6 +584,267 @@
   crossorigin=""></script>
 
     <script>
+      
+      function creaGraficoStoricoInquinamento()
+      {
+        /*
+        DOCUMENTAZIONE: Questa funzione crea un grafico line chart a partire da dati già ottenuti come variabili globali.
+        Può essere adattato per realizzare anche altri line chart cambiando i dati, va invece riscritto se cambia il
+        tipo di grafico.
+        
+        Variabili globali usate:
+        arrayGiorniInq, contiene i dati per ogni giorno di quello che vogliamo inserire.
+        */
+
+        var parent = document.getElementById("datiInquinamento")
+        var canvas = document.createElement("canvas")
+        canvas.id = "lineChart"
+        canvas.width = "800"
+        canvas.height = "595" //NON modificare, stessa altezza del testo così non esplode quando clicchiamo.
+        parent.appendChild(canvas)
+        //Genero dinamicamente i dati per il grafico, siccome non so quanti elementi
+        //Array dei colori, abbastanza da non averne bisogno dopo.
+        var colors = ["rgb(255, 0, 0)", "rgb(255, 102, 0)", "rgb(255, 204, 0)", "rgb(153, 204, 0)", "rgb(0, 204, 0)", "rgb(0, 255, 204)", "rgb(0, 51, 204)", "rgb(102, 0, 255)", "rgb(255, 51, 204)", "rgb(102, 0, 102)", "rgb(0, 51, 0)"]
+        var labelsData = []   //Asse x
+        var labels = [] //Nomi dei dati
+        var values = []//Valori dei dati: values[0] ha tutti i dati per la prima label.
+        var datasets = [] //Serve per creare il grafico
+        var timestamps = [] //Serve per ripristinare il grafico dopo averlo chiuso.
+        //Riempio labelsData e values
+        for(var c = 0; c < arrayGiorniInq.length; c++)
+        {
+          labelsData.push(arrayGiorniInq[c].timestamp.split(" ")[0]) //Prendo solo la data dal timestamp
+          timestamps.push(arrayGiorniInq[c].timestamp)
+          delete arrayGiorniInq[c].timestamp //Lo rimuovo in modo da poter iterare sugli altri campi per prenderne i valori
+          values.push(Object.values(arrayGiorniInq[c]))
+        }
+        //Riempio labels
+        for(var i = 0; i < Object.keys(arrayGiorniInq[0]).length; i++) //Per ogni campo di un oggetto
+        {
+          labels.push(Object.keys(arrayGiorniInq[0])[i])
+        }
+        console.log(labelsData)
+        console.log(labels)
+        console.log(values)    
+        //Ripristino timestamp, altrimenti non posso ricreare lo storico.
+        for(var i = 0; i < timestamps.length; i++)
+        {
+          arrayGiorniInq[i]["timestamp"] = timestamps[i]
+        }
+        //Creo i dataset con i dati compilati, uno per lineChart
+        for(var c = 0; c < labels.length; c++)
+        {
+          var data = []
+          for(var k = 0; k < values.length; k++)
+          {
+            data.push(values[k][c])
+          }
+          console.log(data)
+          //Adesso ho tutti i valori di una label, posso costruirne il dataset
+          var dataset = {
+            label : labels[c],
+            data: data,
+            fill: false,
+            borderColor: colors[c],
+            tension: 0.1
+          }
+          console.log(dataset)
+          //Costruito, lo inserisco nell'insieme per creare il grafico
+          datasets.push(dataset)
+        }
+        console.log(datasets)
+        //Finito il parsing dei dati, posso creare finalmente il grafico
+        new Chart(document.getElementById("lineChart"), {
+          type: 'line',
+          data: {
+            labels: labelsData,
+            datasets: datasets
+          },
+          options: {
+            title: {
+              display: true,
+              text: "Storico misure inquinamento"
+            }
+          }
+        })
+      }
+
+      function convertiStoricoInquinamento(storicoinquinamentoapi)  //Converte il dato ottenuto da flask in un array javascript di json, per usarlo in maniera decente
+      {
+        var numGiorniInq = storicoinquinamentoapi.length
+        
+        var arrayGiorniInq = []
+        for(var c = 0; c < numGiorniInq; c++)
+        {
+          arrayGiorniInq.push(JSON.parse(storicoinquinamentoapi[c]))
+          //Cancello i dati che non mi servono
+          delete arrayGiorniInq[c].comune
+          delete arrayGiorniInq[c].nazione
+          delete arrayGiorniInq[c].regione
+          delete arrayGiorniInq[c].provincia
+          delete arrayGiorniInq[c].temperatura
+          delete arrayGiorniInq[c].umidita
+          //Mi tocca cancellarne anche altri perchè l'api certi giorni li restituisce, altri no, ed è un vero problema poi per il grafico.
+          delete arrayGiorniInq[c].o3
+        } 
+        return arrayGiorniInq
+      }
+
+      var viewinqcorrente = 1; //Necessaria per la funzione sotto, deve essere globale.
+      function gestisciViewInquinamento(id) //Controlla i bottoni di dati inquinamento
+      {
+        var parent = document.getElementById("datiInquinamento")
+        switch(id)
+        {
+          case "bottoneinq1":
+
+            switch(viewinqcorrente)
+            {
+              case 2:
+               document.getElementById("doughnut").remove()
+               break
+              
+              case 3:
+                document.getElementById("polarArea").remove()
+                break
+              
+              case 4:
+                document.getElementById("lineChart").remove()
+                break
+              
+              default:
+              break
+            }
+            document.getElementById("tabellainq").hidden = false //Ci voleva un sacco di tempo per creare tutti i documenti, meglio lasciarlo nascosto e riattivarlo così.
+            viewinqcorrente = 1
+            break
+          
+          case "bottoneinq2":
+
+            switch(viewinqcorrente)
+            {
+              case 1:
+                document.getElementById("tabellainq").hidden = true
+                break
+
+              case 3:
+                document.getElementById("polarArea").remove()
+                break
+              
+              case 4:
+                document.getElementById("lineChart").remove()
+                break
+              
+              default:
+              break
+            }
+            //Inserisci il grafico
+            if(document.getElementById("doughnut") == null)  //Serve perchè altrimenti lo ricrea se uno preme lo stesso pulsante
+            {
+              var canvas = document.createElement("canvas")
+              canvas.id = "doughnut"
+              canvas.width = "800"
+              canvas.height = "595" //NON modificare, stessa altezza del testo così non esplode quando clicchiamo.
+              parent.appendChild(canvas)
+              new Chart(document.getElementById("doughnut"), {
+                type: 'doughnut',
+                data: {
+                  labels: ['CO','NO2'],
+                  datasets: [{
+                    label: 'Agenti inquinanti',
+                    data: [inquinamento.co, inquinamento.no2],
+                    backgroundColor: ['rgb(255, 205, 86)','rgb(255, 99, 132)'],
+                    hoverOffset: 4
+                    }]
+                  },
+                options: {
+                  title: {
+                    display: true,
+                    text: "Agenti inquinanti"
+                  }
+                }
+               })
+             }
+             viewinqcorrente = 2
+             break
+
+          case "bottoneinq3":
+            switch(viewinqcorrente)
+            {
+              case 1:
+                document.getElementById("tabellainq").hidden = true
+                break
+
+              case 2:
+                document.getElementById("doughnut").remove()
+                break
+            
+              case 4:
+                document.getElementById("lineChart").remove()
+                break
+            
+              default:
+              break
+            }
+            //Crea il grafico
+            if(document.getElementById("polarArea") == null)  //Serve perchè altrimenti lo ricrea se uno preme lo stesso pulsante
+            {
+              var canvas = document.createElement("canvas")
+              canvas.id = "polarArea"
+              canvas.width = "800"
+              canvas.height = "595" //NON modificare, stessa altezza del testo così non esplode quando clicchiamo.
+              parent.appendChild(canvas)
+              new Chart(document.getElementById("polarArea"), {
+                type: 'polarArea',
+                data: {
+                  labels: ['PM1','PM2,5', 'PM10'],
+                  datasets: [{
+                    label: 'Indici particolato',
+                    data: [inquinamento.pm1, inquinamento.pm2_5, inquinamento.pm10],
+                    backgroundColor: ['rgb(82, 235, 52)','rgb(75, 192, 192)', 'rgb(204,52,235)']
+                    }]
+                  },
+                  options: {
+                    title: {
+                      display: true,
+                      text: "Indici particolato"
+                    }
+                  }
+               })
+            }
+            viewinqcorrente = 3
+            break
+
+          case "bottoneinq4":
+          switch(viewinqcorrente)
+          {
+            case 1:
+              document.getElementById("tabellainq").hidden = true
+              break
+
+            case 2:
+              document.getElementById("doughnut").remove()
+              break
+            
+            case 3:
+              document.getElementById("polarArea").remove()
+              break  
+
+            default:
+              break
+            }
+            //Crea il form, fa submit (?) e genera il grafico del risultato
+            if(document.getElementById("lineChart") == null)
+            {
+              creaGraficoStoricoInquinamento()
+            }
+            viewinqcorrente = 4
+            break
+
+          default:
+          break
+        }
+
       var terreno = {
         id : "{{terreno.id}}",
         nome: "{{terreno.nome}}",
@@ -796,6 +1090,7 @@
       function isMarkerInsidePolygon(marker, polygon) {
         // utilizziamo la funzione leaflet contains() per verificare se il marker è all'interno del poligono
         return polygon.getBounds().contains(marker.getLatLng());
+
       }
 
       function rimandamodifica()
@@ -860,8 +1155,57 @@
       var posizioneapi = {
         display_name : "{{posizioneapi.display_name}}"
       }
+
+      var comune = posizioneapi.display_name.split(", ")[0]
       console.log(posizioneapi.display_name)
+      console.log(comune)
+      var messaggioInquinamento;
+      var inquinamentoapi = {{inquinamentoapi | safe}} //NON togliere safe, altrimenti si rompe perchè flask inserisce caratteri di escape che rompono js
+      console.log(inquinamentoapi.result)
+      //Non è detto che il comune esista nei risultati dell'API
+      if(comune in inquinamentoapi.result)
+      {
+        inquinamento = inquinamentoapi.result[comune]
+        console.log(inquinamento)
+        //Tolgo i dati che non ci interessano per l'inquinamento
+        delete inquinamento.comune
+        delete inquinamento.nazione
+        delete inquinamento.regione
+        delete inquinamento.provincia
+        delete inquinamento.temperatura
+        delete inquinamento.umidita
+        console.log(inquinamento)
+        //Riempio le div con i dati dell'inquinamento
+        //AGGIUNGERE CONTROLLO PER DATI CHE NON CI SONO SEMPRE, COME O3, SO2? Grafico poi diventa un problema
+        document.getElementById("tsinq").innerHTML = "Orario rilevamento: " + inquinamento.timestamp
+        document.getElementById("aqi").innerHTML = String(inquinamento.aqi) //api lo restituisce come float, giusto per essere sicuri
+        document.getElementById("co").innerHTML = inquinamento.co
+        document.getElementById("no2").innerHTML = inquinamento.no2
+        document.getElementById("pm1").innerHTML = inquinamento.pm1
+        document.getElementById("pm25").innerHTML = inquinamento.pm2_5
+        document.getElementById("pm10").innerHTML = inquinamento.pm10
+      }
+      else
+      {
+        //Aggiungi messaggio di errore
+        var parent = document.getElementById("datiInquinamento")
+        var div = document.createElement('div')
+        div.className = "alert alert-warning"
+        var testo = document.createElement('strong')
+        testo.innerHTML=  "Errore API inquinamento: Non sono disponibili dati per il comune richiesto."
+        div.appendChild(testo)
+        parent.appendChild(div)
+      }
+     
+      //Ottengo lo storico dell'inquinamento e lo trasformo in un array javascript normale.
+      var storicoinquinamentoapi = {{storicoinquinamentoapi | safe}}
+      console.log(storicoinquinamentoapi)
+
+      var arrayGiorniInq = convertiStoricoInquinamento(storicoinquinamentoapi)
+      console.log(arrayGiorniInq)
+
       console.log(terreno)
+      document.getElementById("titolopagina").innerHTML = terreno.nome
       document.getElementById("nomeTerreno").innerHTML = terreno.nome
       document.getElementById("nome").innerHTML = terreno.nome
       document.getElementById("coltura").innerHTML = terreno.coltura
@@ -880,67 +1224,6 @@
       var polygonTuttiIrrigatori = L.geoJSON(u).addTo(mapTuttiIrrigatori)
       map.fitBounds(polygon.getBounds())
       
-
-      new Chart(document.getElementById("line-chart"), {
-        type: 'line',
-        data: {
-          labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
-          datasets: [{ 
-              data: [86,114,106,106,107,111,133,221,783,2478],
-              label: "Africa",
-              borderColor: "#3e95cd",
-              fill: false
-            }, { 
-              data: [282,350,411,502,635,809,947,1402,3700,5267],
-              label: "Asia",
-              borderColor: "#8e5ea2",
-              fill: false
-            }, { 
-              data: [168,170,178,190,203,276,408,547,675,734],
-              label: "Europe",
-              borderColor: "#3cba9f",
-              fill: false
-            }, { 
-              data: [40,20,10,16,24,38,74,167,508,784],
-              label: "Latin America",
-              borderColor: "#e8c3b9",
-              fill: false
-            }, { 
-              data: [6,3,2,2,7,26,82,172,312,433],
-              label: "North America",
-              borderColor: "#c45850",
-              fill: false
-            }
-          ]
-        },
-        options: {
-          title: {
-            display: true,
-            text: 'World population per region (in millions)'
-          }
-        }
-      });
-
-      new Chart(document.getElementById("doughnut-chart"), {
-        type: 'doughnut',
-        data: {
-          labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
-          datasets: [
-            {
-              label: "Population (millions)",
-              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-              data: [2478,5267,734,784,433]
-            }
-          ]
-        },
-        options: {
-          title: {
-            display: true,
-            text: 'Predicted world population (millions) in 2050'
-          }
-        }
-    });
-
     fetch('visualizzaIrrigatori', {
       method: 'POST',
       headers: {
