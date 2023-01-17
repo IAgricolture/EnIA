@@ -16,8 +16,7 @@ class TerrenoDAO():
             "Posizione" : terreno.posizione,
             "Preferito" : terreno.preferito,
             "Priorita" : terreno.priorita,
-            "proprietario" : terreno.proprietario 
-            #TODO: Se errore, gestire eccezione
+            "proprietario" : terreno.proprietario
         })
 
 
@@ -35,7 +34,7 @@ class TerrenoDAO():
         preferito = (trovato.get("Preferito"))
         priorita = int(trovato.get("Priorita"))  
         proprietario = str(trovato.get("proprietario"))
-        NewTerreno = Terreno(id2,nome,coltura,posizione,preferito,priorita,proprietario)
+        NewTerreno = Terreno(id2,nome,coltura,posizione,preferito,priorita, proprietario)
         return NewTerreno
 
 
@@ -59,4 +58,24 @@ class TerrenoDAO():
             "Posizione": terrenoMod.posizione,
             "Preferito": terrenoMod.preferito,
             "Priorita": terrenoMod.priorita,
+            "proprietario" : terrenoMod.proprietario,
         }})
+    
+    def restituisciTerreniByFarmer(farmer: str) -> list:
+        """
+        Questo metodo dato un id in input retituisce un terrreno con l'id corrispondenti  
+        """
+        trovati = terreni.find({"proprietario" : farmer})
+        listaTerreni = []
+        for trovato in trovati:
+            id2 = str(trovato.get("_id"))
+            nome = str(trovato.get("Nome"))
+            coltura = str(trovato.get("Coltura"))
+            posizione = trovato.get("Posizione")
+            preferito = (trovato.get("Preferito"))
+            priorita = int(trovato.get("Priorita"))  
+            proprietario = str(trovato.get("proprietario"))
+            NewTerreno = Terreno(id2,nome,coltura,posizione,preferito,priorita, proprietario)
+            listaTerreni.append(NewTerreno)
+        
+        return listaTerreni

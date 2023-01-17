@@ -2,7 +2,7 @@ import hashlib
 
 from src.logic.Registrazione.RegistrazioneService import RegistrazioneService
 
-from flask import jsonify, request, render_template
+from flask import jsonify, request, render_template, redirect
 from src import app
 
 class RegistrazioneController():
@@ -33,7 +33,7 @@ class RegistrazioneController():
             password = hashlib.sha512(richiesta.get("password").encode()).hexdigest()
             dataDiNascita = richiesta.get("dataNascita")
             partitaiva = richiesta.get("partitaiva")
-            licenza = richiesta.get("licenza")
+            tipo = richiesta.get("licenza")
             numerocarta = richiesta.get("numerocarta")
             titolare = richiesta.get("titolare")
             scadenza = richiesta.get("scadenza")
@@ -49,10 +49,9 @@ class RegistrazioneController():
             else:
                 id = RegistrazioneService.creaFarmer(nome,cognome, email, password, dataDiNascita, partitaiva, indirizzo)
                 #TODO decidere i parametri delle licenze
-                l = RegistrazioneService.creaLicenza(id, tipo)
+                l = RegistrazioneService.creaLicenza(id, licenza)
                 m = RegistrazioneService.creaMetodoDiPagamento(numerocarta, titolare, scadenza, cvv, id)
 
-                return render_template("login.html")
-        else:
-            return render_template("registerfarmer.html")
+                return redirect("/login")
+        return render_template("registerfarmer.html")
 

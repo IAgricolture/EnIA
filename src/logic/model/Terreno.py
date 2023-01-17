@@ -9,7 +9,7 @@ class Terreno():
         self.posizione = posizione
         self.preferito = preferito
         self.priorita = priorita
-        self.proprietario = proprietario  #Quando avremo l'utente andremo ad implementarlo bene
+        self.proprietario = proprietario
 
     def getid(self):
         return str(self.id)

@@ -18,10 +18,10 @@ class GestioneUtenteService():
         return MetodoDiPagamentoDAO.modificaMetodo(mp)
      
     def findLicenzaByProprietario(id:str)->Licenza:
-        return LicenzaDAO.findLicenzaByProprietario(id)
-     
-    def findMetodoByProprietario(id:str)->MetodoDiPagamento:
-        return MetodoDiPagamentoDAO.findMetodoByProprietario
+        return LicenzaDAO.findLicenzaByProprietario(id)    
     
     def getUtenti(id: str)-> list:
         return AutenticazioneDAO.listaDipendenti(id)
+
+     def findMetodoByProprietario(id:str)->MetodoDiPagamento:
+         return MetodoDiPagamentoDAO.findMetodoByProprietario(id)

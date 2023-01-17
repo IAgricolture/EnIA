@@ -48,7 +48,7 @@ class AmbienteAgricoloController():
             posizione = richiesta.get("posizione")
             preferito = richiesta.get("preferito")
             priorita = richiesta.get("priorita")
-            risultato = AmbienteAgricoloService.modificaTerreno(idTerreno, nome, coltura, posizione, preferito, priorita)
+            risultato = AmbienteAgricoloService.modificaTerreno(idTerreno, nome, coltura, posizione, preferito, priorita, current_user.id)
             return jsonify({"modificato": "true"})
 
 
@@ -78,4 +78,106 @@ class AmbienteAgricoloController():
         idTerreno = request.args.get("idTerreno")
         terreno = AmbienteAgricoloService.trovaTerreno(idTerreno)
         posizioneapi = AmbienteAgricoloService.cercaPosizione(idTerreno)
-        return render_template("dettagliterreno.html", terreno = terreno, posizioneapi = posizioneapi)
+        print(posizioneapi)
+        #Ottengo dati dal display_name in quanto funziona per qualsiasi località (per altre non italiane, cambiano i nomi delle chiavi json)
+        posizione = posizioneapi["display_name"].split(", ") #Ottengo in una lista i dati
+        print(posizione)
+        citta = posizione[0]    #Inutilizzata per adesso, lasciata qui se dovesse servire
+        comune = posizione[1]
+        regione = posizione[2]
+        if(len(posizione) == 4):   #Parse per evitare il codice postale, soluzione temporanea.
+            nazione = posizione[3]
+        else:
+            nazione = posizione[4]
+        inquinamentoapi = AmbienteAgricoloService.cercaInquinamento(comune, regione, nazione)
+        storicoinquinamentoapi = AmbienteAgricoloService.cercaStoricoInquinamento("2022-09-01", "2022-09-30", citta, regione, nazione, comune)
+        lat = AmbienteAgricoloService.cercalat(idTerreno)
+        lon = AmbienteAgricoloService.cercalon(idTerreno)
+        meteoapi = AmbienteAgricoloService.cercaMeteo(lat,lon)
+        return render_template("dettagliterreno.html", terreno = terreno, posizioneapi = posizioneapi, inquinamentoapi = inquinamentoapi, storicoinquinamentoapi = storicoinquinamentoapi,meteoapi=meteoapi)
+    
+    @app.route("/getStoricoInquinamento", methods=["POST"])
+    def getStoricoInquinamento():
+        richiesta = request.get_json()
+        idTerreno = richiesta.get("idTerreno")
+        dataInizio = richiesta.get("dataInizio")
+        dataFine = richiesta.get("dataFine")
+        terreno = AmbienteAgricoloService.trovaTerreno(idTerreno)
+        posizioneapi = AmbienteAgricoloService.cercaPosizione(idTerreno)
+        print(posizioneapi)
+        #Ottengo dati dal display_name in quanto funziona per qualsiasi località (per altre non italiane, cambiano i nomi delle chiavi json)
+        posizione = posizioneapi["display_name"].split(", ") #Ottengo in una lista i dati
+        print(posizione)
+        citta = posizione[0]    #Inutilizzata per adesso, lasciata qui se dovesse servire
+        comune = posizione[1]
+        regione = posizione[2]
+        if(len(posizione) == 4):   #Parse per evitare il codice postale, soluzione temporanea.
+            nazione = posizione[3]
+        else:
+            nazione = posizione[4]
+        storicoinquinamentoapi = AmbienteAgricoloService.cercaStoricoInquinamento(dataInizio, dataFine, citta, regione, nazione, comune)
+        return jsonify(storicoinquinamentoapi)
+    
+    @app.route("/aggiungiIrrigatore", methods=["POST", "GET"])
+    def aggiungiIrrigatore():
+        if request.method == "POST":
+            richiesta = request.get_json()
+            idTerreno = richiesta.get("idTerreno")
+            nomeIrrigatore = richiesta.get("nomeIrrigatore")
+            posizioneIrrigatore = richiesta.get("posizioneIrrigatore")
+            idTerreno = AmbienteAgricoloService.aggiungiIrrigatore(idTerreno, nomeIrrigatore, posizioneIrrigatore)
+            return jsonify({"risposta": "true", "idIrrigatore": idTerreno})
+    
+    @app.route("/getIrrigatore", methods=["POST", "GET"])
+    def getIrrigatore():
+        if request.method == "POST":
+            richiesta = request.get_json()
+            idIrrigatore = richiesta.get("idIrrigatore")
+            irrigatore = AmbienteAgricoloService.getIrrigatore(idIrrigatore)
+            return jsonify({"idIrrigatore": irrigatore.id, "nomeIrrigatore": irrigatore.nome, "posizioneIrrigatore": irrigatore.posizione})
+    
+    @app.route("/modificaIrrigatore", methods=["POST", "GET"])
+    def modificaIrrigatore():
+        if request.method == "POST":
+            richiesta = request.get_json()
+            idIrrigatore = richiesta.get("idIrrigatore")
+            nomeIrrigatore = richiesta.get("nomeIrrigatore")
+            posizioneIrrigatore = richiesta.get("posizioneIrrigatore")
+            AmbienteAgricoloService.modificaIrrigatore(idIrrigatore, nomeIrrigatore, posizioneIrrigatore)
+            return jsonify({"risposta": "true"})
+    
+    @app.route("/visualizzaIrrigatori", methods=["POST", "GET"])
+    def visualizzaIrrigatori():
+        if request.method == "POST":
+            richiesta = request.get_json()
+            idTerreno = richiesta.get("idTerreno")
+            irrigatori = AmbienteAgricoloService.visualizzaListaIrrigatori(idTerreno)
+            return jsonify(irrigatori)
+
+    @app.route("/eliminaIrrigatore", methods=["POST", "GET"])
+    def eliminaIrrigatore():
+        if request.method == "POST":
+            richiesta = request.get_json()
+            idIrrigatore = richiesta.get("idIrrigatore")
+            AmbienteAgricoloService.eliminaIrrigatore(idIrrigatore)
+            return jsonify({"risposta": "true"})
+        
+    @app.route("/attivaDisattivaIrrigatore", methods=["POST", "GET"])
+    def attivaDisattivaIrrigatore():
+        if request.method == "POST":
+            richiesta = request.get_json()
+            print(richiesta)
+            idIrrigatore = richiesta.get("idIrrigatore")
+            risposta = AmbienteAgricoloService.attivaDisattivaIrrigatore(idIrrigatore)
+            if risposta:
+                return jsonify({"risposta": "attivato"})
+            else:
+                return jsonify({"risposta": "disattivato"})
+            
+    @app.route("/visualizzaTerreni", methods=["POST", "GET"])
+    def visualizzaTerreni():
+        listaTerreni =  AmbienteAgricoloService.visualizzaTerreni(current_user.id)
+
+        return render_template("visualizzaTerreni.html",listaTerreni = listaTerreni )
+                
+       
