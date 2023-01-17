@@ -476,12 +476,25 @@
                                 <div id = "pm10" class="text-muted"></div>
                               </div>
                           </div>
-                           <div class="btn-group-sm mr-2" role="group">
+                           <div class="btn-group-sm mr-2 mb-4" role="group">
                             <button type="button" id="bottoneinq1" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Tabella</button>
                             <button type="button" id="bottoneinq2" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Grafico1</button>
                             <button type="button" id="bottoneinq3" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Grafico2</button>
                             <button type="button" id="bottoneinq4" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Storico</button>
                           </div>
+                          <div class = "d-flex justify-content-end mb-4">
+                            <div hidden class="btn-group" id = "spazioButtonDownload">
+                              <button type="button" id = "dropdownInq" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Download
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby = "dropdownInq"> <!-- Href e link servono per evitare di andare a capo della pagina onclick -->
+                                <a class="dropdown-item" href = "javascript:;" onclick = downloadStoricoInquinamento("csv") link>CSV</a>
+                                <a class="dropdown-item" href = "javascript:;" onclick = downloadStoricoInquinamento("json") link >JSON</a>
+                                <a class="dropdown-item" href = "javascript:;" onclick = downloadStoricoInquinamento("xslx") link >XSLX</a>
+                              </div>
+                            </div>
+                          </div>
+                          
                     </div>
                   </div>
                </div>
@@ -589,28 +602,72 @@
 
     <script>
       
+
+      function downloadStoricoInquinamento(formato)
+      {
+        /*
+        DOCUMENTAZIONE: La funzione si attiva quando si clicca su uno dei dropdown di download storico.
+        Argomento:
+        formato, una stringa che indica quale sarà l'estensione del file (solo csv, json o xslx per api)
+        Variabili globali usate:
+        dataInizio, dataFine, idTerreno
+        Funzionamento:
+        Creo il nome del file, poi fa una fetch per ottenere la response, da cui tira fuori un blob che rappresenta il file.
+        Fa poi i passi necessari per scaricarlo automaticamente.
+        */
+        console.log(formato)
+        console.log(dataInizio)
+        console.log(dataFine)
+        filename = "storico." + formato
+        //Dati passati al fetch
+        var body = {
+          dataInizio: dataInizio,
+          dataFine: dataFine,
+          idTerreno: terreno.id,
+          formato: formato
+        }
+        fetch('downloadStoricoInquinamento' , {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body)
+        }).then(res => res.blob())
+        .then(blob => {
+          var file = window.URL.createObjectURL(blob)
+          const link = document.createElement('a'); //Creo il link perchè è l'unico modo semplice per dargli filename
+          link.href = file;
+          link.setAttribute('download', filename);
+          document.body.appendChild(link);
+          link.click();
+        })
+      }
+
+      var dataInizio;
+      var dataFine;
       function getStoricoInquinamento()
       {
         //Prende i dati dal form
 
-        var dataInizio = document.getElementById("dataInizioInq").value
-        var dataFine = document.getElementById("dataFineInq").value
+        dataInizio = document.getElementById("dataInizioInq").value
+        dataFine = document.getElementById("dataFineInq").value
         console.log(dataInizio)
         console.log(dataFine)
+        var body = {
+          dataInizio: dataInizio,
+          dataFine: dataFine,
+          idTerreno: terreno.id
+        }
         //Cancella le div, necessario cliccare su un altro bottone.
         document.getElementById("formStoricoInq").remove() 
         document.getElementById("buttonFormInq").remove()
-        //TODO: Fa il fetch, lo ottiene, lo converte, crea il grafico.
+        //Fa il fetch, lo ottiene, lo converte, crea il grafico.
         fetch('getStoricoInquinamento' , {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({
-            dataInizio: dataInizio,
-            dataFine: dataFine,
-            idTerreno: terreno.id
-          })
+          body: JSON.stringify(body)
         }).then(function(response) {
           return response.json()
         }).then(function(data) {
@@ -618,7 +675,11 @@
           var arrayGiorniInq = convertiStoricoInquinamento(data)
           console.log(arrayGiorniInq)
           creaGraficoStoricoInquinamento(arrayGiorniInq)
+          
+          //Mostra il bottone per scaricare lo storico
+          document.getElementById("spazioButtonDownload").hidden = false
         })
+
       }
 
       function creaGraficoStoricoInquinamento(arrayGiorniInq)
@@ -858,7 +919,16 @@
                 break
               
               case 4:
-                document.getElementById("lineChart").remove()
+                document.getElementById("spazioButtonDownload").hidden = true
+                if(document.getElementById("lineChart") != null)  //Utente ha inserito i dati
+                {
+                  document.getElementById("lineChart").remove()
+                }
+                else  //Devo togliere da mezzo i form
+                {
+                  document.getElementById("formStoricoInq").remove()
+                  document.getElementById("buttonFormInq").remove()
+                }
                 break
               
               default:
@@ -881,7 +951,16 @@
                 break
               
               case 4:
-                document.getElementById("lineChart").remove()
+                document.getElementById("spazioButtonDownload").hidden = true
+                if(document.getElementById("lineChart") != null)  //Utente ha inserito i dati
+                {
+                  document.getElementById("lineChart").remove()
+                }
+                else  //Devo togliere da mezzo i form
+                {
+                  document.getElementById("formStoricoInq").remove()
+                  document.getElementById("buttonFormInq").remove()
+                }
                 break
               
               default:
@@ -929,7 +1008,16 @@
                 break
             
               case 4:
-                document.getElementById("lineChart").remove()
+                document.getElementById("spazioButtonDownload").hidden = true
+                if(document.getElementById("lineChart") != null)  //Utente ha inserito i dati
+                {
+                  document.getElementById("lineChart").remove()
+                }
+                else  //Devo togliere da mezzo i form
+                {
+                  document.getElementById("formStoricoInq").remove()
+                  document.getElementById("buttonFormInq").remove()
+                }
                 break
             
               default:
@@ -983,21 +1071,21 @@
               break
             }
             //Crea il form, fa submit (?) e genera il grafico del risultato
-            if(document.getElementById("lineChart") == null)
+            if(document.getElementById("lineChart") == null && document.getElementById("formStoricoInq") == null)
             {
               //Crea il form
               var form = document.createElement("form")
-              form.class = "forms-sample"
+              form.className = "forms-sample"
               form.id = "formStoricoInq"
 
               var div1 = document.createElement(div)
-              div1.class = "form-group"
+              div1.className = "form-group"
               var label1 = document.createElement("label")
               label1.for = "dataInizioInq"
               label1.innerHTML = "Data Inizio"
               var input1 = document.createElement("input")
               input1.type = "date"
-              input1.class = "form-control p-input"
+              input1.className = "form-control p-input"
               input1.id = "dataInizioInq"
               div1.appendChild(label1)
               div1.appendChild(input1)
@@ -1006,13 +1094,13 @@
               form.appendChild(br)
 
               var div2 = document.createElement(div)
-              div2.class = "form-group"
+              div2.className = "form-group"
               var label2 = document.createElement("label")
               label2.for = "dataFineInq"
               label2.innerHTML = "Data Fine"
               var input2 = document.createElement("input")
               input2.type = "date"
-              input2.class = "form-control p-input"
+              input2.className = "form-control p-input"
               input2.id = "dataFineInq"
               div2.appendChild(label2)
               div2.appendChild(input2)
@@ -1021,12 +1109,11 @@
               parent.appendChild(form)
 
               //Crea il bottone
-              //<button type="button" id="bottoneinq1" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Tabella</button>
 
               var button = document.createElement("button")
               button.type = "button"
               button.id = "buttonFormInq"
-              button.class = "btn btn-primary"
+              button.className = "btn btn-primary"
               button.addEventListener("click", getStoricoInquinamento)
               button.innerHTML = "Cerca"
               parent.appendChild(button)
@@ -1393,12 +1480,6 @@
         parent.appendChild(div)
       }
      
-      //Ottengo lo storico dell'inquinamento e lo trasformo in un array javascript normale.
-      var storicoinquinamentoapi = {{storicoinquinamentoapi | safe}}
-      console.log(storicoinquinamentoapi)
-
-      var arrayGiorniInq = convertiStoricoInquinamento(storicoinquinamentoapi)
-      console.log(arrayGiorniInq)
 
       //Per il meteo
       var meteoapi = {{meteoapi | safe}}

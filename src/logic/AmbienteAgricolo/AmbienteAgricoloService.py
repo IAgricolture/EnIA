@@ -67,7 +67,7 @@ class AmbienteAgricoloService():
         print(datiapi)
         return datiapi
     
-    def cercaStoricoInquinamento(dataInizio:str, dataFine:str, comune:str, regione:str, nazione:str, provincia:str):
+    def cercaStoricoInquinamento(dataInizio:str, dataFine:str, comune:str, regione:str, nazione:str, provincia:str, formato:str):
         url = "https://square.sensesquare.eu:5001/download"
         body = {
             "apikey": "3BK3D0LWE8DQ",
@@ -81,15 +81,18 @@ class AmbienteAgricoloService():
             "regione": regione,
             "provincia": provincia,
             "comune": comune,
-            "format": "json"
+            "format": formato
         }
-        datiapi = requests.post(url=url, data = body).text  #Multipli oggetti JSON
+        datiapi = requests.post(url=url, data = body).text
         print(datiapi)
-        arrayDati = datiapi.split("\n") #Ne ottengo un array
-        print(arrayDati)
-        print(len(arrayDati))
-        arrayDati.pop(len(arrayDati) - 1) #Rimuovo un elemento vuoto creato con lo split, all'ultimo posto
-        return arrayDati
+        if(formato == "json"):  ##Multipli oggetti JSON, ne faccio un parse decente in un array di oggetti json.
+            arrayDati = datiapi.split("\n") #Ne ottengo un array
+            print(arrayDati)
+            print(len(arrayDati))
+            arrayDati.pop(len(arrayDati) - 1) #Rimuovo un elemento vuoto creato con lo split, all'ultimo posto
+            return arrayDati
+        else:
+            return datiapi  #Qualsiasi altro formato, è buono così com'è.
 
     def aggiungiIrrigatore(id_terreno: str, nome_irrigatore: str, posizione_irrigatore: str) -> str:
         impianto = ImpiantoDiIrrigazione("", nome_irrigatore, "irrigatore", "", posizione_irrigatore, False)
