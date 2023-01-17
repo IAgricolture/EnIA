@@ -98,8 +98,10 @@
                                         <div class="d-flex mb-4">
                                             CVV: {{session["metodo"].cvv}}
                                         </div>
-                                        <input class="btn btn-primary" type="button" value="Modifica"
+                                        <input class="btn btn-primary d-flex mb-4" type="button" value="Modifica"
                                             onclick="ModMetodo()">
+                                        <h2 class="card-title"> Visualizzazione Azienda</h2>
+                                        <input type="button" class="btn btn-primary" value="Visualizza" onclick="Visualizza()">
                                     </div>
                                     {%endif%}
                                 </div>
@@ -107,90 +109,58 @@
 
                             <div class="card" id="usermod" style="display: none;">
                                 <div class="card-body">
-                                    <form method="post" action="/user" id="userform">
-                                        <div class="form-group">
+                                    <form method="post" action="/user">
+                                        <div class="form-group" align-items-center>
                                             <h2 class="card-title"> Modifica Utente</h2>
                                             <input type="hidden" name="type" value="user">
-                                            <input type="hidden" id="ruolo" value="{{current_user.ruolo}}">
                                             <label for="exampleInputName1">Nome</label>
-                                            <input type="text" name="nome" id="nome" class="form-control"
+                                            <input type="text" name="nome" class="form-control"
                                                 value="{{current_user.nome}}" placeholder="Nome">
-                                            <p id="nomeerr"></p>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputName2">Cognome</label>
-                                            <input type="text" name="cognome" id="cognome" class="form-control"
+                                            <input type="text" name="cognome" class="form-control"
                                                 value="{{current_user.cognome}}" placeholder="Cognome">
-                                            <p id="cognomeerr"></p>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail3">Email</label>
-                                            <input type="email" name="email" id="email" class="form-control"
+                                            <input type="email" name="email" class="form-control"
                                                 value="{{current_user.email}}" placeholder="Email">
-                                            <p id="emailerr"></p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Nuova Password</label>
-                                            <input type="password" name="password" id="password" class="form-control"
-                                                placeholder="Password">
-                                            <p id="passerr"></p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Conferma Password</label>
-                                            <input type="password" name="confermaPassword" id="confermaPassword"
-                                                class="form-control" placeholder="Conferma Password">
-                                            <p id="conferr"></p>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail3">Data di nascita</label>
-                                            <input type="date" name="dataNascita" id="dataNascita" class="form-control"
+                                            <input type="date" name="dataNascita" class="form-control"
                                                 value="{{current_user.dataNascita}}" placeholder="Data di nascita">
-                                            <p id="dataerr"></p>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail3">Indirizzo</label>
-                                            <input type="text" name="indirizzo" id="indirizzo" class="form-control"
+                                            <input type="text" name="indirizzo" class="form-control"
                                                 value="{{current_user.indirizzo}}" placeholder="Indirizzo">
-                                            <p id="indirizzoerr"></p>
+                                            {%if current_user.ruolo == "farmer"%}
                                         </div>
-                                        {%if current_user.ruolo == "farmer"%}
                                         <div class="form-group">
                                             <label for="exampleInputEmail3">PartitaIVA</label>
-                                            <input type="text" name="partitaIVA" id="partitaIVA" class="form-control"
+                                            <input type="text" name="partitaIVA" class="form-control"
                                                 value="{{current_user.partitaIVA}}" placeholder="PartitaIVA">
-                                            <p id="partitaivaerr"></p>
+                                            {%endif%}
                                         </div>
-                                        {%endif%}
-                                        <input type="button" class="btn btn-primary" value="Modifica"
-                                            onclick="CheckUser()">
-                                        <input type="button" class="btn btn-primary" value="Annulla"
-                                            onclick="Annulla()">
+                                        <input type="submit" class="btn btn-primary" value="Modifica">
                                     </form>
                                 </div>
                             </div>
 
                             <div class="card" id="licenzamod" style="display: none;">
                                 <div class="card-body">
-                                    <form method="post" action="/user" id="licenzaform">
+                                    <form method="post" action="/user">
                                         <h2 class="card-title"> Modifica Licenza</h2><br>
                                         <input type="hidden" name="type" value="licenza">
-                                        {%if session["licenza"].tipo == "licenza standard"%}
-                                        <input type="radio" id="standard" name="licenza" value="standard" checked>
-                                        {%else%}
                                         <input type="radio" id="standard" name="licenza" value="standard">
-                                        {%endif%}
                                         <label for="standard">Standard</label>
                                         <br>
-                                        {%if session["licenza"].tipo == "licenza premium"%}
-                                        <input type="radio" id="premium" name="licenza" value="premium" checked>
-                                        {%else%}
                                         <input type="radio" id="premium" name="licenza" value="premium">
-                                        {%endif%}
                                         <label for="premium">Premium</label>
                                         <br>
                                         <input type="submit" class="btn btn-primary" value="Modifica">
-                                        <input type="button" class="btn btn-primary" value="Annulla"
-                                            onclick="Annulla()">
                                     </form>
                                 </div>
                             </div>
@@ -198,37 +168,30 @@
 
                             <div class="card" id="metodomod" style="display: none;">
                                 <div class="card-body">
-                                    <form method="post" action="/user" id="metodoform">
+                                    <form method="post" action="/user">
                                         <h2 class="card-title"> Modifica metodo di pagamento</h2><br>
                                         <input type="hidden" name="type" value="metodo">
                                         <div class="form-group">
                                             <label for="exampleInputName2">Numero carta</label>
-                                            <input type="text" name="num_carta" id="num_carta" class="form-control"
+                                            <input type="text" name="num_carta" class="form-control"
                                                 value="{{session['metodo'].num_carta}}" placeholder="Numero carta">
-                                            <p id="numerocartaerr"></p>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputName2">Titolare</label>
-                                            <input type="text" name="titolare" id="titolare" class="form-control"
+                                            <input type="text" name="titolare" class="form-control"
                                                 value="{{session['metodo'].titolare}}" placeholder=" Titolare">
-                                            <p id="titolareerr"></p>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputName2">Scadenza</label>
-                                            <input type="text" name="scadenza" id="scadenza" class="form-control"
+                                            <input type="text" name="scadenza" class="form-control"
                                                 value="{{session['metodo'].scadenza}}" placeholder=" Scadenza">
-                                            <p id="scadenzaerr"></p>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputName2">CVV</label>
-                                            <input type="text" name="cvv" id="cvv" class="form-control"
+                                            <input type="text" name="cvv" class="form-control"
                                                 value="{{session['metodo'].cvv}}" placeholder=" CVV">
-                                            <p id="cvverr"></p>
                                         </div>
-                                        <input type="button" class="btn btn-primary" value="Modifica"
-                                            onclick="CheckMetodo()">
-                                        <input type="button" class="btn btn-primary" value="Annulla"
-                                            onclick="Annulla()">
+                                        <input type="submit" class="btn btn-primary" value="Modifica">
                                     </form>
                                 </div>
                             </div>

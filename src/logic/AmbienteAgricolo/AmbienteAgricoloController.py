@@ -20,8 +20,9 @@ class AmbienteAgricoloController():
             posizione = richiesta.get("posizione")
             preferito = richiesta.get("preferito")
             priorita = richiesta.get("priorita")
+            proprietario = current_user.id
             
-            risultato = AmbienteAgricoloService.aggiungiTerreno(nome, coltura, posizione, preferito, priorita)
+            risultato = AmbienteAgricoloService.aggiungiTerreno(nome, coltura, posizione, preferito, priorita, proprietario)
             risposta = {
                 "TerrenoAggiunto" : "True" #TODO:QUI CI VA IL RISULTATO
             }

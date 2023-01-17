@@ -43,7 +43,7 @@ class RegistrazioneService():
         return risposta
     
     def creaFarmer(nome:str, cognome:str, email:str, password:str, dataDiNascita:str, partitaiva:str, indirizzo:str)->str:  #Restituisce l'id
-        utente = Utente("", nome, cognome, email, password, "farmer", dataDiNascita, partitaiva, None, indirizzo)
+        utente = Utente("", nome, cognome, email, password, "farmer", dataDiNascita, partitaiva, None, indirizzo, None)
         return AutenticazioneDAO.creaUtente(utente)
     
     def creaLicenza(id:str, tipo:str)->Licenza:

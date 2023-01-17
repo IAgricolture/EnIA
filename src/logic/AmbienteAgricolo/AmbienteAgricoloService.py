@@ -7,14 +7,13 @@ import json
 
 #TODO: ERROR HANDLING DAO TERRENO
 class AmbienteAgricoloService():
-    
     def visualizzaTerreni(farmer:str):
         Terreni = TerrenoDAO.restituisciTerreniByFarmer(farmer)
         return Terreni
     
-    def aggiungiTerreno(nome: str, coltura:str, posizione, preferito:bool, priorita:int)-> bool:
+    def aggiungiTerreno(nome: str, coltura:str, posizione, preferito:bool, priorita:int, proprietario: str)-> bool:
         id = None
-        terreno = Terreno(id, nome, coltura, posizione, preferito, priorita)
+        terreno = Terreno(id, nome, coltura, posizione, preferito, priorita, proprietario)
         TerrenoDAO.InserisciTerreno(terreno)
         return True 
 

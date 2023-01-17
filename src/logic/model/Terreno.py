@@ -23,13 +23,13 @@ class Terreno():
     def getposizione(self):
         return str(self.posizione)
 
-    def getlistautenti(self):
-        return str(self.listautenti)
-
     def getpreferito(self):
         return bool(self.preferito)
         
     def getpriorita(self):
         return int(self.priorita)
+
+    def getproprietario(self):
+        return str(self.proprietario)
 
     

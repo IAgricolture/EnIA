@@ -25,6 +25,11 @@ function ModMetodo() {
     metodomod.style.display = "flex"
 }
 
+function Visualizza()
+{
+    window.location.href = "/AziendaAgricola"
+}
+
 function Annulla() {
     view.style.display = "flex"
     usermod.style.display = "none"
@@ -190,5 +195,4 @@ function CheckMetodo() {
         var form = document.querySelector("#metodoform")
         form.submit();
     }
-
 }

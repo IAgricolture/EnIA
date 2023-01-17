@@ -44,6 +44,16 @@ class GestioneUtenteController():
             session["metodo"] = GestioneUtenteService.findMetodoByProprietario(current_user.id).__dict__
         return render_template("user.html")
         
+    @app.route("/AziendaAgricola", methods = ["GET", "POST"])
+    def aziendaagricola():
+        if request.method == "POST":
+            richiesta = request.form
+            tipo = richiesta.get("type")
+        listdipendenti = GestioneUtenteService.getUtenti(current_user.id)
+        for i in listdipendenti: 
+            i["_id"]= str(i["_id"])
+        session["dipendenti"]= listdipendenti
+        return render_template("AziendaAgricola.html")
 
         
 

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azienda Agricola</title>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>CelestialUI Admin</title>
+        <!-- base:css -->
+        <link rel="stylesheet" href="/static/vendors/typicons.font/font/typicons.css">
+        <link rel="stylesheet" href="/static/vendors/css/vendor.bundle.base.css">
+        <!-- endinject --> 
+        <!-- plugin css for this page -->
+        <!-- End plugin css for this page -->
+        <!-- inject:css -->
+        <link rel="stylesheet" href="/static/css/vertical-layout-light/style.css">
+        <!-- endinject -->
+        <link rel="shortcut icon" href="/static/images/enia.png" />
+      </head>
+
+<body>
+    <div class="card-body" bis_skin_checked="1">
+        <div class="d-flex flex-wrap justify-content-between" bis_skin_checked="1">
+          <h4 class="card-title mb-3">Lista Utenti</h4>
+        </div>
+        <div class="table-responsive" bis_skin_checked="1">
+          <table class="table">
+            <tbody>
+            {%for dipendente in session["dipendenti"]%}
+              <tr>
+                <td>
+                  <div class="d-flex" bis_skin_checked="1">
+                    <img class="img-sm rounded-circle mb-md-0 mr-2" src="images/faces/face30.png" alt="profile image">
+                    <div bis_skin_checked="1">
+                      <div bis_skin_checked="1"> </div>
+                      Nome
+                      <div class="font-weight-bold mt-1" bis_skin_checked="1">{{dipendente["nome"]}}</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  Cognome
+                  <div class="font-weight-bold  mt-1" bis_skin_checked="1">{{dipendente["cognome"]}}</div>
+                </td>
+                <td>
+                  Email
+                  <div class="font-weight-bold text-success  mt-1" bis_skin_checked="1">{{dipendente["email"]}}</div>
+                </td>
+                <td>
+                  Ruolo
+                  <div class="font-weight-bold  mt-1" bis_skin_checked="1">{{dipendente["ruolo"]}}</div>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-sm btn-secondary">Elimina</button>
+                </td>
+              </tr>
+              {%endfor%}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    
+</body>
+</html>
