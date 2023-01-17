@@ -47,7 +47,7 @@ class AmbienteAgricoloController():
             posizione = richiesta.get("posizione")
             preferito = richiesta.get("preferito")
             priorita = richiesta.get("priorita")
-            risultato = AmbienteAgricoloService.modificaTerreno(idTerreno, nome, coltura, posizione, preferito, priorita)
+            risultato = AmbienteAgricoloService.modificaTerreno(idTerreno, nome, coltura, posizione, preferito, priorita, current_user.id)
             return jsonify({"modificato": "true"})
 
 

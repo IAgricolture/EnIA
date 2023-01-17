@@ -22,8 +22,8 @@ class AmbienteAgricoloService():
         Terreno = TerrenoDAO.TrovaTerreno(id)
         return Terreno
     
-    def modificaTerreno(id:str, nome: str, coltura:str, posizione, preferito:bool, priorita:int)-> bool:
-        terreno = Terreno(id, nome, coltura, posizione, preferito, priorita)
+    def modificaTerreno(id:str, nome: str, coltura:str, posizione, preferito:bool, priorita:int, proprietario: str)-> bool:
+        terreno = Terreno(id, nome, coltura, posizione, preferito, priorita, proprietario)
         result = TerrenoDAO.modificaTerreno(terreno)
         return result.matched_count > 0 #Restituisce True se andato bene, False altrimenti.
     
