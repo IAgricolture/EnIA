@@ -1,0 +1,35 @@
+# This is a basic workflow to help you get started with Actions
+
+name: PyBuilder
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+  
+  pull_request:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      
+      # PyBuilder config
+      - name: PyBuilder Action
+        # You may pin to the exact commit or the version.
+        # uses: pybuilder/build@e2dc228a872aeacb0542ae672d058887c9a33ddd
+        uses: pybuilder/build@v8
+        with:
+          python-version: 3.11
+        
+
+      # Runs a single command using the runners shell
+      - name: Build
+        run: pyb
