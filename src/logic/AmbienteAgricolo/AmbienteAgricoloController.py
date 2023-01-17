@@ -4,6 +4,7 @@ from flask import url_for
 import json
 from src.logic.model.Terreno import Terreno
 from src.logic.AmbienteAgricolo.AmbienteAgricoloService import AmbienteAgricoloService
+from flask_login import current_user
 
 class AmbienteAgricoloController():
 
@@ -171,5 +172,11 @@ class AmbienteAgricoloController():
                 return jsonify({"risposta": "attivato"})
             else:
                 return jsonify({"risposta": "disattivato"})
+            
+    @app.route("/visualizzaTerreni", methods=["POST", "GET"])
+    def visualizzaTerreni():
+        listaTerreni =  AmbienteAgricoloService.visualizzaTerreni(current_user.id)
+
+        return render_template("visualizzaTerreni.html",listaTerreni = listaTerreni )
                 
        

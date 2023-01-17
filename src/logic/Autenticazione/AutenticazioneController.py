@@ -27,7 +27,7 @@ class AutenticazioneController():
             password = request.form.get("password")
             successo = AutenticazioneService.login(email, password)
             if successo:
-                return redirect("user")
+                return redirect("visualizzaTerreni")
             else:
                 return render_template("login.html")        
         else:
