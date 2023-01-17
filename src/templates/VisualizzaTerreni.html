@@ -23,7 +23,7 @@
       crossorigin=""/>
       <style>
         .mappa{
-          height: 400px;
+          height: 300px;
           width: 100%;
         }
       </style>
@@ -38,8 +38,8 @@
       <!-- partial:partials/_navbar.html -->
       <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-          <a class="navbar-brand brand-logo" href="http://localhost:5000/index.html"><img src="./UniSA25_files/enia.png" alt="logo"></a>
-          <a class="navbar-brand brand-logo-mini" href="http://localhost:5000/index.html"><img src="./UniSA25_files/enia.png" alt="logo"></a>
+          <a class="navbar-brand brand-logo" href="http://localhost:5000/index.html"><img src="/static/images/enia.png" alt="logo"></a>
+          <a class="navbar-brand brand-logo-mini" href="http://localhost:5000/index.html"><img src="/static/images/enia.png" alt="logo"></a>
           <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex" type="button" data-toggle="minimize">
             <span class="typcn typcn-th-menu"></span>
           </button>
@@ -71,7 +71,7 @@
                 </a>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
-                    <img src="./UniSA25_files/face2.jpg" alt="image" class="profile-pic">
+                    <img src="/static/images/faces/face2" alt="image" class="profile-pic">
                   </div>
                   <div class="preview-item-content flex-grow">
                     <h6 class="preview-subject ellipsis font-weight-normal">Tim Cook
@@ -83,7 +83,7 @@
                 </a>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
-                    <img src="./UniSA25_files/face3.jpg" alt="image" class="profile-pic">
+                    <img src="/static/images/faces/face3.jpg" alt="image" class="profile-pic">
                   </div>
                   <div class="preview-item-content flex-grow">
                     <h6 class="preview-subject ellipsis font-weight-normal"> Johnson
@@ -296,17 +296,21 @@
             </div>
             <div class="row  mt-3">
               {%for terreno in listaTerreni%}
-              <div class="col-xl-4 d-flex grid-margin stretch-card">
-                <div class="card">
+              <div class="col-xl-4 d-flex grid-margin stretch-card"> 
+                <div class="card" style="border-radius: 5%;" >
                   <div class="card-body">
                     <div class="d-flex flex-wrap justify-content-between">
-                      
-                      <a href="dettagliterreno?idTerreno={{terreno.id}}"><h4 class="card-title mb-3">{{terreno.nome}}</h4></a>
-                      <div id="{{terreno.id}}"></div>
-                      <h3>{{terreno.coltura}}</h3>
+                      <div id="{{terreno.id}}" style="border-radius: 5%;"></div>
                     </div>
-                    <div class="row">
+                    <div class="d-flex flex-wrap justify-content-between rounded p-2 mt-2" style="background-color: #228B22;">
+                      <p class="mb-0 text-white" style="font-size:large;">Nome Terreno:</p>
+                      <p class="text-left mb-0 bg-white border rounded">{{terreno.nome}}</p>
                     </div>
+                    <div class="d-flex flex-wrap justify-content-between rounded p-2 mt-2" style="background-color: #228B22;">
+                      <p class="mb-0 text-white" style="font-size:large;">Coltura:</p>
+                      <p  class="text-left mb-0 bg-white border rounded">{{terreno.coltura}}</p>
+                    </div>
+                    <a href="dettagliterreno?idTerreno={{terreno.id}}" class="d-flex flex-wrap justify-content-center rounded p-2 mt-2 btn btn-success btn-fw" style="border-radius: 5%;">Dettagli</a>
                   </div>
                 </div>
               </div>
@@ -363,7 +367,7 @@
         var mappa = document.getElementById(arrayMappe[i]);
         mappa.className = "mappa";
 
-        var map = L.map(arrayMappe[i]).setView([51.505, -0.09], 13);
+        var map = L.map(arrayMappe[i],{ zoomControl: false }).setView([51.505, -0.09], 13);
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
           maxZoom: 19,
           attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -373,6 +377,11 @@
 
         //poi fai il fitbounds
         map.fitBounds(polygon.getBounds());
+
+        //do not let the user touch the map
+        map.dragging.disable();
+        map.touchZoom.disable();
+        map.scrollWheelZoom.disable();
         
       }
     </script>
