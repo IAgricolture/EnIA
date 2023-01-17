@@ -1,0 +1,32 @@
+.auth .auth-form-light {
+    background: white !important;
+    border-radius: 3rem !important;
+}
+
+.auth form .form-group .form-control, .auth form .form-group .select2-container--default .select2-selection--single, .select2-container--default .auth form .form-group .select2-selection--single, .auth form .form-group .select2-container--default .select2-selection--single .select2-search__field, .select2-container--default .select2-selection--single .auth form .form-group .select2-search__field, .auth form .form-group .typeahead, .auth form .form-group .tt-query, .auth form .form-group .tt-hint {
+    background: white !important;
+    border-radius: 0;
+    font-size: .9375rem !important;
+}
+.btn-success {
+    color: #fff;
+    background-color: #92E351 !important;
+    border-color: #92E351 !important;
+}
+
+.text-primary, .list-wrapper .completed .remove {
+    color: #92E351 !important;
+}
+
+.form-check .form-check-label input[type="checkbox"] + .input-helper::before {
+    border: 2px solid #92E351 !important;  
+}
+
+.form-check .form-check-label input[type="checkbox"]:checked + .input-helper:before {
+    background: #92E351 !important;
+    border-width: 0;
+}
+
+.form-control, .select2-container--default .select2-selection--single, .select2-container--default .select2-selection--single .select2-search__field, .typeahead, .tt-query, .tt-hint {
+    border: 1px solid #92E351;
+}

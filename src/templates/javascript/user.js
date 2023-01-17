@@ -1,0 +1,22 @@
+var nome = document.querySelector("#nome")
+var cognome = document.querySelector("#cognome")
+var email = document.querySelector("#email")
+var ruolo = document.querySelector("#ruolo")
+var nascita = document.querySelector("#nascita")
+var codice = document.querySelector("#codice")
+var partitaiva = document.querySelector("#partitaiva")
+var licenza = document.querySelector("#licenza")
+var metodo = document.querySelector("#metodo")
+
+function load(user){
+    user.replace("&#34;", "'")
+    user.replace("&#39;", "'")
+    u = JSON.parse(user)
+    nome.append(u["nome"])
+    cognome.append(u["cognome"])
+    email.append(u["email"])
+    ruolo.append(u["ruolo"])
+    nascita.append(u["dataNascita"])   
+    codice.append(u["prova2"])
+    partitaiva.append(u["partitaIVA"])
+}

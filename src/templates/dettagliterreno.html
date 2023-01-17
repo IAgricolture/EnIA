@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title id = "titolopagina">Dettagli del terreno</title>
+    <!-- base:css -->
+    <link rel="stylesheet" href="/static/vendors/typicons.font/font/typicons.css">
+    <link rel="stylesheet" href="/static/vendors/css/vendor.bundle.base.css">
+    <!-- endinject --> 
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/static/css/vertical-layout-light/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="/static/images/favicon.png" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+     crossorigin=""/>
+     <style>
+      #datiMeteo{
+        width: 100%;
+      }
+      #map{
+          height: 400px;
+          width: 100%;
+          z-index: 1;
+      }
+
+      #mapTuttiIrrigatori{
+        height: 400px;
+        width: 100%;
+        z-index: 1;
+      }
+
+      #mapAggiungiIrrigatore{
+        height: 400px;
+        width: 100%;
+        z-index: 1;
+      }
+
+      #mapIrrigazione{
+        height: 400px;
+        width: 100%;
+        z-index: 1;
+    }
+
+    .my-custom-bg-color {
+      background-color: blue;
+      border-color: blue;
+    }
+      #heart {
+        position: absolute;
+        width: 50px;
+        height: 45px;
+        margin-top: 10px;
+      }
+      
+      #heart::before, #heart::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        width: 26px;
+        height: 40px;
+        border-radius: 25px 25px 0 0;
+        background: red;
+      }
+      
+      #heart::before {
+        left: 25px;
+        transform: rotate(-45deg);
+        transform-origin: 0 100%;
+      }
+      
+      #heart::after {
+        left: 0;
+        transform: rotate(45deg);
+        transform-origin: 100% 100%;
+      }
+  </style>
+  </head>
+  <body>
+    <div class="row" id="proBanner">
+      <div class="col-12">
+
+      </div>
+    </div>
+    <div class="container-scroller">
+      <!-- partial:partials/_navbar.html -->
+      <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+          <a class="navbar-brand brand-logo" href="index.html"><img src="/static/images/enia.png" alt="logo"/></a>
+          <a class="navbar-brand brand-logo-mini" href="index.html"><img src="/static/images/enia.png" alt="logo"/></a>
+          <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex" type="button" data-toggle="minimize">
+            <span class="typcn typcn-th-menu"></span>
+          </button>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+          <ul class="navbar-nav mr-lg-2">
+            <li class="nav-item  d-none d-lg-flex">
+              <a class="nav-link active" href="#">
+                Terreni
+              </a>
+            </li>
+          </ul>
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item dropdown d-flex">
+              <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
+                <i class="typcn typcn-message-typing"></i>
+                <span class="count bg-success">2</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+                <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-item-content flex-grow">
+                    <h6 class="preview-subject ellipsis font-weight-normal">PLACEHOLDER
+                    </h6>
+                    <p class="font-weight-light small-text mb-0">
+                      The meeting is cancelled
+                    </p>
+                  </div>
+                </a>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <img src="/static/images/faces/face2.jpg" alt="image" class="profile-pic">
+                  </div>
+                  <div class="preview-item-content flex-grow">
+                    <h6 class="preview-subject ellipsis font-weight-normal">Tim Cook
+                    </h6>
+                    <p class="font-weight-light small-text mb-0">
+                      New product launch
+                    </p>
+                  </div>
+                </a>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <img src="/static/images/faces/face3.jpg" alt="image" class="profile-pic">
+                  </div>
+                  <div class="preview-item-content flex-grow">
+                    <h6 class="preview-subject ellipsis font-weight-normal"> Johnson
+                    </h6>
+                    <p class="font-weight-light small-text mb-0">
+                      Upcoming board meeting
+                    </p>
+                  </div>
+                </a>
+              </div>
+            </li>
+            <li class="nav-item dropdown  d-flex">
+              <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
+                <i class="typcn typcn-bell mr-0"></i>
+                <span class="count bg-danger">2</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-success">
+                      <i class="typcn typcn-info-large mx-0"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <h6 class="preview-subject font-weight-normal">Application Error</h6>
+                    <p class="font-weight-light small-text mb-0">
+                      Just now
+                    </p>
+                  </div>
+                </a>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-warning">
+                      <i class="typcn typcn-cog mx-0"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <h6 class="preview-subject font-weight-normal">Settings</h6>
+                    <p class="font-weight-light small-text mb-0">
+                      Private message
+                    </p>
+                  </div>
+                </a>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-info">
+                      <i class="typcn typcn-user-outline mx-0"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <h6 class="preview-subject font-weight-normal">New user registration</h6>
+                    <p class="font-weight-light small-text mb-0">
+                      2 days ago
+                    </p>
+                  </div>
+                </a>
+              </div>
+            </li>
+            <li class="nav-item nav-profile dropdown">
+              <a class="nav-link dropdown-toggle  pl-0 pr-0" href="#" data-toggle="dropdown" id="profileDropdown">
+                <i class="typcn typcn-user-outline mr-0"></i>
+                <span class="nav-profile-name">PLACEHOLDER</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                <a class="dropdown-item">
+                <i class="typcn typcn-cog text-primary"></i>
+                Settings
+                </a>
+                <a class="dropdown-item">
+                <i class="typcn typcn-power text-primary"></i>
+                Logout
+                </a>
+              </div>
+            </li>
+          </ul>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="typcn typcn-th-menu"></span>
+          </button>
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_settings-panel.html -->
+        <!-- partial -->
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <div class="d-flex sidebar-profile">
+              <div class="sidebar-profile-image">
+              </div>
+              <div class="sidebar-profile-name">
+                <p class="sidebar-name">
+                  PLACEHOLDER
+                </p>
+                <p class="sidebar-designation">
+                  Welcome
+                </p>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <i class="typcn typcn-device-desktop menu-icon"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="typcn typcn-briefcase menu-icon"></i>
+              <span class="menu-title">UI Elements</span>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+              <i class="typcn typcn-film menu-icon"></i>
+              <span class="menu-title">Form elements</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="form-elements">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic Elements</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
+              <i class="typcn typcn-chart-pie-outline menu-icon"></i>
+              <span class="menu-title">Charts</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="charts">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+              <i class="typcn typcn-th-small-outline menu-icon"></i>
+              <span class="menu-title">Tables</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="tables">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Basic table</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+              <i class="typcn typcn-compass menu-icon"></i>
+              <span class="menu-title">Icons</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="icons">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/icons/mdi.html">Mdi icons</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+              <i class="typcn typcn-user-add-outline menu-icon"></i>
+              <span class="menu-title">User Pages</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="auth">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
+              <i class="typcn typcn-globe-outline menu-icon"></i>
+              <span class="menu-title">Error pages</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="error">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="pages/documentation/documentation.html">
+              <i class="typcn typcn-document-text menu-icon"></i>
+              <span class="menu-title">Documentation</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="row">
+              <div class="col-sm-6">
+                <h3 id = "nomeTerreno" class="mb-0 font-weight-bold"></h3>
+              </div>
+              <div class="col-sm-6">
+                <div class="d-flex align-items-center justify-content-md-end">
+                  <div class="mb-3 mb-xl-0 pr-1">
+                    <button type="button" class="btn btn-primary" onclick = "rimandamodifica()" >Modifica</button>
+                  </div>
+                  <div class="mb-3 mb-xl-0 pr-1">
+                    <button type="button" class="btn btn-danger" onclick = "rimandaelimina()" >Elimina</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row  mt-3">
+              <div class="col-xl-5 d-flex grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex flex-wrap justify-content-between">
+                      <h4 class="card-title mb-3">Mappa terreno</h4>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="row">
+                          <div id="map">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 d-flex grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex flex-wrap justify-content-between">
+                      <h4 class="card-title mb-3">Storico eventi</h4>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="d-flex justify-content-between mb-md-5 mt-3">
+                              <div class="text-danger small">Alert</div>
+                              <div class="text-warning small">Notifica</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-4 d-flex grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex flex-wrap justify-content-between">
+                      <h4 class="card-title mb-3">Dettagli terreno</h4>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="d-flex justify-content-between mb-4">
+                              <div>Nome</div>
+                              <div id = "nome" class="text-muted"></div>
+                            </div>
+                            <div class="d-flex justify-content-between mb-4">
+                              <div>Coltura</div>
+                              <div id = "coltura" class="text-muted"></div>
+                            </div>
+                            <div class="d-flex justify-content-between mb-4">
+                              <div>Priorità</div>
+                              <div id = "priorita" class="text-muted"></div>
+                            </div>
+                            <div class="d-flex justify-content-center mb-4">
+                              <div>Posizione</div>
+                            </div>
+                            <div id = "posizione" class="text-muted"></div>
+                            <div class = "d-flex justify-content-between mb-4"></div>
+                              <div id = "heart"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          <div class="row  mt-3">
+            <div class="col-xl-6 d-flex grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-wrap justify-content-between">
+                    <h4 class="card-title mb-3">Dati meteo</h4>
+                    <div id="datiMeteo"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 d-flex grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                    <h4 id = "datiInquinamento" class="card-title mb-4">Dati inquinamento</h4>
+                        <div id="tabellainq" class="col-sm-12">
+                              <div class="d-flex justify-content-between mb-4">
+                                <div id = "tsinq" class="text-muted"></div> <!--Timestamp inquinamento-->
+                              </div>
+                              <div class="d-flex justify-content-between mb-4">
+                                <div>AQI</div>
+                                <div id = "aqi" class="text-muted"></div>
+                              </div>
+                              <div class="d-flex justify-content-between mb-4">
+                                <div>CO</div>
+                                <div id = "co" class="text-muted"></div>
+                              </div>
+                              <div class="d-flex justify-content-between mb-4">
+                                <div>NO2</div>
+                                <div id = "no2" class="text-muted"></div>
+                              </div>
+                              <div class="d-flex justify-content-between mb-4">
+                                <div>PM1</div>
+                                <div id = "pm1" class="text-muted"></div>
+                              </div>
+                              <div class="d-flex justify-content-between mb-4">
+                                <div>PM2,5</div>
+                                <div id = "pm25" class="text-muted"></div>
+                              </div>
+                              <div class="d-flex justify-content-between mb-4">
+                                <div>PM10</div>
+                                <div id = "pm10" class="text-muted"></div>
+                              </div>
+                          </div>
+                           <div class="btn-group-sm mr-2" role="group">
+                            <button type="button" id="bottoneinq1" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Tabella</button>
+                            <button type="button" id="bottoneinq2" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Grafico1</button>
+                            <button type="button" id="bottoneinq3" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Grafico2</button>
+                            <button type="button" id="bottoneinq4" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Storico</button>
+                          </div>
+                    </div>
+                  </div>
+               </div>
+            </div>
+            <div class="row  mt-3">
+              <div class="col-xl-6 d-flex grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                      <div class="d-flex flex-wrap justify-content-between">
+                            <h4 class="card-title">Gestione Irrigazione</h4>
+                            <button class="btn btn-success" id="btnIndietro" onclick="tornaIndietro()" hidden>Torna Indietro</button>
+                      </div>
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="list-group" id="listaIrrigatori">
+                            <div id="sprinklers"></div>
+                            <div class="row mt-3">
+                              <button type="button" class="btn ml-3 btn-primary my-custom-bg-color btn-sm p-1" onclick="aggiungiIrrigatore()">Aggiungi Irrigatore</button>
+                              <button type="button" class="btn ml-3 btn-primary my-custom-bg-color btn-sm p-1" onclick="visualizzaMappaIrrigatori()">Visualizza Mappa Irrigatori</button>
+                            </div>
+                          </div> 
+                        </div>
+                      </div>
+                      <div class="row" id="visualizzaMappaIrrigatori" hidden>
+                        <div class="col-12">
+                          <div class="row" >
+                            <div class="col-sm-12">
+                                <div id="mapTuttiIrrigatori"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row" id="modificaIrrigatore" hidden>
+                        <div class="col-12">
+                          <div class="row" >
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                  <label for="NomeImpianto">Nome Impianto</label>
+                                  <input type="text" class="form-control" id="NomeImpiantoModificaIrrigatore" aria-describedby="emailHelp" placeholder="Scrivi il nome dell'impianto">
+                                </div>
+                                <div class="form-group" id="mapIrrigazione">
+                                </div>
+                                <button type="submit" class="btn btn-primary" id="btnModificaIrrigatore">Submit</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row" id="aggiungiIrrigatore" hidden>
+                        <div class="col-12">
+                          <div class="row" >
+                            <div class="col-sm-12">
+                              <div >
+                                <div class="form-group">
+                                  <label for="NomeImpianto">Nome Impianto</label>
+                                  <input type="text" class="form-control" id="NomeImpiantoAggiungiIrrigatore" aria-describedby="emailHelp" placeholder="Scrivi il nome dell'impianto">
+                                </div>
+                                <div class="form-group" id="mapAggiungiIrrigatore">
+                                </div>
+                                <button type="submit" onclick="inviaIrrigatoreCreato()">Submit</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+          </div>
+          
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+          <footer class="footer">
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+              <span class="text-center text-sm-left d-block d-sm-inline-block">Progetto EnIA</span>
+            </div>
+          </footer>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- base:js -->
+    <script src="/static/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    <!-- End plugin js for this page-->
+    <!-- inject:js -->
+    <script src="/static/js/off-canvas.js"></script>
+    <script src="/static/js/hoverable-collapse.js"></script>
+    <script src="/static/js/template.js"></script>
+    <script src="/static/js/settings.js"></script>
+    <script src="/static/js/todolist.js"></script>
+    <!-- endinject -->
+    <!-- plugin js for this page -->
+    <script src="/static/vendors/progressbar.js/progressbar.min.js"></script>
+    <script src="/static/vendors/chart.js/Chart.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- Custom js for this page-->
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+  integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+  crossorigin=""></script>
+
+    <script>
+      
+      function getStoricoInquinamento()
+      {
+        //Prende i dati dal form
+
+        var dataInizio = document.getElementById("dataInizioInq").value
+        var dataFine = document.getElementById("dataFineInq").value
+        console.log(dataInizio)
+        console.log(dataFine)
+        //Cancella le div, necessario cliccare su un altro bottone.
+        document.getElementById("formStoricoInq").remove() 
+        document.getElementById("buttonFormInq").remove()
+        //TODO: Fa il fetch, lo ottiene, lo converte, crea il grafico.
+        fetch('getStoricoInquinamento' , {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            dataInizio: dataInizio,
+            dataFine: dataFine,
+            idTerreno: terreno.id
+          })
+        }).then(function(response) {
+          return response.json()
+        }).then(function(data) {
+          console.log(data)
+          var arrayGiorniInq = convertiStoricoInquinamento(data)
+          console.log(arrayGiorniInq)
+          creaGraficoStoricoInquinamento(arrayGiorniInq)
+        })
+      }
+
+      function creaGraficoStoricoInquinamento(arrayGiorniInq)
+      {
+        /*
+        DOCUMENTAZIONE: Questa funzione crea un grafico line chart a partire da dati già ottenuti come variabili globali.
+        Può essere adattato per realizzare anche altri line chart cambiando i dati, va invece riscritto se cambia il
+        tipo di grafico.
+        
+        Argomenti passati:
+        arrayGiorniInq, contiene i dati per ogni giorno di quello che vogliamo inserire.
+        */
+
+        var parent = document.getElementById("datiInquinamento")
+        var canvas = document.createElement("canvas")
+        canvas.id = "lineChart"
+        canvas.width = "800"
+        canvas.height = "595" //NON modificare, stessa altezza del testo così non esplode quando clicchiamo.
+        parent.appendChild(canvas)
+        //Genero dinamicamente i dati per il grafico, siccome non so quanti elementi
+        //Array dei colori, abbastanza da non averne bisogno dopo.
+        var colors = ["rgb(255, 0, 0)", "rgb(255, 102, 0)", "rgb(255, 204, 0)", "rgb(153, 204, 0)", "rgb(0, 204, 0)", "rgb(0, 255, 204)", "rgb(0, 51, 204)", "rgb(102, 0, 255)", "rgb(255, 51, 204)", "rgb(102, 0, 102)", "rgb(0, 51, 0)"]
+        var labelsData = []   //Asse x
+        var labels = [] //Nomi dei dati
+        var values = []//Valori dei dati: values[0] ha tutti i dati per la prima label.
+        var datasets = [] //Serve per creare il grafico
+        var timestamps = [] //Serve per ripristinare il grafico dopo averlo chiuso.
+        //Riempio labelsData e values
+        for(var c = 0; c < arrayGiorniInq.length; c++)
+        {
+          labelsData.push(arrayGiorniInq[c].timestamp.split(" ")[0]) //Prendo solo la data dal timestamp
+          timestamps.push(arrayGiorniInq[c].timestamp)
+          delete arrayGiorniInq[c].timestamp //Lo rimuovo in modo da poter iterare sugli altri campi per prenderne i valori
+          values.push(Object.values(arrayGiorniInq[c]))
+        }
+        //Riempio labels
+        for(var i = 0; i < Object.keys(arrayGiorniInq[0]).length; i++) //Per ogni campo di un oggetto
+        {
+          labels.push(Object.keys(arrayGiorniInq[0])[i])
+        }
+        /*console.log(labelsData)
+        console.log(labels)
+        console.log(values)    */
+        //Ripristino timestamp, altrimenti non posso ricreare lo storico.
+        for(var i = 0; i < timestamps.length; i++)
+        {
+          arrayGiorniInq[i]["timestamp"] = timestamps[i]
+        }
+        //Creo i dataset con i dati compilati, uno per lineChart
+        for(var c = 0; c < labels.length; c++)
+        {
+          var data = []
+          for(var k = 0; k < values.length; k++)
+          {
+            data.push(values[k][c])
+          }
+          //console.log(data)
+          //Adesso ho tutti i valori di una label, posso costruirne il dataset
+          var dataset = {
+            label : labels[c],
+            data: data,
+            fill: false,
+            borderColor: colors[c],
+            tension: 0.1
+          }
+          //console.log(dataset)
+          //Costruito, lo inserisco nell'insieme per creare il grafico
+          datasets.push(dataset)
+        }
+        //console.log(datasets)
+        //Finito il parsing dei dati, posso creare finalmente il grafico
+        new Chart(document.getElementById("lineChart"), {
+          type: 'line',
+          data: {
+            labels: labelsData,
+            datasets: datasets
+          },
+          options: {
+            title: {
+              display: true,
+              text: "Storico misure inquinamento"
+            }
+          }
+        })
+      }
+
+
+
+      function convertiStoricoInquinamento(storicoinquinamentoapi)  //Converte il dato ottenuto da flask in un array javascript di json, per usarlo in maniera decente
+      {
+        var numGiorniInq = storicoinquinamentoapi.length
+        
+        var arrayGiorniInq = []
+        for(var c = 0; c < numGiorniInq; c++)
+        {
+          arrayGiorniInq.push(JSON.parse(storicoinquinamentoapi[c]))
+          //Cancello i dati che non mi servono
+          delete arrayGiorniInq[c].comune
+          delete arrayGiorniInq[c].nazione
+          delete arrayGiorniInq[c].regione
+          delete arrayGiorniInq[c].provincia
+          delete arrayGiorniInq[c].temperatura
+          delete arrayGiorniInq[c].umidita
+          //Mi tocca cancellarne anche altri perchè l'api certi giorni li restituisce, altri no, ed è un vero problema poi per il grafico.
+          delete arrayGiorniInq[c].o3
+        } 
+        return arrayGiorniInq
+      }
+
+      function convertiMeteo(meteoapi)  //Converte il dato ottenuto da flask in un array javascript di json, per usarlo in maniera decente
+      {
+          //Cancello i dati che non mi servono
+          delete meteoapi.latitude
+          delete meteoapi.longitude
+          delete meteoapi.generationtime_ms
+          delete meteoapi.utc_offset_seconds
+          delete meteoapi.timezone_abbreviation
+          delete meteoapi.timezone
+          delete meteoapi.elevation
+          delete meteoapi.hourly_units
+          delete meteoapi.time
+          delete meteoapi.temperature_2m
+          delete meteoapi.relativehumidity_2m 
+          delete meteoapi.precipitation  
+          var temp = []
+          var n = meteoapi.hourly.time.length
+          for(var i=0; i<n ; i++)
+          {
+            var temp2 = {
+              temperature: meteoapi.hourly.temperature_2m[i],
+              time: meteoapi.hourly.time[i],
+              humidity: meteoapi.hourly.relativehumidity_2m[i],
+              precipitation: meteoapi.hourly.precipitation[i]
+            }
+            temp.push(temp2)
+          }
+          console.log(temp)
+        return temp
+      }
+
+
+      function creaGraficoMeteo()
+      {
+        /*
+        DOCUMENTAZIONE: Questa funzione crea un grafico line chart a partire da dati già ottenuti come variabili globali.
+        Può essere adattato per realizzare anche altri line chart cambiando i dati, va invece riscritto se cambia il
+        tipo di grafico.
+        
+        Variabili globali usate:
+        arrayGiorniMeteo, contiene i dati per ogni giorno di quello che vogliamo inserire.
+        */
+
+        var parent = document.getElementById("datiMeteo")
+        var canvas = document.createElement("canvas")
+        canvas.id = "lineChartmeteo"
+        canvas.width = "800"
+        canvas.height = "595" //NON modificare, stessa altezza del testo così non esplode quando clicchiamo.
+        parent.appendChild(canvas)
+        //Genero dinamicamente i dati per il grafico, siccome non so quanti elementi
+        //Array dei colori, abbastanza da non averne bisogno dopo.
+        var colors = ["rgb(255, 0, 0)", "rgb(255, 102, 0)", "rgb(255, 204, 0)", "rgb(153, 204, 0)", "rgb(0, 204, 0)", "rgb(0, 255, 204)", "rgb(0, 51, 204)", "rgb(102, 0, 255)", "rgb(255, 51, 204)", "rgb(102, 0, 102)", "rgb(0, 51, 0)"]
+        var labelsData = []   //Asse x
+        var labels = [] //Nomi dei dati
+        var values = []//Valori dei dati: values[0] ha tutti i dati per la prima label.
+        var datasets = [] //Serve per creare il grafico
+        var time = [] //Serve per ripristinare il grafico dopo averlo chiuso.
+        //Riempio labelsData e values
+        for(var c = 0; c < arrayGiorniMeteo.length; c++)
+        {
+          labelsData.push(arrayGiorniMeteo[c].time.split("T")[0]) //Prendo solo la data dal timestamp
+          time.push(arrayGiorniMeteo[c].time)
+          delete arrayGiorniMeteo[c].time //Lo rimuovo in modo da poter iterare sugli altri campi per prenderne i valori
+          values.push(Object.values(arrayGiorniMeteo[c]))
+        }
+        //Riempio labels
+        for(var i = 0; i < Object.keys(arrayGiorniMeteo[0]).length; i++) //Per ogni campo di un oggetto
+        {
+          labels.push(Object.keys(arrayGiorniMeteo[0])[i])
+        }
+        console.log(labelsData)
+        console.log(labels)
+        console.log(values)    
+        //Creo i dataset con i dati compilati, uno per lineChart
+        for(var c = 0; c < labels.length; c++)
+        {
+          var data = []
+          for(var k = 0; k < values.length; k++)
+          {
+            data.push(values[k][c])
+          }
+          console.log(data)
+          //Adesso ho tutti i valori di una label, posso costruirne il dataset
+          var dataset = {
+            label : labels[c],
+            data: data,
+            fill: false,
+            borderColor: colors[c],
+            tension: 0.1
+          }
+          console.log(dataset)
+          //Costruito, lo inserisco nell'insieme per creare il grafico
+          datasets.push(dataset)
+        }
+        console.log(datasets)
+        //Finito il parsing dei dati, posso creare finalmente il grafico
+        new Chart(document.getElementById("lineChartmeteo"), {
+          type: 'line',
+          data: {
+            labels: labelsData,
+            datasets: datasets
+          },
+          options: {
+            title: {
+              display: true,
+              text: "Previsioni Meteo"
+            }
+          }
+        })
+      }
+
+      var viewinqcorrente = 1; //Necessaria per la funzione sotto, deve essere globale.
+      function gestisciViewInquinamento(id) //Controlla i bottoni di dati inquinamento
+      {
+        var parent = document.getElementById("datiInquinamento")
+        switch(id)
+        {
+          case "bottoneinq1":
+
+            switch(viewinqcorrente)
+            {
+              case 2:
+               document.getElementById("doughnut").remove()
+               break
+              
+              case 3:
+                document.getElementById("polarArea").remove()
+                break
+              
+              case 4:
+                document.getElementById("lineChart").remove()
+                break
+              
+              default:
+              break
+            }
+            document.getElementById("tabellainq").hidden = false //Ci voleva un sacco di tempo per creare tutti i documenti, meglio lasciarlo nascosto e riattivarlo così.
+            viewinqcorrente = 1
+            break
+          
+          case "bottoneinq2":
+
+            switch(viewinqcorrente)
+            {
+              case 1:
+                document.getElementById("tabellainq").hidden = true
+                break
+
+              case 3:
+                document.getElementById("polarArea").remove()
+                break
+              
+              case 4:
+                document.getElementById("lineChart").remove()
+                break
+              
+              default:
+              break
+            }
+            //Inserisci il grafico
+            if(document.getElementById("doughnut") == null)  //Serve perchè altrimenti lo ricrea se uno preme lo stesso pulsante
+            {
+              var canvas = document.createElement("canvas")
+              canvas.id = "doughnut"
+              canvas.width = "800"
+              canvas.height = "595" //NON modificare, stessa altezza del testo così non esplode quando clicchiamo.
+              parent.appendChild(canvas)
+              new Chart(document.getElementById("doughnut"), {
+                type: 'doughnut',
+                data: {
+                  labels: ['CO','NO2'],
+                  datasets: [{
+                    label: 'Agenti inquinanti',
+                    data: [inquinamento.co, inquinamento.no2],
+                    backgroundColor: ['rgb(255, 205, 86)','rgb(255, 99, 132)'],
+                    hoverOffset: 4
+                    }]
+                  },
+                options: {
+                  title: {
+                    display: true,
+                    text: "Agenti inquinanti"
+                  }
+                }
+               })
+             }
+             viewinqcorrente = 2
+             break
+
+          case "bottoneinq3":
+            switch(viewinqcorrente)
+            {
+              case 1:
+                document.getElementById("tabellainq").hidden = true
+                break
+
+              case 2:
+                document.getElementById("doughnut").remove()
+                break
+            
+              case 4:
+                document.getElementById("lineChart").remove()
+                break
+            
+              default:
+              break
+            }
+            //Crea il grafico
+            if(document.getElementById("polarArea") == null)  //Serve perchè altrimenti lo ricrea se uno preme lo stesso pulsante
+            {
+              var canvas = document.createElement("canvas")
+              canvas.id = "polarArea"
+              canvas.width = "800"
+              canvas.height = "595" //NON modificare, stessa altezza del testo così non esplode quando clicchiamo.
+              parent.appendChild(canvas)
+              new Chart(document.getElementById("polarArea"), {
+                type: 'polarArea',
+                data: {
+                  labels: ['PM1','PM2,5', 'PM10'],
+                  datasets: [{
+                    label: 'Indici particolato',
+                    data: [inquinamento.pm1, inquinamento.pm2_5, inquinamento.pm10],
+                    backgroundColor: ['rgb(82, 235, 52)','rgb(75, 192, 192)', 'rgb(204,52,235)']
+                    }]
+                  },
+                  options: {
+                    title: {
+                      display: true,
+                      text: "Indici particolato"
+                    }
+                  }
+               })
+            }
+            viewinqcorrente = 3
+            break
+
+          case "bottoneinq4":
+          switch(viewinqcorrente)
+          {
+            case 1:
+              document.getElementById("tabellainq").hidden = true
+              break
+
+            case 2:
+              document.getElementById("doughnut").remove()
+              break
+            
+            case 3:
+              document.getElementById("polarArea").remove()
+              break  
+
+            default:
+              break
+            }
+            //Crea il form, fa submit (?) e genera il grafico del risultato
+            if(document.getElementById("lineChart") == null)
+            {
+              //Crea il form
+              var form = document.createElement("form")
+              form.class = "forms-sample"
+              form.id = "formStoricoInq"
+
+              var div1 = document.createElement(div)
+              div1.class = "form-group"
+              var label1 = document.createElement("label")
+              label1.for = "dataInizioInq"
+              label1.innerHTML = "Data Inizio"
+              var input1 = document.createElement("input")
+              input1.type = "date"
+              input1.class = "form-control p-input"
+              input1.id = "dataInizioInq"
+              div1.appendChild(label1)
+              div1.appendChild(input1)
+              form.appendChild(div1)
+              var br = document.createElement("br")
+              form.appendChild(br)
+
+              var div2 = document.createElement(div)
+              div2.class = "form-group"
+              var label2 = document.createElement("label")
+              label2.for = "dataFineInq"
+              label2.innerHTML = "Data Fine"
+              var input2 = document.createElement("input")
+              input2.type = "date"
+              input2.class = "form-control p-input"
+              input2.id = "dataFineInq"
+              div2.appendChild(label2)
+              div2.appendChild(input2)
+              form.appendChild(div2)
+
+              parent.appendChild(form)
+
+              //Crea il bottone
+              //<button type="button" id="bottoneinq1" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Tabella</button>
+
+              var button = document.createElement("button")
+              button.type = "button"
+              button.id = "buttonFormInq"
+              button.class = "btn btn-primary"
+              button.addEventListener("click", getStoricoInquinamento)
+              button.innerHTML = "Cerca"
+              parent.appendChild(button)
+            }
+            viewinqcorrente = 4
+            break
+
+          default:
+          break
+        }
+
+      }
+
+      var terreno = {
+        id : "{{terreno.id}}",
+        nome: "{{terreno.nome}}",
+        coltura: "{{terreno.coltura}}",
+        preferito: "{{terreno.preferito}}",
+        priorita: {{terreno.priorita}},
+        posizione: {{terreno.posizione|tojson}} 
+      }
+      
+      var sprinklerIcon = L.icon({
+        iconUrl: '/static/images/sprinkler.png',
+        iconSize: [38, 38],
+        iconAnchor: [19, 18],
+        popupAnchor: [0, 0],
+      });
+
+      function aggiungiIrrigatoreAlDom(nomeIrrigatore, idIrrigatore, statoIrrigatore){
+        const newDiv = document.createElement("div");
+        newDiv.setAttribute("href", "#");
+        newDiv.setAttribute("class", "list-group-item list-group-item-action flex-column align-items-start");
+        newDiv.setAttribute("id", idIrrigatore)
+
+        const innerDiv = document.createElement("div");
+        innerDiv.setAttribute("class", "d-flex w-100 justify-content-between");
+
+        const h5 = document.createElement("h5");
+        h5.setAttribute("class", "mb-1");
+        h5.innerText = nomeIrrigatore;
+        innerDiv.appendChild(h5);
+
+        const buttonsDiv = document.createElement("div");
+
+        const deleteButton = document.createElement("button");
+        deleteButton.setAttribute("type", "button");
+        deleteButton.setAttribute("class", "btn btn-primary btn-sm p-1");
+        deleteButton.setAttribute("onclick", "eliminaIrrigatore('"+idIrrigatore+"')");
+        deleteButton.innerText = "Elimina";
+        buttonsDiv.appendChild(deleteButton);
+
+        const editButton = document.createElement("button");
+        editButton.setAttribute("type", "button");
+        editButton.setAttribute("class", "btn btn-primary my-custom-bg-color btn-sm p-1");
+        editButton.setAttribute("onclick", "modificaIrrigatore('"+idIrrigatore+"')");
+        editButton.innerText = "Modifica";
+        buttonsDiv.appendChild(editButton);
+
+        innerDiv.appendChild(buttonsDiv);
+
+        const p = document.createElement("p");
+        if(statoIrrigatore)
+          p.innerHTML = "Stato: <button class='btn btn-success rounded-pill active btn-sm p-1' onclick='attivaDisattivaIrrigatore(&quot;"+idIrrigatore+"&quot;)'>Attivo</button>";
+        else
+          p.innerHTML = "Stato: <button class='btn btn-danger rounded-pill active btn-sm p-1' onclick='attivaDisattivaIrrigatore(&quot;"+idIrrigatore+"&quot;)'>Disattivo</button>";
+
+        newDiv.appendChild(innerDiv);
+        newDiv.appendChild(p);
+
+        document.getElementById("sprinklers").appendChild(newDiv);
+      }
+
+      var markers =[];
+
+      function visualizzaMappaIrrigatori(){
+        document.getElementById("btnIndietro").removeAttribute("hidden");
+        document.getElementById("visualizzaMappaIrrigatori").removeAttribute("hidden");
+        document.getElementById("listaIrrigatori").setAttribute("hidden", "true");
+        mapTuttiIrrigatori.invalidateSize()
+        mapTuttiIrrigatori.fitBounds(polygon.getBounds())
+        fetch('visualizzaIrrigatori' , {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            idTerreno: terreno.id
+          })
+        }).then(function(response) {
+            return response.json();
+        }).then(function(data) {
+          console.log(data);
+          for(var i = 0; i < data.length; i++){
+            var lat = data[i].posizione.geometry.coordinates[1]
+            var len = data[i].posizione.geometry.coordinates[0]
+            console.log(lat + " " + len)
+            marker = L.marker([lat,len], {icon: sprinklerIcon}).addTo(mapTuttiIrrigatori);
+            markers.push(marker);
+            marker.bindPopup("<b>"+data[i].nome+"</b><br>Stato: "+data[i].attivo);
+          }
+        });
+      }
+
+      function attivaDisattivaIrrigatore(idIrrigatore){
+        fetch('attivaDisattivaIrrigatore' , {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            idIrrigatore: idIrrigatore
+          })
+        }).then(function(response) {
+          return response.json();
+        }).then(function(data) {
+          if(data.risposta == "attivato"){
+            document.getElementById(idIrrigatore).getElementsByTagName("button")[2].setAttribute("class", "btn btn-success rounded-pill active btn-sm p-1");
+            document.getElementById(idIrrigatore).getElementsByTagName("button")[2].innerText = "Attivo";
+          }else{
+            document.getElementById(idIrrigatore).getElementsByTagName("button")[2].setAttribute("class", "btn btn-danger rounded-pill active btn-sm p-1");
+            document.getElementById(idIrrigatore).getElementsByTagName("button")[2].innerText = "Disattivo";
+          }
+      });
+      }
+
+      function inviaIrrigatoreCreato(){
+        var nomeIrrigatore = document.getElementById("NomeImpiantoAggiungiIrrigatore").value;
+        var posizioneIrrigatore = markerAggiungiIrrigatore.toGeoJSON();
+        console.log(posizioneIrrigatore)
+
+        fetch('aggiungiIrrigatore', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            nomeIrrigatore: nomeIrrigatore,
+            posizioneIrrigatore: posizioneIrrigatore,
+            idTerreno: terreno.id
+          })
+        }).then(function(response) {
+          return response.json();
+        }).then(function(data) {
+          aggiungiIrrigatoreAlDom(nomeIrrigatore, data.idIrrigatore);
+          markerAggiungiIrrigatore.remove();
+          tornaIndietro();
+        })
+      }
+
+      function aggiungiIrrigatore(){
+        document.getElementById("btnIndietro").removeAttribute("hidden");
+        document.getElementById("aggiungiIrrigatore").removeAttribute("hidden");
+        document.getElementById("listaIrrigatori").setAttribute("hidden", "true");
+        mapAggiungiIrrigatore.invalidateSize()
+        mapAggiungiIrrigatore.fitBounds(polygon.getBounds())
+      }
+
+      function tornaIndietro(){
+        if(markers.length > 0){
+          for(var i = 0; i < markers.length; i++){
+            markers[i].remove();
+          }
+        }
+        if(markerAggiungiIrrigatore != null)
+          markerAggiungiIrrigatore.remove()
+        if(markerModificaIrrigatore != null)
+          markerModificaIrrigatore.remove()
+
+        document.getElementById("visualizzaMappaIrrigatori").setAttribute("hidden", "true");
+        document.getElementById("modificaIrrigatore").setAttribute("hidden", "true");
+        document.getElementById("aggiungiIrrigatore").setAttribute("hidden", "true");
+        document.getElementById("listaIrrigatori").removeAttribute("hidden");
+        document.getElementById("btnIndietro").setAttribute("hidden", "true");
+      }
+
+      function eliminaIrrigatore(idIrrigatore)
+      {
+        //elimina irrigatore
+        fetch('eliminaIrrigatore', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            idIrrigatore: idIrrigatore
+          })
+        }).then(function(response) {
+          return response.json()
+        }).then(function(data) {
+          console.log(data)
+          //elimina irrigatore dal document
+          document.getElementById(idIrrigatore).remove()
+        })
+      }
+
+      function modificaIrrigatore(idIrrigatore)
+      {
+
+        document.getElementById("btnIndietro").removeAttribute("hidden");
+        document.getElementById("modificaIrrigatore").removeAttribute("hidden");
+        document.getElementById("listaIrrigatori").setAttribute("hidden", "true");
+        mapModificaIrrigatore.invalidateSize()
+        mapModificaIrrigatore.fitBounds(polygon.getBounds())
+
+        //get posizione of irrigatore
+        fetch('getIrrigatore', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            idIrrigatore: idIrrigatore
+          })
+        }).then(function(response) {
+          return response.json();
+        }).then(function(data) {
+          console.log(data)
+          var lat = data.posizioneIrrigatore.geometry.coordinates[1]
+          var len = data.posizioneIrrigatore.geometry.coordinates[0]
+          //add marker to map
+          markerModificaIrrigatore = L.marker([lat, len], {draggable: true}).addTo(mapModificaIrrigatore);
+          markerModificaIrrigatore.setIcon(sprinklerIcon);
+          //set nome for form with id NomeImpianto
+          document.getElementById("NomeImpiantoModificaIrrigatore").value = data.nomeIrrigatore;
+          
+        })
+
+
+        //set on click listener for submit
+        
+        document.getElementById("btnModificaIrrigatore").addEventListener("click", function(){
+          var nomeIrrigatore = document.getElementById("NomeImpiantoModificaIrrigatore").value;
+          var posizioneIrrigatore = markerModificaIrrigatore.toGeoJSON();
+          console.log(posizioneIrrigatore)
+
+          fetch('modificaIrrigatore', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              nomeIrrigatore: nomeIrrigatore,
+              posizioneIrrigatore: posizioneIrrigatore,
+              idIrrigatore: idIrrigatore
+            })
+          }).then(function(response) {
+            return response.json();
+          }).then(function(data) {
+            console.log(data)
+            tornaIndietro();
+          })
+        })
+        
+      }
+
+      function isMarkerInsidePolygon(marker, polygon) {
+        // utilizziamo la funzione leaflet contains() per verificare se il marker è all'interno del poligono
+        return polygon.getBounds().contains(marker.getLatLng());
+
+      }
+
+      function rimandamodifica()
+      {
+        window.location.href = "http://localhost:5000/modificaTerreno?idTerreno=" + terreno.id 
+      }
+
+      function rimandaelimina()
+      {
+        window.location.href = "http://localhost:5000/eliminaTerreno?idTerreno=" + terreno.id 
+      }
+
+      var map = L.map('map').setView([51.505, -0.09], 13);
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(map);
+
+      var mapModificaIrrigatore = L.map('mapIrrigazione').setView([51.505, -0.09], 13);
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(mapModificaIrrigatore);
+
+      var mapAggiungiIrrigatore = L.map('mapAggiungiIrrigatore').setView([51.505, -0.09], 13);
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(mapAggiungiIrrigatore);
+
+      var mapTuttiIrrigatori = L.map('mapTuttiIrrigatori').setView([51.505, -0.09], 13);
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(mapTuttiIrrigatori);
+
+      var markerModificaIrrigatore
+      mapModificaIrrigatore.on('click', function(e) {
+        if(markerModificaIrrigatore != undefined)
+          mapModificaIrrigatore.removeLayer(markerModificaIrrigatore);
+        markerModificaIrrigatore = L.marker([e.latlng.lat, e.latlng.lng])
+        if(isMarkerInsidePolygon(markerModificaIrrigatore,polygonModificaIrrigazione))
+          markerModificaIrrigatore.addTo(mapModificaIrrigatore);
+          markerModificaIrrigatore.setIcon(sprinklerIcon)
+      });
+
+
+      var markerAggiungiIrrigatore
+      mapAggiungiIrrigatore.on('click', function(e) {
+        if(markerAggiungiIrrigatore != undefined)
+          mapAggiungiIrrigatore.removeLayer(markerAggiungiIrrigatore);
+        markerAggiungiIrrigatore = L.marker([e.latlng.lat, e.latlng.lng])
+        if(isMarkerInsidePolygon(markerAggiungiIrrigatore, polygonAggiungiIrrigazione))
+          markerAggiungiIrrigatore.addTo(mapAggiungiIrrigatore);
+          //aggiungi png personalizzato al marker
+          markerAggiungiIrrigatore.setIcon(sprinklerIcon)
+      });
+
+      
+
+      //Ci sono altri campi, ma mi serve solo questo
+      var posizioneapi = {
+        display_name : "{{posizioneapi.display_name}}"
+      }
+
+      var comune = posizioneapi.display_name.split(", ")[0]
+      console.log(posizioneapi.display_name)
+      console.log(comune)
+      var messaggioInquinamento;
+      var inquinamentoapi = {{inquinamentoapi | safe}} //NON togliere safe, altrimenti si rompe perchè flask inserisce caratteri di escape che rompono js
+      console.log(inquinamentoapi.result)
+      //Non è detto che il comune esista nei risultati dell'API
+      if(comune in inquinamentoapi.result)
+      {
+        inquinamento = inquinamentoapi.result[comune]
+        console.log(inquinamento)
+        //Tolgo i dati che non ci interessano per l'inquinamento
+        delete inquinamento.comune
+        delete inquinamento.nazione
+        delete inquinamento.regione
+        delete inquinamento.provincia
+        delete inquinamento.temperatura
+        delete inquinamento.umidita
+        console.log(inquinamento)
+        //Riempio le div con i dati dell'inquinamento
+        //AGGIUNGERE CONTROLLO PER DATI CHE NON CI SONO SEMPRE, COME O3, SO2? Grafico poi diventa un problema
+        document.getElementById("tsinq").innerHTML = "Orario rilevamento: " + inquinamento.timestamp
+        document.getElementById("aqi").innerHTML = String(inquinamento.aqi) //api lo restituisce come float, giusto per essere sicuri
+        document.getElementById("co").innerHTML = inquinamento.co
+        document.getElementById("no2").innerHTML = inquinamento.no2
+        document.getElementById("pm1").innerHTML = inquinamento.pm1
+        document.getElementById("pm25").innerHTML = inquinamento.pm2_5
+        document.getElementById("pm10").innerHTML = inquinamento.pm10
+      }
+      else
+      {
+        //Aggiungi messaggio di errore
+        var parent = document.getElementById("datiInquinamento")
+        var div = document.createElement('div')
+        div.className = "alert alert-warning"
+        var testo = document.createElement('strong')
+        testo.innerHTML=  "Errore API inquinamento: Non sono disponibili dati per il comune richiesto."
+        div.appendChild(testo)
+        parent.appendChild(div)
+      }
+     
+      //Ottengo lo storico dell'inquinamento e lo trasformo in un array javascript normale.
+      var storicoinquinamentoapi = {{storicoinquinamentoapi | safe}}
+      console.log(storicoinquinamentoapi)
+
+      var arrayGiorniInq = convertiStoricoInquinamento(storicoinquinamentoapi)
+      console.log(arrayGiorniInq)
+
+      //Per il meteo
+      var meteoapi = {{meteoapi | safe}}
+      console.log(meteoapi)
+
+      var arrayGiorniMeteo = convertiMeteo(meteoapi)
+      creaGraficoMeteo()
+      console.log(arrayGiorniMeteo)
+
+
+
+      console.log(terreno)
+      document.getElementById("titolopagina").innerHTML = terreno.nome
+      document.getElementById("nomeTerreno").innerHTML = terreno.nome
+      document.getElementById("nome").innerHTML = terreno.nome
+      document.getElementById("coltura").innerHTML = terreno.coltura
+      if(terreno.preferito == "False")
+      {
+        document.getElementById("heart").setAttribute("hidden", true)
+      }
+      document.getElementById("posizione").innerHTML = posizioneapi.display_name
+      document.getElementById("priorita").innerHTML = terreno.priorita
+
+      u = terreno.posizione
+      var points = [];
+      var polygon = L.geoJSON(u).addTo(map)
+      var polygonModificaIrrigazione = L.geoJSON(u).addTo(mapModificaIrrigatore)
+      var polygonAggiungiIrrigazione = L.geoJSON(u).addTo(mapAggiungiIrrigatore)
+      var polygonTuttiIrrigatori = L.geoJSON(u).addTo(mapTuttiIrrigatori)
+      map.fitBounds(polygon.getBounds())
+      
+    fetch('visualizzaIrrigatori', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        idTerreno: terreno.id
+      })
+    }).then(res=>res.json())
+    .then(data=>{
+      //per ogni irrigatore chiama aggiungiIrrigatoreAlDom con argomento il nome dell'irrigatore
+      data.forEach(irrigatore => {
+        console.log(irrigatore.attivo)
+        aggiungiIrrigatoreAlDom(irrigatore.nome, irrigatore._id, irrigatore.attivo)
+      });
+
+    });
+    </script>
+
+    <!-- End custom js for this page-->
+  </body>
+</html>
