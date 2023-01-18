@@ -1,4 +1,4 @@
-from flask import jsonify, request, render_template
+from flask import jsonify, request, render_template, Response, make_response
 from src import app
 from flask import url_for
 import json
@@ -90,7 +90,7 @@ class AmbienteAgricoloController():
         else:
             nazione = posizione[4]
         inquinamentoapi = AmbienteAgricoloService.cercaInquinamento(comune, regione, nazione)
-        storicoinquinamentoapi = AmbienteAgricoloService.cercaStoricoInquinamento("2022-09-01", "2022-09-30", citta, regione, nazione, comune)
+        storicoinquinamentoapi = AmbienteAgricoloService.cercaStoricoInquinamento("2022-09-01", "2022-09-30", citta, regione, nazione, comune, "json")
         lat = AmbienteAgricoloService.cercalat(idTerreno)
         lon = AmbienteAgricoloService.cercalon(idTerreno)
         meteoapi = AmbienteAgricoloService.cercaMeteo(lat,lon)
@@ -115,8 +115,39 @@ class AmbienteAgricoloController():
             nazione = posizione[3]
         else:
             nazione = posizione[4]
-        storicoinquinamentoapi = AmbienteAgricoloService.cercaStoricoInquinamento(dataInizio, dataFine, citta, regione, nazione, comune)
+        storicoinquinamentoapi = AmbienteAgricoloService.cercaStoricoInquinamento(dataInizio, dataFine, citta, regione, nazione, comune, "json")
         return jsonify(storicoinquinamentoapi)
+    
+    @app.route("/downloadStoricoInquinamento", methods=["POST"])
+    def downloadStoricoInquinamento():
+        richiesta = request.get_json()
+        idTerreno = richiesta.get("idTerreno")
+        dataInizio = richiesta.get("dataInizio")
+        dataFine = richiesta.get("dataFine")
+        formato = richiesta.get("formato")
+        print(formato)
+        terreno = AmbienteAgricoloService.trovaTerreno(idTerreno)
+        posizioneapi = AmbienteAgricoloService.cercaPosizione(idTerreno)
+        print(posizioneapi)
+        #Ottengo dati dal display_name in quanto funziona per qualsiasi località (per altre non italiane, cambiano i nomi delle chiavi json)
+        posizione = posizioneapi["display_name"].split(", ") #Ottengo in una lista i dati
+        print(posizione)
+        citta = posizione[0]    #Inutilizzata per adesso, lasciata qui se dovesse servire
+        comune = posizione[1]
+        regione = posizione[2]
+        if(len(posizione) == 4):   #Parse per evitare il codice postale, soluzione temporanea.
+            nazione = posizione[3]
+        else:
+            nazione = posizione[4]
+        storicoinquinamentoapi = AmbienteAgricoloService.cercaStoricoInquinamento(dataInizio, dataFine, citta, regione, nazione, comune, formato)
+        if(formato == "json"):
+            storicoinquinamentoapi = json.dumps(storicoinquinamentoapi) #Da testo, a stringa json formattata
+        response = make_response(storicoinquinamentoapi)    #Lo rende una response http
+        response.headers['Content-Disposition'] = "attachment; filename=storico." + str(formato) #Il filename è inutile, però va bene perchè rende consistenti client e server (?)
+        response.mimetype = "text/" + str(formato)  #Dice il tipo di file
+        print(response)
+        print(response.headers)
+        return response
     
     @app.route("/aggiungiIrrigatore", methods=["POST", "GET"])
     def aggiungiIrrigatore():
