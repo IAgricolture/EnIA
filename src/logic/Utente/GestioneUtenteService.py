@@ -23,5 +23,5 @@ class GestioneUtenteService():
     def getUtenti(id: str)-> list:
         return AutenticazioneDAO.listaDipendenti(id)
 
-     def findMetodoByProprietario(id:str)->MetodoDiPagamento:
-         return MetodoDiPagamentoDAO.findMetodoByProprietario(id)
+    def findMetodoByProprietario(id:str)->MetodoDiPagamento:
+        return MetodoDiPagamentoDAO.findMetodoByProprietario(id)
