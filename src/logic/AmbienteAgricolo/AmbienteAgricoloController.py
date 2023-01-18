@@ -79,22 +79,19 @@ class AmbienteAgricoloController():
         terreno = AmbienteAgricoloService.trovaTerreno(idTerreno)
         posizioneapi = AmbienteAgricoloService.cercaPosizione(idTerreno)
         print(posizioneapi)
-        #Ottengo dati dal display_name in quanto funziona per qualsiasi località (per altre non italiane, cambiano i nomi delle chiavi json)
-        posizione = posizioneapi["display_name"].split(", ") #Ottengo in una lista i dati
-        print(posizione)
-        citta = posizione[0]    #Inutilizzata per adesso, lasciata qui se dovesse servire
-        comune = posizione[1]
-        regione = posizione[2]
-        if(len(posizione) == 4):   #Parse per evitare il codice postale, soluzione temporanea.
-            nazione = posizione[3]
+        indirizzo = posizioneapi["address"]
+        if("town" in indirizzo): #Pontecagnano, Salerno le porta come town
+            comune = indirizzo["town"]
         else:
-            nazione = posizione[4]
-        inquinamentoapi = AmbienteAgricoloService.cercaInquinamento(comune, regione, nazione)
-        storicoinquinamentoapi = AmbienteAgricoloService.cercaStoricoInquinamento("2022-09-01", "2022-09-30", citta, regione, nazione, comune, "json")
+            comune = indirizzo["city"]  #Avellino, Potenza
+        provincia = indirizzo["county"]
+        regione = indirizzo["state"]
+        nazione = indirizzo["country"]
+        inquinamentoapi = AmbienteAgricoloService.cercaInquinamento(provincia, regione, nazione, comune)
         lat = AmbienteAgricoloService.cercalat(idTerreno)
         lon = AmbienteAgricoloService.cercalon(idTerreno)
         meteoapi = AmbienteAgricoloService.cercaMeteo(lat,lon)
-        return render_template("dettagliterreno.html", terreno = terreno, posizioneapi = posizioneapi, inquinamentoapi = inquinamentoapi, storicoinquinamentoapi = storicoinquinamentoapi,meteoapi=meteoapi)
+        return render_template("dettagliterreno.html", terreno = terreno, posizioneapi = posizioneapi, inquinamentoapi = inquinamentoapi, meteoapi=meteoapi)
     
     @app.route("/getStoricoInquinamento", methods=["POST"])
     def getStoricoInquinamento():
@@ -106,16 +103,15 @@ class AmbienteAgricoloController():
         posizioneapi = AmbienteAgricoloService.cercaPosizione(idTerreno)
         print(posizioneapi)
         #Ottengo dati dal display_name in quanto funziona per qualsiasi località (per altre non italiane, cambiano i nomi delle chiavi json)
-        posizione = posizioneapi["display_name"].split(", ") #Ottengo in una lista i dati
-        print(posizione)
-        citta = posizione[0]    #Inutilizzata per adesso, lasciata qui se dovesse servire
-        comune = posizione[1]
-        regione = posizione[2]
-        if(len(posizione) == 4):   #Parse per evitare il codice postale, soluzione temporanea.
-            nazione = posizione[3]
+        indirizzo = posizioneapi["address"]
+        if("town" in indirizzo): #Pontecagnano, Salerno le porta come town
+            comune = indirizzo["town"]
         else:
-            nazione = posizione[4]
-        storicoinquinamentoapi = AmbienteAgricoloService.cercaStoricoInquinamento(dataInizio, dataFine, citta, regione, nazione, comune, "json")
+            comune = indirizzo["city"]  #Avellino, Potenza
+        provincia = indirizzo["county"]
+        regione = indirizzo["state"]
+        nazione = indirizzo["country"]
+        storicoinquinamentoapi = AmbienteAgricoloService.cercaStoricoInquinamento(dataInizio, dataFine, comune, regione, nazione, provincia, "json")
         return jsonify(storicoinquinamentoapi)
     
     @app.route("/downloadStoricoInquinamento", methods=["POST"])
@@ -130,16 +126,15 @@ class AmbienteAgricoloController():
         posizioneapi = AmbienteAgricoloService.cercaPosizione(idTerreno)
         print(posizioneapi)
         #Ottengo dati dal display_name in quanto funziona per qualsiasi località (per altre non italiane, cambiano i nomi delle chiavi json)
-        posizione = posizioneapi["display_name"].split(", ") #Ottengo in una lista i dati
-        print(posizione)
-        citta = posizione[0]    #Inutilizzata per adesso, lasciata qui se dovesse servire
-        comune = posizione[1]
-        regione = posizione[2]
-        if(len(posizione) == 4):   #Parse per evitare il codice postale, soluzione temporanea.
-            nazione = posizione[3]
+        indirizzo = posizioneapi["address"]
+        if("town" in indirizzo): #Pontecagnano, Salerno le porta come town
+            comune = indirizzo["town"]
         else:
-            nazione = posizione[4]
-        storicoinquinamentoapi = AmbienteAgricoloService.cercaStoricoInquinamento(dataInizio, dataFine, citta, regione, nazione, comune, formato)
+            comune = indirizzo["city"]  #Avellino, Potenza
+        provincia = indirizzo["county"]
+        regione = indirizzo["state"]
+        nazione = indirizzo["country"]
+        storicoinquinamentoapi = AmbienteAgricoloService.cercaStoricoInquinamento(dataInizio, dataFine, comune, regione, nazione, provincia, formato)
         if(formato == "json"):
             storicoinquinamentoapi = json.dumps(storicoinquinamentoapi) #Da testo, a stringa json formattata
         response = make_response(storicoinquinamentoapi)    #Lo rende una response http

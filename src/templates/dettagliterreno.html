@@ -476,7 +476,7 @@
                                 <div id = "pm10" class="text-muted"></div>
                               </div>
                           </div>
-                           <div class="btn-group-sm mr-2 mb-4" role="group">
+                           <div class="btn-group-sm mr-2 mb-4" id = "bottoniInq" role="group">
                             <button type="button" id="bottoneinq1" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Tabella</button>
                             <button type="button" id="bottoneinq2" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Grafico1</button>
                             <button type="button" id="bottoneinq3" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Grafico2</button>
@@ -1443,8 +1443,21 @@
         display_name : "{{posizioneapi.display_name}}"
       }
 
+      var indirizzoapi = posizioneapi.display_name.split(", ")
+      if(indirizzoapi.length > 4) //Se è stato inserito un codice postale:
+      {
+        for(var i = 0; i < indirizzoapi.length; i++)
+        {
+          console.log(parseInt(indirizzoapi[i]))
+          if(!(Number.isNaN(parseInt(indirizzoapi[i])))) //Controllo se la stringa rappresenta un numero
+          {
+            indirizzoapi.splice(i, 1, indirizzoapi[i + 1])  //Sostituisci codice postale con altro campo
+            indirizzoapi.splice(i + 1, 1) //Rimuovi altro campo
+          }
+        }
+      }
+      indirizzoapi = indirizzoapi.join()
       var comune = posizioneapi.display_name.split(", ")[0]
-      console.log(posizioneapi.display_name)
       console.log(comune)
       var messaggioInquinamento;
       var inquinamentoapi = {{inquinamentoapi | safe}} //NON togliere safe, altrimenti si rompe perchè flask inserisce caratteri di escape che rompono js
@@ -1482,6 +1495,10 @@
         testo.innerHTML=  "Errore API inquinamento: Non sono disponibili dati per il comune richiesto."
         div.appendChild(testo)
         parent.appendChild(div)
+        //Nascondi bottoni
+        document.getElementById("tabellainq").hidden = true
+        //Nascondi tabella
+        document.getElementById("bottoniInq").hidden = true
       }
      
 
@@ -1504,7 +1521,7 @@
       {
         document.getElementById("heart").setAttribute("hidden", true)
       }
-      document.getElementById("posizione").innerHTML = posizioneapi.display_name
+      document.getElementById("posizione").innerHTML = indirizzoapi
       document.getElementById("priorita").innerHTML = terreno.priorita
 
       u = terreno.posizione
