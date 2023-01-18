@@ -142,7 +142,7 @@ class AmbienteAgricoloController():
         if(formato == "json"):
             storicoinquinamentoapi = json.dumps(storicoinquinamentoapi) #Da testo, a stringa json formattata
         response = make_response(storicoinquinamentoapi)    #Lo rende una response http
-        response.headers['Content-Disposition'] = "attachment; filename=test." + str(formato) #Il filename è inutile, però va bene perchè rende consistenti client e server (?)
+        response.headers['Content-Disposition'] = "attachment; filename=storico." + str(formato) #Il filename è inutile, però va bene perchè rende consistenti client e server (?)
         response.mimetype = "text/" + str(formato)  #Dice il tipo di file
         print(response)
         print(response.headers)

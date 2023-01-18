@@ -490,7 +490,6 @@
                               <div class="dropdown-menu" aria-labelledby = "dropdownInq"> <!-- Href e link servono per evitare di andare a capo della pagina onclick -->
                                 <a class="dropdown-item" href = "javascript:;" onclick = downloadStoricoInquinamento("csv") link>CSV</a>
                                 <a class="dropdown-item" href = "javascript:;" onclick = downloadStoricoInquinamento("json") link >JSON</a>
-                                <a class="dropdown-item" href = "javascript:;" onclick = downloadStoricoInquinamento("xslx") link >XSLX</a>
                               </div>
                             </div>
                           </div>
@@ -626,15 +625,20 @@
           idTerreno: terreno.id,
           formato: formato
         }
+
+
         fetch('downloadStoricoInquinamento' , {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(body)
-        }).then(res => res.blob())
-        .then(blob => {
-          var file = window.URL.createObjectURL(blob)
+        }).then(res => {
+          return res.blob() //Va bene per tutti gli altri formati
+        })
+        .then(obj => {
+          console.log(obj)
+          var file = window.URL.createObjectURL(obj)
           const link = document.createElement('a'); //Creo il link perchè è l'unico modo semplice per dargli filename
           link.href = file;
           link.setAttribute('download', filename);
