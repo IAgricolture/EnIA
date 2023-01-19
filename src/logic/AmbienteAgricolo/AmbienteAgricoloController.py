@@ -64,6 +64,7 @@ class AmbienteAgricoloController():
         return redirect("/visualizzaTerreni")
         
     @app.route("/dettagliterreno", methods = ["POST", "GET"])
+    @login_required
     def dettagli():
         idTerreno = request.args.get("idTerreno")
         terreno = AmbienteAgricoloService.trovaTerreno(idTerreno)

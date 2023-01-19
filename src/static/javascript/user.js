@@ -46,7 +46,6 @@ function CheckUser() {
     var indirizzo = document.getElementById("indirizzo").value
     var dataNascita = document.getElementById("dataNascita").value
     var partitaiva = document.getElementById("partitaiva").value
-    var ruolo = document.getElementById("ruolo").value
 
     var nomeerr = document.getElementById("nomeerr")
     var cognomeerr = document.getElementById("cognomeerr")
@@ -123,12 +122,6 @@ function CheckUser() {
         dataNascitaerr.innerHTML = "Campo Richiesto"
         mod = false
     }
-
-    if (ruolo == "farmer")
-        if (partitaiva == "") {
-            partitaivaerr.innerHTML = "Campo Richiesto"
-            mod = false
-        }
 
     if (mod) {
         var form = document.querySelector("#userform")
