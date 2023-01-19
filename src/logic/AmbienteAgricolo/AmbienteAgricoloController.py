@@ -1,6 +1,5 @@
-from flask import jsonify, request, render_template, Response, make_response
+from flask import jsonify, request, render_template, Response, make_response, url_for, redirect
 from src import app
-from flask import url_for
 import json
 from src.logic.model.Terreno import Terreno
 from src.logic.AmbienteAgricolo.AmbienteAgricoloService import AmbienteAgricoloService
@@ -54,25 +53,15 @@ class AmbienteAgricoloController():
 
 
 
-    @app.route("/eliminaTerreno", methods = ["POST", "GET"])
+    @app.route("/eliminaTerreno", methods = ["GET"])
     def elimina():
         """ 
-        #TODO Scrivere documenzione
+        #TODO Scrivere documentazione
         """
-        if(request.method != "POST"):
-            idTerreno = request.args.get("idTerreno")
-            terreno = AmbienteAgricoloService.trovaTerreno(idTerreno)
-            return render_template("eliminaterreno.html", terreno = terreno)
-        elif request.method == "POST":
-            richiesta = request.get_json()
-            print(str(richiesta))
-            idTerreno = str(richiesta)   
-            risultato = AmbienteAgricoloService.eliminaTerreno(idTerreno)
-            #TODO:MIGLIORARE CON BOOLEANI
-            if(risultato):
-                return jsonify({"trovato" : "true"})
-            else:
-                return jsonify({"trovato" : "false"})
+        idTerreno = request.args.get("idTerreno")
+        terreno = AmbienteAgricoloService.trovaTerreno(idTerreno)
+        risultato = AmbienteAgricoloService.eliminaTerreno(idTerreno)
+        return redirect("/visualizzaTerreni")
         
     @app.route("/dettagliterreno", methods = ["POST", "GET"])
     def dettagli():
