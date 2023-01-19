@@ -73,7 +73,10 @@ class AmbienteAgricoloController():
         if("town" in indirizzo): #Pontecagnano, Salerno le porta come town
             comune = indirizzo["town"]
         else:
-            comune = indirizzo["city"]  #Avellino, Potenza
+            if("city" in indirizzo):
+                comune = indirizzo["city"]  #Avellino, Potenza
+            else:
+                comune = indirizzo["village"] #Molise
         provincia = indirizzo["county"]
         regione = indirizzo["state"]
         nazione = indirizzo["country"]
