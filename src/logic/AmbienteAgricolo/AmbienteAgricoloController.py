@@ -4,11 +4,12 @@ from flask import url_for
 import json
 from src.logic.model.Terreno import Terreno
 from src.logic.AmbienteAgricolo.AmbienteAgricoloService import AmbienteAgricoloService
-from flask_login import current_user
+from flask_login import current_user, login_required
 
 class AmbienteAgricoloController():
 
     @app.route("/aggiuntaTerreno", methods=["POST", "GET"])
+    @login_required
     def aggiungiTerreno():
         if(request.method != "POST"):
             return render_template("aggiuntaterreno.html")

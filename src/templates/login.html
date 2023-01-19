@@ -39,6 +39,7 @@
                 <div class="form-group">
                   <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Password">
                 </div>
+                <input type = "hidden" name = "next" value = "{{request.args.get("next", "")}}">
                 <div class="mt-3">
                   <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</button>
                 </div>

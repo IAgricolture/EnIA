@@ -14,7 +14,7 @@ app.config["MONGO_URI"] = "mongodb://enia:vp7CMyN7V5Rl8FZR@ac-raqtab6-shard-00-0
 app.config["COMPRESS_ALGORITHM"] = 'gzip'  # disable default compression of all eligible requests
 app.config['SECRET_KEY'] = 'jshwifhjwieoajhf5847f5ae4eaws'
 login_manager = LoginManager(app)
-login_manager.login_view = "loginPage"
+login_manager.login_view = "login"
 login_manager.login_message_category = "info"
 
 

@@ -5,7 +5,7 @@ from src.logic.model.Utente import Utente
 from src.logic.Storage.AutenticazioneDAO import AutenticazioneDAO
 from datetime import timedelta
 
-from flask_login import login_user
+from flask_login import login_user, logout_user
 
 class AutenticazioneService():
     
@@ -30,4 +30,8 @@ class AutenticazioneService():
     
     def trovaUtenteById(id:str)-> Utente:
         return AutenticazioneDAO.trovaUtente(id)
+    
+    def logout():
+        logout_user()
+        print("Logout utente")
         
