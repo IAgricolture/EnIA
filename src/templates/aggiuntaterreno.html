@@ -208,7 +208,7 @@
       Per ogni form, controlla che non sia vuoto o incorretto: altrimenti, crea una notifica di errore, se
       non esiste già. Se invece il form è corretto e la notifica esiste, la rimuove.*/
     {
-      var regexp = /^[a-zA-Z0-9]{1,50}$/  //Regex per testo alfanumerico, da 1 a 50 caratteri, senza spazi
+      var regexp = /[\w\s]+$/  //Regex per testo alfanumerico, con o senza spazi
       var validAll = true
       var forms = [ document.getElementById('nome'), document.getElementById('coltura'), document.getElementById('priorita')]     
       forms.forEach(function(form){   //Per ogni form, controlla se ha testo al suo interno e se ha formato corretto con REGEXP.
@@ -223,27 +223,28 @@
          var regexp = /^[0-9]/
         }else
         {
-         var regexp = /^[a-zA-Z0-9]{1,50}$/
+         var regexp = /[\w\s]+$/
         }
 
         if(!(form.value))
         {
           validThisForm = false
           testo.innerHTML="Errore: necessario compilare il campo."
-        }else
+        }
+        else
         {
           if(!(regexp.test(form.value)))
-        {
-          validThisForm = false
-          if(regexp == /^[a-zA-Z0-9]{1,50}$/)
           {
-            testo.innerHTML="Errore: il valore inserito non è corretto. Riprovare, usando solo caratteri alfanumerici senza spazi."
+            validThisForm = false
+            if(regexp == /[\w\s]+$/)
+            {
+              testo.innerHTML="Errore: il valore inserito non è corretto. Riprovare, usando solo caratteri alfanumerici, e non speciali."
+            }
+            else
+            {
+              testo.innerHTML="Errore: il valore inserito non è corretto. Riprovare, usando un unico numero."
+            }
           }
-          else
-          {
-            testo.innerHTML="Errore: il valore inserito non è corretto. Riprovare, usando un unico numero."
-          }
-        }
         }
         if(!(validThisForm))
         {
