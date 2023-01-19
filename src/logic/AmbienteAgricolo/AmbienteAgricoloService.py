@@ -4,6 +4,7 @@ from src.logic.model.Terreno import Terreno
 from src.logic.Storage.TerrenoDAO import TerrenoDAO
 import requests
 import json
+from datetime import datetime
 
 #TODO: ERROR HANDLING DAO TERRENO
 class AmbienteAgricoloService():
@@ -48,17 +49,22 @@ class AmbienteAgricoloService():
             print(datiapi)
             return datiapi  #JSON
         
-    def cercaInquinamento(provincia:str, regione:str, nazione:str):
+    def cercaInquinamento(provincia:str, regione:str, nazione:str, comune:str):
+        currentdate = str(datetime.now()).split(" ")
+        date = currentdate[0]
+        precisehour = currentdate[1].split(":")
+        time = precisehour[0] + ":" + precisehour[1]
         url = "https://square.sensesquare.eu:5001/placeView"
         body = {
             "apikey": "3BK3D0LWE8DQ", #Codice API, NON MODIFICARE
             "tempo": "giorno",
-            "date": "2022-11-28",
-            "time": "00:00",
+            "date": date,
+            "time": time,
             "nazione": nazione,
             "regione": regione,
             "provincia": provincia,
-            "zoom": "3", #0 per tutte le nazioni, 1 per tutte le regioni, 2 per tutte le province, 3 per tutti i comuni
+            "comune": comune,
+            "zoom": "3", #0 per tutte le nazioni, 1 per tutte le regioni, 2 per tutte le province, 3 per tutti i comuni, 4 NON VA
             "predictions": "true", #NON TOCCARE
             "fonti":"[]" #NON TOCCARE
             }

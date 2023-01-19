@@ -367,7 +367,7 @@
                                 <div id = "pm10" class="text-muted"></div>
                               </div>
                           </div>
-                           <div class="btn-group-sm mr-2 mb-4" role="group">
+                           <div class="btn-group-sm mr-2 mb-4" id = "bottoniInq" role="group">
                             <button type="button" id="bottoneinq1" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Tabella</button>
                             <button type="button" id="bottoneinq2" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Grafico1</button>
                             <button type="button" id="bottoneinq3" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Grafico2</button>
@@ -1334,36 +1334,56 @@
         display_name : "{{posizioneapi.display_name}}"
       }
 
+      var indirizzoapi = posizioneapi.display_name.split(", ")
+      if(indirizzoapi.length > 4) //Se è stato inserito un codice postale:
+      {
+        for(var i = 0; i < indirizzoapi.length; i++)
+        {
+          console.log(parseInt(indirizzoapi[i]))
+          if(!(Number.isNaN(parseInt(indirizzoapi[i])))) //Controllo se la stringa rappresenta un numero
+          {
+            indirizzoapi.splice(i, 1, indirizzoapi[i + 1])  //Sostituisci codice postale con altro campo
+            indirizzoapi.splice(i + 1, 1) //Rimuovi altro campo
+          }
+        }
+      }
+      indirizzoapi = indirizzoapi.join()
+      console.log(indirizzoapi)
       var comune = posizioneapi.display_name.split(", ")[0]
-      console.log(posizioneapi.display_name)
       console.log(comune)
       var messaggioInquinamento;
       var inquinamentoapi = {{inquinamentoapi | safe}} //NON togliere safe, altrimenti si rompe perchè flask inserisce caratteri di escape che rompono js
-      console.log(inquinamentoapi.result)
-      //Non è detto che il comune esista nei risultati dell'API
-      if(comune in inquinamentoapi.result)
+      console.log(inquinamentoapi)
+      var erroreinquinamentoapi = true
+      //Controlla che il luogo sia abilitato, altrimenti dai un messaggio di errore.
+      if(inquinamentoapi.message != "Impossibile soddisfare questa richiesta")
       {
-        inquinamento = inquinamentoapi.result[comune]
-        console.log(inquinamento)
-        //Tolgo i dati che non ci interessano per l'inquinamento
-        delete inquinamento.comune
-        delete inquinamento.nazione
-        delete inquinamento.regione
-        delete inquinamento.provincia
-        delete inquinamento.temperatura
-        delete inquinamento.umidita
-        console.log(inquinamento)
-        //Riempio le div con i dati dell'inquinamento
-        //AGGIUNGERE CONTROLLO PER DATI CHE NON CI SONO SEMPRE, COME O3, SO2? Grafico poi diventa un problema
-        document.getElementById("tsinq").innerHTML = "Orario rilevamento: " + inquinamento.timestamp
-        document.getElementById("aqi").innerHTML = String(inquinamento.aqi) //api lo restituisce come float, giusto per essere sicuri
-        document.getElementById("co").innerHTML = inquinamento.co
-        document.getElementById("no2").innerHTML = inquinamento.no2
-        document.getElementById("pm1").innerHTML = inquinamento.pm1
-        document.getElementById("pm25").innerHTML = inquinamento.pm2_5
-        document.getElementById("pm10").innerHTML = inquinamento.pm10
+         //Non è detto che il comune esista nei risultati dell'API
+        if(comune in inquinamentoapi.result)
+        {
+          erroreinquinamentoapi = false
+          inquinamento = inquinamentoapi.result[comune]
+          console.log(inquinamento)
+          //Tolgo i dati che non ci interessano per l'inquinamento
+          delete inquinamento.comune
+          delete inquinamento.nazione
+          delete inquinamento.regione
+          delete inquinamento.provincia
+          delete inquinamento.temperatura
+          delete inquinamento.umidita
+          console.log(inquinamento)
+          //Riempio le div con i dati dell'inquinamento
+          //AGGIUNGERE CONTROLLO PER DATI CHE NON CI SONO SEMPRE, COME O3, SO2? Grafico poi diventa un problema
+          document.getElementById("tsinq").innerHTML = "Orario rilevamento: " + inquinamento.timestamp
+          document.getElementById("aqi").innerHTML = String(inquinamento.aqi) //api lo restituisce come float, giusto per essere sicuri
+          document.getElementById("co").innerHTML = inquinamento.co
+          document.getElementById("no2").innerHTML = inquinamento.no2
+          document.getElementById("pm1").innerHTML = inquinamento.pm1
+          document.getElementById("pm25").innerHTML = inquinamento.pm2_5
+          document.getElementById("pm10").innerHTML = inquinamento.pm10
+        }
       }
-      else
+      if(erroreinquinamentoapi)
       {
         //Aggiungi messaggio di errore
         var parent = document.getElementById("datiInquinamento")
@@ -1373,6 +1393,10 @@
         testo.innerHTML=  "Errore API inquinamento: Non sono disponibili dati per il comune richiesto."
         div.appendChild(testo)
         parent.appendChild(div)
+        //Nascondi bottoni
+        document.getElementById("tabellainq").hidden = true
+        //Nascondi tabella
+        document.getElementById("bottoniInq").hidden = true
       }
      
 
@@ -1396,7 +1420,7 @@
       {
         document.getElementById("heart").setAttribute("hidden", true)
       }
-      document.getElementById("posizione").innerHTML = posizioneapi.display_name
+      document.getElementById("posizione").innerHTML = indirizzoapi
       document.getElementById("priorita").innerHTML = terreno.priorita
 
       u = terreno.posizione
