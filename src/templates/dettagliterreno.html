@@ -1278,7 +1278,10 @@
 
       function rimandaelimina()
       {
-        window.location.href = "http://localhost:5000/eliminaTerreno?idTerreno=" + terreno.id 
+        if(confirm("ATTENZIONE: Si sta per eliminare il terreno PERMANENTEMENTE. Premere OK per confermare la propria scelta, o Cancel per tornare indietro."))
+        {
+          window.location.href = "http://localhost:5000/eliminaTerreno?idTerreno=" + terreno.id 
+        }
       }
 
       var map = L.map('map').setView([51.505, -0.09], 13);
