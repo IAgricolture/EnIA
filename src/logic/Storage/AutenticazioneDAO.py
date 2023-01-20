@@ -122,7 +122,7 @@ class AutenticazioneDAO():
             return None
 
         if utente.ruolo == "farmer":
-            utenti.update_one({"_id": ObjectId(trovato.id)},
+            return utenti.update_one({"_id": ObjectId(trovato.id)},
             {"$set": {
                 "nome" : utente.nome,
                 "cognome": utente.cognome,
@@ -134,7 +134,7 @@ class AutenticazioneDAO():
                 "indirizzo": utente.indirizzo,
             }})
         else:
-            utenti.update_one({"_id": ObjectId(trovato.id)},
+            return utenti.update_one({"_id": ObjectId(trovato.id)},
             {"$set": {
                 "nome" : utente.nome,
                 "cognome": utente.cognome,

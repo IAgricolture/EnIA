@@ -5,7 +5,7 @@ from src.logic.Storage.MetodoDiPagamentoDAO import MetodoDiPagamentoDAO
 from src.logic.model.MetodoDiPagamento import MetodoDiPagamento
 from src.logic.Utente.GestioneUtenteService import GestioneUtenteService
 
-from flask import request, render_template, session
+from flask import request, render_template, session, jsonify
 from src import app
 from flask_login import current_user
 
@@ -54,6 +54,21 @@ class GestioneUtenteController():
             i["_id"]= str(i["_id"])
         session["dipendenti"]= listdipendenti
         return render_template("AziendaAgricola.html")
+    
+    @app.route("/removeFromAzienda", methods = ["POST"])
+    def removeFromAzienda():
+        richiesta = request.get_json()
+        print(richiesta)
+        id = richiesta.get("id")
+        if(GestioneUtenteService.removeUtenteFromAzienda(id)):
+            result = "True"
+        else:
+            result = "False"
+        message = {
+            "result": result
+        }
+        return jsonify(message)
+        
 
         
 
