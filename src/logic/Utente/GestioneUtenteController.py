@@ -70,8 +70,11 @@ class GestioneUtenteController():
         return jsonify(message)
         
 
-        
-
-        
-        
-
+    @app.route("/GenCode", methods = ["GET", "POST"])
+    def GenCode():
+        if request.method == "POST":
+            richiesta = request.form
+            ruolo = richiesta.get("ruolo")
+            datore = richiesta.get("datore")
+            codice = GestioneUtenteService.GenerateCode(ruolo, datore)
+            return jsonify(codice)

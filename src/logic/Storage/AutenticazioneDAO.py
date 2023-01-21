@@ -156,6 +156,19 @@ class AutenticazioneDAO():
     
     def listaDipendenti(datore: str)-> list: 
         return list(utenti.find({"datore": datore}))
+    
+    def insertSlot(ruolo: str, codice: str, datore: str):
+        utenti.insert_one({
+                "nome" : "",
+                "cognome": "",
+                "email": "",
+                "password": "",
+                "ruolo": ruolo,
+                "dataNascita" : "",
+                "codice": codice,
+                "indirizzo": "",
+                "datore": datore,
+            })
         
         
 
