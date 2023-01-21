@@ -31,6 +31,12 @@ class GestioneUtenteService():
     def findMetodoByProprietario(id:str)->MetodoDiPagamento:
         return MetodoDiPagamentoDAO.findMetodoByProprietario(id)
     
+
+    def removeUtenteFromAzienda(id:str)->bool:
+        utente = AutenticazioneDAO.trovaUtente(id)
+        utente.datore = ""  #In questo modo lo possiamo riconoscere come utente precedentemente impiegato
+        return AutenticazioneDAO.modificaUtente(utente)
+        
     def GenerateCode(ruolo:str, datore:str) -> str:
         while True:
             codice = random_string(6)
@@ -39,4 +45,3 @@ class GestioneUtenteService():
         AutenticazioneDAO.insertSlot(ruolo, codice, datore)
         return codice
         
-

@@ -54,6 +54,21 @@ class GestioneUtenteController():
             i["_id"]= str(i["_id"])
         session["dipendenti"]= listdipendenti
         return render_template("AziendaAgricola.html")
+    
+    @app.route("/removeFromAzienda", methods = ["POST"])
+    def removeFromAzienda():
+        richiesta = request.get_json()
+        print(richiesta)
+        id = richiesta.get("id")
+        if(GestioneUtenteService.removeUtenteFromAzienda(id)):
+            result = "True"
+        else:
+            result = "False"
+        message = {
+            "result": result
+        }
+        return jsonify(message)
+        
 
     @app.route("/GenCode", methods = ["GET", "POST"])
     def GenCode():
