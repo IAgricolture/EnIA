@@ -189,7 +189,7 @@
                 <table class="table">
                   <tbody>
                     {%for dipendente in session["dipendenti"]%}
-                    <tr>
+                    <tr id = "{{dipendente["_id"]}}">
                       <td>
                         <div class="d-flex" bis_skin_checked="1">
                           <img class="img-sm rounded-circle mb-md-0 mr-2" src="images/faces/face30.png"
@@ -336,6 +336,7 @@
         if(data["result"] == "True")
         {
           creaNotifica("Utente rimosso correttamente!", "successo", document.getElementById("spazioNotifica"))
+          document.getElementById(dipendenteid).style.display = "none"
         }
         else
         {
