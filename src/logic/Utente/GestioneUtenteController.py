@@ -5,7 +5,7 @@ from src.logic.Storage.MetodoDiPagamentoDAO import MetodoDiPagamentoDAO
 from src.logic.model.MetodoDiPagamento import MetodoDiPagamento
 from src.logic.Utente.GestioneUtenteService import GestioneUtenteService
 
-from flask import request, render_template, session
+from flask import request, render_template, session, jsonify
 from src import app
 from flask_login import current_user
 
@@ -55,8 +55,11 @@ class GestioneUtenteController():
         session["dipendenti"]= listdipendenti
         return render_template("AziendaAgricola.html")
 
-        
-
-        
-        
-
+    @app.route("/GenCode", methods = ["GET", "POST"])
+    def GenCode():
+        if request.method == "POST":
+            richiesta = request.form
+            ruolo = richiesta.get("ruolo")
+            datore = richiesta.get("datore")
+            codice = GestioneUtenteService.GenerateCode(ruolo, datore)
+            return jsonify(codice)

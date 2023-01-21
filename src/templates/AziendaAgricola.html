@@ -178,7 +178,7 @@
       </nav>
       <!-- partial -->
       <div class="main-panel">
-        <div class="content-wrapper">
+        <div class="content-wrapper" id="wrapper">
           <div class="row">
             <div class="card-body" bis_skin_checked="1" style="background-color: white;">
               <div class="d-flex flex-wrap justify-content-between" bis_skin_checked="1">
@@ -223,8 +223,32 @@
               </div>
             </div>
           </div>
+          <input type="button" onclick="Aggiungi()" value="Aggiungi">
           <!-- content-wrapper ends -->
         </div>
+
+        <div id="add" style="display: none;" class="content-wrapper">
+          <div class="row justify-content-center">
+            <div class="col-6">
+              <div class="card-body" id="scelta" style="background-color: white; text-align: center;">
+                Ruolo:
+                <select name="ruolo" id="ruolo">
+                  <option value="irrigation manager">Irrigation Manager</option>
+                  <option value="pollution analyst">Pollution Analyst</option>
+                </select>
+                <br>
+                <input class="mt-4" type="button" value="Genera codice" onclick="Add('{{current_user.id}}')">
+              </div>
+
+              <div class="card-body" id="codice" style="background-color: white; text-align: center;">
+                Codice: <p id="gencode"></p>
+                <br>
+                <input class="mt-4" type="button" value="Chiudi" onclick="Chiudi()">
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
@@ -232,30 +256,30 @@
           </div>
         </footer>
         <!-- partial -->
-      <!-- main-panel ends -->
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
     </div>
-    <!-- page-body-wrapper ends -->
-  </div>
-  <!-- container-scroller -->
-  <!-- base:js -->
-  <script src="/static/vendors/js/vendor.bundle.base.js"></script>
-  <!-- endinject -->
-  <!-- Plugin js for this page-->
-  <!-- End plugin js for this page-->
-  <!-- inject:js -->
-  <script src="/static/js/off-canvas.js"></script>
-  <script src="/static/js/hoverable-collapse.js"></script>
-  <script src="/static/js/template.js"></script>
-  <script src="/static/js/settings.js"></script>
-  <script src="/static/js/todolist.js"></script>
-  <!-- endinject -->
-  <!-- plugin js for this page -->
-  <script src="/static/vendors/progressbar.js/progressbar.min.js"></script>
-  <script src="/static/vendors/chart.js/Chart.min.js"></script>
-  <!-- End plugin js for this page -->
-  <!-- Custom js for this page-->
-
-  <!-- End custom js for this page-->
+    <!-- container-scroller -->
+    <!-- base:js -->
+    <script src="/static/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    <!-- End plugin js for this page-->
+    <!-- inject:js -->
+    <script src="/static/js/off-canvas.js"></script>
+    <script src="/static/js/hoverable-collapse.js"></script>
+    <script src="/static/js/template.js"></script>
+    <script src="/static/js/settings.js"></script>
+    <script src="/static/js/todolist.js"></script>
+    <!-- endinject -->
+    <!-- plugin js for this page -->
+    <script src="/static/vendors/progressbar.js/progressbar.min.js"></script>
+    <script src="/static/vendors/chart.js/Chart.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- Custom js for this page-->
+    <script src="/static/javascript/aziendaagricola.js"></script>
+    <!-- End custom js for this page-->
 </body>
 
 </html>

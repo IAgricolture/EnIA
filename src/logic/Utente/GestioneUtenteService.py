@@ -1,9 +1,14 @@
+import uuid
 from src.logic.Storage.AutenticazioneDAO import AutenticazioneDAO
 from src.logic.Storage.LicenzaDAO import LicenzaDAO
 from src.logic.model.Licenza import Licenza
 from src.logic.Storage.MetodoDiPagamentoDAO import MetodoDiPagamentoDAO
 from src.logic.model.MetodoDiPagamento import MetodoDiPagamento
 from src.logic.model.Utente import Utente
+
+
+def random_string(length):
+    return str(uuid.uuid4()).replace('-', '')[:length]
 
 class GestioneUtenteService():
     
@@ -25,3 +30,13 @@ class GestioneUtenteService():
 
     def findMetodoByProprietario(id:str)->MetodoDiPagamento:
         return MetodoDiPagamentoDAO.findMetodoByProprietario(id)
+    
+    def GenerateCode(ruolo:str, datore:str) -> str:
+        while True:
+            codice = random_string(6)
+            if(AutenticazioneDAO.trovaUtenteByCodiceDiAccesso(codice) is None):
+                break
+        AutenticazioneDAO.insertSlot(ruolo, codice, datore)
+        return codice
+        
+
