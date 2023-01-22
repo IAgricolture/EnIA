@@ -238,6 +238,8 @@
   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
   integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
   crossorigin=""></script>
+  <script src="/static/javascript/misc.js"></script>
+  <script src="/static/javascript/terreno.js"></script>
   <script>
     var map = L.map('map').setView([40.77393162437966, 14.789718084808584], 15);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -266,117 +268,6 @@
       document.getElementById("preferito").checked = true
     } else {
       document.getElementById("preferito").checked = false
-    }
-    
-    
-
-    function resetMap()
-    {
-      
-      window.polygon.remove()
-      window.points = [];
-    }
-
-    function validate() 
-    /*Controlla che i dati siano stati correttamente inseriti nei form.
-      Funzionamento: creo una Regexp, che viene poi modificata a seconda del form type. validAll indica 
-      che tutti i campi sono corretti, validThisForm che quello considerato lo sia. 
-      Per ogni form, controlla che non sia vuoto o incorretto: altrimenti, crea una notifica di errore, se
-      non esiste già. Se invece il form è corretto e la notifica esiste, la rimuove.*/
-    {
-      var regexp = /^[a-zA-Z0-9]{1,50}$/  //Regex per testo alfanumerico, da 1 a 50 caratteri, senza spazi
-      var validAll = true
-      var forms = [ document.getElementById('nome'), document.getElementById('coltura'), document.getElementById('priorita')]     
-      forms.forEach(function(form){   //Per ogni form, controlla se ha testo al suo interno e se ha formato corretto con REGEXP.
-        console.log("Controllo form" + form.id)
-        var validThisForm = true
-        var div = document.createElement('div')
-        div.className = "alert alert-danger"
-        var testo = document.createElement('strong')
-        var notifiche = form.parentElement.getElementsByClassName("alert alert-danger")
-        if(form.type == "number")   //Cambio regex per i numeri
-        {
-         var regexp = /^[0-9]/
-        }else
-        {
-         var regexp = /^[a-zA-Z0-9]{1,50}$/
-        }
-
-        if(!(form.value))
-        {
-          validThisForm = false
-          testo.innerHTML="Errore: necessario compilare il campo."
-        }else
-        {
-          if(!(regexp.test(form.value)))
-        {
-          validThisForm = false
-          if(regexp == /^[a-zA-Z0-9]{1,50}$/)
-          {
-            testo.innerHTML="Errore: il valore inserito non è corretto. Riprovare, usando solo caratteri alfanumerici senza spazi."
-          }
-          else
-          {
-            testo.innerHTML="Errore: il valore inserito non è corretto. Riprovare, usando un unico numero."
-          }
-        }
-        }
-        if(!(validThisForm))
-        {
-          validAll = false
-          div.appendChild(testo)
-          if(!(notifiche.length > 0))
-          {
-            form.parentElement.appendChild(div)
-          }
-        }
-        else
-        {
-          if(notifiche.length > 0)
-          {
-            while(notifiche.length > 0){
-            notifiche[0].parentNode.removeChild(notifiche[0])
-            }
-          }
-        }
-        console.log("Risultato controllo, form è corretto: " + validThisForm)
-      })
-      console.log("Risultato controllo, form sono corretti: " + validAll)
-      var validMap = validateMap()
-      console.log("Risultato controllo, mappa è corretta: " + validMap)
-      console.log("Risultato: " + validAll && validMap)
-      return validAll && validMap
-    }
-
-    function validateMap()
-    {
-       //Controllo per la mappa che sia inserito almeno un punto: altrimenti, crash. Divisa perchè altrimenti esce una funzione enorme, ripetuta tra l'altro.
-       var validMap = true
-       var parent = document.getElementById("spazioNotifica")
-       var notifica = document.getElementById("notificamappa")
-       //TODO: sistemare la mappa, modifica degli attributi del terreno senza intaccare i confini
-       if(points.length < 1)
-       {
-         validMap = false
-         var div = document.createElement('div')
-         div.setAttribute("id", "notificamappa")
-         div.className = "alert alert-danger"
-         var testo = document.createElement('strong')
-         testo.innerHTML = "Errore: Inserire almeno un punto sulla mappa, che rappresenti il terreno. Per inserire, bisogna fare clic sinistro."
-         div.appendChild(testo)
-         if(notifica == null)
-         {
-            parent.appendChild(div)
-         }
-       }
-       else
-       {
-        if(notifica != null)
-        {
-          parent.removeChild(notifica)
-        }
-       }
-       return validMap
     }
 
     function modifica()
@@ -408,28 +299,11 @@
         }).then(res=>res.json())
         .then(data=>{ 
           console.log(data)
-          var div = document.createElement('div')
-          div.setAttribute("name", "notificamodifica")
-          var testo = document.createElement('strong')
-          var parent = document.getElementById("formnascosto")
-          //TODO: aggiustare la notifica ed il reindirizzamento della pagina
           if(data["modificato"] =="true"){
-            testo.innerHTML="Il terreno è stato modificato con successo!"
-            div.className = "alert alert-success"
+            creaNotifica("Terreno modificato correttamente!", "successo", document.getElementById("formnascosto"), "notificamodifica")
             } else {
-              testo.innerHTML="Si è verificato un errore nella modifica del terreno."
-              div.className = "alert alert-danger"
+              creaNotifica("Si è verificato un errore durante la modifica del terreno.", "fallimento", document.getElementById("formnascosto"), "notificamodifica")
             }
-        //Controlla che non esista già la notifica
-        var notifiche = document.getElementsByName("notificamodifica")
-        if(notifiche.length > 0)
-        {
-          while(notifiche.length > 0){
-          notifiche[0].parentNode.removeChild(notifiche[0])
-          }
-        }
-        div.appendChild(testo) 
-        parent.appendChild(div)
         })
     }
 
