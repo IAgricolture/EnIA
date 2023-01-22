@@ -37,6 +37,7 @@ class TerrenoDAO():
         proprietario = str(trovato.get("proprietario"))
         stadio_crescita = str(trovato.get("stadio_crescita"))
         NewTerreno = Terreno(id2,nome,coltura, stadio_crescita,posizione,preferito,priorita, proprietario)
+        print(NewTerreno.stadio_crescita)
         return NewTerreno
 
 
