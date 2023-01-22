@@ -306,6 +306,10 @@
                               <div id = "coltura" class="text-muted"></div>
                             </div>
                             <div class="d-flex justify-content-between mb-4">
+                              <div>Stadio Di Crescita</div>
+                              <div id = "stadio" class="text-muted"></div>
+                            </div>
+                            <div class="d-flex justify-content-between mb-4">
                               <div>Priorità</div>
                               <div id = "priorita" class="text-muted"></div>
                             </div>
@@ -1027,6 +1031,7 @@
         nome: "{{terreno.nome}}",
         coltura: "{{terreno.coltura}}",
         preferito: "{{terreno.preferito}}",
+        stadio: "{{terreno.stadio_crescita}}",
         priorita: {{terreno.priorita}},
         posizione: {{terreno.posizione|tojson}} 
       }
@@ -1419,6 +1424,7 @@
       document.getElementById("nomterreno").innerHTML = terreno.nome
       document.getElementById("nome").innerHTML = terreno.nome
       document.getElementById("coltura").innerHTML = terreno.coltura
+      document.getElementById("stadio").innerHTML = terreno.stadio
       if(terreno.preferito == "False")
       {
         document.getElementById("heart").setAttribute("hidden", true)
