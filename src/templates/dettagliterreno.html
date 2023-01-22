@@ -407,7 +407,7 @@
                           <th>Livello</th>
                         </tr>
                       </thead>
-                      <tbody id="table-body">
+                      <tbody id="table-body-predictions">
                         <!-- Rows will be added here dynamically using JavaScript -->
                       </tbody>
                     </table>
@@ -428,7 +428,7 @@
                           <th>Livello</th>
                         </tr>
                       </thead>
-                      <tbody id="table-body">
+                      <tbody id="table-body-schedule">
                         <!-- Rows will be added here dynamically using JavaScript -->
                       </tbody>
                     </table>
@@ -1506,7 +1506,7 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
 
     function createTable(data){
       // Get a reference to the table body
-      var tableBody = document.getElementById("table-body");
+      var tableBody = document.getElementById("table-body-predictions");
 
       // Loop through the data and add rows to the table
       for (var date in data) {
@@ -1520,6 +1520,72 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         tableBody.appendChild(row);
       }
     }
+
+    function createTableImpostati(data){
+      // Get a reference to the table body
+      var tableBody = document.getElementById("table-body-schedule");
+
+      // Loop through the data and add rows to the table
+      for (var date in data) {
+        var row = document.createElement("tr");
+        var dateCell = document.createElement("td");
+        var levelCell = document.createElement("td");
+        
+        //create select
+        var select = document.createElement("select");
+        select.className = "form-control"
+        select.id = date
+        //create options for select
+        for (var i = 0; i < livelli.length; i++) {
+          var option = document.createElement("option");
+          //set default value
+          if(data[date] == livelli[i]){
+            option.selected = true
+          }
+          option.value = livelli[i];
+          option.text = livelli[i];
+          //add options to select
+          select.appendChild(option);
+        }
+        
+        //ogni volta che viene cambiato un valore della select chiama listenerLivelliIrrigazione
+        select.addEventListener("change", listenerLivelliIrrigazione)
+        //add options to select
+        select.appendChild(option);
+
+        dateCell.innerHTML = date;
+        levelCell.appendChild(select)
+        row.appendChild(dateCell);
+        row.appendChild(levelCell);
+        tableBody.appendChild(row);
+      }
+    }
+
+
+    function listenerLivelliIrrigazione(){
+      //prendi il valore della select
+      var livello = this.value
+      //prendi la data
+      var data = this.id
+      //invia richiesta al server
+      fetch("modificaLivelloSchedule", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id_terreno: terreno.id,
+          data: data,
+          livello: livello
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+        });
+    }
+
+    var livelli = ["Nessuno", "Basso", "Medio", "Alto"]
 
     fetch("visualizzaPredizioneIrrigazione", {
       method: "POST",
@@ -1535,6 +1601,21 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         console.log(data);
         createTable(data);
       });
+
+      fetch("schedule", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id_terreno: terreno.id
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          createTableImpostati(data);
+        });
 
     </script>
 
