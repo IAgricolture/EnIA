@@ -557,7 +557,7 @@
           dataFine: dataFine,
           idTerreno: terreno.id
         }
-        //Cancella le div, necessario cliccare su un altro bottone.
+        //cancella le div, necessario cliccare su un altro bottone.
         document.getElementById("formStoricoInq").remove() 
         document.getElementById("buttonFormInq").remove()
         //Fa il fetch, lo ottiene, lo converte, crea il grafico.
@@ -688,7 +688,7 @@
         return arrayGiorniInq
       }
 
-      function convertiMeteo(meteoapi)  //Converte il dato ottenuto da flask in un array javascript di json, per usarlo in maniera decente
+      function convertiMeteo(meteoapi)  //converte il dato ottenuto da flask in un array javascript di json, per usarlo in maniera decente
       {
           //Cancello i dati che non mi servono
           delete meteoapi.latitude
