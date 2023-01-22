@@ -11,7 +11,7 @@ class AmbienteAgricoloController():
     @login_required
     def aggiungiTerreno():
         if(request.method != "POST"):
-            return render_template("aggiuntaterreno.html")
+            return render_template("aggiuntaterreno.html", colture = AmbienteAgricoloService.Colture, stadi_crescita = AmbienteAgricoloService.StadiCrescita)
         elif request.method == "POST":
             
             richiesta = request.get_json()

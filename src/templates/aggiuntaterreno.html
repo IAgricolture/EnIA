@@ -43,9 +43,21 @@
                   <label for="input-field" id="labelEmail">Nome</label>
                   <input type="text" class="form-control form-control-sm" id="nome">
                 </div>
-                <div class="form-group form-group">
-                  <label for="input-field" id="labelEmail">Coltura</label>
-                  <input type="text" class="form-control form-control-sm" id="coltura">
+                <div class="form-group">
+                  <label for="input-field">Tipo Coltura</label>
+                  <select class="form-control" aria-label="coltura" id = "coltura">
+                  {% for coltura in colture %}
+                    <option value="{{coltura}}">{{coltura}}</option>
+                  {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="input-field">Stadio Di Sviluppo</label>
+                  <select class="form-control" aria-label="coltura" id = "stadio">
+                  {% for stadio in stadi_crescita %}
+                    <option value="{{stadio}}">{{stadio}}</option>
+                  {% endfor %}
+                  </select>
                 </div>
                 <div class="form-group">
                   <label for="input-field" id="labelPassword">Preferito</label>
@@ -117,14 +129,8 @@
         var coltura = document.getElementById("coltura").value
         var preferito = document.getElementById("preferito").checked
         var priorita = document.getElementById("priorita").value
+        var stadio_crescita = document.getElementById("stadio").value
         
-          var url = new URL("http://localhost:5000/aggiuntaTerreno")
-          data = new FormData()
-          console.log(polygon.toGeoJSON())
-          data.append("nome", nome)
-          data.append("coltura", coltura)
-          data.append("preferito", preferito)
-          data.append("priorita", priorita)
           geoJson = polygon.toGeoJSON()
           
           var data = {
@@ -132,12 +138,13 @@
                 coltura : coltura,
                 preferito : preferito,
                 priorita : priorita,
-                posizione : geoJson
+                posizione : geoJson,
+                stadio_crescita : stadio_crescita
           }
           console.log(JSON.stringify(data))
           console.log(data)
 
-          let response = fetch(url,
+          let response = fetch("aggiuntaTerreno",
           {
             "method": "POST",
             headers: {

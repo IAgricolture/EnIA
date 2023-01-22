@@ -8,6 +8,11 @@ from datetime import datetime
 
 #TODO: ERROR HANDLING DAO TERRENO
 class AmbienteAgricoloService():
+    
+    ColturaEng = ["Barley", "Bean", "Cabbage", "Carrot", "Cotton", "Cucumber", "Eggplant", "Grain", "Lentil", "Lettuce"]
+    Colture= ["Orzo", "Fagiolo", "Cavolo", "Carota", "Cotone", "Cetriolo", "Melanzana", "Grano", "Lenticchia", "Lattuga"]
+    StadiCrescita = ["Iniziale", "Sviluppo", "Metà Stagione", "Fine Stagione"]
+    
     def visualizzaTerreni(farmer:str):
         Terreni = TerrenoDAO.restituisciTerreniByFarmer(farmer)
         return Terreni
