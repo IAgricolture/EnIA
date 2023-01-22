@@ -354,6 +354,7 @@
        var validMap = true
        var parent = document.getElementById("spazioNotifica")
        var notifica = document.getElementById("notificamappa")
+       //TODO: sistemare la mappa, modifica degli attributi del terreno senza intaccare i confini
        if(points.length < 1)
        {
          validMap = false
@@ -411,6 +412,7 @@
           div.setAttribute("name", "notificamodifica")
           var testo = document.createElement('strong')
           var parent = document.getElementById("formnascosto")
+          //TODO: aggiustare la notifica ed il reindirizzamento della pagina
           if(data["modificato"] =="true"){
             testo.innerHTML="Il terreno è stato modificato con successo!"
             div.className = "alert alert-success"
