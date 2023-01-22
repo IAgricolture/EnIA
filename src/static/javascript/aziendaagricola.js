@@ -38,3 +38,31 @@ function Chiudi()
 {
     window.location.href = "/AziendaAgricola"
 }
+
+  function rimandaelimina(dipendenteid)
+  {
+    console.log(dipendenteid)
+    var data = {
+      "id": dipendenteid
+    }
+    fetch("/removeFromAzienda", 
+    {
+      "method": "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      "body": JSON.stringify(data)
+    }).then(res=>res.json())
+    .then(data=>{
+        console.log(data)
+        if(data["result"] == "True")
+        {
+          creaNotifica("Utente rimosso correttamente!", "successo", document.getElementById("spazioNotifica"), "notificamodifica")
+          document.getElementById(dipendenteid).style.display = "none"
+        }
+        else
+        {
+          creaNotifica("Si è verificato un errore durante la rimozione dell'utente.", "fallimento", document.getElementById("spazioNotifica"), "notificamodifica")
+        }
+    })
+  }

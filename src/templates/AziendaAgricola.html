@@ -189,7 +189,7 @@
                 <table class="table">
                   <tbody>
                     {%for dipendente in session["dipendenti"]%}
-                    <tr>
+                    <tr id = "{{dipendente["_id"]}}">
                       <td>
                         <div class="d-flex" bis_skin_checked="1">
                           <img class="img-sm rounded-circle mb-md-0 mr-2" src="images/faces/face30.png"
@@ -282,68 +282,8 @@
   <!-- End plugin js for this page -->
   <!-- Custom js for this page-->
    <script src="/static/javascript/aziendaagricola.js"></script>
-<script>
+   <script src="/static/javascript/misc.js"></script>
 
-  function creaNotifica(messaggio, tipo, parent) 
-  /* 
-  DOCUMENTAZIONE: Funzione riutilizzabile per la creazione di una notifica in stile CelestialUI.
-  Argomenti sono:
-  Messaggio, che è una string contenente il testo della notifica
-  Tipo, che in caso di notifica per un evento positivo sarà "successo", altri tipi sono aggiungibili nell'if
-  Parent, che è l'elemento html ottenuto da document.getElement sotto cui verrà inserita la notifica. 
-  */
-  {
-    var div = document.createElement('div')
-    div.setAttribute("name", "notificamodifica")
-    var testo = document.createElement('strong')
-    testo.innerHTML = messaggio
-    if(tipo == "successo")
-    {
-      div.className = "alert alert-success"
-    } 
-    else 
-    {
-      div.className = "alert alert-danger"
-    }
-    //Controlla che non esista già la notifica
-    var notifiche = document.getElementsByName("notificamodifica")
-    if(notifiche.length > 0)
-    {
-      while(notifiche.length > 0){
-        notifiche[0].parentNode.removeChild(notifiche[0])
-        }
-    }
-    div.appendChild(testo) 
-    parent.appendChild(div)
-  }
-
-  function rimandaelimina(dipendenteid)
-  {
-    console.log(dipendenteid)
-    var data = {
-      "id": dipendenteid
-    }
-    fetch("/removeFromAzienda", 
-    {
-      "method": "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      "body": JSON.stringify(data)
-    }).then(res=>res.json())
-    .then(data=>{
-        console.log(data)
-        if(data["result"] == "True")
-        {
-          creaNotifica("Utente rimosso correttamente!", "successo", document.getElementById("spazioNotifica"))
-        }
-        else
-        {
-          creaNotifica("Si è verificato un errore durante la rimozione dell'utente.", "fallimento", document.getElementById("spazioNotifica"))
-        }
-    })
-  }
-</script>
   <!-- End custom js for this page-->
 </body>
 
