@@ -34,8 +34,6 @@ class IAdapter:
             giorno_formattato = giorno.strftime("%d-%m-%Y")
             livello_irrigazione[giorno_formattato] = IAdapter.irrigazione_translator[p]
             giorno = giorno + datetime.timedelta(days=1)
-            
+        
         return livello_irrigazione   
     
-
-print(IAdapter.getAiPrediction(45.0, 9.0, "Carota", "Iniziale"))

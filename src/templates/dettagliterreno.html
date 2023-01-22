@@ -397,6 +397,49 @@
               <div class="col-xl-6 d-flex grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
+                    <div class="d-flex flex-wrap justify-content-between">
+                      <h4 class="card-title mb-3">Livelli Di Irrigazione Consigliati</h4>
+                    </div>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Data</th>
+                          <th>Livello</th>
+                        </tr>
+                      </thead>
+                      <tbody id="table-body">
+                        <!-- Rows will be added here dynamically using JavaScript -->
+                      </tbody>
+                    </table>
+                    <button type="button" class="btn mt-2 col-12 btn-primary" onclick = "TODO">Usa questi livelli di irrigazione</button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6 d-flex grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex flex-wrap justify-content-between">
+                      <h4 class="card-title mb-3">Livelli Di Irrigazione Impostati</h4>
+                    </div>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Data</th>
+                          <th>Livello</th>
+                        </tr>
+                      </thead>
+                      <tbody id="table-body">
+                        <!-- Rows will be added here dynamically using JavaScript -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+          </div>
+            <div class="row  mt-3">
+              <div class="col-xl-6 d-flex grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
                       <div class="d-flex flex-wrap justify-content-between">
                             <h4 class="card-title">Gestione Irrigazione</h4>
                             <button class="btn btn-success" id="btnIndietro" onclick="tornaIndietro()" hidden>Torna Indietro</button>
@@ -456,7 +499,7 @@
                   </div>
                 </div>
             </div>
-          </div>
+            </div>
           </div>
           
           <!-- content-wrapper ends -->
@@ -495,6 +538,9 @@
   crossorigin=""></script>
 
     <script>
+      
+      // Data to be used to populate the table
+var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso', '25-01-2023': 'Basso', '26-01-2023': 'Basso', '27-01-2023': 'Basso', '28-01-2023': 'Basso'};
       
 
       function downloadStoricoInquinamento(formato)
@@ -557,7 +603,7 @@
           dataFine: dataFine,
           idTerreno: terreno.id
         }
-        //cancella le div, necessario cliccare su un altro bottone.
+        //Cancella le div, necessario cliccare su un altro bottone.
         document.getElementById("formStoricoInq").remove() 
         document.getElementById("buttonFormInq").remove()
         //Fa il fetch, lo ottiene, lo converte, crea il grafico.
@@ -688,7 +734,7 @@
         return arrayGiorniInq
       }
 
-      function convertiMeteo(meteoapi)  //converte il dato ottenuto da flask in un array javascript di json, per usarlo in maniera decente
+      function convertiMeteo(meteoapi)  //Converte il dato ottenuto da flask in un array javascript di json, per usarlo in maniera decente
       {
           //Cancello i dati che non mi servono
           delete meteoapi.latitude
@@ -1457,6 +1503,39 @@
       });
 
     });
+
+    function createTable(data){
+      // Get a reference to the table body
+      var tableBody = document.getElementById("table-body");
+
+      // Loop through the data and add rows to the table
+      for (var date in data) {
+        var row = document.createElement("tr");
+        var dateCell = document.createElement("td");
+        var levelCell = document.createElement("td");
+        dateCell.innerHTML = date;
+        levelCell.innerHTML = data[date];
+        row.appendChild(dateCell);
+        row.appendChild(levelCell);
+        tableBody.appendChild(row);
+      }
+    }
+
+    fetch("visualizzaPredizioneIrrigazione", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id_terreno: terreno.id
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        createTable(data);
+      });
+
     </script>
 
     <!-- End custom js for this page-->

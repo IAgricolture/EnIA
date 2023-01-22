@@ -201,5 +201,19 @@ class AmbienteAgricoloController():
         listaTerreni =  AmbienteAgricoloService.visualizzaTerreni(current_user.id)
 
         return render_template("visualizzaTerreni.html",listaTerreni = listaTerreni )
+    
+    @app.route("/visualizzaPredizioneIrrigazione", methods=["POST", "GET"])
+    def visualizzaPredizioneIrrigazione():
+        #get json request
+        richiesta = request.get_json()
+        id_terreno = richiesta.get("id_terreno")
+        terreno = AmbienteAgricoloService.trovaTerreno(id_terreno)
+        lat = AmbienteAgricoloService.cercalat(id_terreno)
+        lon = AmbienteAgricoloService.cercalon(id_terreno)
+        coltura = terreno.coltura
+        stadio_crescita = terreno.stadio_crescita
+        
+        return jsonify(AmbienteAgricoloService.restituisciPredizioneLivelliIrrigazione(lon,lat,coltura,stadio_crescita))
+        
                 
        

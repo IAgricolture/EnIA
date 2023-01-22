@@ -1,3 +1,4 @@
+from src.logic.DecisionIntelligence.DecisionIntelligenceService import DecisionIntelligenceService
 from src.logic.Storage.ImpiantoDiIrrigazioneDAO import ImpiantoDiIrrigazioneDAO
 from src.logic.model.ImpiantoDiIrrigazione import ImpiantoDiIrrigazione
 from src.logic.model.Terreno import Terreno
@@ -155,3 +156,6 @@ class AmbienteAgricoloService():
         data = requests.get(url).json()
         print(data)
         return data
+    
+    def restituisciPredizioneLivelliIrrigazione(lon:float, lat:float, crop:str, stage:str):
+        return DecisionIntelligenceService.getPredizioneLivelliIrrigazione(lon, lat, crop, stage)
