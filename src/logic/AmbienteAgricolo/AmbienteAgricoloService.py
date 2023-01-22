@@ -12,9 +12,9 @@ class AmbienteAgricoloService():
         Terreni = TerrenoDAO.restituisciTerreniByFarmer(farmer)
         return Terreni
     
-    def aggiungiTerreno(nome: str, coltura:str, posizione, preferito:bool, priorita:int, proprietario: str)-> bool:
+    def aggiungiTerreno(nome: str, coltura:str, stadio_crescita: str, posizione, preferito:bool, priorita:int, proprietario: str)-> bool:
         id = None
-        terreno = Terreno(id, nome, coltura, posizione, preferito, priorita, proprietario)
+        terreno = Terreno(id, nome, coltura, stadio_crescita, posizione, preferito, priorita, proprietario)
         TerrenoDAO.InserisciTerreno(terreno)
         return True 
 
@@ -22,8 +22,8 @@ class AmbienteAgricoloService():
         Terreno = TerrenoDAO.TrovaTerreno(id)
         return Terreno
     
-    def modificaTerreno(id:str, nome: str, coltura:str, posizione, preferito:bool, priorita:int, proprietario: str)-> bool:
-        terreno = Terreno(id, nome, coltura, posizione, preferito, priorita, proprietario)
+    def modificaTerreno(id:str, nome: str, coltura:str, stadio_crescita: str, posizione, preferito:bool, priorita:int, proprietario: str)-> bool:
+        terreno = Terreno(id, nome, coltura, stadio_crescita, posizione, preferito, priorita, proprietario)
         result = TerrenoDAO.modificaTerreno(terreno)
         return result.matched_count > 0 #Restituisce True se andato bene, False altrimenti.
     

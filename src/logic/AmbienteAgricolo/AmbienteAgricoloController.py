@@ -20,9 +20,10 @@ class AmbienteAgricoloController():
             posizione = richiesta.get("posizione")
             preferito = richiesta.get("preferito")
             priorita = richiesta.get("priorita")
+            stadio_crescita = richiesta.get("stadio_crescita")
             proprietario = current_user.id
             
-            risultato = AmbienteAgricoloService.aggiungiTerreno(nome, coltura, posizione, preferito, priorita, proprietario)
+            risultato = AmbienteAgricoloService.aggiungiTerreno(nome, coltura, stadio_crescita, posizione, preferito, priorita, proprietario)
             risposta = {
                 "TerrenoAggiunto" : "True" #TODO:QUI CI VA IL RISULTATO
             }
@@ -48,7 +49,8 @@ class AmbienteAgricoloController():
             posizione = richiesta.get("posizione")
             preferito = richiesta.get("preferito")
             priorita = richiesta.get("priorita")
-            risultato = AmbienteAgricoloService.modificaTerreno(idTerreno, nome, coltura, posizione, preferito, priorita, current_user.id)
+            stadio_crescita = richiesta.get("stadio_crescita")
+            risultato = AmbienteAgricoloService.modificaTerreno(idTerreno, nome, coltura, stadio_crescita, posizione, preferito, priorita, current_user.id)
             return jsonify({"modificato": "true"})
 
 

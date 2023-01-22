@@ -16,7 +16,8 @@ class TerrenoDAO():
             "Posizione" : terreno.posizione,
             "Preferito" : terreno.preferito,
             "Priorita" : terreno.priorita,
-            "proprietario" : terreno.proprietario
+            "proprietario" : terreno.proprietario,
+            "stadio_crescita" : terreno.stadio_crescita
         })
 
 
@@ -34,7 +35,8 @@ class TerrenoDAO():
         preferito = (trovato.get("Preferito"))
         priorita = int(trovato.get("Priorita"))  
         proprietario = str(trovato.get("proprietario"))
-        NewTerreno = Terreno(id2,nome,coltura,posizione,preferito,priorita, proprietario)
+        stadio_crescita = str(trovato.get("stadio_crescita"))
+        NewTerreno = Terreno(id2,nome,coltura, stadio_crescita,posizione,preferito,priorita, proprietario)
         return NewTerreno
 
 
@@ -59,6 +61,7 @@ class TerrenoDAO():
             "Preferito": terrenoMod.preferito,
             "Priorita": terrenoMod.priorita,
             "proprietario" : terrenoMod.proprietario,
+            "stadio_crescita" : terrenoMod.stadio_crescita
         }})
     
     def restituisciTerreniByFarmer(farmer: str) -> list:
@@ -75,7 +78,8 @@ class TerrenoDAO():
             preferito = (trovato.get("Preferito"))
             priorita = int(trovato.get("Priorita"))  
             proprietario = str(trovato.get("proprietario"))
-            NewTerreno = Terreno(id2,nome,coltura,posizione,preferito,priorita, proprietario)
+            stadio_crescita = str(trovato.get("stadio_crescita"))
+            NewTerreno = Terreno(id2,nome,coltura,stadio_crescita,posizione,preferito,priorita, proprietario)
             listaTerreni.append(NewTerreno)
         
         return listaTerreni
