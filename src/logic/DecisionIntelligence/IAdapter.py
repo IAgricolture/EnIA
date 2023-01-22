@@ -18,9 +18,6 @@ class IAdapter:
         fetch = requests.get("https://benedettoscala.pythonanywhere.com/getIrrigationDecision?"
                              "lat="+ str(lat) + "&lon=" + str(lon) +
                              "&crop="+ str(crop) + "&growthStage=" + str(stage))
-        print("https://benedettoscala.pythonanywhere.com/getIrrigationDecision?"
-                             "lat="+ str(lat) + "&lon=" + str(lon) +
-                             "&crop="+ str(crop) + "&growthStage=" + str(stage))
         
         #get json body
         predizioni = fetch.json()["irrigationLevel"]

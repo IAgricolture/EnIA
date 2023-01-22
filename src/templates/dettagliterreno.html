@@ -411,7 +411,7 @@
                         <!-- Rows will be added here dynamically using JavaScript -->
                       </tbody>
                     </table>
-                    <button type="button" class="btn mt-2 col-12 btn-primary" onclick = "TODO">Usa questi livelli di irrigazione</button>
+                    <button type="button" class="btn mt-2 col-12 btn-primary" onclick = "usaSchedulingConsigliato()">Usa questi livelli di irrigazione</button>
                   </div>
                 </div>
               </div>
@@ -1582,6 +1582,35 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
+        });
+    }
+
+    function usaSchedulingConsigliato(){
+
+      console.log(terreno.id)
+      console.log(terreno.posizione.geometry.coordinates[0][0][0])
+      console.log(terreno.posizione.geometry.coordinates[0][0][1])
+      console.log(terreno.stadio)
+      fetch("usaSchedulingConsigliato", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id_terreno: terreno.id,
+          lat: terreno.posizione.geometry.coordinates[0][0][1],
+          lon: terreno.posizione.geometry.coordinates[0][0][0],
+          coltura: terreno.coltura,
+          stadio : terreno.stadio
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          //delete table
+          var tableBody = document.getElementById("table-body-schedule");
+          tableBody.innerHTML = ""
+          createTableImpostati(data);
         });
     }
 

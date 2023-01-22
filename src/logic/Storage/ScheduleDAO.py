@@ -70,7 +70,6 @@ class ScheduleDAO():
         #get today
         today = datetime.now()
         #get isoformat of today
-        print(today)
         #elimina gli schedule che sono passati
         schedule.delete_many({
             "terreno": ObjectId(id_terreno),
@@ -134,12 +133,8 @@ class ScheduleDAO():
             "inizio": {"$gte": date, "$lt": tomorrow}
         }, { "$set": { "modalita": modalita } })
         
-        print(schedule.find_one({
-            "terreno": ObjectId(id_terreno),
-            "inizio": {"$gte": date, "$lt": tomorrow}}
-        ))
-        
         return True
+        
         
 
 

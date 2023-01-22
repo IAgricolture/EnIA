@@ -24,3 +24,15 @@ class GestioneScheduleController:
         GestioneScheduleService.modificaLivelloSchedule(id_terreno, data, modalita)
         
         return jsonify({"success": True})
+    
+    @app.route(("/usaSchedulingConsigliato"), methods=["POST"])
+    def usaScheduleConsigliato():
+        json = request.get_json()
+        id_terreno = json.get("id_terreno")
+        lat = json.get("lat")
+        lon = json.get("lon")
+        stadio = json.get("stadio")
+        coltura = json.get("coltura")
+        GestioneScheduleService.usaSchedulingConsigliato(id_terreno, lat, lon,stadio, coltura)
+        schedule_settimanale = GestioneScheduleService.trovaScheduleTerreno(json.get("id_terreno"))
+        return jsonify(schedule_settimanale)
