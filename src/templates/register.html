@@ -21,10 +21,17 @@
 
 </head>
 
+<style>
+  p {
+    color: red;
+  }
+</style>
+
 <body>
   <div class="container-scroller">
-    <div class="container-fluid page-body-wrapper full-page-wrapper" >
-      <div class="content-wrapper d-flex align-items-center auth px-0" style="background-image: url('/static/images/register.jpg'); background-repeat: no-repeat; background-size: cover;">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth px-0"
+        style="background-image: url('/static/images/register.jpg'); background-repeat: no-repeat; background-size: cover;">
         <div class="row w-100 mx-0">
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
@@ -36,35 +43,43 @@
               <form class="pt-3">
                 <div class="form-group form-group">
                   <label for="input-field" id="labelEmail">Nome</label>
-                  <input type="email" class="form-control form-control-sm" id="nome">
+                  <input type="text" class="form-control form-control-sm" id="nome">
+                  <p id="nomeerr"></p>
                 </div>
                 <div class="form-group form-group">
                   <label for="input-field" id="labelEmail">Cognome</label>
-                  <input type="email" class="form-control form-control-sm" id="cognome">
+                  <input type="text" class="form-control form-control-sm" id="cognome">
+                  <p id="cognomeerr"></p>
                 </div>
                 <div class="form-group form-group">
                   <label for="input-field" id="labelEmail">E-mail</label>
                   <input type="email" class="form-control form-control-sm" id="email">
+                  <p id="emailerr"></p>
                 </div>
                 <div class="form-group">
                   <label for="input-field" id="labelPassword">Password</label>
                   <input type="password" class="form-control form-control-sm" id="password">
+                  <p id="passerr"></p>
                 </div>
                 <div class="form-group">
                   <label for="input-field">Conferma password</label>
                   <input type="password" class="form-control form-control-sm" id="confermaPassword">
+                  <p id="conferr"></p>
                 </div>
                 <div class="form-group" id="labelCodice">
                   <label for="input-field">Codice di accesso</label>
                   <input type="password" class="form-control form-control-sm" id="codiceDiAccesso">
+                  <p id="cod"></p>
                 </div>
                 <div class="form-group">
                   <label for="input-field">Indirizzo</label>
                   <input type="text" class="form-control form-control-sm" id="indirizzo">
+                  <p id="indirizzoerr"></p>
                 </div>
                 <div class="form-group">
                   <label for="input-field">Data di nascita</label>
                   <input type="date" class="form-control form-control-sm" id="dataNascita">
+                  <p id="dataerr"></p>
                 </div>
                 <div class="mb-4">
                   <div class="form-check">
@@ -75,7 +90,8 @@
                   </div>
                 </div>
                 <div class="mt-3">
-                  <a class="btn btn-block btn-success btn-lg font-weight-medium auth-form-btn" onclick="register()">SIGN UP</a>
+                  <a class="btn btn-block btn-success btn-lg font-weight-medium auth-form-btn" onclick="register()">SIGN
+                    UP</a>
                 </div>
                 <div class="text-center mt-4 font-weight-light">
                   Hai già un account? <a href="login" class="text-primary">Login</a>
@@ -101,5 +117,5 @@
   <script src="/static/js/todolist.js"></script>
   <script src="/static/javascript/register.js"></script>
   <!-- endinject -->
-</body>
+  </body>
 </html>
