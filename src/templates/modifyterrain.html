@@ -199,9 +199,27 @@
                   <label for="input-field" id="labelEmail">Nome</label>
                   <input type="text" class="form-control form-control-sm" id="nome" value="{{terreno.nome}}">
                 </div>
-                <div class="form-group form-group">
-                  <label for="input-field" id="labelEmail">Coltura</label>
-                  <input type="text" class="form-control form-control-sm" id="coltura" value="{{terreno.coltura}}">
+                <div class="form-group">
+                  <label for="input-field">Tipo Coltura</label>
+                  <select class="form-control" aria-label="coltura" id = "coltura">
+                    <option value = "{{terreno.coltura}}">{{terreno.coltura}}</option>
+                  {% for coltura in colture %}
+                    {% if coltura != terreno.coltura %}
+                      <option value="{{coltura}}">{{coltura}}</option>
+                    {% endif %}
+                  {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="input-field">Stadio Di Sviluppo</label>
+                  <select class="form-control" aria-label="coltura" id = "stadio">
+                    <option value = "{{terreno.stadio_crescita}}">{{terreno.stadio_crescita}}</option>
+                  {% for stadio in stadi_crescita %}
+                    {% if stadio != terreno.stadio_crescita %}
+                    <option value="{{stadio}}">{{stadio}}</option>
+                    {% endif %}
+                  {% endfor %}
+                  </select>
                 </div>
                 <div class="form-group">
                   <label for="input-field" id="labelPassword">Preferito</label>
@@ -284,6 +302,7 @@
                 coltura : document.getElementById('coltura').value,
                 preferito : document.getElementById('preferito').checked,
                 priorita : document.getElementById('priorita').value,
+                stadio_crescita: document.getElementById('stadio').value,
                 posizione : polygon.toGeoJSON()
            }
       

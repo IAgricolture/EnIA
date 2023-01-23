@@ -43,9 +43,21 @@
                   <label for="input-field" id="labelEmail">Nome</label>
                   <input type="text" class="form-control form-control-sm" id="nome">
                 </div>
-                <div class="form-group form-group">
-                  <label for="input-field" id="labelEmail">Coltura</label>
-                  <input type="text" class="form-control form-control-sm" id="coltura">
+                <div class="form-group">
+                  <label for="input-field">Tipo Coltura</label>
+                  <select class="form-control" aria-label="coltura" id = "coltura">
+                  {% for coltura in colture %}
+                    <option value="{{coltura}}">{{coltura}}</option>
+                  {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="input-field">Stadio Di Sviluppo</label>
+                  <select class="form-control" aria-label="coltura" id = "stadio">
+                  {% for stadio in stadi_crescita %}
+                    <option value="{{stadio}}">{{stadio}}</option>
+                  {% endfor %}
+                  </select>
                 </div>
                 <div class="form-group">
                   <label for="input-field" id="labelPassword">Preferito</label>
@@ -106,7 +118,6 @@
         }
     });
     var popup = L.popup();
-
 </script>
   <!-- endinject -->
 </body>

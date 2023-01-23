@@ -11,7 +11,7 @@ class AmbienteAgricoloController():
     @login_required
     def aggiungiTerreno():
         if(request.method != "POST"):
-            return render_template("aggiuntaterreno.html")
+            return render_template("aggiuntaterreno.html", colture = AmbienteAgricoloService.Colture, stadi_crescita = AmbienteAgricoloService.StadiCrescita)
         elif request.method == "POST":
             
             richiesta = request.get_json()
@@ -20,9 +20,10 @@ class AmbienteAgricoloController():
             posizione = richiesta.get("posizione")
             preferito = richiesta.get("preferito")
             priorita = richiesta.get("priorita")
+            stadio_crescita = richiesta.get("stadio_crescita")
             proprietario = current_user.id
             
-            risultato = AmbienteAgricoloService.aggiungiTerreno(nome, coltura, posizione, preferito, priorita, proprietario)
+            risultato = AmbienteAgricoloService.aggiungiTerreno(nome, coltura, stadio_crescita, posizione, preferito, priorita, proprietario)
             risposta = {
                 "TerrenoAggiunto" : "True" #TODO:QUI CI VA IL RISULTATO
             }
@@ -37,8 +38,8 @@ class AmbienteAgricoloController():
         if request.method != "POST":
             idTerreno = request.args.get("idTerreno")
             terreno = AmbienteAgricoloService.trovaTerreno(idTerreno)
-            print(terreno)
-            return render_template("modifyterrain.html", terreno = terreno, posizione = terreno.posizione)
+            print(terreno.stadio_crescita)
+            return render_template("modifyterrain.html", terreno = terreno, posizione = terreno.posizione, colture = AmbienteAgricoloService.Colture, stadi_crescita = AmbienteAgricoloService.StadiCrescita)
         elif request.method == "POST":
             richiesta = request.get_json()
             print(str(richiesta))
@@ -48,7 +49,8 @@ class AmbienteAgricoloController():
             posizione = richiesta.get("posizione")
             preferito = richiesta.get("preferito")
             priorita = richiesta.get("priorita")
-            risultato = AmbienteAgricoloService.modificaTerreno(idTerreno, nome, coltura, posizione, preferito, priorita, current_user.id)
+            stadio_crescita = richiesta.get("stadio_crescita")
+            risultato = AmbienteAgricoloService.modificaTerreno(idTerreno, nome, coltura, stadio_crescita, posizione, preferito, priorita, current_user.id)
             return jsonify({"modificato": "true"})
 
 
@@ -199,5 +201,19 @@ class AmbienteAgricoloController():
         listaTerreni =  AmbienteAgricoloService.visualizzaTerreni(current_user.id)
 
         return render_template("visualizzaTerreni.html",listaTerreni = listaTerreni )
+    
+    @app.route("/visualizzaPredizioneIrrigazione", methods=["POST", "GET"])
+    def visualizzaPredizioneIrrigazione():
+        #get json request
+        richiesta = request.get_json()
+        id_terreno = richiesta.get("id_terreno")
+        terreno = AmbienteAgricoloService.trovaTerreno(id_terreno)
+        lat = AmbienteAgricoloService.cercalat(id_terreno)
+        lon = AmbienteAgricoloService.cercalon(id_terreno)
+        coltura = terreno.coltura
+        stadio_crescita = terreno.stadio_crescita
+        
+        return jsonify(AmbienteAgricoloService.restituisciPredizioneLivelliIrrigazione(lon,lat,coltura,stadio_crescita))
+        
                 
        

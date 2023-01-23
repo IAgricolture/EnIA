@@ -3,6 +3,8 @@ from flask_login import LoginManager
 from flask_cors import CORS
 
 
+
+
 """
    This file represents our app, it is from this file that our application starts,
    and it is from this file only that we call all the other modules
@@ -26,3 +28,4 @@ from src.logic.AmbienteAgricolo import AmbienteAgricoloController
 from src.logic.DecisionIntelligence import DecisionIntelligenceController
 from src.logic.GestioneEventi import GestioneEventiController
 from src.logic.GestionePagamento import GestionePagamentoController
+from src.logic.GestioneSchedule import GestioneScheduleController

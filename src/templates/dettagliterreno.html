@@ -47,6 +47,13 @@
         z-index: 1;
     }
 
+    .larger-wheel {
+      margin-top: 17rem;
+      margin-bottom:17rem;
+      width: 5rem; /* Adjust as desired */
+      height: 5rem; /* Adjust as desired */
+    }
+
     .my-custom-bg-color {
       background-color: blue;
       border-color: blue;
@@ -306,6 +313,10 @@
                               <div id = "coltura" class="text-muted"></div>
                             </div>
                             <div class="d-flex justify-content-between mb-4">
+                              <div>Stadio Di Crescita</div>
+                              <div id = "stadio" class="text-muted"></div>
+                            </div>
+                            <div class="d-flex justify-content-between mb-4">
                               <div>Priorità</div>
                               <div id = "priorita" class="text-muted"></div>
                             </div>
@@ -393,6 +404,63 @@
               <div class="col-xl-6 d-flex grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
+                    <div class="d-flex justify-content-center" id="loading-wheel-consigliati">
+                      <div class="spinner-border larger-wheel" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
+                    <div id="data-consigliati" class="d-none">
+                      <div class="d-flex flex-wrap justify-content-between">
+                        <h4 class="card-title mb-3">Livelli Di Irrigazione Consigliati</h4>
+                      </div>
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Data</th>
+                            <th>Livello</th>
+                          </tr>
+                        </thead>
+                        <tbody id="table-body-predictions">
+                          <!-- Rows will be added here dynamically using JavaScript -->
+                        </tbody>
+                      </table>
+                      <button type="button" class="btn col-12 btn-primary" style="margin-top: 6rem;" onclick = "usaSchedulingConsigliato()">Usa questi livelli di irrigazione</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6 d-flex grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-center" id="loading-wheel-impostati">
+                      <div class="spinner-border larger-wheel" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
+                    <div id="data-impostati" class="d-none">
+                      <div class="d-flex flex-wrap justify-content-between">
+                        <h4 class="card-title mb-3">Livelli Di Irrigazione Impostati</h4>
+                      </div>
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Data</th>
+                            <th>Livello</th>
+                          </tr>
+                        </thead>
+                        <tbody id="table-body-schedule">
+                          <!-- Rows will be added here dynamically using JavaScript -->
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+            <div class="row  mt-3">
+              <div class="col-xl-6 d-flex grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
                       <div class="d-flex flex-wrap justify-content-between">
                             <h4 class="card-title">Gestione Irrigazione</h4>
                             <button class="btn btn-success" id="btnIndietro" onclick="tornaIndietro()" hidden>Torna Indietro</button>
@@ -452,7 +520,7 @@
                   </div>
                 </div>
             </div>
-          </div>
+            </div>
           </div>
           
           <!-- content-wrapper ends -->
@@ -491,6 +559,9 @@
   crossorigin=""></script>
 
     <script>
+      
+      // Data to be used to populate the table
+var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso', '25-01-2023': 'Basso', '26-01-2023': 'Basso', '27-01-2023': 'Basso', '28-01-2023': 'Basso'};
       
 
       function downloadStoricoInquinamento(formato)
@@ -1027,6 +1098,7 @@
         nome: "{{terreno.nome}}",
         coltura: "{{terreno.coltura}}",
         preferito: "{{terreno.preferito}}",
+        stadio: "{{terreno.stadio_crescita}}",
         priorita: {{terreno.priorita}},
         posizione: {{terreno.posizione|tojson}} 
       }
@@ -1419,6 +1491,7 @@
       document.getElementById("nomterreno").innerHTML = terreno.nome
       document.getElementById("nome").innerHTML = terreno.nome
       document.getElementById("coltura").innerHTML = terreno.coltura
+      document.getElementById("stadio").innerHTML = terreno.stadio
       if(terreno.preferito == "False")
       {
         document.getElementById("heart").setAttribute("hidden", true)
@@ -1451,6 +1524,162 @@
       });
 
     });
+
+    function createTable(data){
+      // Get a reference to the table body
+      var tableBody = document.getElementById("table-body-predictions");
+
+      // Loop through the data and add rows to the table
+      for (var date in data) {
+        var row = document.createElement("tr");
+        var dateCell = document.createElement("td");
+        var levelCell = document.createElement("td");
+        dateCell.innerHTML = date;
+        levelCell.innerHTML = data[date];
+        row.appendChild(dateCell);
+        row.appendChild(levelCell);
+        tableBody.appendChild(row);
+      }
+    }
+
+    function createTableImpostati(data){
+      // Get a reference to the table body
+      var tableBody = document.getElementById("table-body-schedule");
+
+      // Loop through the data and add rows to the table
+      for (var date in data) {
+        var row = document.createElement("tr");
+        var dateCell = document.createElement("td");
+        var levelCell = document.createElement("td");
+        
+        //create select
+        var select = document.createElement("select");
+        select.className = "form-control"
+        select.id = date
+        //create options for select
+        for (var i = 0; i < livelli.length; i++) {
+          var option = document.createElement("option");
+          //set default value
+          if(data[date] == livelli[i]){
+            option.selected = true
+          }
+          option.value = livelli[i];
+          option.text = livelli[i];
+          //add options to select
+          select.appendChild(option);
+        }
+        
+        //ogni volta che viene cambiato un valore della select chiama listenerLivelliIrrigazione
+        select.addEventListener("change", listenerLivelliIrrigazione)
+        //add options to select
+        select.appendChild(option);
+
+        dateCell.innerHTML = date;
+        levelCell.appendChild(select)
+        row.appendChild(dateCell);
+        row.appendChild(levelCell);
+        tableBody.appendChild(row);
+      }
+    }
+
+
+    function listenerLivelliIrrigazione(){
+      //prendi il valore della select
+      var livello = this.value
+      //prendi la data
+      var data = this.id
+      //invia richiesta al server
+      fetch("modificaLivelloSchedule", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id_terreno: terreno.id,
+          data: data,
+          livello: livello
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+        });
+    }
+
+    function usaSchedulingConsigliato(){
+
+      console.log(terreno.id)
+      console.log(terreno.posizione.geometry.coordinates[0][0][0])
+      console.log(terreno.posizione.geometry.coordinates[0][0][1])
+      console.log(terreno.stadio)
+      var tableBody = document.getElementById("table-body-schedule");
+      document.getElementById("data-impostati").classList.add("d-none")
+      document.getElementById("loading-wheel-impostati").classList.add("d-flex")
+      document.getElementById("loading-wheel-impostati").classList.remove("d-none")
+      fetch("usaSchedulingConsigliato", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id_terreno: terreno.id,
+          lat: terreno.posizione.geometry.coordinates[0][0][1],
+          lon: terreno.posizione.geometry.coordinates[0][0][0],
+          coltura: terreno.coltura,
+          stadio : terreno.stadio
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          //delete table
+          document.getElementById("data-impostati").classList.remove("d-none")
+          document.getElementById("loading-wheel-impostati").classList.remove("d-flex")
+          document.getElementById("loading-wheel-impostati").classList.add("d-none")
+          var tableBody = document.getElementById("table-body-schedule");
+          tableBody.innerHTML = ""
+          createTableImpostati(data);
+        });
+    }
+
+    var livelli = ["Nessuno", "Basso", "Medio", "Alto"]
+
+    fetch("visualizzaPredizioneIrrigazione", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id_terreno: terreno.id
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        document.getElementById("loading-wheel-consigliati").remove()
+        document.getElementById("data-consigliati").classList.remove("d-none")
+        console.log(data);
+        createTable(data);
+      });
+
+      fetch("schedule", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id_terreno: terreno.id
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          //set loading wheel to hidden
+          document.getElementById("loading-wheel-impostati").classList.remove("d-flex")
+          document.getElementById("loading-wheel-impostati").classList.add("d-none")
+          document.getElementById("data-impostati").classList.remove("d-none")
+          createTableImpostati(data);
+        });
+
     </script>
 
     <!-- End custom js for this page-->
