@@ -47,6 +47,11 @@
         z-index: 1;
     }
 
+    .larger-wheel {
+      width: 5rem; /* Adjust as desired */
+      height: 5rem; /* Adjust as desired */
+    }
+
     .my-custom-bg-color {
       background-color: blue;
       border-color: blue;
@@ -397,41 +402,55 @@
               <div class="col-xl-6 d-flex grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="d-flex flex-wrap justify-content-between">
-                      <h4 class="card-title mb-3">Livelli Di Irrigazione Consigliati</h4>
+                    <div class="d-flex justify-content-center" id="loading-wheel-consigliati">
+                      <div class="spinner-border larger-wheel" style = "margin-top: 20rem; margin-bottom:20rem;" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
                     </div>
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th>Data</th>
-                          <th>Livello</th>
-                        </tr>
-                      </thead>
-                      <tbody id="table-body-predictions">
-                        <!-- Rows will be added here dynamically using JavaScript -->
-                      </tbody>
-                    </table>
-                    <button type="button" class="btn col-12 btn-primary" style="margin-top: 6rem;" onclick = "usaSchedulingConsigliato()">Usa questi livelli di irrigazione</button>
+                    <div id="data-consigliati" class="d-none">
+                      <div class="d-flex flex-wrap justify-content-between">
+                        <h4 class="card-title mb-3">Livelli Di Irrigazione Consigliati</h4>
+                      </div>
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Data</th>
+                            <th>Livello</th>
+                          </tr>
+                        </thead>
+                        <tbody id="table-body-predictions">
+                          <!-- Rows will be added here dynamically using JavaScript -->
+                        </tbody>
+                      </table>
+                      <button type="button" class="btn col-12 btn-primary" style="margin-top: 6rem;" onclick = "usaSchedulingConsigliato()">Usa questi livelli di irrigazione</button>
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="col-xl-6 d-flex grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="d-flex flex-wrap justify-content-between">
-                      <h4 class="card-title mb-3">Livelli Di Irrigazione Impostati</h4>
+                    <div class="d-flex justify-content-center" id="loading-wheel-impostati">
+                      <div class="spinner-border larger-wheel" style = "margin-top: 20rem; margin-bottom:20rem;" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
                     </div>
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th>Data</th>
-                          <th>Livello</th>
-                        </tr>
-                      </thead>
-                      <tbody id="table-body-schedule">
-                        <!-- Rows will be added here dynamically using JavaScript -->
-                      </tbody>
-                    </table>
+                    <div id="data-impostati" class="d-none">
+                      <div class="d-flex flex-wrap justify-content-between">
+                        <h4 class="card-title mb-3">Livelli Di Irrigazione Impostati</h4>
+                      </div>
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Data</th>
+                            <th>Livello</th>
+                          </tr>
+                        </thead>
+                        <tbody id="table-body-schedule">
+                          <!-- Rows will be added here dynamically using JavaScript -->
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1608,6 +1627,7 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         .then((data) => {
           console.log(data);
           //delete table
+          
           var tableBody = document.getElementById("table-body-schedule");
           tableBody.innerHTML = ""
           createTableImpostati(data);
@@ -1627,6 +1647,8 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
     })
       .then((response) => response.json())
       .then((data) => {
+        document.getElementById("loading-wheel-consigliati").remove()
+        document.getElementById("data-consigliati").classList.remove("d-none")
         console.log(data);
         createTable(data);
       });
@@ -1643,6 +1665,8 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
+          document.getElementById("loading-wheel-impostati").remove()
+          document.getElementById("data-impostati").classList.remove("d-none")
           createTableImpostati(data);
         });
 
