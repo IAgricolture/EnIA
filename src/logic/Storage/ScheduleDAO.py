@@ -69,6 +69,8 @@ class ScheduleDAO():
         """
         #get today
         today = datetime.now()
+        #put today at 00:00:00
+        today = today.replace(hour=0, minute=0, second=0, microsecond=0)
         #get isoformat of today
         #elimina gli schedule che sono passati
         schedule.delete_many({
