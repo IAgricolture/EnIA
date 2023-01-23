@@ -8,6 +8,7 @@ from src.logic.AmbienteAgricolo.AmbienteAgricoloService import AmbienteAgricoloS
 from src.dbConnection import terreni
 
 class AmbienteAgricoloServiceTest(unittest.TestCase):
+    
     # Arrange
     
     def test_visualizzaTerreni(self):
@@ -23,19 +24,22 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
         self.assertEqual(terreni[0].proprietario, "63cec530e69b425d8b49d8df")
         
     def test_aggiungiTerreno(self):
-        # Arrange
-        nome = "Terreno1"
-        coltura = "Coltura1"
-        posizione = "Posizione1"
-        preferito = True
-        priorita = 1
-        proprietario = "63cec530e69b425d8b49d8df"
-        stadio_crescita = "Sviluppo"
+        #crea un mock dell'oggetto terreno usando mockito
+        terreno = mock()
+        #aggiungi al mock terreno l'attributo nome e assegnagli il valore "Terreno1"
+        terreno.nome = "Terreno1"
+        terreno.coltura = "Coltura1"
+        terreno.stadio_crescita = "Sviluppo"
+        terreno.posizione = "Posizione1"
+        terreno.preferito = True
+        terreno.priorita = 1
+        terreno.proprietario = "63cec530e69b425d8b49d8df"
         
         #act
-        risultato = AmbienteAgricoloService.aggiungiTerreno(nome, coltura,stadio_crescita, posizione, preferito, priorita, proprietario)
+        risultato = AmbienteAgricoloService.aggiungiTerreno(terreno.nome, terreno.coltura,terreno.stadio_crescita, terreno.posizione,
+                                                            terreno.preferito, terreno.priorita, terreno.proprietario)
         
-        terreni.delete_one({"Nome" : nome, "proprietario" : proprietario})
+        terreni.delete_one({"Nome" : terreno.nome, "proprietario" : terreno.proprietario})
         
         #assert
         self.assertEqual(risultato, True)
