@@ -22,8 +22,8 @@ class AmbienteAgricoloService():
     def aggiungiTerreno(nome: str, coltura:str, stadio_crescita: str, posizione, preferito:bool, priorita:int, proprietario: str)-> bool:
         id = None
         terreno = Terreno(id, nome, coltura, stadio_crescita, posizione, preferito, priorita, proprietario)
-        TerrenoDAO.InserisciTerreno(terreno)
-        return True 
+        result = TerrenoDAO.InserisciTerreno(terreno)
+        return result != None
 
     def trovaTerreno(id: str)-> Terreno:
         Terreno = TerrenoDAO.TrovaTerreno(id)

@@ -15,9 +15,9 @@ default_task = "publish"
 @init
 def set_properties(project):
     project.set_property("dir_source_main_python", "src/logic")
-    project.set_property("dir_source_unittest_python", "unittest")
     project.set_property("dir_source_main_scripts", "src/scripts")
     project.set_property("dir_docs", "Documents/docs")
+    #set one file for testing
 
     project.build_depends_on("flask")
     project.build_depends_on("flask_login")
@@ -25,3 +25,4 @@ def set_properties(project):
     project.build_depends_on("flask_cors")
     project.build_depends_on("pymongo")
     project.build_depends_on("requests")
+    project.build_depends_on("mockito")
