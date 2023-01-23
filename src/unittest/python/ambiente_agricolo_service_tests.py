@@ -7,6 +7,11 @@ from src.logic.Storage.TerrenoDAO import TerrenoDAO
 from src.logic.AmbienteAgricolo.AmbienteAgricoloService import AmbienteAgricoloService
 from src.dbConnection import terreni
 
+
+"""
+    IMPORTANTISSIMO: QUESTE SONO SOLO TEST DI ESEMPIO, QUANDO INZIEREMO A FARLI DOBBIAMO TASSATIVAMENTE
+    SEGUIRE IL TCS
+"""
 class AmbienteAgricoloServiceTest(unittest.TestCase):
     
     # Arrange
