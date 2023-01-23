@@ -276,20 +276,22 @@
               <div class="col-xl-3 d-flex grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="d-flex flex-wrap justify-content-between">
-                      <h4 class="card-title mb-3">Storico eventi</h4>
-                    </div>
-                    <div class="row">
-                      <div class="col-12">
-                        <div class="row">
-                          <div class="col-sm-12">
-                            <div class="d-flex justify-content-between mb-md-5 mt-3">
-                              <div class="text-danger small">Alert</div>
-                              <div class="text-warning small">Notifica</div>
-                            </div>
-                          </div>
-                        </div>
+                    <div id="eventi">
+                      <div class="d-flex flex-wrap justify-content-between">
+                        <h4 class="card-title mb-3">Storico Eventi</h4>
                       </div>
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Allert</th>
+                            <th>Notifica</th>
+                          </tr>
+                        </thead>
+                        <tbody id="table-body-storico">
+                          <!-- Rows will be added here dynamically using JavaScript -->
+                        </tbody>
+                      </table>
+                      <button type="button" class="btn col-12 btn-primary" style="margin-top: 6rem;" onclick = "createTableStorico()">testo</button>
                     </div>
                   </div>
                 </div>
@@ -1583,6 +1585,52 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
     }
 
 
+    function createTableStorico(){
+      // Get a reference to the table body
+      var table = document.getElementById("table-body-storico");
+      var row = document.createElement("tr");
+      var cell1 = document.createElement("td");
+      var cell2 = document.createElement("td");
+
+
+      /*
+      fetch('visualizzaEventi' , {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          idTerreno: terreno.id
+        })
+      }).then(function(response) {
+          return response.json();
+      }).then(function(data) {
+        console.log(data);
+          for (var date in data) {
+            var row = document.createElement("tr");
+            var dateCell = document.createElement("td");
+            var levelCell = document.createElement("td");
+            dateCell.innerHTML = date;
+            levelCell.innerHTML = data[date];
+            row.appendChild(dateCell);
+            row.appendChild(levelCell);
+            tableBody.appendChild(row);
+        }
+      });
+      */
+
+      //mio
+      cell1.innerHTML = "Scheduling Irrigazione Modificato";
+      cell2.innerHTML = "<img src='https://www.seekpng.com/png/full/67-678831_notification-ui-alarm-bell-round-notice-remind-reminder.png' alt='Notifica' width='50' height='50'>";
+      row.appendChild(cell1);
+      row.appendChild(cell2);
+    
+      // Append the row to the table
+      table.appendChild(row);
+    }
+
+
+
     function listenerLivelliIrrigazione(){
       //prendi il valore della select
       var livello = this.value
@@ -1639,6 +1687,7 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
           var tableBody = document.getElementById("table-body-schedule");
           tableBody.innerHTML = ""
           createTableImpostati(data);
+          createTableStorico();
         });
     }
 
