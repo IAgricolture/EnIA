@@ -1,5 +1,6 @@
 from src.logic.DecisionIntelligence.DecisionIntelligenceService import DecisionIntelligenceService
 from src.logic.Storage.ImpiantoDiIrrigazioneDAO import ImpiantoDiIrrigazioneDAO
+from src.logic.Storage.EventoDAO import EventoDAO
 from src.logic.model.ImpiantoDiIrrigazione import ImpiantoDiIrrigazione
 from src.logic.model.Terreno import Terreno
 from src.logic.Storage.TerrenoDAO import TerrenoDAO
@@ -132,6 +133,10 @@ class AmbienteAgricoloService():
             ImpiantoDiIrrigazioneDAO.attivaImpianto(idIrrigatore)
             return True
         
+    def visualizzaListaEventi(idTerreno: str):
+        return EventoDAO.findEventiByTerreno(idTerreno)
+    
+    
     def cercalat(id:str):
         terreno = TerrenoDAO.TrovaTerreno(id)
         if(terreno is None):

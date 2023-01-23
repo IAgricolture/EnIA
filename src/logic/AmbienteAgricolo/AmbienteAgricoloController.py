@@ -196,6 +196,15 @@ class AmbienteAgricoloController():
             else:
                 return jsonify({"risposta": "disattivato"})
             
+            
+    @app.route("/visualizzaEventi", methods=["POST", "GET"])
+    def visualizzaEventi():
+        if request.method == "POST":
+            richiesta = request.get_json()
+            idTerreno = richiesta.get("idTerreno")
+            eventi = AmbienteAgricoloService.visualizzaListaEventi(idTerreno)
+            return jsonify(eventi)
+            
     @app.route("/visualizzaTerreni", methods=["POST", "GET"])
     def visualizzaTerreni():
         listaTerreni =  AmbienteAgricoloService.visualizzaTerreni(current_user.id)
