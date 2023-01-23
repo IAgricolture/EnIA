@@ -14,7 +14,7 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="/static/css/vertical-layout-light/style.css">
     <!-- endinject -->
-    <link rel="shortcut icon" href="/static/images/favicon.png" />
+    <link rel="shortcut icon" href="/static/images/enia.png" />
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
      integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
@@ -45,6 +45,13 @@
         height: 400px;
         width: 100%;
         z-index: 1;
+    }
+
+    .larger-wheel {
+      margin-top: 17rem;
+      margin-bottom:17rem;
+      width: 5rem; /* Adjust as desired */
+      height: 5rem; /* Adjust as desired */
     }
 
     .my-custom-bg-color {
@@ -82,263 +89,154 @@
   </style>
   </head>
   <body>
-    <div class="row" id="proBanner">
-      <div class="col-12">
-
-      </div>
-    </div>
     <div class="container-scroller">
-      <!-- partial:partials/_navbar.html -->
-      <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-          <a class="navbar-brand brand-logo" href="index.html"><img src="/static/images/enia.png" alt="logo"/></a>
-          <a class="navbar-brand brand-logo-mini" href="index.html"><img src="/static/images/enia.png" alt="logo"/></a>
-          <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex" type="button" data-toggle="minimize">
-            <span class="typcn typcn-th-menu"></span>
-          </button>
-        </div>
-        <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-          <ul class="navbar-nav mr-lg-2">
-            <li class="nav-item  d-none d-lg-flex">
-              <a class="nav-link active" href="#">
-                Terreni
-              </a>
-            </li>
-          </ul>
-          <ul class="navbar-nav navbar-nav-right">
-            <li class="nav-item dropdown d-flex">
-              <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
-                <i class="typcn typcn-message-typing"></i>
-                <span class="count bg-success">2</span>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
-                <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-item-content flex-grow">
-                    <h6 class="preview-subject ellipsis font-weight-normal">PLACEHOLDER
-                    </h6>
-                    <p class="font-weight-light small-text mb-0">
-                      The meeting is cancelled
-                    </p>
-                  </div>
-                </a>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <img src="/static/images/faces/face2.jpg" alt="image" class="profile-pic">
-                  </div>
-                  <div class="preview-item-content flex-grow">
-                    <h6 class="preview-subject ellipsis font-weight-normal">Tim Cook
-                    </h6>
-                    <p class="font-weight-light small-text mb-0">
-                      New product launch
-                    </p>
-                  </div>
-                </a>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <img src="/static/images/faces/face3.jpg" alt="image" class="profile-pic">
-                  </div>
-                  <div class="preview-item-content flex-grow">
-                    <h6 class="preview-subject ellipsis font-weight-normal"> Johnson
-                    </h6>
-                    <p class="font-weight-light small-text mb-0">
-                      Upcoming board meeting
-                    </p>
-                  </div>
-                </a>
-              </div>
-            </li>
-            <li class="nav-item dropdown  d-flex">
-              <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
-                <i class="typcn typcn-bell mr-0"></i>
-                <span class="count bg-danger">2</span>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-success">
-                      <i class="typcn typcn-info-large mx-0"></i>
-                    </div>
-                  </div>
-                  <div class="preview-item-content">
-                    <h6 class="preview-subject font-weight-normal">Application Error</h6>
-                    <p class="font-weight-light small-text mb-0">
-                      Just now
-                    </p>
-                  </div>
-                </a>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-warning">
-                      <i class="typcn typcn-cog mx-0"></i>
-                    </div>
-                  </div>
-                  <div class="preview-item-content">
-                    <h6 class="preview-subject font-weight-normal">Settings</h6>
-                    <p class="font-weight-light small-text mb-0">
-                      Private message
-                    </p>
-                  </div>
-                </a>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-info">
-                      <i class="typcn typcn-user-outline mx-0"></i>
-                    </div>
-                  </div>
-                  <div class="preview-item-content">
-                    <h6 class="preview-subject font-weight-normal">New user registration</h6>
-                    <p class="font-weight-light small-text mb-0">
-                      2 days ago
-                    </p>
-                  </div>
-                </a>
-              </div>
-            </li>
-            <li class="nav-item nav-profile dropdown">
-              <a class="nav-link dropdown-toggle  pl-0 pr-0" href="#" data-toggle="dropdown" id="profileDropdown">
-                <i class="typcn typcn-user-outline mr-0"></i>
-                <span class="nav-profile-name">PLACEHOLDER</span>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                <a class="dropdown-item">
-                <i class="typcn typcn-cog text-primary"></i>
-                Settings
-                </a>
-                <a class="dropdown-item">
-                <i class="typcn typcn-power text-primary"></i>
-                Logout
-                </a>
-              </div>
-            </li>
-          </ul>
-          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-            <span class="typcn typcn-th-menu"></span>
-          </button>
-        </div>
-      </nav>
-      <!-- partial -->
-      <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_settings-panel.html -->
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo" href="http://localhost:5000/index.html"><img
+                        src="/static/images/enia.png" alt="logo"></a>
+                <a class="navbar-brand brand-logo-mini" href="http://localhost:5000/index.html"><img
+                        src="/static/images/enia.png" alt="logo"></a>
+                <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex" type="button"
+                    data-toggle="minimize">
+                    <span class="typcn typcn-th-menu"></span>
+                </button>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+                <ul class="navbar-nav mr-lg-2">
+                    <li class="nav-item  d-none d-lg-flex">
+                        <a class="nav-link active">
+                            <p id="nomterreno"></p>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item dropdown  d-flex">
+                        <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center"
+                            id="notificationDropdown" data-toggle="dropdown">
+                            <i class="typcn typcn-bell mr-0"></i>
+                            <!--TODO farlo variabile con l'implementazione delle notifiche-->
+                            <span class="count bg-danger">2</span>
+                            <!--Numero notifiche-->
+                        </a>
+                        <!--contenuto dropdown notifiche-->
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+                            aria-labelledby="notificationDropdown">
+                            <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-success">
+                                        <i class="typcn typcn-info-large mx-0"></i>
+                                    </div>
+                                </div>
+                                <div class="preview-item-content">
+                                    <h6 class="preview-subject font-weight-normal">Application Error</h6>
+                                    <p class="font-weight-light small-text mb-0">
+                                        Just now
+                                    </p>
+                                </div>
+                            </a>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-warning">
+                                        <i class="typcn typcn-cog mx-0"></i>
+                                    </div>
+                                </div>
+                                <div class="preview-item-content">
+                                    <h6 class="preview-subject font-weight-normal">Settings</h6>
+                                    <p class="font-weight-light small-text mb-0">
+                                        Private message
+                                    </p>
+                                </div>
+                            </a>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-info">
+                                        <i class="typcn typcn-user-outline mx-0"></i>
+                                    </div>
+                                </div>
+                                <div class="preview-item-content">
+                                    <h6 class="preview-subject font-weight-normal">New user registration</h6>
+                                    <p class="font-weight-light small-text mb-0">
+                                        2 days ago
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item nav-profile dropdown">
+                        <a class="nav-link dropdown-toggle  pl-0 pr-0" data-toggle="dropdown" id="profileDropdown">
+                            <i class="typcn typcn-user-outline mr-0"></i>
+                            <span class="nav-profile-name">User</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
+                            aria-labelledby="profileDropdown">
+                            <a class="dropdown-item" href="/user">
+                                <i class="typcn typcn-cog text-primary"></i>
+                                Settings
+                            </a>
+                            <a class="dropdown-item" href="/logout">
+                                <i class="typcn typcn-power text-primary"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+                    data-toggle="offcanvas">
+                    <span class="typcn typcn-th-menu"></span>
+                </button>
+            </div>
+        </nav>
         <!-- partial -->
-        <!-- partial:partials/_sidebar.html -->
-        <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav">
-          <li class="nav-item">
-            <div class="d-flex sidebar-profile">
-              <div class="sidebar-profile-image">
-              </div>
-              <div class="sidebar-profile-name">
-                <p class="sidebar-name">
-                  PLACEHOLDER
-                </p>
-                <p class="sidebar-designation">
-                  Welcome
-                </p>
-              </div>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">
-              <i class="typcn typcn-device-desktop menu-icon"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="typcn typcn-briefcase menu-icon"></i>
-              <span class="menu-title">UI Elements</span>
-            </a>
-            <div class="collapse" id="ui-basic">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
-              <i class="typcn typcn-film menu-icon"></i>
-              <span class="menu-title">Form elements</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="form-elements">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic Elements</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
-              <i class="typcn typcn-chart-pie-outline menu-icon"></i>
-              <span class="menu-title">Charts</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="charts">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
-              <i class="typcn typcn-th-small-outline menu-icon"></i>
-              <span class="menu-title">Tables</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="tables">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Basic table</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
-              <i class="typcn typcn-compass menu-icon"></i>
-              <span class="menu-title">Icons</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="icons">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/icons/mdi.html">Mdi icons</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-              <i class="typcn typcn-user-add-outline menu-icon"></i>
-              <span class="menu-title">User Pages</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="auth">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
-              <i class="typcn typcn-globe-outline menu-icon"></i>
-              <span class="menu-title">Error pages</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="error">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pages/documentation/documentation.html">
-              <i class="typcn typcn-document-text menu-icon"></i>
-              <span class="menu-title">Documentation</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_settings-panel.html -->
+            <!-- partial -->
+            <!-- partial:partials/_sidebar.html -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <div class="d-flex sidebar-profile">
+                            <div class="sidebar-profile-image">
+                            </div>
+                            <div class="sidebar-profile-name">
+                                <p class="sidebar-name">
+                                    {{current_user.nome + " " + current_user.cognome}}
+                                </p>
+                                <p class="sidebar-designation">
+                                    Welcome
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/visualizzaTerreni">
+                            <i class="typcn typcn-map menu-icon"></i>
+                            <span class="menu-title">Terreni</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user" aria-expanded="false" aria-controls="auth">
+                            <i class="typcn typcn-user menu-icon"></i>
+                            <span class="menu-title">User Pages</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="" aria-expanded="false" aria-controls="error">
+                            <i class="typcn typcn-bell menu-icon"></i>
+                            <span class="menu-title">Notifiche</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">
+                            <i class="typcn typcn-document-text menu-icon"></i>
+                            <span class="menu-title">Documentation</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
@@ -378,20 +276,22 @@
               <div class="col-xl-3 d-flex grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="d-flex flex-wrap justify-content-between">
-                      <h4 class="card-title mb-3">Storico eventi</h4>
-                    </div>
-                    <div class="row">
-                      <div class="col-12">
-                        <div class="row">
-                          <div class="col-sm-12">
-                            <div class="d-flex justify-content-between mb-md-5 mt-3">
-                              <div class="text-danger small">Alert</div>
-                              <div class="text-warning small">Notifica</div>
-                            </div>
-                          </div>
-                        </div>
+                    <div id="eventi">
+                      <div class="d-flex flex-wrap justify-content-between">
+                        <h4 class="card-title mb-3">Storico Eventi</h4>
                       </div>
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Allert</th>
+                            <th>Notifica</th>
+                          </tr>
+                        </thead>
+                        <tbody id="table-body-storico">
+                          <!-- Rows will be added here dynamically using JavaScript -->
+                        </tbody>
+                      </table>
+                      <button type="button" class="btn col-12 btn-primary" style="margin-top: 6rem;" onclick = "createTableStorico()">testo</button>
                     </div>
                   </div>
                 </div>
@@ -413,6 +313,10 @@
                             <div class="d-flex justify-content-between mb-4">
                               <div>Coltura</div>
                               <div id = "coltura" class="text-muted"></div>
+                            </div>
+                            <div class="d-flex justify-content-between mb-4">
+                              <div>Stadio Di Crescita</div>
+                              <div id = "stadio" class="text-muted"></div>
                             </div>
                             <div class="d-flex justify-content-between mb-4">
                               <div>Priorità</div>
@@ -476,16 +380,85 @@
                                 <div id = "pm10" class="text-muted"></div>
                               </div>
                           </div>
-                           <div class="btn-group-sm mr-2" role="group">
+                           <div class="btn-group-sm mr-2 mb-4" id = "bottoniInq" role="group">
                             <button type="button" id="bottoneinq1" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Tabella</button>
                             <button type="button" id="bottoneinq2" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Grafico1</button>
                             <button type="button" id="bottoneinq3" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Grafico2</button>
                             <button type="button" id="bottoneinq4" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Storico</button>
                           </div>
+                          <div class = "d-flex justify-content-end mb-4">
+                            <div hidden class="btn-group" id = "spazioButtonDownload">
+                              <button type="button" id = "dropdownInq" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Download
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby = "dropdownInq"> <!-- Href e link servono per evitare di andare a capo della pagina onclick -->
+                                <a class="dropdown-item" href = "javascript:;" onclick = downloadStoricoInquinamento("csv") link>CSV</a>
+                                <a class="dropdown-item" href = "javascript:;" onclick = downloadStoricoInquinamento("json") link >JSON</a>
+                              </div>
+                            </div>
+                          </div>
+                          
                     </div>
                   </div>
                </div>
             </div>
+            <div class="row  mt-3">
+              <div class="col-xl-6 d-flex grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-center" id="loading-wheel-consigliati">
+                      <div class="spinner-border larger-wheel" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
+                    <div id="data-consigliati" class="d-none">
+                      <div class="d-flex flex-wrap justify-content-between">
+                        <h4 class="card-title mb-3">Livelli Di Irrigazione Consigliati</h4>
+                      </div>
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Data</th>
+                            <th>Livello</th>
+                          </tr>
+                        </thead>
+                        <tbody id="table-body-predictions">
+                          <!-- Rows will be added here dynamically using JavaScript -->
+                        </tbody>
+                      </table>
+                      <button type="button" class="btn col-12 btn-primary" style="margin-top: 6rem;" onclick = "usaSchedulingConsigliato()">Usa questi livelli di irrigazione</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6 d-flex grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-center" id="loading-wheel-impostati">
+                      <div class="spinner-border larger-wheel" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
+                    <div id="data-impostati" class="d-none">
+                      <div class="d-flex flex-wrap justify-content-between">
+                        <h4 class="card-title mb-3">Livelli Di Irrigazione Impostati</h4>
+                      </div>
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Data</th>
+                            <th>Livello</th>
+                          </tr>
+                        </thead>
+                        <tbody id="table-body-schedule">
+                          <!-- Rows will be added here dynamically using JavaScript -->
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
             <div class="row  mt-3">
               <div class="col-xl-6 d-flex grid-margin stretch-card">
                 <div class="card">
@@ -549,7 +522,7 @@
                   </div>
                 </div>
             </div>
-          </div>
+            </div>
           </div>
           
           <!-- content-wrapper ends -->
@@ -589,28 +562,80 @@
 
     <script>
       
+      // Data to be used to populate the table
+var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso', '25-01-2023': 'Basso', '26-01-2023': 'Basso', '27-01-2023': 'Basso', '28-01-2023': 'Basso'};
+      
+
+      function downloadStoricoInquinamento(formato)
+      {
+        /*
+        DOCUMENTAZIONE: La funzione si attiva quando si clicca su uno dei dropdown di download storico.
+        Argomento:
+        formato, una stringa che indica quale sarà l'estensione del file (solo csv, json o xslx per api)
+        Variabili globali usate:
+        dataInizio, dataFine, idTerreno
+        Funzionamento:
+        Creo il nome del file, poi fa una fetch per ottenere la response, da cui tira fuori un blob che rappresenta il file.
+        Fa poi i passi necessari per scaricarlo automaticamente.
+        */
+        console.log(formato)
+        console.log(dataInizio)
+        console.log(dataFine)
+        filename = "storico." + formato
+        //Dati passati al fetch
+        var body = {
+          dataInizio: dataInizio,
+          dataFine: dataFine,
+          idTerreno: terreno.id,
+          formato: formato
+        }
+
+
+        fetch('downloadStoricoInquinamento' , {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body)
+        }).then(res => {
+          return res.blob() //Va bene per tutti gli altri formati
+        })
+        .then(obj => {
+          console.log(obj)
+          var file = window.URL.createObjectURL(obj)
+          const link = document.createElement('a'); //Creo il link perchè è l'unico modo semplice per dargli filename
+          link.href = file;
+          link.setAttribute('download', filename);
+          document.body.appendChild(link);
+          link.click();
+        })
+      }
+
+      var dataInizio;
+      var dataFine;
       function getStoricoInquinamento()
       {
         //Prende i dati dal form
 
-        var dataInizio = document.getElementById("dataInizioInq").value
-        var dataFine = document.getElementById("dataFineInq").value
+        dataInizio = document.getElementById("dataInizioInq").value
+        dataFine = document.getElementById("dataFineInq").value
         console.log(dataInizio)
         console.log(dataFine)
+        var body = {
+          dataInizio: dataInizio,
+          dataFine: dataFine,
+          idTerreno: terreno.id
+        }
         //Cancella le div, necessario cliccare su un altro bottone.
         document.getElementById("formStoricoInq").remove() 
         document.getElementById("buttonFormInq").remove()
-        //TODO: Fa il fetch, lo ottiene, lo converte, crea il grafico.
+        //Fa il fetch, lo ottiene, lo converte, crea il grafico.
         fetch('getStoricoInquinamento' , {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({
-            dataInizio: dataInizio,
-            dataFine: dataFine,
-            idTerreno: terreno.id
-          })
+          body: JSON.stringify(body)
         }).then(function(response) {
           return response.json()
         }).then(function(data) {
@@ -618,7 +643,11 @@
           var arrayGiorniInq = convertiStoricoInquinamento(data)
           console.log(arrayGiorniInq)
           creaGraficoStoricoInquinamento(arrayGiorniInq)
+          
+          //Mostra il bottone per scaricare lo storico
+          document.getElementById("spazioButtonDownload").hidden = false
         })
+
       }
 
       function creaGraficoStoricoInquinamento(arrayGiorniInq)
@@ -858,7 +887,16 @@
                 break
               
               case 4:
-                document.getElementById("lineChart").remove()
+                document.getElementById("spazioButtonDownload").hidden = true
+                if(document.getElementById("lineChart") != null)  //Utente ha inserito i dati
+                {
+                  document.getElementById("lineChart").remove()
+                }
+                else  //Devo togliere da mezzo i form
+                {
+                  document.getElementById("formStoricoInq").remove()
+                  document.getElementById("buttonFormInq").remove()
+                }
                 break
               
               default:
@@ -881,7 +919,16 @@
                 break
               
               case 4:
-                document.getElementById("lineChart").remove()
+                document.getElementById("spazioButtonDownload").hidden = true
+                if(document.getElementById("lineChart") != null)  //Utente ha inserito i dati
+                {
+                  document.getElementById("lineChart").remove()
+                }
+                else  //Devo togliere da mezzo i form
+                {
+                  document.getElementById("formStoricoInq").remove()
+                  document.getElementById("buttonFormInq").remove()
+                }
                 break
               
               default:
@@ -929,7 +976,16 @@
                 break
             
               case 4:
-                document.getElementById("lineChart").remove()
+                document.getElementById("spazioButtonDownload").hidden = true
+                if(document.getElementById("lineChart") != null)  //Utente ha inserito i dati
+                {
+                  document.getElementById("lineChart").remove()
+                }
+                else  //Devo togliere da mezzo i form
+                {
+                  document.getElementById("formStoricoInq").remove()
+                  document.getElementById("buttonFormInq").remove()
+                }
                 break
             
               default:
@@ -983,21 +1039,21 @@
               break
             }
             //Crea il form, fa submit (?) e genera il grafico del risultato
-            if(document.getElementById("lineChart") == null)
+            if(document.getElementById("lineChart") == null && document.getElementById("formStoricoInq") == null)
             {
               //Crea il form
               var form = document.createElement("form")
-              form.class = "forms-sample"
+              form.className = "forms-sample"
               form.id = "formStoricoInq"
 
               var div1 = document.createElement(div)
-              div1.class = "form-group"
+              div1.className = "form-group"
               var label1 = document.createElement("label")
               label1.for = "dataInizioInq"
               label1.innerHTML = "Data Inizio"
               var input1 = document.createElement("input")
               input1.type = "date"
-              input1.class = "form-control p-input"
+              input1.className = "form-control p-input"
               input1.id = "dataInizioInq"
               div1.appendChild(label1)
               div1.appendChild(input1)
@@ -1006,13 +1062,13 @@
               form.appendChild(br)
 
               var div2 = document.createElement(div)
-              div2.class = "form-group"
+              div2.className = "form-group"
               var label2 = document.createElement("label")
               label2.for = "dataFineInq"
               label2.innerHTML = "Data Fine"
               var input2 = document.createElement("input")
               input2.type = "date"
-              input2.class = "form-control p-input"
+              input2.className = "form-control p-input"
               input2.id = "dataFineInq"
               div2.appendChild(label2)
               div2.appendChild(input2)
@@ -1021,12 +1077,11 @@
               parent.appendChild(form)
 
               //Crea il bottone
-              //<button type="button" id="bottoneinq1" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Tabella</button>
 
               var button = document.createElement("button")
               button.type = "button"
               button.id = "buttonFormInq"
-              button.class = "btn btn-primary"
+              button.className = "btn btn-primary"
               button.addEventListener("click", getStoricoInquinamento)
               button.innerHTML = "Cerca"
               parent.appendChild(button)
@@ -1045,6 +1100,7 @@
         nome: "{{terreno.nome}}",
         coltura: "{{terreno.coltura}}",
         preferito: "{{terreno.preferito}}",
+        stadio: "{{terreno.stadio_crescita}}",
         priorita: {{terreno.priorita}},
         posizione: {{terreno.posizione|tojson}} 
       }
@@ -1296,7 +1352,10 @@
 
       function rimandaelimina()
       {
-        window.location.href = "http://localhost:5000/eliminaTerreno?idTerreno=" + terreno.id 
+        if(confirm("ATTENZIONE: Si sta per eliminare il terreno PERMANENTEMENTE. Premere OK per confermare la propria scelta, o Cancel per tornare indietro."))
+        {
+          window.location.href = "http://localhost:5000/eliminaTerreno?idTerreno=" + terreno.id 
+        }
       }
 
       var map = L.map('map').setView([51.505, -0.09], 13);
@@ -1352,36 +1411,56 @@
         display_name : "{{posizioneapi.display_name}}"
       }
 
+      var indirizzoapi = posizioneapi.display_name.split(", ")
+      if(indirizzoapi.length > 4) //Se è stato inserito un codice postale:
+      {
+        for(var i = 0; i < indirizzoapi.length; i++)
+        {
+          console.log(parseInt(indirizzoapi[i]))
+          if(!(Number.isNaN(parseInt(indirizzoapi[i])))) //Controllo se la stringa rappresenta un numero
+          {
+            indirizzoapi.splice(i, 1, indirizzoapi[i + 1])  //Sostituisci codice postale con altro campo
+            indirizzoapi.splice(i + 1, 1) //Rimuovi altro campo
+          }
+        }
+      }
+      indirizzoapi = indirizzoapi.join()
+      console.log(indirizzoapi)
       var comune = posizioneapi.display_name.split(", ")[0]
-      console.log(posizioneapi.display_name)
       console.log(comune)
       var messaggioInquinamento;
       var inquinamentoapi = {{inquinamentoapi | safe}} //NON togliere safe, altrimenti si rompe perchè flask inserisce caratteri di escape che rompono js
-      console.log(inquinamentoapi.result)
-      //Non è detto che il comune esista nei risultati dell'API
-      if(comune in inquinamentoapi.result)
+      console.log(inquinamentoapi)
+      var erroreinquinamentoapi = true
+      //Controlla che il luogo sia abilitato, altrimenti dai un messaggio di errore.
+      if(inquinamentoapi.message != "Impossibile soddisfare questa richiesta")
       {
-        inquinamento = inquinamentoapi.result[comune]
-        console.log(inquinamento)
-        //Tolgo i dati che non ci interessano per l'inquinamento
-        delete inquinamento.comune
-        delete inquinamento.nazione
-        delete inquinamento.regione
-        delete inquinamento.provincia
-        delete inquinamento.temperatura
-        delete inquinamento.umidita
-        console.log(inquinamento)
-        //Riempio le div con i dati dell'inquinamento
-        //AGGIUNGERE CONTROLLO PER DATI CHE NON CI SONO SEMPRE, COME O3, SO2? Grafico poi diventa un problema
-        document.getElementById("tsinq").innerHTML = "Orario rilevamento: " + inquinamento.timestamp
-        document.getElementById("aqi").innerHTML = String(inquinamento.aqi) //api lo restituisce come float, giusto per essere sicuri
-        document.getElementById("co").innerHTML = inquinamento.co
-        document.getElementById("no2").innerHTML = inquinamento.no2
-        document.getElementById("pm1").innerHTML = inquinamento.pm1
-        document.getElementById("pm25").innerHTML = inquinamento.pm2_5
-        document.getElementById("pm10").innerHTML = inquinamento.pm10
+         //Non è detto che il comune esista nei risultati dell'API
+        if(comune in inquinamentoapi.result)
+        {
+          erroreinquinamentoapi = false
+          inquinamento = inquinamentoapi.result[comune]
+          console.log(inquinamento)
+          //Tolgo i dati che non ci interessano per l'inquinamento
+          delete inquinamento.comune
+          delete inquinamento.nazione
+          delete inquinamento.regione
+          delete inquinamento.provincia
+          delete inquinamento.temperatura
+          delete inquinamento.umidita
+          console.log(inquinamento)
+          //Riempio le div con i dati dell'inquinamento
+          //AGGIUNGERE CONTROLLO PER DATI CHE NON CI SONO SEMPRE, COME O3, SO2? Grafico poi diventa un problema
+          document.getElementById("tsinq").innerHTML = "Orario rilevamento: " + inquinamento.timestamp
+          document.getElementById("aqi").innerHTML = String(inquinamento.aqi) //api lo restituisce come float, giusto per essere sicuri
+          document.getElementById("co").innerHTML = inquinamento.co
+          document.getElementById("no2").innerHTML = inquinamento.no2
+          document.getElementById("pm1").innerHTML = inquinamento.pm1
+          document.getElementById("pm25").innerHTML = inquinamento.pm2_5
+          document.getElementById("pm10").innerHTML = inquinamento.pm10
+        }
       }
-      else
+      if(erroreinquinamentoapi)
       {
         //Aggiungi messaggio di errore
         var parent = document.getElementById("datiInquinamento")
@@ -1391,14 +1470,12 @@
         testo.innerHTML=  "Errore API inquinamento: Non sono disponibili dati per il comune richiesto."
         div.appendChild(testo)
         parent.appendChild(div)
+        //Nascondi bottoni
+        document.getElementById("tabellainq").hidden = true
+        //Nascondi tabella
+        document.getElementById("bottoniInq").hidden = true
       }
      
-      //Ottengo lo storico dell'inquinamento e lo trasformo in un array javascript normale.
-      var storicoinquinamentoapi = {{storicoinquinamentoapi | safe}}
-      console.log(storicoinquinamentoapi)
-
-      var arrayGiorniInq = convertiStoricoInquinamento(storicoinquinamentoapi)
-      console.log(arrayGiorniInq)
 
       //Per il meteo
       var meteoapi = {{meteoapi | safe}}
@@ -1413,13 +1490,15 @@
       console.log(terreno)
       document.getElementById("titolopagina").innerHTML = terreno.nome
       document.getElementById("nomeTerreno").innerHTML = terreno.nome
+      document.getElementById("nomterreno").innerHTML = terreno.nome
       document.getElementById("nome").innerHTML = terreno.nome
       document.getElementById("coltura").innerHTML = terreno.coltura
+      document.getElementById("stadio").innerHTML = terreno.stadio
       if(terreno.preferito == "False")
       {
         document.getElementById("heart").setAttribute("hidden", true)
       }
-      document.getElementById("posizione").innerHTML = posizioneapi.display_name
+      document.getElementById("posizione").innerHTML = indirizzoapi
       document.getElementById("priorita").innerHTML = terreno.priorita
 
       u = terreno.posizione
@@ -1447,6 +1526,209 @@
       });
 
     });
+
+    function createTable(data){
+      // Get a reference to the table body
+      var tableBody = document.getElementById("table-body-predictions");
+
+      // Loop through the data and add rows to the table
+      for (var date in data) {
+        var row = document.createElement("tr");
+        var dateCell = document.createElement("td");
+        var levelCell = document.createElement("td");
+        dateCell.innerHTML = date;
+        levelCell.innerHTML = data[date];
+        row.appendChild(dateCell);
+        row.appendChild(levelCell);
+        tableBody.appendChild(row);
+      }
+    }
+
+    function createTableImpostati(data){
+      // Get a reference to the table body
+      var tableBody = document.getElementById("table-body-schedule");
+
+      // Loop through the data and add rows to the table
+      for (var date in data) {
+        var row = document.createElement("tr");
+        var dateCell = document.createElement("td");
+        var levelCell = document.createElement("td");
+        
+        //create select
+        var select = document.createElement("select");
+        select.className = "form-control"
+        select.id = date
+        //create options for select
+        for (var i = 0; i < livelli.length; i++) {
+          var option = document.createElement("option");
+          //set default value
+          if(data[date] == livelli[i]){
+            option.selected = true
+          }
+          option.value = livelli[i];
+          option.text = livelli[i];
+          //add options to select
+          select.appendChild(option);
+        }
+        
+        //ogni volta che viene cambiato un valore della select chiama listenerLivelliIrrigazione
+        select.addEventListener("change", listenerLivelliIrrigazione)
+        //add options to select
+        select.appendChild(option);
+
+        dateCell.innerHTML = date;
+        levelCell.appendChild(select)
+        row.appendChild(dateCell);
+        row.appendChild(levelCell);
+        tableBody.appendChild(row);
+      }
+    }
+
+
+    function createTableStorico(){
+      // Get a reference to the table body
+      var table = document.getElementById("table-body-storico");
+      var row = document.createElement("tr");
+      var cell1 = document.createElement("td");
+      var cell2 = document.createElement("td");
+
+
+      /*
+      fetch('visualizzaEventi' , {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          idTerreno: terreno.id
+        })
+      }).then(function(response) {
+          return response.json();
+      }).then(function(data) {
+        console.log(data);
+          for (var date in data) {
+            var row = document.createElement("tr");
+            var dateCell = document.createElement("td");
+            var levelCell = document.createElement("td");
+            dateCell.innerHTML = date;
+            levelCell.innerHTML = data[date];
+            row.appendChild(dateCell);
+            row.appendChild(levelCell);
+            tableBody.appendChild(row);
+        }
+      });
+      */
+
+      //mio
+      cell1.innerHTML = "Scheduling Irrigazione Modificato";
+      cell2.innerHTML = "<img src='https://www.seekpng.com/png/full/67-678831_notification-ui-alarm-bell-round-notice-remind-reminder.png' alt='Notifica' width='50' height='50'>";
+      row.appendChild(cell1);
+      row.appendChild(cell2);
+    
+      // Append the row to the table
+      table.appendChild(row);
+    }
+
+
+
+    function listenerLivelliIrrigazione(){
+      //prendi il valore della select
+      var livello = this.value
+      //prendi la data
+      var data = this.id
+      //invia richiesta al server
+      fetch("modificaLivelloSchedule", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id_terreno: terreno.id,
+          data: data,
+          livello: livello
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+        });
+    }
+
+    function usaSchedulingConsigliato(){
+
+      console.log(terreno.id)
+      console.log(terreno.posizione.geometry.coordinates[0][0][0])
+      console.log(terreno.posizione.geometry.coordinates[0][0][1])
+      console.log(terreno.stadio)
+      var tableBody = document.getElementById("table-body-schedule");
+      document.getElementById("data-impostati").classList.add("d-none")
+      document.getElementById("loading-wheel-impostati").classList.add("d-flex")
+      document.getElementById("loading-wheel-impostati").classList.remove("d-none")
+      fetch("usaSchedulingConsigliato", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id_terreno: terreno.id,
+          lat: terreno.posizione.geometry.coordinates[0][0][1],
+          lon: terreno.posizione.geometry.coordinates[0][0][0],
+          coltura: terreno.coltura,
+          stadio : terreno.stadio
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          //delete table
+          document.getElementById("data-impostati").classList.remove("d-none")
+          document.getElementById("loading-wheel-impostati").classList.remove("d-flex")
+          document.getElementById("loading-wheel-impostati").classList.add("d-none")
+          var tableBody = document.getElementById("table-body-schedule");
+          tableBody.innerHTML = ""
+          createTableImpostati(data);
+          createTableStorico();
+        });
+    }
+
+    var livelli = ["Nessuno", "Basso", "Medio", "Alto"]
+
+    fetch("visualizzaPredizioneIrrigazione", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id_terreno: terreno.id
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        document.getElementById("loading-wheel-consigliati").remove()
+        document.getElementById("data-consigliati").classList.remove("d-none")
+        console.log(data);
+        createTable(data);
+      });
+
+      fetch("schedule", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id_terreno: terreno.id
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          //set loading wheel to hidden
+          document.getElementById("loading-wheel-impostati").classList.remove("d-flex")
+          document.getElementById("loading-wheel-impostati").classList.add("d-none")
+          document.getElementById("data-impostati").classList.remove("d-none")
+          createTableImpostati(data);
+        });
+
     </script>
 
     <!-- End custom js for this page-->

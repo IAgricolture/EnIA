@@ -24,8 +24,9 @@ class AutenticazioneDAO():
         codice = trovato.get("codice")
         indirizzo = trovato.get("indirizzo")
         password = trovato.get("password")
-        partitaIVA = trovato.get("partitaIVA")  
-        utenteTrovato = Utente(id, nome, cognome, email, password, ruolo, dataNascita, partitaIVA, codice, indirizzo)
+        partitaIVA = trovato.get("partitaIVA") 
+        datore = trovato.get("datore") 
+        utenteTrovato = Utente(id, nome, cognome, email, password, ruolo, dataNascita, partitaIVA, codice, indirizzo, datore)
         return utenteTrovato
 
     def trovaUtente(id : str) -> Utente:
@@ -46,7 +47,8 @@ class AutenticazioneDAO():
         indirizzo = trovato.get("indirizzo")
         password = trovato.get("password")
         partitaIVA = trovato.get("partitaIVA")
-        utenteTrovato = Utente(id, nome, cognome, email, password, ruolo, dataNascita, partitaIVA, codice, indirizzo)
+        datore = trovato.get("datore")
+        utenteTrovato = Utente(id, nome, cognome, email, password, ruolo, dataNascita, partitaIVA, codice, indirizzo, datore)
         return utenteTrovato
         
 
@@ -69,7 +71,8 @@ class AutenticazioneDAO():
         indirizzo = trovato.get("indirizzo")
         password = trovato.get("password")
         partitaIVA = trovato.get("partitaIVA")
-        utenteTrovato = Utente(id, nome, cognome, email, password, ruolo, dataNascita, partitaIVA, codice, indirizzo)
+        datore = trovato.get("datore")
+        utenteTrovato = Utente(id, nome, cognome, email, password, ruolo, dataNascita, partitaIVA, codice, indirizzo, datore)
         return utenteTrovato
     
     def creaUtente(utente : Utente) -> str:
@@ -97,6 +100,7 @@ class AutenticazioneDAO():
                 "dataNascita" : utente.dataNascita,
                 "codice": utente.codice,
                 "indirizzo": utente.indirizzo,
+                "datore": utente.datore,
             })
 
         return str(result.inserted_id)
@@ -118,7 +122,7 @@ class AutenticazioneDAO():
             return None
 
         if utente.ruolo == "farmer":
-            utenti.update_one({"_id": ObjectId(trovato.id)},
+            return utenti.update_one({"_id": ObjectId(trovato.id)},
             {"$set": {
                 "nome" : utente.nome,
                 "cognome": utente.cognome,
@@ -130,7 +134,7 @@ class AutenticazioneDAO():
                 "indirizzo": utente.indirizzo,
             }})
         else:
-            utenti.update_one({"_id": ObjectId(trovato.id)},
+            return utenti.update_one({"_id": ObjectId(trovato.id)},
             {"$set": {
                 "nome" : utente.nome,
                 "cognome": utente.cognome,
@@ -140,6 +144,7 @@ class AutenticazioneDAO():
                 "dataNascita" : utente.dataNascita,
                 "codice": utente.codice,
                 "indirizzo": utente.indirizzo,
+                "datore": utente.datore,
             }})
 
 
@@ -148,6 +153,25 @@ class AutenticazioneDAO():
             Questo metodo restituisce una lista di tutte le entry di utente presenti sul database
         """
         return utenti.find()
+    
+    def listaDipendenti(datore: str)-> list: 
+        return list(utenti.find({"datore": datore}))
+    
+    def insertSlot(ruolo: str, codice: str, datore: str):
+        utenti.insert_one({
+                "nome" : "",
+                "cognome": "",
+                "email": "",
+                "password": "",
+                "ruolo": ruolo,
+                "dataNascita" : "",
+                "codice": codice,
+                "indirizzo": "",
+                "datore": datore,
+            })
+        
+        
+
 
 
 

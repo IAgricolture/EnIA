@@ -215,5 +215,9 @@ function Check() {
   {
     var form = document.querySelector("#form")
     form.submit();
+  }else{
+    Dietro()
+    Dietro()
   }
 }
+

@@ -1,35 +1,35 @@
 <!DOCTYPE html>
-<!-- saved from url=(0072)http://localhost:5000/dettagliterreno?idTerreno=63c19aa923026b88923b28f3 -->
 <html lang="en">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title id="titolopagina">Lista Terreni</title>
-  <!-- base:css -->
-  <link rel="stylesheet" href="/static/vendors/typicons.font/font/typicons.css">
-  <link rel="stylesheet" href="/static/vendors/css/vendor.bundle.base.css">
-  <!-- endinject -->
-  <!-- plugin css for this page -->
-  <!-- End plugin css for this page -->
-  <!-- inject:css -->
-  <link rel="stylesheet" href="/static/css/vertical-layout-light/style.css">
-  <!-- endinject -->
-  <link rel="shortcut icon" href="/static/images/enia.png" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azienda Agricola</title>
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
-  <style>
-    .mappa {
-      height: 300px;
-      width: 100%;
-    }
-  </style>
-</head>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>CelestialUI Admin</title>
+    <!-- base:css -->
+    <link rel="stylesheet" href="/static/vendors/typicons.font/font/typicons.css">
+    <link rel="stylesheet" href="/static/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/static/css/vertical-layout-light/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="/static/images/enia.png" />
+  </head>
 
 <body>
+  <div class="row" id="proBanner">
+    <div class="col-12">
+
+    </div>
+  </div>
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -47,7 +47,7 @@
         <ul class="navbar-nav mr-lg-2">
           <li class="nav-item  d-none d-lg-flex">
             <a class="nav-link active">
-              Terreni
+              Azienda Agricola
             </a>
           </li>
         </ul>
@@ -114,8 +114,8 @@
               <a class="dropdown-item" href="/user">
                 <i class="typcn typcn-cog text-primary"></i>
                 Settings
-                </a>
-                <a class="dropdown-item" href="/logout">
+              </a>
+              <a class="dropdown-item" href="/logout">
                 <i class="typcn typcn-power text-primary"></i>
                 Logout
               </a>
@@ -177,112 +177,114 @@
         </ul>
       </nav>
       <!-- partial -->
-      <!-- partial -->
       <div class="main-panel">
-        <div class="content-wrapper">
+        <div id = "spazioNotifica"></div>
+        <div class="content-wrapper" id="wrapper">
           <div class="row">
-            <div class="col-sm-6">
-              <h3 id="nomeTerreno" class="mb-0 font-weight-bold">UniSA25</h3>
-            </div>
-          </div>
-          <div class="row  mt-3">
-            {%for terreno in listaTerreni%}
-            <div class="col-xl-4 d-flex grid-margin stretch-card">
-              <div class="card" style="border-radius: 5%;">
-                <div class="card-body">
-                  <div class="d-flex flex-wrap justify-content-between">
-                    <div id="{{terreno.id}}" style="border-radius: 5%; z-index: 1;"></div>
-                  </div>
-                  <div class="d-flex flex-wrap justify-content-between rounded p-2 mt-2"
-                    style="background-color: #228B22;">
-                    <p class="mb-0 text-white" style="font-size:large;">Nome Terreno:</p>
-                    <p class="text-left mb-0 bg-white border rounded">{{terreno.nome}}</p>
-                  </div>
-                  <div class="d-flex flex-wrap justify-content-between rounded p-2 mt-2"
-                    style="background-color: #228B22;">
-                    <p class="mb-0 text-white" style="font-size:large;">Coltura:</p>
-                    <p class="text-left mb-0 bg-white border rounded">{{terreno.coltura}}</p>
-                  </div>
-                  <a href="dettagliterreno?idTerreno={{terreno.id}}"
-                    class="d-flex flex-wrap justify-content-center rounded p-2 mt-2 btn btn-success btn-fw"
-                    style="border-radius: 5%;">Dettagli</a>
-                </div>
+            <div class="card-body" bis_skin_checked="1" style="background-color: white;">
+              <div class="d-flex flex-wrap justify-content-between" bis_skin_checked="1">
+                <h4 class="card-title mb-3">Lista Utenti</h4>
+              </div>
+              <div class="table-responsive" bis_skin_checked="1">
+                <table class="table">
+                  <tbody>
+                    {%for dipendente in session["dipendenti"]%}
+                    <tr id = "{{dipendente["_id"]}}">
+                      <td>
+                        <div class="d-flex" bis_skin_checked="1">
+                          <img class="img-sm rounded-circle mb-md-0 mr-2" src="images/faces/face30.png"
+                            alt="profile image">
+                          <div bis_skin_checked="1">
+                            <div bis_skin_checked="1"> </div>
+                            Nome
+                            <div class="font-weight-bold mt-1" bis_skin_checked="1">{{dipendente["nome"]}}</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        Cognome
+                        <div class="font-weight-bold  mt-1" bis_skin_checked="1">{{dipendente["cognome"]}}</div>
+                      </td>
+                      <td>
+                        Email
+                        <div class="font-weight-bold text-success  mt-1" bis_skin_checked="1">{{dipendente["email"]}}
+                        </div>
+                      </td>
+                      <td>
+                        Ruolo
+                        <div class="font-weight-bold  mt-1" bis_skin_checked="1">{{dipendente["ruolo"]}}</div>
+                      </td>
+                      <td>
+                        <button type="button" class="btn btn-sm btn-secondary" onclick="rimandaelimina('{{dipendente["_id"]}}')">Elimina</button>
+                      </td>
+                    </tr>
+                    {%endfor%}
+                  </tbody>
+                </table>
               </div>
             </div>
-            {%endfor%}
           </div>
-
+          <input type="button" onclick="Aggiungi()" value="Aggiungi">
           <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
-          <footer class="footer">
-            <div class="d-sm-flex justify-content-center justify-content-sm-between">
-              <span class="text-center text-sm-left d-block d-sm-inline-block">Progetto EnIA</span>
-            </div>
-          </footer>
-          <!-- partial -->
         </div>
+
+        <div id="add" style="display: none;" class="content-wrapper">
+          <div class="row justify-content-center">
+            <div class="col-6">
+              <div class="card-body" id="scelta" style="background-color: white; text-align: center;">
+                Ruolo:
+                <select name="ruolo" id="ruolo">
+                  <option value="irrigation manager">Irrigation Manager</option>
+                  <option value="pollution analyst">Pollution Analyst</option>
+                </select>
+                <br>
+                <input class="mt-4" type="button" value="Genera codice" onclick="Add('{{current_user.id}}')">
+              </div>
+
+              <div class="card-body" id="codice" style="background-color: white; text-align: center;">
+                Codice: <p id="gencode"></p>
+                <br>
+                <input class="mt-4" type="button" value="Chiudi" onclick="Chiudi()">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-center text-sm-left d-block d-sm-inline-block">Progetto EnIA</span>
+          </div>
+        </footer>
+        <!-- partial -->
         <!-- main-panel ends -->
       </div>
       <!-- page-body-wrapper ends -->
     </div>
-    <!-- container-scroller -->
-    <!-- base:js -->
-    <script src="/static/vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page-->
-    <!-- End plugin js for this page-->
-    <!-- inject:js -->
-    <script src="/static/js/off-canvas.js"></script>
-    <script src="/static/js/hoverable-collapse.js"></script>
-    <script src="/static/js/template.js"></script>
-    <script src="/static/js/settings.js"></script>
-    <script src="/static/js/todolist.js"></script>
-    <!-- endinject -->
-    <!-- plugin js for this page -->
-    <script src="/static/vendors/progressbar.js/progressbar.min.js"></script>
-    <script src="/static/vendors/chart.js/Chart.min.js"></script>
-    <!-- End plugin js for this page -->
-    <!-- Custom js for this page-->
-    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-      integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- base:js -->
+  <script src="/static/vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="/static/js/off-canvas.js"></script>
+  <script src="/static/js/hoverable-collapse.js"></script>
+  <script src="/static/js/template.js"></script>
+  <script src="/static/js/settings.js"></script>
+  <script src="/static/js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- plugin js for this page -->
+  <script src="/static/vendors/progressbar.js/progressbar.min.js"></script>
+  <script src="/static/vendors/chart.js/Chart.min.js"></script>
+  <!-- End plugin js for this page -->
+  <!-- Custom js for this page-->
+   <script src="/static/javascript/aziendaagricola.js"></script>
+   <script src="/static/javascript/misc.js"></script>
 
-    <script>
-      var arrayMappe = []
-      var arrayPolygons = []
-      //per ogni id assegna una mappa
-      {%for terreno in listaTerreni %}
-      arrayMappe.push("{{terreno.id}}")
-      var posizione = JSON.parse('{{terreno.posizione|tojson}}')
-      arrayPolygons.push(posizione) {% endfor %}
-
-
-      for (var i = 0; i < arrayMappe.length; i++) {
-        //per ogni mappa assegna la classe mappa
-        var mappa = document.getElementById(arrayMappe[i]);
-        mappa.className = "mappa";
-
-        var map = L.map(arrayMappe[i], {
-          zoomControl: false
-        }).setView([51.505, -0.09], 13);
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 19,
-          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
-
-        var polygon = L.geoJSON(arrayPolygons[i]).addTo(map)
-
-        //poi fai il fitbounds
-        map.fitBounds(polygon.getBounds());
-
-        //do not let the user touch the map
-        map.dragging.disable();
-        map.touchZoom.disable();
-        map.scrollWheelZoom.disable();
-
-      }
-    </script>
-    <!-- End custom js for this page-->
-
+  <!-- End custom js for this page-->
 </body>
 
 </html>

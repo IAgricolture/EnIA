@@ -5,7 +5,7 @@ from src.logic.Storage.MetodoDiPagamentoDAO import MetodoDiPagamentoDAO
 from src.logic.model.MetodoDiPagamento import MetodoDiPagamento
 from src.logic.Utente.GestioneUtenteService import GestioneUtenteService
 
-from flask import request, render_template, session
+from flask import request, render_template, session, jsonify
 from src import app
 from flask_login import current_user
 
@@ -44,9 +44,37 @@ class GestioneUtenteController():
             session["metodo"] = GestioneUtenteService.findMetodoByProprietario(current_user.id).__dict__
         return render_template("user.html")
         
-
+    @app.route("/AziendaAgricola", methods = ["GET", "POST"])
+    def aziendaagricola():
+        if request.method == "POST":
+            richiesta = request.form
+            tipo = richiesta.get("type")
+        listdipendenti = GestioneUtenteService.getUtenti(current_user.id)
+        for i in listdipendenti: 
+            i["_id"]= str(i["_id"])
+        session["dipendenti"]= listdipendenti
+        return render_template("AziendaAgricola.html")
+    
+    @app.route("/removeFromAzienda", methods = ["POST"])
+    def removeFromAzienda():
+        richiesta = request.get_json()
+        print(richiesta)
+        id = richiesta.get("id")
+        if(GestioneUtenteService.removeUtenteFromAzienda(id)):
+            result = "True"
+        else:
+            result = "False"
+        message = {
+            "result": result
+        }
+        return jsonify(message)
         
 
-        
-        
-
+    @app.route("/GenCode", methods = ["GET", "POST"])
+    def GenCode():
+        if request.method == "POST":
+            richiesta = request.form
+            ruolo = richiesta.get("ruolo")
+            datore = richiesta.get("datore")
+            codice = GestioneUtenteService.GenerateCode(ruolo, datore)
+            return jsonify(codice)

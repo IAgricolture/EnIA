@@ -2,7 +2,7 @@ from src import login_manager
 
 from src.logic.Autenticazione.AutenticazioneService import AutenticazioneService
 
-from flask import request, render_template, redirect
+from flask import request, render_template, redirect, url_for
 from src import app
 
 class AutenticazioneController():
@@ -25,11 +25,20 @@ class AutenticazioneController():
         if request.method == "POST" :
             email = request.form.get("email")
             password = request.form.get("password")
+            urlLastPage = request.form.get("next")
+            redirectUrl = "visualizzaTerreni"
             successo = AutenticazioneService.login(email, password)
             if successo:
-                return redirect("visualizzaTerreni")
+                #Se ha provato ad accedere ad una pagina prima di arrivare al login automaticamente:
+                if(urlLastPage):
+                    redirectUrl = urlLastPage
+                return redirect(redirectUrl)
             else:
                 return render_template("login.html")        
         else:
             return render_template("login.html")
 
+    @app.route("/logout")
+    def logout():
+        AutenticazioneService.logout()
+        return redirect(url_for("login")) #Uso url_for per generare un url valido per login: render_template copia nell'url logout, che per qualche motivo crea problemi con il redirect.

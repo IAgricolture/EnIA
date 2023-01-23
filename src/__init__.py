@@ -3,6 +3,8 @@ from flask_login import LoginManager
 from flask_cors import CORS
 
 
+
+
 """
    This file represents our app, it is from this file that our application starts,
    and it is from this file only that we call all the other modules
@@ -14,7 +16,7 @@ app.config["MONGO_URI"] = "mongodb://enia:vp7CMyN7V5Rl8FZR@ac-raqtab6-shard-00-0
 app.config["COMPRESS_ALGORITHM"] = 'gzip'  # disable default compression of all eligible requests
 app.config['SECRET_KEY'] = 'jshwifhjwieoajhf5847f5ae4eaws'
 login_manager = LoginManager(app)
-login_manager.login_view = "loginPage"
+login_manager.login_view = "login"
 login_manager.login_message_category = "info"
 
 
@@ -26,3 +28,4 @@ from src.logic.AmbienteAgricolo import AmbienteAgricoloController
 from src.logic.DecisionIntelligence import DecisionIntelligenceController
 from src.logic.GestioneEventi import GestioneEventiController
 from src.logic.GestionePagamento import GestionePagamentoController
+from src.logic.GestioneSchedule import GestioneScheduleController

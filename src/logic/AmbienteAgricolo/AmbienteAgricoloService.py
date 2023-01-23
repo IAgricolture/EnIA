@@ -1,20 +1,27 @@
+from src.logic.DecisionIntelligence.DecisionIntelligenceService import DecisionIntelligenceService
 from src.logic.Storage.ImpiantoDiIrrigazioneDAO import ImpiantoDiIrrigazioneDAO
+from src.logic.Storage.EventoDAO import EventoDAO
 from src.logic.model.ImpiantoDiIrrigazione import ImpiantoDiIrrigazione
 from src.logic.model.Terreno import Terreno
 from src.logic.Storage.TerrenoDAO import TerrenoDAO
 import requests
 import json
+from datetime import datetime
 
 #TODO: ERROR HANDLING DAO TERRENO
 class AmbienteAgricoloService():
+    
+    ColturaEng = ["Barley", "Bean", "Cabbage", "Carrot", "Cotton", "Cucumber", "Eggplant", "Grain", "Lentil", "Lettuce"]
+    Colture= ["Orzo", "Fagiolo", "Cavolo", "Carota", "Cotone", "Cetriolo", "Melanzana", "Grano", "Lenticchia", "Lattuga"]
+    StadiCrescita = ["Iniziale", "Sviluppo", "Metà Stagione", "Fine Stagione"]
     
     def visualizzaTerreni(farmer:str):
         Terreni = TerrenoDAO.restituisciTerreniByFarmer(farmer)
         return Terreni
     
-    def aggiungiTerreno(nome: str, coltura:str, posizione, preferito:bool, priorita:int)-> bool:
+    def aggiungiTerreno(nome: str, coltura:str, stadio_crescita: str, posizione, preferito:bool, priorita:int, proprietario: str)-> bool:
         id = None
-        terreno = Terreno(id, nome, coltura, posizione, preferito, priorita)
+        terreno = Terreno(id, nome, coltura, stadio_crescita, posizione, preferito, priorita, proprietario)
         TerrenoDAO.InserisciTerreno(terreno)
         return True 
 
@@ -22,8 +29,8 @@ class AmbienteAgricoloService():
         Terreno = TerrenoDAO.TrovaTerreno(id)
         return Terreno
     
-    def modificaTerreno(id:str, nome: str, coltura:str, posizione, preferito:bool, priorita:int, proprietario: str)-> bool:
-        terreno = Terreno(id, nome, coltura, posizione, preferito, priorita, proprietario)
+    def modificaTerreno(id:str, nome: str, coltura:str, stadio_crescita: str, posizione, preferito:bool, priorita:int, proprietario: str)-> bool:
+        terreno = Terreno(id, nome, coltura, stadio_crescita, posizione, preferito, priorita, proprietario)
         result = TerrenoDAO.modificaTerreno(terreno)
         return result.matched_count > 0 #Restituisce True se andato bene, False altrimenti.
     
@@ -49,17 +56,22 @@ class AmbienteAgricoloService():
             print(datiapi)
             return datiapi  #JSON
         
-    def cercaInquinamento(provincia:str, regione:str, nazione:str):
+    def cercaInquinamento(provincia:str, regione:str, nazione:str, comune:str):
+        currentdate = str(datetime.now()).split(" ")
+        date = currentdate[0]
+        precisehour = currentdate[1].split(":")
+        time = precisehour[0] + ":" + precisehour[1]
         url = "https://square.sensesquare.eu:5001/placeView"
         body = {
             "apikey": "3BK3D0LWE8DQ", #Codice API, NON MODIFICARE
             "tempo": "giorno",
-            "date": "2022-11-28",
-            "time": "00:00",
+            "date": date,
+            "time": time,
             "nazione": nazione,
             "regione": regione,
             "provincia": provincia,
-            "zoom": "3", #0 per tutte le nazioni, 1 per tutte le regioni, 2 per tutte le province, 3 per tutti i comuni
+            "comune": comune,
+            "zoom": "3", #0 per tutte le nazioni, 1 per tutte le regioni, 2 per tutte le province, 3 per tutti i comuni, 4 NON VA
             "predictions": "true", #NON TOCCARE
             "fonti":"[]" #NON TOCCARE
             }
@@ -67,7 +79,7 @@ class AmbienteAgricoloService():
         print(datiapi)
         return datiapi
     
-    def cercaStoricoInquinamento(dataInizio:str, dataFine:str, comune:str, regione:str, nazione:str, provincia:str):
+    def cercaStoricoInquinamento(dataInizio:str, dataFine:str, comune:str, regione:str, nazione:str, provincia:str, formato:str):
         url = "https://square.sensesquare.eu:5001/download"
         body = {
             "apikey": "3BK3D0LWE8DQ",
@@ -81,15 +93,18 @@ class AmbienteAgricoloService():
             "regione": regione,
             "provincia": provincia,
             "comune": comune,
-            "format": "json"
+            "format": formato
         }
-        datiapi = requests.post(url=url, data = body).text  #Multipli oggetti JSON
+        datiapi = requests.post(url=url, data = body).text
         print(datiapi)
-        arrayDati = datiapi.split("\n") #Ne ottengo un array
-        print(arrayDati)
-        print(len(arrayDati))
-        arrayDati.pop(len(arrayDati) - 1) #Rimuovo un elemento vuoto creato con lo split, all'ultimo posto
-        return arrayDati
+        if(formato == "json"):  ##Multipli oggetti JSON, ne faccio un parse decente in un array di oggetti json.
+            arrayDati = datiapi.split("\n") #Ne ottengo un array
+            print(arrayDati)
+            print(len(arrayDati))
+            arrayDati.pop(len(arrayDati) - 1) #Rimuovo un elemento vuoto creato con lo split, all'ultimo posto
+            return arrayDati
+        else:
+            return datiapi  #Qualsiasi altro formato, è buono così com'è.
 
     def aggiungiIrrigatore(id_terreno: str, nome_irrigatore: str, posizione_irrigatore: str) -> str:
         impianto = ImpiantoDiIrrigazione("", nome_irrigatore, "irrigatore", "", posizione_irrigatore, False)
@@ -118,6 +133,10 @@ class AmbienteAgricoloService():
             ImpiantoDiIrrigazioneDAO.attivaImpianto(idIrrigatore)
             return True
         
+    def visualizzaListaEventi(idTerreno: str):
+        return EventoDAO.findEventiByTerreno(idTerreno)
+    
+    
     def cercalat(id:str):
         terreno = TerrenoDAO.TrovaTerreno(id)
         if(terreno is None):
@@ -142,3 +161,6 @@ class AmbienteAgricoloService():
         data = requests.get(url).json()
         print(data)
         return data
+    
+    def restituisciPredizioneLivelliIrrigazione(lon:float, lat:float, crop:str, stage:str):
+        return DecisionIntelligenceService.getPredizioneLivelliIrrigazione(lon, lat, crop, stage)

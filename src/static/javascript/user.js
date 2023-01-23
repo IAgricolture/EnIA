@@ -25,6 +25,11 @@ function ModMetodo() {
     metodomod.style.display = "flex"
 }
 
+function Visualizza()
+{
+    window.location.href = "/AziendaAgricola"
+}
+
 function Annulla() {
     view.style.display = "flex"
     usermod.style.display = "none"
@@ -41,7 +46,6 @@ function CheckUser() {
     var indirizzo = document.getElementById("indirizzo").value
     var dataNascita = document.getElementById("dataNascita").value
     var partitaiva = document.getElementById("partitaiva").value
-    var ruolo = document.getElementById("ruolo").value
 
     var nomeerr = document.getElementById("nomeerr")
     var cognomeerr = document.getElementById("cognomeerr")
@@ -119,12 +123,6 @@ function CheckUser() {
         mod = false
     }
 
-    if (ruolo == "farmer")
-        if (partitaiva == "") {
-            partitaivaerr.innerHTML = "Campo Richiesto"
-            mod = false
-        }
-
     if (mod) {
         var form = document.querySelector("#userform")
         form.submit();
@@ -190,5 +188,4 @@ function CheckMetodo() {
         var form = document.querySelector("#metodoform")
         form.submit();
     }
-
 }
