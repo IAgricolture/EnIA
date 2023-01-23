@@ -8,6 +8,7 @@
         var coltura = document.getElementById("coltura").value
         var preferito = document.getElementById("preferito").checked
         var priorita = document.getElementById("priorita").value
+        var stadio_crescita = document.getElementById("stadio").value
         
           var url = new URL("http://localhost:5000/aggiuntaTerreno")
           data = new FormData()
@@ -23,7 +24,8 @@
                 coltura : coltura,
                 preferito : preferito,
                 priorita : priorita,
-                posizione : geoJson
+                posizione : geoJson,
+                stadio_crescita : stadio_crescita
           }
           console.log(JSON.stringify(data))
           console.log(data)
