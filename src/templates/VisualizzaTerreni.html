@@ -212,6 +212,12 @@
             {%endfor%}
           </div>
 
+          <!--Spazio bottone + -->
+          <div class="d-flex justify-content-center">
+            <button type="button" class="btn btn-success rounded-circle" onclick = "rimandaAggiunta()" ><i class="typcn typcn-plus"></i>
+            </button>
+          </div>
+
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
           <footer class="footer">
@@ -247,6 +253,11 @@
       integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
 
     <script>
+      function rimandaAggiunta()
+      {
+        window.location.href = "/aggiuntaTerreno"
+      }
+
       var arrayMappe = []
       var arrayPolygons = []
       //per ogni id assegna una mappa

@@ -206,6 +206,7 @@ class AmbienteAgricoloController():
             return jsonify(eventi)
             
     @app.route("/visualizzaTerreni", methods=["POST", "GET"])
+    @login_required
     def visualizzaTerreni():
         listaTerreni =  AmbienteAgricoloService.visualizzaTerreni(current_user.id)
 
