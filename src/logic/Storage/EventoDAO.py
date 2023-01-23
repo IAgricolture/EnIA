@@ -36,6 +36,18 @@ class EventoDAO():
         })
 
         return str(result.inserted_id)
+    
+    def findEventiByTerreno(idTerreno:str):
+        #trova eventi sul database con l'id del terreno
+        eventiTrovati = eventi.find({"terreno" : ObjectId(idTerreno)})
+        eventiTrovati = list(eventiTrovati)
+        
+        #cast all objectid to string
+        for evento in eventiTrovati:
+            evento["_id"] = str(evento["_id"])
+            evento["terreno"] = str(evento["terreno"])
+            
+        return list(eventiTrovati)
 
 
 
