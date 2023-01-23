@@ -48,6 +48,8 @@
     }
 
     .larger-wheel {
+      margin-top: 17rem;
+      margin-bottom:17rem;
       width: 5rem; /* Adjust as desired */
       height: 5rem; /* Adjust as desired */
     }
@@ -403,7 +405,7 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="d-flex justify-content-center" id="loading-wheel-consigliati">
-                      <div class="spinner-border larger-wheel" style = "margin-top: 20rem; margin-bottom:20rem;" role="status">
+                      <div class="spinner-border larger-wheel" role="status">
                         <span class="sr-only">Loading...</span>
                       </div>
                     </div>
@@ -431,7 +433,7 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="d-flex justify-content-center" id="loading-wheel-impostati">
-                      <div class="spinner-border larger-wheel" style = "margin-top: 20rem; margin-bottom:20rem;" role="status">
+                      <div class="spinner-border larger-wheel" role="status">
                         <span class="sr-only">Loading...</span>
                       </div>
                     </div>
@@ -1610,6 +1612,10 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
       console.log(terreno.posizione.geometry.coordinates[0][0][0])
       console.log(terreno.posizione.geometry.coordinates[0][0][1])
       console.log(terreno.stadio)
+      var tableBody = document.getElementById("table-body-schedule");
+      document.getElementById("data-impostati").classList.add("d-none")
+      document.getElementById("loading-wheel-impostati").classList.add("d-flex")
+      document.getElementById("loading-wheel-impostati").classList.remove("d-none")
       fetch("usaSchedulingConsigliato", {
         method: "POST",
         headers: {
@@ -1627,7 +1633,9 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         .then((data) => {
           console.log(data);
           //delete table
-          
+          document.getElementById("data-impostati").classList.remove("d-none")
+          document.getElementById("loading-wheel-impostati").classList.remove("d-flex")
+          document.getElementById("loading-wheel-impostati").classList.add("d-none")
           var tableBody = document.getElementById("table-body-schedule");
           tableBody.innerHTML = ""
           createTableImpostati(data);
@@ -1665,7 +1673,9 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
-          document.getElementById("loading-wheel-impostati").remove()
+          //set loading wheel to hidden
+          document.getElementById("loading-wheel-impostati").classList.remove("d-flex")
+          document.getElementById("loading-wheel-impostati").classList.add("d-none")
           document.getElementById("data-impostati").classList.remove("d-none")
           createTableImpostati(data);
         });
