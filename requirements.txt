@@ -4,3 +4,4 @@ flask_pymongo
 flask_cors
 pymongo
 requests
+geopy
