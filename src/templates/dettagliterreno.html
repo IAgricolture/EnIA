@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="/static/css/vertical-layout-light/style.css">
     <!-- endinject -->
     <link rel="shortcut icon" href="/static/images/enia.png" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
      integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
      crossorigin=""/>
@@ -58,33 +58,9 @@
       background-color: blue;
       border-color: blue;
     }
-      #heart {
-        position: absolute;
-        width: 50px;
-        height: 45px;
-        margin-top: 10px;
-      }
-      
-      #heart::before, #heart::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        width: 26px;
-        height: 40px;
-        border-radius: 25px 25px 0 0;
-        background: red;
-      }
-      
-      #heart::before {
-        left: 25px;
-        transform: rotate(-45deg);
-        transform-origin: 0 100%;
-      }
-      
-      #heart::after {
-        left: 0;
-        transform: rotate(45deg);
-        transform-origin: 100% 100%;
+      .fa-heart{
+        color:red;
+        font-size:40px;
       }
   </style>
   </head>
@@ -314,13 +290,16 @@
                               <div>Priorità</div>
                               <div id = "priorita" class="text-muted"></div>
                             </div>
+                            <div class = "d-flex justify-content-between mb-4">
+                              <div>Preferito</div>
+                              <div><i class="fa fa-heart" onclick="like()"></i></div>
+                            </div>
                             <div class="d-flex justify-content-center mb-4">
                               <div>Posizione</div>
                             </div>
                             <div id = "posizione" class="text-muted"></div>
-                            <div class = "d-flex justify-content-between mb-4"></div>
-                              <div id = "heart"></div>
-                            </div>
+                           </div>
+
                           </div>
                         </div>
                       </div>
