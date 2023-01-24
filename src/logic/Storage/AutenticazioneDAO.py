@@ -111,7 +111,7 @@ class AutenticazioneDAO():
             Questo metodo prende in ingresso un id ed elimina
             il corrispondente utente dal database
         """
-        utenti.delete_one({"_id": ObjectId(id)})
+        return utenti.delete_one({"_id": ObjectId(id)})
     
     def modificaUtente(utente : Utente): 
         """

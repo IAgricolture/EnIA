@@ -269,8 +269,12 @@
     var points = [];
     var polygon = L.geoJSON(u).addTo(map)
     map.fitBounds(polygon.getBounds())
+
+    var validMap = true
+
     map.on('click', function(e) {
         points.push(e.latlng);
+        validMap = true
         if (points.length >= 1) {
             if (polygon != null){
                 polygon.remove()

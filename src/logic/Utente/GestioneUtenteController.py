@@ -7,7 +7,7 @@ from src.logic.Utente.GestioneUtenteService import GestioneUtenteService
 
 from flask import request, render_template, session, jsonify
 from src import app
-from flask_login import current_user
+from flask_login import current_user, login_required
 
 class GestioneUtenteController():
     @app.route("/user", methods = ["GET", "POST"])
@@ -45,6 +45,7 @@ class GestioneUtenteController():
         return render_template("user.html")
         
     @app.route("/AziendaAgricola", methods = ["GET", "POST"])
+    @login_required
     def aziendaagricola():
         if request.method == "POST":
             richiesta = request.form
