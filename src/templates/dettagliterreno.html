@@ -280,10 +280,10 @@
                       <div class="d-flex flex-wrap justify-content-between">
                         <h4 class="card-title mb-3">Storico Eventi</h4>
                       </div>
-                      <div class="list-group overflow-auto" id="notifiche" style="max-height:400px;">
+                      <div class="list-group overflow-auto" id="notifiche" style="max-height:300px; min-height:300px">
                         <!--SPAZIO NOTIFICHE-->
                     </div>
-                      <button type="button" class="btn col-12 btn-primary" style="margin-top: 6rem;" onclick = "createTableStorico()">testo</button>
+                      <button type="button" class="btn col-12 btn-primary" style="margin-top: 3rem;" onclick = "cancellaTuttiEventi()">Cancella Tutte Le Notifiche</button>
                     </div>
                   </div>
                 </div>
@@ -575,6 +575,7 @@
       // Data to be used to populate the table
 var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso', '25-01-2023': 'Basso', '26-01-2023': 'Basso', '27-01-2023': 'Basso', '28-01-2023': 'Basso'};
       
+
 
       function downloadStoricoInquinamento(formato)
       {
@@ -1555,11 +1556,22 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
       }
     }
 
-    function createListItem(imageSrc, title, description, time) {
+    function createListItem(imageSrc, title, description, time,visto, id) {
       // Crea un nuovo elemento "div" con la classe "list-group-item"
       var item = document.createElement("div");
       item.classList.add("list-group-item");
-    
+      
+      if( !visto )
+      {
+        item.classList.add("list-group-item-success");
+      }
+      else
+      {
+        item.classList.add("list-group-item-danger");
+      }
+
+      //assegna id all'elemento
+      item.id = id
       // Crea un nuovo elemento "div" con la classe "media"
       var media = document.createElement("div");
       media.classList.add("media");
@@ -1608,9 +1620,12 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
       media.appendChild(timeItem);
       //aumenta la weight del testo del titolo
       titleHeader.classList.add("font-weight-bold");
-    
+
+
       return item;
     }
+
+
 
     function createTableStorico(){
       // Get a reference to the table body
@@ -1633,7 +1648,7 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
           console.log(data)
           // Loop through the data and add rows to the table
           for (var i = 0; i < data.length; i++) {
-            elem = createListItem("", data[i].titolo, data[i].descrizione, data[i].orario)
+            elem = createListItem("", data[i].titolo, data[i].descrizione, data[i].orario,data[i].visto, data[i]._id)
             table.appendChild(elem);
           }
         });
@@ -1641,6 +1656,21 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
 
     createTableStorico()
 
+    function cancellaTuttiEventi(){
+      fetch("cancellaTuttiEventi", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id_terreno: terreno.id
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          createTableStorico()
+        });
+    }
 
     function listenerLivelliIrrigazione(){
       //prendi il valore della select

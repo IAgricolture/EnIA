@@ -12,6 +12,10 @@ class GestioneEventiService():
     def visualizzaEventiByTerreno(idTerreno:str):
         eventiTrovati = EventoDAO.findEventiByTerreno(idTerreno)
         return eventiTrovati
+    
+    def cancellaTuttiEventiByTerreno(idTerreno:str):
+        EventoDAO.cancellaTuttiEventiByTerreno(idTerreno)
+        
         
 
 

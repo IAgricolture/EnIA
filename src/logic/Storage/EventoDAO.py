@@ -51,6 +51,9 @@ class EventoDAO():
         print(list(eventiTrovati))
             
         return list(eventiTrovati)
+    
+    def cancellaTuttiEventiByTerreno(idTerreno:str):
+        eventiTrovati = eventi.delete_many({"terreno" : idTerreno})
 
 
 
