@@ -403,7 +403,7 @@
                </div>
             </div>
             <div class="row  mt-3">
-              <div class="col-xl-6 d-flex grid-margin stretch-card">
+              <div class="col-xl-6 d-flex grid-margin stretch-card" id="card-irrigazione-consigliati">
                 <div class="card">
                   <div class="card-body">
                     <div class="d-flex justify-content-center" id="loading-wheel-consigliati">
@@ -431,7 +431,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-xl-6 d-flex grid-margin stretch-card">
+              <div class="col-xl-6 d-flex grid-margin stretch-card" id="card-irrigazione-impostati">
                 <div class="card">
                   <div class="card-body">
                     <div class="d-flex justify-content-center" id="loading-wheel-impostati">
@@ -460,7 +460,7 @@
               </div>
           </div>
             <div class="row  mt-3">
-              <div class="col-xl-6 d-flex grid-margin stretch-card">
+              <div class="col-xl-6 d-flex grid-margin stretch-card" id="card-gestione-irrigazione">
                 <div class="card">
                   <div class="card-body">
                       <div class="d-flex flex-wrap justify-content-between">
@@ -538,6 +538,24 @@
       </div>
       <!-- page-body-wrapper ends -->
     </div>
+    <!--Lo script della divisione ruoli è più in alto perchè deve essere caricato prima di tutti gli altri-->
+    <script>
+      //Divisione Ruoli
+      //se è un irrigation analyst
+      if ("{{current_user.ruolo}}" == "irrigation manager"){
+        document.getElementById("card-dati-inquinamento").classList.remove("d-flex")
+        document.getElementById("card-dati-inquinamento").classList.add("d-none")
+        document.getElementById("card-dati-meteo").classList.remove("col-xl-6")
+        document.getElementById("card-dati-meteo").classList.add("col-12")
+      } else if ("{{current_user.ruolo}}" == "pollution analyst"){
+        document.getElementById("card-irrigazione-consigliati").classList.remove("d-flex")
+        document.getElementById("card-irrigazione-consigliati").classList.add("d-none")
+        document.getElementById("card-irrigazione-impostati").classList.remove("d-flex")
+        document.getElementById("card-irrigazione-impostati").classList.add("d-none")
+        document.getElementById("card-gestione-irrigazione").classList.remove("d-flex")
+        document.getElementById("card-gestione-irrigazione").classList.add("d-none")
+      }
+    </script>
     <!-- container-scroller -->
     <!-- base:js -->
     <script src="/static/vendors/js/vendor.bundle.base.js"></script>
@@ -1730,14 +1748,7 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         });
 
 
-        //Divisione Ruoli
-        //se è un irrigation analyst
-        if ("{{current_user.ruolo}}" == "irrigation manager"){
-          //delete from the DOM
-          document.getElementById("card-dati-inquinamento").remove()
-          document.getElementById("card-dati-meteo").classList.remove("col-xl-6")
-          document.getElementById("card-dati-meteo").classList.add("col-xl-12")
-        }
+        
     </script>
 
     <!-- End custom js for this page-->
