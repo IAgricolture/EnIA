@@ -280,17 +280,9 @@
                       <div class="d-flex flex-wrap justify-content-between">
                         <h4 class="card-title mb-3">Storico Eventi</h4>
                       </div>
-                      <table class="table">
-                        <thead>
-                          <tr>
-                            <th>Allert</th>
-                            <th>Notifica</th>
-                          </tr>
-                        </thead>
-                        <tbody id="table-body-storico">
-                          <!-- Rows will be added here dynamically using JavaScript -->
-                        </tbody>
-                      </table>
+                      <div class="list-group overflow-auto" id="notifiche" style="max-height:400px;">
+                        <!--SPAZIO NOTIFICHE-->
+                    </div>
                       <button type="button" class="btn col-12 btn-primary" style="margin-top: 6rem;" onclick = "createTableStorico()">testo</button>
                     </div>
                   </div>
@@ -596,9 +588,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         Creo il nome del file, poi fa una fetch per ottenere la response, da cui tira fuori un blob che rappresenta il file.
         Fa poi i passi necessari per scaricarlo automaticamente.
         */
-        console.log(formato)
-        console.log(dataInizio)
-        console.log(dataFine)
         filename = "storico." + formato
         //Dati passati al fetch
         var body = {
@@ -619,7 +608,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
           return res.blob() //Va bene per tutti gli altri formati
         })
         .then(obj => {
-          console.log(obj)
           var file = window.URL.createObjectURL(obj)
           const link = document.createElement('a'); //Creo il link perchè è l'unico modo semplice per dargli filename
           link.href = file;
@@ -637,8 +625,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
 
         dataInizio = document.getElementById("dataInizioInq").value
         dataFine = document.getElementById("dataFineInq").value
-        console.log(dataInizio)
-        console.log(dataFine)
         var body = {
           dataInizio: dataInizio,
           dataFine: dataFine,
@@ -657,9 +643,7 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         }).then(function(response) {
           return response.json()
         }).then(function(data) {
-          console.log(data)
           var arrayGiorniInq = convertiStoricoInquinamento(data)
-          console.log(arrayGiorniInq)
           creaGraficoStoricoInquinamento(arrayGiorniInq)
           
           //Mostra il bottone per scaricare lo storico
@@ -706,9 +690,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         {
           labels.push(Object.keys(arrayGiorniInq[0])[i])
         }
-        /*console.log(labelsData)
-        console.log(labels)
-        console.log(values)    */
         //Ripristino timestamp, altrimenti non posso ricreare lo storico.
         for(var i = 0; i < timestamps.length; i++)
         {
@@ -722,7 +703,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
           {
             data.push(values[k][c])
           }
-          //console.log(data)
           //Adesso ho tutti i valori di una label, posso costruirne il dataset
           var dataset = {
             label : labels[c],
@@ -731,11 +711,9 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
             borderColor: colors[c],
             tension: 0.1
           }
-          //console.log(dataset)
           //Costruito, lo inserisco nell'insieme per creare il grafico
           datasets.push(dataset)
         }
-        //console.log(datasets)
         //Finito il parsing dei dati, posso creare finalmente il grafico
         new Chart(document.getElementById("lineChart"), {
           type: 'line',
@@ -802,7 +780,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
             }
             temp.push(temp2)
           }
-          console.log(temp)
         return temp
       }
 
@@ -844,10 +821,7 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         for(var i = 0; i < Object.keys(arrayGiorniMeteo[0]).length; i++) //Per ogni campo di un oggetto
         {
           labels.push(Object.keys(arrayGiorniMeteo[0])[i])
-        }
-        console.log(labelsData)
-        console.log(labels)
-        console.log(values)    
+        }   
         //Creo i dataset con i dati compilati, uno per lineChart
         for(var c = 0; c < labels.length; c++)
         {
@@ -856,7 +830,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
           {
             data.push(values[k][c])
           }
-          console.log(data)
           //Adesso ho tutti i valori di una label, posso costruirne il dataset
           var dataset = {
             label : labels[c],
@@ -865,11 +838,9 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
             borderColor: colors[c],
             tension: 0.1
           }
-          console.log(dataset)
           //Costruito, lo inserisco nell'insieme per creare il grafico
           datasets.push(dataset)
         }
-        console.log(datasets)
         //Finito il parsing dei dati, posso creare finalmente il grafico
         new Chart(document.getElementById("lineChartmeteo"), {
           type: 'line',
@@ -1193,11 +1164,9 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         }).then(function(response) {
             return response.json();
         }).then(function(data) {
-          console.log(data);
           for(var i = 0; i < data.length; i++){
             var lat = data[i].posizione.geometry.coordinates[1]
             var len = data[i].posizione.geometry.coordinates[0]
-            console.log(lat + " " + len)
             marker = L.marker([lat,len], {icon: sprinklerIcon}).addTo(mapTuttiIrrigatori);
             markers.push(marker);
             marker.bindPopup("<b>"+data[i].nome+"</b><br>Stato: "+data[i].attivo);
@@ -1230,7 +1199,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
       function inviaIrrigatoreCreato(){
         var nomeIrrigatore = document.getElementById("NomeImpiantoAggiungiIrrigatore").value;
         var posizioneIrrigatore = markerAggiungiIrrigatore.toGeoJSON();
-        console.log(posizioneIrrigatore)
 
         fetch('aggiungiIrrigatore', {
           method: 'POST',
@@ -1291,7 +1259,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         }).then(function(response) {
           return response.json()
         }).then(function(data) {
-          console.log(data)
           //elimina irrigatore dal document
           document.getElementById(idIrrigatore).remove()
         })
@@ -1318,7 +1285,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         }).then(function(response) {
           return response.json();
         }).then(function(data) {
-          console.log(data)
           var lat = data.posizioneIrrigatore.geometry.coordinates[1]
           var len = data.posizioneIrrigatore.geometry.coordinates[0]
           //add marker to map
@@ -1335,7 +1301,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         document.getElementById("btnModificaIrrigatore").addEventListener("click", function(){
           var nomeIrrigatore = document.getElementById("NomeImpiantoModificaIrrigatore").value;
           var posizioneIrrigatore = markerModificaIrrigatore.toGeoJSON();
-          console.log(posizioneIrrigatore)
 
           fetch('modificaIrrigatore', {
             method: 'POST',
@@ -1350,7 +1315,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
           }).then(function(response) {
             return response.json();
           }).then(function(data) {
-            console.log(data)
             tornaIndietro();
           })
         })
@@ -1434,7 +1398,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
       {
         for(var i = 0; i < indirizzoapi.length; i++)
         {
-          console.log(parseInt(indirizzoapi[i]))
           if(!(Number.isNaN(parseInt(indirizzoapi[i])))) //Controllo se la stringa rappresenta un numero
           {
             indirizzoapi.splice(i, 1, indirizzoapi[i + 1])  //Sostituisci codice postale con altro campo
@@ -1443,12 +1406,9 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         }
       }
       indirizzoapi = indirizzoapi.join()
-      console.log(indirizzoapi)
       var comune = posizioneapi.display_name.split(", ")[0]
-      console.log(comune)
       var messaggioInquinamento;
       var inquinamentoapi = {{inquinamentoapi | safe}} //NON togliere safe, altrimenti si rompe perchè flask inserisce caratteri di escape che rompono js
-      console.log(inquinamentoapi)
       var erroreinquinamentoapi = true
       //Controlla che il luogo sia abilitato, altrimenti dai un messaggio di errore.
       if(inquinamentoapi.message != "Impossibile soddisfare questa richiesta")
@@ -1458,7 +1418,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         {
           erroreinquinamentoapi = false
           inquinamento = inquinamentoapi.result[comune]
-          console.log(inquinamento)
           //Tolgo i dati che non ci interessano per l'inquinamento
           delete inquinamento.comune
           delete inquinamento.nazione
@@ -1466,7 +1425,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
           delete inquinamento.provincia
           delete inquinamento.temperatura
           delete inquinamento.umidita
-          console.log(inquinamento)
           //Riempio le div con i dati dell'inquinamento
           //AGGIUNGERE CONTROLLO PER DATI CHE NON CI SONO SEMPRE, COME O3, SO2? Grafico poi diventa un problema
           document.getElementById("tsinq").innerHTML = "Orario rilevamento: " + inquinamento.timestamp
@@ -1497,15 +1455,11 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
 
       //Per il meteo
       var meteoapi = {{meteoapi | safe}}
-      console.log(meteoapi)
 
       var arrayGiorniMeteo = convertiMeteo(meteoapi)
       creaGraficoMeteo()
-      console.log(arrayGiorniMeteo)
 
 
-
-      console.log(terreno)
       document.getElementById("titolopagina").innerHTML = terreno.nome
       document.getElementById("nomeTerreno").innerHTML = terreno.nome
       document.getElementById("nomterreno").innerHTML = terreno.nome
@@ -1539,7 +1493,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
     .then(data=>{
       //per ogni irrigatore chiama aggiungiIrrigatoreAlDom con argomento il nome dell'irrigatore
       data.forEach(irrigatore => {
-        console.log(irrigatore.attivo)
         aggiungiIrrigatoreAlDom(irrigatore.nome, irrigatore._id, irrigatore.attivo)
       });
 
@@ -1602,51 +1555,91 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
       }
     }
 
+    function createListItem(imageSrc, title, description, time) {
+      // Crea un nuovo elemento "div" con la classe "list-group-item"
+      var item = document.createElement("div");
+      item.classList.add("list-group-item");
+    
+      // Crea un nuovo elemento "div" con la classe "media"
+      var media = document.createElement("div");
+      media.classList.add("media");
+      item.appendChild(media);
+    
+      // Crea un nuovo elemento "img"
+      var image = document.createElement("img");
+      image.src = imageSrc;
+      image.classList.add("mr-3");
+      media.appendChild(image);
+    
+      // Crea un nuovo elemento "div" con la classe "media-body"
+      var mediaBody = document.createElement("div");
+      mediaBody.classList.add("media-body");
+      media.appendChild(mediaBody);
+    
+      // Crea un nuovo elemento "h5" con la classe "mt-0"
+      var titleHeader = document.createElement("h5");
+      //make title smaller
+      titleHeader.classList.add("small");
+      titleHeader.classList.add("mt-0");
+      titleHeader.innerText = title;
+      mediaBody.appendChild(titleHeader);
+    
+      // Crea un nuovo elemento "p"
+      var descriptionParagraph = document.createElement("p");
+      //make text smaller
+      descriptionParagraph.classList.add("small");
+      descriptionParagraph.innerText = description;
+      mediaBody.appendChild(descriptionParagraph);
+    
+      // Crea un nuovo elemento "div" con una classe personalizzata
+      var timeItem = document.createElement("div");
+      timeItem.classList.add("time-item");
+      //get the first 10 characters of the time string
+      day = time.substring(0, 10);
+      //get the last 10 characters of the time string
+      time = time.substring(11, 16);   
+      timeItem.innerText = day + " " + time;
+      //vai a capo nell'inner text
+      timeItem.innerHTML = timeItem.innerHTML.replace(" ", "<br>");
+      //allinea il testo a destra
+      timeItem.classList.add("text-right");
+      //make time smaller
+      timeItem.classList.add("small");
+      media.appendChild(timeItem);
+      //aumenta la weight del testo del titolo
+      titleHeader.classList.add("font-weight-bold");
+    
+      return item;
+    }
 
     function createTableStorico(){
       // Get a reference to the table body
-      var table = document.getElementById("table-body-storico");
-      var row = document.createElement("tr");
-      var cell1 = document.createElement("td");
-      var cell2 = document.createElement("td");
+      var table = document.getElementById("notifiche");
+      //svuota la tabella
+      table.innerHTML = ""
 
-
-      /*
-      fetch('visualizzaEventi' , {
-        method: 'POST',
+      //get notifica from /visualizzaEventi
+      fetch("eventi", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          idTerreno: terreno.id
-        })
-      }).then(function(response) {
-          return response.json();
-      }).then(function(data) {
-        console.log(data);
-          for (var date in data) {
-            var row = document.createElement("tr");
-            var dateCell = document.createElement("td");
-            var levelCell = document.createElement("td");
-            dateCell.innerHTML = date;
-            levelCell.innerHTML = data[date];
-            row.appendChild(dateCell);
-            row.appendChild(levelCell);
-            tableBody.appendChild(row);
-        }
-      });
-      */
-
-      //mio
-      cell1.innerHTML = "Scheduling Irrigazione Modificato";
-      cell2.innerHTML = "<img src='https://www.seekpng.com/png/full/67-678831_notification-ui-alarm-bell-round-notice-remind-reminder.png' alt='Notifica' width='50' height='50'>";
-      row.appendChild(cell1);
-      row.appendChild(cell2);
-    
-      // Append the row to the table
-      table.appendChild(row);
+          id_terreno: terreno.id
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data)
+          // Loop through the data and add rows to the table
+          for (var i = 0; i < data.length; i++) {
+            elem = createListItem("", data[i].titolo, data[i].descrizione, data[i].orario)
+            table.appendChild(elem);
+          }
+        });
     }
 
+    createTableStorico()
 
 
     function listenerLivelliIrrigazione(){
@@ -1668,16 +1661,10 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
         });
     }
 
     function usaSchedulingConsigliato(){
-
-      console.log(terreno.id)
-      console.log(terreno.posizione.geometry.coordinates[0][0][0])
-      console.log(terreno.posizione.geometry.coordinates[0][0][1])
-      console.log(terreno.stadio)
       var tableBody = document.getElementById("table-body-schedule");
       document.getElementById("data-impostati").classList.add("d-none")
       document.getElementById("loading-wheel-impostati").classList.add("d-flex")
@@ -1697,7 +1684,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           //delete table
           document.getElementById("data-impostati").classList.remove("d-none")
           document.getElementById("loading-wheel-impostati").classList.remove("d-flex")
@@ -1724,7 +1710,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
       .then((data) => {
         document.getElementById("loading-wheel-consigliati").remove()
         document.getElementById("data-consigliati").classList.remove("d-none")
-        console.log(data);
         createTable(data);
       });
 
@@ -1739,7 +1724,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           //set loading wheel to hidden
           document.getElementById("loading-wheel-impostati").classList.remove("d-flex")
           document.getElementById("loading-wheel-impostati").classList.add("d-none")
