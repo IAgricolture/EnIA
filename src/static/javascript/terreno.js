@@ -50,30 +50,9 @@
 
     function validateMap()
     {
-       //Controllo per la mappa che sia inserito almeno un punto: altrimenti, crash. Divisa perchè altrimenti esce una funzione enorme, ripetuta tra l'altro.
-       var validMap = true
-       var parent = document.getElementById("spazioNotifica")
-       var notifica = document.getElementById("notificamappa")
-       if(points.length < 1)
+       if(!validMap)
        {
-         validMap = false
-         var div = document.createElement('div')
-         div.setAttribute("id", "notificamappa")
-         div.className = "alert alert-danger"
-         var testo = document.createElement('strong')
-         testo.innerHTML = "Errore: Inserire almeno un punto sulla mappa, che rappresenti il terreno. Per inserire, bisogna fare clic sinistro."
-         div.appendChild(testo)
-         if(notifica == null)
-         {
-            parent.appendChild(div)
-         }
-       }
-       else
-       {
-        if(notifica != null)
-        {
-          parent.removeChild(notifica)
-        }
+        creaNotifica("Errore: inserire almeno un punto sulla mappa, che rappresenti il terreno. Per inserire, bisogna fare clic sinistro.", "fallimento", document.getElementById("spazioNotifica"), "notificamappa")
        }
        return validMap
     }
@@ -155,4 +134,5 @@
       
       window.polygon.remove()
       window.points = [];
+      validMap = false
     }
