@@ -127,7 +127,7 @@ class RegistrazioneServiceTest(unittest.TestCase):
         self.assertEqual(risultato["utenteRegistrato"], False)
     
         """_summary_: Test case 1.1.10 : La registrazione non va a buon fine dato che l'indirizzo non è valido
-        """
+       
     def test_case_1_1_10(self):
         # Arrange
         nome="Giuseppe"
@@ -144,6 +144,7 @@ class RegistrazioneServiceTest(unittest.TestCase):
         #assert
         self.assertEqual(risultato["indirizzoNonValido"], True)
         self.assertEqual(risultato["utenteRegistrato"], False)
+         """
     
     """_summary_: Test case 1.1.11 : La registrazione non va a buon fine dato che l'indirizzo non esiste
     """
