@@ -33,9 +33,7 @@ class GestioneUtenteService():
     
 
     def removeUtenteFromAzienda(id:str)->bool:
-        utente = AutenticazioneDAO.trovaUtente(id)
-        utente.datore = ""  #In questo modo lo possiamo riconoscere come utente precedentemente impiegato
-        return AutenticazioneDAO.modificaUtente(utente)
+        return AutenticazioneDAO.eliminaUtente(id)
         
     def GenerateCode(ruolo:str, datore:str) -> str:
         while True:
