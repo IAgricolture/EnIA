@@ -34,4 +34,7 @@ class AutenticazioneService():
     def logout():
         logout_user()
         print("Logout utente")
+    
+    def getDatoreFromDipendente(idDipendente: str) -> Utente:
+        return AutenticazioneDAO.getDatore(idDipendente)
         

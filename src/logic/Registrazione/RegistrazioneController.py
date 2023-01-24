@@ -13,7 +13,7 @@ class RegistrazioneController():
             email = richiesta.get("email")
             nome = richiesta.get("nome")
             cognome = richiesta.get("cognome")
-            password = hashlib.sha512(richiesta.get("password").encode()).hexdigest()
+            password = richiesta.get("password")
             dataDiNascita = richiesta.get("dataNascita")
             codiceDiAccesso = richiesta.get("codice")
             #TODO: Implementare la verifica dell'indirizzo

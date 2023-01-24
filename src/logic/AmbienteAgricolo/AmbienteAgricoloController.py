@@ -1,6 +1,7 @@
 from flask import jsonify, request, render_template, Response, make_response, url_for, redirect
 from src import app
 import json
+from src.logic.Autenticazione import AutenticazioneService
 from src.logic.model.Terreno import Terreno
 from src.logic.AmbienteAgricolo.AmbienteAgricoloService import AmbienteAgricoloService
 from flask_login import current_user, login_required
@@ -208,7 +209,11 @@ class AmbienteAgricoloController():
     @app.route("/visualizzaTerreni", methods=["POST", "GET"])
     @login_required
     def visualizzaTerreni():
-        listaTerreni =  AmbienteAgricoloService.visualizzaTerreni(current_user.id)
+        if current_user.ruolo != "farmer":
+            farmer = AutenticazioneService.AutenticazioneService.getDatoreFromDipendente(current_user.id)
+        else :
+            farmer = current_user.id
+        listaTerreni =  AmbienteAgricoloService.visualizzaTerreni(farmer)
 
         return render_template("visualizzaTerreni.html",listaTerreni = listaTerreni )
     

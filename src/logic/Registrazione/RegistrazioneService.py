@@ -1,4 +1,5 @@
 
+import hashlib
 import re
 from src.logic.model.Utente import Utente
 from geopy.geocoders import Nominatim
@@ -17,7 +18,9 @@ class RegistrazioneService():
     
     def modificaUtente(nome:str, cognome:str, email:str, password:str, dataDiNascita:str, codice:str, indirizzo:str):
         slotUtente = AutenticazioneDAO.trovaUtenteByCodiceDiAccesso(codice)
-
+        print(password)
+        #decrypt password from sha512 to plain text
+        
         risposta = {
             "nomeNonValido": False,
             "cognomeNonValido": False,
@@ -56,16 +59,19 @@ class RegistrazioneService():
         if AutenticazioneDAO.trovaUtenteByEmail(email) != None:
             risposta["emailUsata"] = True
             #Se il codice è già usato oppure non è valido il server avviserà il front end
-        if slotUtente == None or slotUtente.nome != None:
+        if slotUtente == None or slotUtente.nome != "":
+            
             risposta["codiceNonValido"] = True
             #Altrimenti si recupera lo slot Utente dal database lo si modifica con i dati utente
+        print(risposta)
         if not risposta["nomeNonValido"] and not risposta["cognomeNonValido"] and not risposta["emailNonValida"] and not risposta["passwordNonValida"] and not risposta["indirizzoNonValido"] and not risposta["emailUsata"] and not risposta["codiceNonValido"]:
             slotUtente.nome = nome
             slotUtente.cognome = cognome
-            slotUtente.password = password
+            slotUtente.password = hashlib.sha512(password.encode()).hexdigest()
             slotUtente.email = email
             slotUtente.dataNascita = dataDiNascita
             slotUtente.indirizzo = indirizzo
+            print(slotUtente.nome)
             AutenticazioneDAO.modificaUtente(slotUtente)
             risposta["utenteRegistrato"] = True 
         

@@ -170,6 +170,9 @@ class AutenticazioneDAO():
                 "datore": datore,
             })
         
+    def getDatore(codice: str) -> str:
+        return utenti.find_one({"_id": ObjectId(codice)}).get("datore")
+        
         
 
 
