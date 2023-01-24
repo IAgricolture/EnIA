@@ -1,5 +1,5 @@
 from flask import jsonify, request, render_template, Response, make_response, url_for, redirect
-from src import app
+from src import app, farmer_required
 import json
 from src.logic.Autenticazione import AutenticazioneService
 from src.logic.model.Terreno import Terreno
@@ -10,6 +10,7 @@ class AmbienteAgricoloController():
 
     @app.route("/aggiuntaTerreno", methods=["POST", "GET"])
     @login_required
+    @farmer_required
     def aggiungiTerreno():
         if(request.method != "POST"):
             return render_template("aggiuntaterreno.html", colture = AmbienteAgricoloService.Colture, stadi_crescita = AmbienteAgricoloService.StadiCrescita)
@@ -35,6 +36,7 @@ class AmbienteAgricoloController():
 
 
     @app.route("/modificaTerreno", methods=["POST", "GET"])
+    @farmer_required
     def cercaModificata():
         if request.method != "POST":
             idTerreno = request.args.get("idTerreno")
@@ -57,6 +59,7 @@ class AmbienteAgricoloController():
 
 
     @app.route("/eliminaTerreno", methods = ["GET"])
+    @farmer_required
     def elimina():
         """ 
         #TODO Scrivere documentazione

@@ -1,5 +1,6 @@
-from flask import Flask
-from flask_login import LoginManager
+
+from flask import Flask, redirect, render_template, url_for, flash
+from flask_login import LoginManager, current_user
 from flask_cors import CORS
 
 
@@ -19,6 +20,18 @@ login_manager = LoginManager(app)
 login_manager.login_view = "login"
 login_manager.login_message_category = "info"
 
+from functools import wraps
+
+def farmer_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if current_user.ruolo == "farmer":
+            return f(*args, **kwargs)
+        else:
+            flash("Devi essere un farmer per vedere questa pagina.", 'error')
+            return render_template('error-404.html')
+
+    return wrap
 
 from src import routes
 from src.logic.Autenticazione import AutenticazioneController
@@ -29,3 +42,5 @@ from src.logic.DecisionIntelligence import DecisionIntelligenceController
 from src.logic.GestioneEventi import GestioneEventiController
 from src.logic.GestionePagamento import GestionePagamentoController
 from src.logic.GestioneSchedule import GestioneScheduleController
+
+
