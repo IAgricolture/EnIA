@@ -273,7 +273,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-xl-3 d-flex grid-margin stretch-card">
+              <div class="col-xl-4 d-flex grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
                     <div id="eventi">
@@ -288,7 +288,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-xl-4 d-flex grid-margin stretch-card">
+              <div class="col-xl-3 d-flex grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
                     <div class="d-flex flex-wrap justify-content-between">
@@ -1691,6 +1691,8 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
       })
         .then((response) => response.json())
         .then((data) => {
+          //aggiorna notifiche
+          createTableStorico()
         });
     }
 
