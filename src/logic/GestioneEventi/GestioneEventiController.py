@@ -30,3 +30,11 @@ class GestioneEventiController():
         GestioneEventiService.cancellaTuttiEventiByTerreno(idTerreno)
         
         return jsonify("ok")
+    
+    @app.route("/eliminaEvento", methods=['GET', 'POST'])
+    def eliminaEvento():
+        #get json request
+        idEvento = request.json['id_evento']
+        #cancella evento
+        GestioneEventiService.cancellaEvento(idEvento)
+        return jsonify("ok")

@@ -54,6 +54,9 @@ class EventoDAO():
     
     def cancellaTuttiEventiByTerreno(idTerreno:str):
         eventiTrovati = eventi.delete_many({"terreno" : idTerreno})
+        
+    def cancellaEvento(idEvento:str):
+        eventiTrovati = eventi.delete_one({"_id" : ObjectId(idEvento)})
 
 
 

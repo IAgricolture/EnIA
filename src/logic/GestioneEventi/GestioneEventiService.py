@@ -16,6 +16,6 @@ class GestioneEventiService():
     def cancellaTuttiEventiByTerreno(idTerreno:str):
         EventoDAO.cancellaTuttiEventiByTerreno(idTerreno)
         
-        
-
+    def cancellaEvento(idEvento:str):
+        EventoDAO.cancellaEvento(idEvento)
 

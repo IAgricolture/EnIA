@@ -257,6 +257,7 @@
                         <h4 class="card-title mb-3">Storico Eventi</h4>
                       </div>
                       <div class="list-group overflow-auto" id="notifiche" style="max-height:300px; min-height:300px">
+                        
                         <!--SPAZIO NOTIFICHE-->
                     </div>
                       <button type="button" class="btn col-12 btn-primary" style="margin-top: 3rem;" onclick = "cancellaTuttiEventi()">Cancella Tutte Le Notifiche</button>
@@ -1581,9 +1582,12 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
       descriptionParagraph.classList.add("small");
       descriptionParagraph.innerText = description;
       mediaBody.appendChild(descriptionParagraph);
-    
+      
+
+      var mediaBody2 = document.createElement("div");
+      mediaBody2.classList.add("media-body");
       // Crea un nuovo elemento "div" con una classe personalizzata
-      var timeItem = document.createElement("div");
+      var timeItem = document.createElement("p");
       timeItem.classList.add("time-item");
       //get the first 10 characters of the time string
       day = time.substring(0, 10);
@@ -1596,7 +1600,27 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
       timeItem.classList.add("text-right");
       //make time smaller
       timeItem.classList.add("small");
-      media.appendChild(timeItem);
+      //aggiungi questo elemento <i class="fas fa-trash"></i> al mediaBody2
+      var trash = document.createElement("i");
+      trash.classList.add("fa");
+      trash.classList.add("fa-trash");
+      //mettilo in basso a destra
+      
+      trash.classList.add("text-danger");
+      trash.classList.add("small");
+      trash.classList.add("float-right");
+      //assenga la funzione eliminaNotifica(id) al click del trash
+      trash.setAttribute("onclick", "eliminaEvento('"+id+"')");
+      //trash.addEventListener("click", listenerDeleteNotifica);
+      //modifica pointer del mouse quando passa sopra il trash
+      trash.style.cursor = "pointer";
+
+      mediaBody2.appendChild(timeItem);
+      mediaBody2.appendChild(trash);
+      media.appendChild(mediaBody2);
+
+
+
       //aumenta la weight del testo del titolo
       titleHeader.classList.add("font-weight-bold");
 
@@ -1604,7 +1628,24 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
       return item;
     }
 
-
+    function eliminaEvento(id){
+      //get notifica from /visualizzaEventi
+      fetch("eliminaEvento", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id_evento: id
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data)
+          // Loop through the data and add rows to the table
+          createTableStorico()
+        })
+    }
 
     function createTableStorico(){
       // Get a reference to the table body
