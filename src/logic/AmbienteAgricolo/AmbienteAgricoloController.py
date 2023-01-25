@@ -27,7 +27,7 @@ class AmbienteAgricoloController():
             
             risultato = AmbienteAgricoloService.aggiungiTerreno(nome, coltura, stadio_crescita, posizione, preferito, priorita, proprietario)
             risposta = {
-                "TerrenoAggiunto" : "True" #TODO:QUI CI VA IL RISULTATO
+                "TerrenoAggiunto" : risultato["esitoOperazione"] #TODO:QUI CI VA IL RISULTATO
             }
             #TODO implememtare i controlli per l'aggiunta
 

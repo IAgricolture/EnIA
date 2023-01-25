@@ -6,6 +6,7 @@ from src.logic.model.Terreno import Terreno
 from src.logic.Storage.TerrenoDAO import TerrenoDAO
 import requests
 import json
+import re
 from datetime import datetime
 
 #TODO: ERROR HANDLING DAO TERRENO
@@ -15,6 +16,41 @@ class AmbienteAgricoloService():
     Colture= ["Orzo", "Fagiolo", "Cavolo", "Carota", "Cotone", "Cetriolo", "Melanzana", "Grano", "Lenticchia", "Lattuga"]
     StadiCrescita = ["Iniziale", "Sviluppo", "Metà Stagione", "Fine Stagione"]
     
+    def isValidTerreno(terreno: Terreno)->bool:
+        risultato = AmbienteAgricoloService.validateTerreno(terreno)
+        print(risultato)
+        return risultato["esitoControllo"]
+    
+    def validateTerreno(terreno: Terreno):
+        risultato = {
+            "nomeNonValido": False,
+            "colturaNonValida": False,
+            "posizioneNonValida": False,
+            "preferitoNonValido": False,
+            "prioritaNonValida": False,
+            "proprietarioNonValido": False,
+            "stadio_crescitaNonValido": False,
+            "esitoControllo": False 
+        }
+        regexNome = re.compile(r"[a-zA-z0-9_]+[\w\s\W]*$")
+        regexPriorita = re.compile(r"^[0-9]")
+        if(not re.match(regexNome, terreno.nome)):
+            risultato["nomeNonValido"] = True
+        if(terreno.coltura not in AmbienteAgricoloService.Colture):
+            risultato["colturaNonValida"] = True
+        #WIP: Controllo posizione
+        if(terreno.preferito != True and terreno.preferito != False):
+            risultato["preferitoNonValido"] = True   
+        if(not re.match(regexPriorita, str(terreno.priorita))):
+            risultato["prioritaNonValida"] = True
+        #WIP: Controllo proprietario
+        if(terreno.stadio_crescita not in AmbienteAgricoloService.StadiCrescita):
+            risultato["stadio_crescitaNonValido"] = True
+        
+        if not (risultato["nomeNonValido"] or risultato["colturaNonValida"] or risultato["posizioneNonValida"] or risultato["preferitoNonValido"] or risultato["prioritaNonValida"] or risultato["proprietarioNonValido"] or risultato["stadio_crescitaNonValido"]):
+            risultato["esitoControllo"] = True
+        return risultato
+    
     def visualizzaTerreni(farmer:str):
         Terreni = TerrenoDAO.restituisciTerreniByFarmer(farmer)
         return Terreni
@@ -22,8 +58,13 @@ class AmbienteAgricoloService():
     def aggiungiTerreno(nome: str, coltura:str, stadio_crescita: str, posizione, preferito:bool, priorita:int, proprietario: str)-> bool:
         id = None
         terreno = Terreno(id, nome, coltura, stadio_crescita, posizione, preferito, priorita, proprietario)
-        result = TerrenoDAO.InserisciTerreno(terreno)
-        return result != None
+        risultato = AmbienteAgricoloService.validateTerreno(terreno)
+        if(risultato["esitoControllo"]):
+            resultDB = TerrenoDAO.InserisciTerreno(terreno)
+            risultato["esitoOperazione"] = True
+        else:
+            risultato["esitoOperazione"] = False
+        return risultato
 
     def trovaTerreno(id: str)-> Terreno:
         Terreno = TerrenoDAO.TrovaTerreno(id)
