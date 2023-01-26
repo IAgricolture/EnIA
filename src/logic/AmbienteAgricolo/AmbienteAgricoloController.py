@@ -200,7 +200,7 @@ class AmbienteAgricoloController():
             else:
                 return jsonify({"risposta": "disattivato"})
             
-            
+    """     
     @app.route("/visualizzaEventi", methods=["POST", "GET"])
     def visualizzaEventi():
         if request.method == "POST":
@@ -208,6 +208,7 @@ class AmbienteAgricoloController():
             idTerreno = richiesta.get("idTerreno")
             eventi = AmbienteAgricoloService.visualizzaListaEventi(idTerreno)
             return jsonify(eventi)
+    """
             
     @app.route("/visualizzaTerreni", methods=["POST", "GET"])
     @login_required
