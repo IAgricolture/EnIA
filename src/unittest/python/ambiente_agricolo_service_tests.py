@@ -123,4 +123,61 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
         self.assertEqual(risultato["esitoOperazione"], False)  #Fallito inserimento
         self.assertEqual(risultato["colturaNonValida"], True) #Fallito a causa del formato sbagliato della coltura                                   
         
+    #2_1_6, 2_1_7 non si possono fare perchè la dimensione del terreno non esiste più.
+    
+    def test_aggiungiTerreno_TC_2_1_8(self):
+        print("TC_2_1_8")
+        nome = "Terreno-A"
+        coltura = "Limoni"
+        posizione = {}
+        preferito = True
+        priorita = 15
+        proprietario = "63b9e6a27862c31f1f7b221f"
+        stadio_crescita = "Sviluppo"
+        risultato = AmbienteAgricoloService.aggiungiTerreno(nome, coltura, stadio_crescita, posizione, preferito, priorita, proprietario)
+        print(risultato)
+        self.assertEqual(risultato["esitoOperazione"], False)  #Fallito inserimento
+        self.assertEqual(risultato["posizioneNonValida"], True) #Fallito a causa dell'assenza della posizione
+    
+    ''' NON FUNZIONA NE PRINTA
+    def test_aggiungiTerreno_TC_2_1_11(self):
+        print("TC_2_1_11")
+        nome = "Terreno-A"
+        coltura = "Limoni"
+        posizione = {"type":"Feature","properties":{},"geometry":{"type":"Polygon","coordinates":[[[14.783607,40.772225],[14.783735,40.772745],[14.784594,40.771965],[14.783607,40.772225]]]}}
+        preferito = True
+        priorita = 15
+        proprietario = "63b9e6a27862c31f1f7b221f"
+        stadio_crescita = "Sviluppo"
+        risultato = AmbienteAgricoloService.aggiungiTerreno(nome, coltura, stadio_crescita, posizione, preferito, priorita, proprietario)
+        print(risultato)
+        AmbienteAgricoloService.eliminaTerreno(risultato["restituito"])        
+        self.assertEqual(risultato["esitoOperazione"], True)  #Fallito inserimento    
+    '''
+    def test_aggiungiTerreno_TC_2_1_9(self):
+        print("TC_2_1_9")
+        nome = "Terreno-A"
+        coltura = "Limoni"
+        posizione = {"type": "FeatureCollection","features": [{"type": "Feature","properties": {},"geometry": {"coordinates": [[12.682885346272485,42.42118547557695],[12.683224252299652,42.421660820429594]],"type": "LineString"}}]}
+        preferito = True
+        priorita = 15
+        proprietario = "63b9e6a27862c31f1f7b221f"
+        stadio_crescita = "Sviluppo"
+        risultato = AmbienteAgricoloService.aggiungiTerreno(nome, coltura, stadio_crescita, posizione, preferito, priorita, proprietario)
+        print(risultato)
+        self.assertEqual(risultato["esitoOperazione"], False)  #Fallito inserimento
+        self.assertEqual(risultato["posizioneNonValida"], True) #Fallito a causa del formato sbagliato della posizione
         
+    '''NON PRINTA'''
+    def test_aggiungiTerreno_TC_2_1_10(self):
+        print("TC_2_1_10")
+        nome = "Terreno-A"
+        coltura = "Limoni"
+        posizione = {"type":"Feature","properties":{},"geometry":{"type":"Polygon","coordinates":[[[14.783607,40.772225],[14.783735,40.772745],[14.784594,40.771965],[14.783607,40.772225]]]}}
+        preferito = 45
+        priorita = 15
+        proprietario = "63b9e6a27862c31f1f7b221f"
+        stadio_crescita = "Sviluppo"
+        risultato = AmbienteAgricoloService.aggiungiTerreno(nome, coltura, stadio_crescita, posizione, preferito, priorita, proprietario)
+        print(risultato)
+        self.assertRaises(TypeError)

@@ -38,7 +38,31 @@ class AmbienteAgricoloService():
             risultato["nomeNonValido"] = True
         if(terreno.coltura not in AmbienteAgricoloService.Colture):
             risultato["colturaNonValida"] = True
+        print("Prima controllo posizione")
         #WIP: Controllo posizione
+        posizione = terreno.posizione
+        try: #Se non esiste uno dei campi richiesti, la posizione è invalida.
+            print(posizione["type"])
+            if(posizione["type"] != "Feature"):  #Una sola posizione
+                print("Type non era feature")
+                risultato["posizioneNonValida"] = True
+            print(posizione["properties"])
+            if(posizione["properties"]):    #Non ha proprietà aggiuntive
+                print("Properties erano presenti")
+                risultato["posizioneNonValida"] = True 
+            geometria = posizione["geometry"]
+            if(geometria["type"] != "Polygon"):
+                print("Tipo non era Polygon")
+                risultato["posizioneNonValida"] = True
+            print(geometria["coordinates"])
+            print(len(geometria["coordinates"][0]))
+            print(len(geometria["coordinates"][0][0]))
+            if(len(geometria["coordinates"][0]) < 2 or len(geometria["coordinates"][0][0]) != 2): #Ha un array di coordinate
+                print("Array coordinate non era 2D")
+                risultato["posizioneNonValida"] = True 
+        except KeyError:
+            risultato["posizioneNonValida"] = True
+        print("Dopo controllo posizione")    
         if(terreno.preferito != True and terreno.preferito != False):
             risultato["preferitoNonValido"] = True   
         if(not re.match(regexPriorita, str(terreno.priorita))):
@@ -62,8 +86,10 @@ class AmbienteAgricoloService():
         if(risultato["esitoControllo"]):
             resultDB = TerrenoDAO.InserisciTerreno(terreno)
             risultato["esitoOperazione"] = True
+            risultato["restituito"] = resultDB
         else:
             risultato["esitoOperazione"] = False
+            risultato["restituito"] = None
         return risultato
 
     def trovaTerreno(id: str)-> Terreno:
