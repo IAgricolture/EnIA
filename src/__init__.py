@@ -1,7 +1,10 @@
 
+
 from flask import Flask, redirect, render_template, url_for, flash
 from flask_login import LoginManager, current_user
 from flask_cors import CORS
+
+
 
 
 
@@ -39,8 +42,6 @@ from src.logic.Registrazione import RegistrazioneController
 from src.logic.Utente import GestioneUtenteController
 from src.logic.AmbienteAgricolo import AmbienteAgricoloController
 from src.logic.DecisionIntelligence import DecisionIntelligenceController
-from src.logic.GestioneEventi import GestioneEventiController
+from src.logic.GestioneEventi import GestioneEventiController, GestioneEventiService
 from src.logic.GestionePagamento import GestionePagamentoController
 from src.logic.GestioneSchedule import GestioneScheduleController
-
-

@@ -1,5 +1,8 @@
+import datetime
 from src.logic.DecisionIntelligence.DecisionIntelligenceService import DecisionIntelligenceService
+from src.logic.GestioneEventi.GestioneEventiService import GestioneEventiService
 from src.logic.Storage.ScheduleDAO import ScheduleDAO
+from src.logic.model.Evento import Evento
 
 
 class GestioneScheduleService:
@@ -22,4 +25,7 @@ class GestioneScheduleService:
         for data in dict:
             #modifica il livello di irrigazione
             ScheduleDAO.modificaLivelloSchedule(id_terreno, data, dict.get(data))
+            
+        evento = Evento("", "Scheduling", "Scheduling consigliato applicato", datetime.datetime.now(), "Scheduling", False, False, id_terreno)
+        GestioneEventiService.creaEvento(evento)
         return True

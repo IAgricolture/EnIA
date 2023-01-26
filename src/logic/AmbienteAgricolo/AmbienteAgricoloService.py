@@ -1,6 +1,8 @@
 from src.logic.DecisionIntelligence.DecisionIntelligenceService import DecisionIntelligenceService
+from src.logic.GestioneEventi.GestioneEventiService import GestioneEventiService
 from src.logic.Storage.ImpiantoDiIrrigazioneDAO import ImpiantoDiIrrigazioneDAO
 from src.logic.Storage.EventoDAO import EventoDAO
+from src.logic.model.Evento import Evento
 from src.logic.model.ImpiantoDiIrrigazione import ImpiantoDiIrrigazione
 from src.logic.model.Terreno import Terreno
 from src.logic.Storage.TerrenoDAO import TerrenoDAO
@@ -109,6 +111,8 @@ class AmbienteAgricoloService():
     def aggiungiIrrigatore(id_terreno: str, nome_irrigatore: str, posizione_irrigatore: str) -> str:
         impianto = ImpiantoDiIrrigazione("", nome_irrigatore, "irrigatore", "", posizione_irrigatore, False)
         id = ImpiantoDiIrrigazioneDAO.creaImpianto(impianto, id_terreno)
+        evento = Evento("", "Creazione Irrigatore", "L'irrigatore :" + nome_irrigatore + " è stato creato",datetime.now(), "INFO",False ,False, id_terreno)
+        GestioneEventiService.creaEvento(evento)
         return id
     
     def modificaIrrigatore(idIrrigatore: str, nomeIrrigatore: str, posizioneIrrigatore: str):
@@ -159,7 +163,16 @@ class AmbienteAgricoloService():
         url = "https://api.open-meteo.com/v1/forecast?"\
         "latitude="+str(lat)+"&longitude="+str(lon)+ "&hourly=temperature_2m,relativehumidity_2m,precipitation"
         data = requests.get(url).json()
-        print(data)
+        
+        #fai la somma delle precipitazioni per le prossime 24 ore
+        somma = 0
+        for i in range(0,24):
+            somma += data["hourly"]["precipitation"][i]
+        
+        if somma > 10:
+            u = Evento("", "Pioggia", "Ci saranno ingenti quantità di pioggia nelle prossime 24 ore", datetime.now(), "Pioggia", False, False, "")
+            GestioneEventiService.creaEvento(u)
+        
         return data
     
     def restituisciPredizioneLivelliIrrigazione(lon:float, lat:float, crop:str, stage:str):
