@@ -285,6 +285,9 @@
         console.log(points)
     });
 
+    function redirect() {
+      window.location.href = "/visualizzaTerreni";
+  }
     
     if("{{terreno.preferito}}" == "True"){
       document.getElementById("preferito").checked = true
@@ -324,6 +327,7 @@
           console.log(data)
           if(data["modificato"] =="true"){
             creaNotifica("Terreno modificato correttamente!", "successo", document.getElementById("formnascosto"), "notificamodifica")
+            setTimeout(redirect, 1000);
             } else {
               creaNotifica("Si è verificato un errore durante la modifica del terreno.", "fallimento", document.getElementById("formnascosto"), "notificamodifica")
             }
