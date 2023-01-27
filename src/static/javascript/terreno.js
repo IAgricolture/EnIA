@@ -1,3 +1,4 @@
+    var validMap = true
     function insert(){
 
       if(!(validate()))
