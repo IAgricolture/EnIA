@@ -36,10 +36,14 @@ class GestioneUtenteService():
         return AutenticazioneDAO.eliminaUtente(id)
         
     def GenerateCode(ruolo:str, datore:str) -> str:
-        while True:
-            codice = random_string(6)
-            if(AutenticazioneDAO.trovaUtenteByCodiceDiAccesso(codice) is None):
-                break
-        AutenticazioneDAO.insertSlot(ruolo, codice, datore)
-        return codice
+        ruoli = ["irrigation manager", "pollution analyst"]
+
+        if ruolo in ruoli: 
+            while True:
+                codice = random_string(6)
+                if(AutenticazioneDAO.trovaUtenteByCodiceDiAccesso(codice) is None):
+                    break
+            AutenticazioneDAO.insertSlot(ruolo, codice, datore)
+            return codice
+        return "Error"
         
