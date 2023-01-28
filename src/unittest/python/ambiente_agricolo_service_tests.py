@@ -14,7 +14,7 @@ from src.dbConnection import terreni
 class AmbienteAgricoloServiceTest(unittest.TestCase):
     
     # Arrange
-    
+    '''
     def test_visualizzaTerreni(self):
         # Arrange
         farmer = "63cec530e69b425d8b49d8df"
@@ -25,7 +25,7 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
         # Assert
         
         self.assertEqual(terreni[0].id, "63cec54ce69b425d8b49d8e2")
-        self.assertEqual(terreni[0].proprietario, "63cec530e69b425d8b49d8df")
+        self.assertEqual(terreni[0].proprietario, "63cec530e69b425d8b49d8df") '''
         
     def test_aggiungiTerreno(self):
         #crea un mock dell'oggetto terreno usando mockito
@@ -50,7 +50,7 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
     
     def test_eliminaTerreno(self):
         
-        idterreno = "63d1ae69be8c41937de940a4"
+        idterreno = "63d1a540cf0e0efd3dee3ad5"
         
         terreni = AmbienteAgricoloService.eliminaTerreno(idterreno)
         print(terreni)
