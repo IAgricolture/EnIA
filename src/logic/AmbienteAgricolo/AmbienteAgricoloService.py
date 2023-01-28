@@ -8,6 +8,7 @@ from src.logic.model.Terreno import Terreno
 from src.logic.Storage.TerrenoDAO import TerrenoDAO
 import requests
 import json
+import re
 from datetime import datetime
 
 #TODO: ERROR HANDLING DAO TERRENO
@@ -17,6 +18,65 @@ class AmbienteAgricoloService():
     Colture= ["Orzo", "Fagiolo", "Cavolo", "Carota", "Cotone", "Cetriolo", "Melanzana", "Grano", "Lenticchia", "Lattuga"]
     StadiCrescita = ["Iniziale", "Sviluppo", "Metà Stagione", "Fine Stagione"]
     
+    def isValidTerreno(terreno: Terreno)->bool:
+        risultato = AmbienteAgricoloService.validateTerreno(terreno)
+        print(risultato)
+        return risultato["esitoControllo"]
+    
+    def validateTerreno(terreno: Terreno):
+        risultato = {
+            "nomeNonValido": False,
+            "colturaNonValida": False,
+            "posizioneNonValida": False,
+            "preferitoNonValido": False,
+            "prioritaNonValida": False,
+            "proprietarioNonValido": False,
+            "stadio_crescitaNonValido": False,
+            "esitoControllo": False 
+        }
+        regexNome = re.compile(r"[a-zA-z0-9_]+[\w\s\W]*$")
+        regexPriorita = re.compile(r"^[0-9]")
+        if(not re.match(regexNome, terreno.nome)):
+            risultato["nomeNonValido"] = True
+        if(terreno.coltura not in AmbienteAgricoloService.Colture):
+            risultato["colturaNonValida"] = True
+        print("Prima controllo posizione")
+        #WIP: Controllo posizione
+        posizione = terreno.posizione
+        try: #Se non esiste uno dei campi richiesti, la posizione è invalida.
+            print(posizione["type"])
+            if(posizione["type"] != "Feature"):  #Una sola posizione
+                print("Type non era feature")
+                risultato["posizioneNonValida"] = True
+            print(posizione["properties"])
+            if(posizione["properties"]):    #Non ha proprietà aggiuntive
+                print("Properties erano presenti")
+                risultato["posizioneNonValida"] = True 
+            geometria = posizione["geometry"]
+            if(geometria["type"] != "Polygon"):
+                print("Tipo non era Polygon")
+                risultato["posizioneNonValida"] = True
+            print(geometria["coordinates"])
+            print(len(geometria["coordinates"][0]))
+            print(len(geometria["coordinates"][0][0]))
+            if(len(geometria["coordinates"][0]) < 2 or len(geometria["coordinates"][0][0]) != 2): #Ha un array di coordinate
+                print("Array coordinate non era 2D")
+                risultato["posizioneNonValida"] = True 
+        except KeyError:
+            risultato["posizioneNonValida"] = True
+        print("Dopo controllo posizione")    
+        if(terreno.preferito != True and terreno.preferito != False):
+            risultato["preferitoNonValido"] = True   
+        if(not re.match(regexPriorita, str(terreno.priorita))):
+            risultato["prioritaNonValida"] = True
+        #WIP: Controllo proprietario
+        if(terreno.stadio_crescita not in AmbienteAgricoloService.StadiCrescita):
+            risultato["stadio_crescitaNonValido"] = True
+        
+        if not (risultato["nomeNonValido"] or risultato["colturaNonValida"] or risultato["posizioneNonValida"] or risultato["preferitoNonValido"] or risultato["prioritaNonValida"] or risultato["proprietarioNonValido"] or risultato["stadio_crescitaNonValido"]):
+            risultato["esitoControllo"] = True
+        return risultato
+    
     def visualizzaTerreni(farmer:str):
         Terreni = TerrenoDAO.restituisciTerreniByFarmer(farmer)
         return Terreni
@@ -24,8 +84,15 @@ class AmbienteAgricoloService():
     def aggiungiTerreno(nome: str, coltura:str, stadio_crescita: str, posizione, preferito:bool, priorita:int, proprietario: str)-> bool:
         id = None
         terreno = Terreno(id, nome, coltura, stadio_crescita, posizione, preferito, priorita, proprietario)
-        result = TerrenoDAO.InserisciTerreno(terreno)
-        return result != None
+        risultato = AmbienteAgricoloService.validateTerreno(terreno)
+        if(risultato["esitoControllo"]):
+            resultDB = TerrenoDAO.InserisciTerreno(terreno)
+            risultato["esitoOperazione"] = True
+            risultato["restituito"] = resultDB
+        else:
+            risultato["esitoOperazione"] = False
+            risultato["restituito"] = None
+        return risultato
 
     def trovaTerreno(id: str)-> Terreno:
         Terreno = TerrenoDAO.TrovaTerreno(id)
