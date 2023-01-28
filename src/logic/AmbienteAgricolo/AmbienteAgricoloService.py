@@ -20,7 +20,6 @@ class AmbienteAgricoloService():
     
     def isValidTerreno(terreno: Terreno)->bool:
         risultato = AmbienteAgricoloService.validateTerreno(terreno)
-        print(risultato)
         return risultato["esitoControllo"]
     
     def validateTerreno(terreno: Terreno):
@@ -40,39 +39,25 @@ class AmbienteAgricoloService():
             risultato["nomeNonValido"] = True
         if(terreno.coltura not in AmbienteAgricoloService.Colture):
             risultato["colturaNonValida"] = True
-        print("Prima controllo posizione")
-        #WIP: Controllo posizione
         posizione = terreno.posizione
         try: #Se non esiste uno dei campi richiesti, la posizione è invalida.
-            print(posizione["type"])
             if(posizione["type"] != "Feature"):  #Una sola posizione
-                print("Type non era feature")
                 risultato["posizioneNonValida"] = True
-            print(posizione["properties"])
             if(posizione["properties"]):    #Non ha proprietà aggiuntive
-                print("Properties erano presenti")
                 risultato["posizioneNonValida"] = True 
             geometria = posizione["geometry"]
             if(geometria["type"] != "Polygon"):
-                print("Tipo non era Polygon")
                 risultato["posizioneNonValida"] = True
-            print(geometria["coordinates"])
-            print(len(geometria["coordinates"][0]))
-            print(len(geometria["coordinates"][0][0]))
             if(len(geometria["coordinates"][0]) < 2 or len(geometria["coordinates"][0][0]) != 2): #Ha un array di coordinate
-                print("Array coordinate non era 2D")
                 risultato["posizioneNonValida"] = True 
         except KeyError:
             risultato["posizioneNonValida"] = True
-        print("Dopo controllo posizione")    
         if(terreno.preferito != True and terreno.preferito != False):
             risultato["preferitoNonValido"] = True   
         if(not re.match(regexPriorita, str(terreno.priorita))):
             risultato["prioritaNonValida"] = True
-        #WIP: Controllo proprietario
         if(terreno.stadio_crescita not in AmbienteAgricoloService.StadiCrescita):
             risultato["stadio_crescitaNonValido"] = True
-        
         if not (risultato["nomeNonValido"] or risultato["colturaNonValida"] or risultato["posizioneNonValida"] or risultato["preferitoNonValido"] or risultato["prioritaNonValida"] or risultato["proprietarioNonValido"] or risultato["stadio_crescitaNonValido"]):
             risultato["esitoControllo"] = True
         return risultato
