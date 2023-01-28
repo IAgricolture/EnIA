@@ -50,9 +50,10 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
     
     def test_eliminaTerreno(self):
         
-        idterreno = "63cec54ce69b425d8b49d8e2"
+        idterreno = "63d1ae69be8c41937de940a4"
         
         terreni = AmbienteAgricoloService.eliminaTerreno(idterreno)
+        print(terreni)
         
         self.assertTrue(terreni)
         
