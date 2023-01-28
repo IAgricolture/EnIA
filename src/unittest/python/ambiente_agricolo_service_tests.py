@@ -16,38 +16,19 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
     
     # Arrange
     
+    
     def test_visualizzaTerreni(self):
         # Arrange
-        farmer = "63cec530e69b425d8b49d8df"
-
+        print("visualizzaTerreni")
+        farmer = "63b9e6a27862c31f1f7b221f"
         # Act
+        
         terreni = AmbienteAgricoloService.visualizzaTerreni(farmer)
 
         # Assert
-        
-        self.assertEqual(terreni[0].id, "63cec54ce69b425d8b49d8e2")
-        self.assertEqual(terreni[0].proprietario, "63cec530e69b425d8b49d8df")
-        
-    '''def test_aggiungiTerreno(self):
-        #crea un mock dell'oggetto terreno usando mockito
-        terreno = mock()
-        #aggiungi al mock terreno l'attributo nome e assegnagli il valore "Terreno1"
-        terreno.nome = "Terreno1"
-        terreno.coltura = "Coltura1"
-        terreno.stadio_crescita = "Sviluppo"
-        terreno.posizione = "Posizione1"
-        terreno.preferito = True
-        terreno.priorita = 1
-        terreno.proprietario = "63cec530e69b425d8b49d8df"
-        
-        #act
-        risultato = AmbienteAgricoloService.aggiungiTerreno(terreno.nome, terreno.coltura,terreno.stadio_crescita, terreno.posizione,
-                                                            terreno.preferito, terreno.priorita, terreno.proprietario)
-        
-        terreni.delete_one({"Nome" : terreno.nome, "proprietario" : terreno.proprietario})
-        
-        #assert
-        self.assertEqual(risultato, True)'''
+    
+        self.assertEqual(terreni[0].id, "63c6ca0e895a27206d95c005")
+        self.assertEqual(terreni[0].proprietario, "63b9e6a27862c31f1f7b221f")
     
     #Limoni non sono una coltura valida
     #Controllo colture non dovrebbe essere il formato ma se esistono tra quelle preinserite
@@ -67,6 +48,7 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
         self.assertEqual(risultato["esitoOperazione"], False)  #Fallito inserimento
         self.assertEqual(risultato["nomeNonValido"], True) #Fallito a causa del formato del nome
    
+    #ORACOLO: Inserimento fallisce per nome mancante
     def test_aggiungiTerreno_TC_2_1_2(self):
         print("TC_2_1_2")
         nome = ""
@@ -80,7 +62,8 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
         print(risultato)
         self.assertEqual(risultato["esitoOperazione"], False)  #Fallito inserimento
         self.assertEqual(risultato["nomeNonValido"], True) #Fallito a causa della mancanza del nome     
-        
+    
+    #ORACOLO: Inserimento fallisce per mancanza di coltura
     def test_aggiungiTerreno_TC_2_1_3(self):
         print("TC_2_1_3")
         nome = "Terreno-A"
@@ -95,6 +78,7 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
         self.assertEqual(risultato["esitoOperazione"], False)  #Fallito inserimento
         self.assertEqual(risultato["colturaNonValida"], True) #Fallito a causa della mancanza della coltura
     
+    #ORACOLO: Inserimento fallisce per formato invalido di coltura
     def test_aggiungiTerreno_TC_2_1_4(self):
         print("TC_2_1_4")
         nome = "Terreno-A"
@@ -109,6 +93,8 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
         self.assertEqual(risultato["esitoOperazione"], False)  #Fallito inserimento
         self.assertEqual(risultato["colturaNonValida"], True) #Fallito a causa del formato sbagliato della coltura 
     
+    #ORACOLO: Inserimento fallisce per formato invalido di coltura 
+    #Si potrebbe eliminare in quanto una ripetizione del 4, stessi controlli.
     def test_aggiungiTerreno_TC_2_1_5(self):
         print("TC_2_1_5")
         nome = "Terreno-A"
@@ -125,6 +111,7 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
         
     #2_1_6, 2_1_7 non si possono fare perchè la dimensione del terreno non esiste più.
     
+    #ORACOLO: Fallisce in quanto manca la posizione
     def test_aggiungiTerreno_TC_2_1_8(self):
         print("TC_2_1_8")
         nome = "Terreno-A"
@@ -138,22 +125,8 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
         print(risultato)
         self.assertEqual(risultato["esitoOperazione"], False)  #Fallito inserimento
         self.assertEqual(risultato["posizioneNonValida"], True) #Fallito a causa dell'assenza della posizione
-    
-    ''' NON FUNZIONA NE PRINTA
-    def test_aggiungiTerreno_TC_2_1_11(self):
-        print("TC_2_1_11")
-        nome = "Terreno-A"
-        coltura = "Limoni"
-        posizione = {"type":"Feature","properties":{},"geometry":{"type":"Polygon","coordinates":[[[14.783607,40.772225],[14.783735,40.772745],[14.784594,40.771965],[14.783607,40.772225]]]}}
-        preferito = True
-        priorita = 15
-        proprietario = "63b9e6a27862c31f1f7b221f"
-        stadio_crescita = "Sviluppo"
-        risultato = AmbienteAgricoloService.aggiungiTerreno(nome, coltura, stadio_crescita, posizione, preferito, priorita, proprietario)
-        print(risultato)
-        AmbienteAgricoloService.eliminaTerreno(risultato["restituito"])        
-        self.assertEqual(risultato["esitoOperazione"], True)  #Fallito inserimento    
-    '''
+   
+    #ORACOLO: Fallito per il formato sbagliato della posizione
     def test_aggiungiTerreno_TC_2_1_9(self):
         print("TC_2_1_9")
         nome = "Terreno-A"
@@ -167,8 +140,10 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
         print(risultato)
         self.assertEqual(risultato["esitoOperazione"], False)  #Fallito inserimento
         self.assertEqual(risultato["posizioneNonValida"], True) #Fallito a causa del formato sbagliato della posizione
-        
-    '''NON PRINTA'''
+    
+    #2_1_10 è per preferito e non per priorità, va cambiato nel TCS.
+    
+    #ORACOLO: Fallito a causa del tipo sbagliato di preferito, che dovrebbe essere un bool e non un int.
     def test_aggiungiTerreno_TC_2_1_10(self):
         print("TC_2_1_10")
         nome = "Terreno-A"
@@ -181,3 +156,20 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
         risultato = AmbienteAgricoloService.aggiungiTerreno(nome, coltura, stadio_crescita, posizione, preferito, priorita, proprietario)
         print(risultato)
         self.assertRaises(TypeError)
+    
+    #Necessario cambiare coltura da Limoni ad Orzo nel Test Case
+    #ORACOLO: Inserimento va a buon fine in quanto tutti i campi sono corretti.
+    def test_aggiungiTerreno_TC_2_1_11(self):
+        print("TC_2_1_11")
+        nome = "Terreno-A"
+        coltura = "Orzo"
+        posizione = {"type":"Feature","properties":{},"geometry":{"type":"Polygon","coordinates":[[[14.783607,40.772225],[14.783735,40.772745],[14.784594,40.771965],[14.783607,40.772225]]]}}
+        preferito = True
+        priorita = 15
+        proprietario = "63b9e6a27862c31f1f7b221f"
+        stadio_crescita = "Sviluppo"
+        risultato = AmbienteAgricoloService.aggiungiTerreno(nome, coltura, stadio_crescita, posizione, preferito, priorita, proprietario)
+        print(risultato)
+        AmbienteAgricoloService.eliminaTerreno(risultato["restituito"])        
+        self.assertEqual(risultato["esitoOperazione"], True)  #Inserimento riesce
+        
