@@ -1,4 +1,4 @@
-from src.Adapters.IAdapter import IAdapter
+from src.logic.Adapters.IAdapter import IAdapter
 
 
 class DecisionIntelligenceService:  
