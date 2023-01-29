@@ -2,7 +2,7 @@ import unittest
 import os, sys
 from unittest.mock import Mock
 from bson import ObjectId
-from mockito import mock, when
+from mockito import mock, patch, when
 
 sys.path.append(os.path.abspath(os.path.join('.' )))
 from src.logic.Adapters.NominatimAdapter import NominatimAdapter
@@ -107,8 +107,66 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
         # Chiamare il metodo da testare e verificare il risultato
         risultato = AmbienteAgricoloService.cercaPosizione(id)
         print(risultato)
-        risultatodaaspettarsi = {'place_id': 307508336, 'licence': 'Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright', 'osm_type': 'relation', 'osm_id': 40803, 'lat': '40.829811', 'lon': '14.504436', 'display_name': 'San Giuseppe Vesuviano, Napoli, Campania, Italia', 'address': {'town': 'San Giuseppe Vesuviano', 'county': 'Napoli', 'ISO3166-2-lvl6': 'IT-NA', 'state': 'Campania', 'ISO3166-2-lvl4': 'IT-72', 'country': 'Italia', 'country_code': 'it'}, 'boundingbox': ['40.8048817', '40.8449205', '14.4457768', '14.5322165']}
+        #cut place_id, license and osm_id from result
+        risultato.pop('place_id')
+        risultato.pop('licence')
+        risultato.pop('osm_id')
+        risultatodaaspettarsi = {'osm_type': 'relation','lat': '40.829811', 'lon': '14.504436', 'display_name': 'San Giuseppe Vesuviano, Napoli, Campania, Italia', 'address': {'town': 'San Giuseppe Vesuviano', 'county': 'Napoli', 'ISO3166-2-lvl6': 'IT-NA', 'state': 'Campania', 'ISO3166-2-lvl4': 'IT-72', 'country': 'Italia', 'country_code': 'it'}, 'boundingbox': ['40.8048817', '40.8449205', '14.4457768', '14.5322165']}
         self.assertEqual(risultato, risultatodaaspettarsi)
+    
+    def test_modificaTerreno(self):
+        # Arrange
+        id = ObjectId()
+        nome = "Terreno A"
+        coltura = "Mais"
+        stadio_crescita = "Fine Stagione"
+        dict = dict ={
+            "type": "Feature",
+            "properties": {},
+            "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+                [
+                [
+                    14.512253,
+                    40.811619
+                ],
+                [
+                    14.519634,
+                    40.813957
+                ],
+                [
+                    14.523411,
+                    40.807851
+                ],
+                [
+                    14.514484,
+                    40.802653
+                ],
+                [
+                    14.512253,
+                    40.811619
+                ]
+                ]
+            ]
+            }
+        }
+        posizione = {"type": "Polygon", "coordinates": [[[-75.343, 39.984], [-75.534, 39.123], [-75.243, 39.243]]]}
+        preferito = True
+        priorita = 2
+        proprietario = "Mario Rossi"
+
+        modificaTerreno_mock = Mock()
+        modificaTerreno_mock.return_value.matched_count = 1
+        TerrenoDAO.modificaTerreno = modificaTerreno_mock
+        
+        modificaTerreno_mock.return_value.matched_count = 1
+
+        # Act
+        result = AmbienteAgricoloService.modificaTerreno(id, nome, coltura, stadio_crescita, posizione, preferito, priorita, proprietario)
+
+        # Assert
+        self.assertTrue(result)
     
     #Limoni non sono una coltura valida
     #Controllo colture non dovrebbe essere il formato ma se esistono tra quelle preinserite
