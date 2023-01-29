@@ -1,3 +1,4 @@
+from src.Adapters.NominatimAdapter import NominatimAdapter
 from src.logic.DecisionIntelligence.DecisionIntelligenceService import DecisionIntelligenceService
 from src.logic.GestioneEventi.GestioneEventiService import GestioneEventiService
 from src.logic.Storage.ImpiantoDiIrrigazioneDAO import ImpiantoDiIrrigazioneDAO
@@ -106,7 +107,8 @@ class AmbienteAgricoloService():
             lon = terreno.posizione["geometry"]["coordinates"][0][0][0]
             print(lat)
             print(lon)
-            datiapi = requests.get("https://nominatim.openstreetmap.org/reverse?lat="+ str(lat) + "&lon=" + str(lon) + "&format=json&zoom=10").json()
+            nominatim = NominatimAdapter(lat, lon, "json", 10)
+            datiapi = nominatim.get_data()
             print(datiapi)
             return datiapi  #JSON
         
