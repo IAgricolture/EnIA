@@ -6,11 +6,11 @@ class Terreno():
         self.id = id
         self.nome = nome
         self.coltura = coltura
+        self.stadio_crescita = stadio_crescita
         self.posizione = posizione
         self.preferito = preferito
         self.priorita = priorita
         self.proprietario = proprietario
-        self.stadio_crescita = stadio_crescita
 
     def getid(self):
         return str(self.id)
@@ -33,4 +33,9 @@ class Terreno():
     def getproprietario(self):
         return str(self.proprietario)
 
-    
+    #Fa da equals, lo metto senza il controllo dell'id in quanto con l'id non mi serve, invece così lo uso per test e per duplicati.
+    def __eq__(self, __o: object) -> bool:
+        if(self.nome == __o.nome and self.coltura == __o.coltura and self.posizione == __o.posizione and self.preferito == __o.preferito and self.priorita == __o.priorita and self.proprietario == __o.proprietario):
+            return True
+        else:
+            return False
