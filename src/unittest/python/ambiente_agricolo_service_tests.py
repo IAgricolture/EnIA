@@ -35,6 +35,7 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
                 return [fake_terreni[0], fake_terreni[1]]
             else:
                 return [fake_terreni[2]]
+        buffer = TerrenoDAO.restituisciTerreniByFarmer
         TerrenoDAO.restituisciTerreniByFarmer = mock_restituisciTerreniByFarmer
         
         # quando passi il farmer 1 restituisci il primo e il secondo terreno
@@ -48,6 +49,7 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
         # Testare il metodo visualizzaTerreni per il proprietario "Farmer 2"
         terreni = AmbienteAgricoloService.visualizzaTerreni("Farmer 2")
         self.assertEqual(terreni, [fake_terreni[2]])
+        TerrenoDAO.restituisciTerreniByFarmer = buffer
     
     def test_trova_terreno(self):
         # Creare un oggetto fittizio di Terreno
@@ -56,11 +58,13 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
         # Sovrascrivere il metodo TrovaTerreno per restituire sempre l'oggetto fittizio
         def mock_TrovaTerreno(id):
             return fake_terreno
+        buffer = TerrenoDAO.TrovaTerreno
         TerrenoDAO.TrovaTerreno = mock_TrovaTerreno
         
         # Testare il metodo trovaTerreno per l'identificatore "1"
         terreno = AmbienteAgricoloService.trovaTerreno("1")
         self.assertEqual(terreno, fake_terreno)
+        TerrenoDAO.TrovaTerreno = buffer
         
     def test_cercaPosizione(self):
         # Dati di test fittizi per l'oggetto Terreno
@@ -100,6 +104,7 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
         }
         terreno = Terreno(id, "Terreno di prova", "Pomodori", "Semina",dict, False, 1, "Farmer1")
         # Creare una mock del metodo TrovaTerreno su TerrenoDAO
+        bufferTrovaTerreno = TerrenoDAO.TrovaTerreno
         TerrenoDAO.TrovaTerreno = unittest.mock.Mock(return_value=terreno)
 
         # Creare una mock del metodo get_data su NominatimAdapter
@@ -116,6 +121,7 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
         risultato.pop('osm_id')
         risultatodaaspettarsi = {'osm_type': 'relation','lat': '40.829811', 'lon': '14.504436', 'display_name': 'San Giuseppe Vesuviano, Napoli, Campania, Italia', 'address': {'town': 'San Giuseppe Vesuviano', 'county': 'Napoli', 'ISO3166-2-lvl6': 'IT-NA', 'state': 'Campania', 'ISO3166-2-lvl4': 'IT-72', 'country': 'Italia', 'country_code': 'it'}, 'boundingbox': ['40.8048817', '40.8449205', '14.4457768', '14.5322165']}
         self.assertEqual(risultato, risultatodaaspettarsi)
+        TerrenoDAO.TrovaTerreno = bufferTrovaTerreno
     
     def test_modificaTerreno(self):
         # Arrange
@@ -161,6 +167,7 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
 
         modificaTerreno_mock = Mock()
         modificaTerreno_mock.return_value.matched_count = 1
+        buffer = TerrenoDAO.modificaTerreno
         TerrenoDAO.modificaTerreno = modificaTerreno_mock
         
         modificaTerreno_mock.return_value.matched_count = 1
@@ -170,6 +177,7 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
 
         # Assert
         self.assertTrue(result)
+        TerrenoDAO.modificaTerreno = buffer
     
     def test_aggiungiIrrigatore(self):
         id_terreno = ObjectId()
@@ -180,17 +188,24 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
         aggiungi_irrigatore_mock.return_value = id_irr
         creaEvento_mock = Mock()
         
+        bufferIrrDao = ImpiantoDiIrrigazioneDAO.creaImpianto
         ImpiantoDiIrrigazioneDAO.creaImpianto = aggiungi_irrigatore_mock
-        GestioneEventiService.creaEvento = creaEvento_mock
+        bufferEventi = GestioneEventiService.GestioneEventiService.creaEvento
+        GestioneEventiService.GestioneEventiService.creaEvento = creaEvento_mock
         id = AmbienteAgricoloService.aggiungiIrrigatore(ObjectId(), nome_irrigatore, posizione_irrigatore)
         
         self.assertEquals(id, id_irr)
+        
+        ImpiantoDiIrrigazioneDAO.creaImpianto = bufferIrrDao
+        GestioneEventiService.GestioneEventiService.creaEvento = bufferEventi
     
-    def test_modifica_irrigatore(self):    
+    def test_modifica_irrigatore(self):
+        buffer = ImpiantoDiIrrigazioneDAO.modificaImpianto
         ImpiantoDiIrrigazioneDAO.modificaImpianto = Mock()
         result = AmbienteAgricoloService.modificaIrrigatore(ObjectId(), "Irrigatore1", "Posizione1")
         
         self.assertTrue(result)
+        ImpiantoDiIrrigazioneDAO.modificaImpianto = buffer
 
        
     #Limoni non sono una coltura valida
