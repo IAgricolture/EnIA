@@ -1,4 +1,5 @@
 from src.Adapters.NominatimAdapter import NominatimAdapter
+from src.Adapters.OpenMeteoAdapter import OpenMeteoAdapter
 from src.Adapters.SenseSquareAdapter import SenseSquareAdapter
 from src.logic.DecisionIntelligence.DecisionIntelligenceService import DecisionIntelligenceService
 from src.logic.GestioneEventi.GestioneEventiService import GestioneEventiService
@@ -175,9 +176,9 @@ class AmbienteAgricoloService():
             return lon
         
     def cercaMeteo(lat:float, lon:float):
-        url = "https://api.open-meteo.com/v1/forecast?"\
-        "latitude="+str(lat)+"&longitude="+str(lon)+ "&hourly=temperature_2m,relativehumidity_2m,precipitation"
-        data = requests.get(url).json()
+        #creo l'oggetto meteo
+        meteo = OpenMeteoAdapter(lat, lon)
+        data = meteo.get_data()
         
         #fai la somma delle precipitazioni per le prossime 24 ore
         somma = 0
