@@ -1,3 +1,6 @@
+from src.logic.Adapters.NominatimAdapter import NominatimAdapter
+from src.logic.Adapters.OpenMeteoAdapter import OpenMeteoAdapter
+from src.logic.Adapters.SenseSquareAdapter import SenseSquareAdapter
 from src.logic.DecisionIntelligence.DecisionIntelligenceService import DecisionIntelligenceService
 from src.logic.GestioneEventi.GestioneEventiService import GestioneEventiService
 from src.logic.Storage.ImpiantoDiIrrigazioneDAO import ImpiantoDiIrrigazioneDAO
@@ -106,59 +109,20 @@ class AmbienteAgricoloService():
             lon = terreno.posizione["geometry"]["coordinates"][0][0][0]
             print(lat)
             print(lon)
-            datiapi = requests.get("https://nominatim.openstreetmap.org/reverse?lat="+ str(lat) + "&lon=" + str(lon) + "&format=json&zoom=10").json()
+            nominatim = NominatimAdapter(lat, lon, "json", 10)
+            datiapi = nominatim.get_data()
             print(datiapi)
             return datiapi  #JSON
         
     def cercaInquinamento(provincia:str, regione:str, nazione:str, comune:str):
-        currentdate = str(datetime.now()).split(" ")
-        date = currentdate[0]
-        precisehour = currentdate[1].split(":")
-        time = precisehour[0] + ":" + precisehour[1]
-        url = "https://square.sensesquare.eu:5001/placeView"
-        body = {
-            "apikey": "3BK3D0LWE8DQ", #Codice API, NON MODIFICARE
-            "tempo": "giorno",
-            "date": date,
-            "time": time,
-            "nazione": nazione,
-            "regione": regione,
-            "provincia": provincia,
-            "comune": comune,
-            "zoom": "3", #0 per tutte le nazioni, 1 per tutte le regioni, 2 per tutte le province, 3 per tutti i comuni, 4 NON VA
-            "predictions": "true", #NON TOCCARE
-            "fonti":"[]" #NON TOCCARE
-            }
-        datiapi = requests.post(url=url, data = body).json()
-        print(datiapi)
+        adapter = SenseSquareAdapter(nazione, regione, provincia, comune)
+        datiapi = adapter.get_data_for_today()
         return datiapi
     
     def cercaStoricoInquinamento(dataInizio:str, dataFine:str, comune:str, regione:str, nazione:str, provincia:str, formato:str):
-        url = "https://square.sensesquare.eu:5001/download"
-        body = {
-            "apikey": "3BK3D0LWE8DQ",
-            "req_type": "daily",
-            "zoom": "3",
-            "start_date": dataInizio,    #Formato deve essere YYYY-MM-DD
-            "start_hour": "0",
-            "end_date": dataFine,
-            "end_hour": "0",
-            "nazione": nazione,
-            "regione": regione,
-            "provincia": provincia,
-            "comune": comune,
-            "format": formato
-        }
-        datiapi = requests.post(url=url, data = body).text
-        print(datiapi)
-        if(formato == "json"):  ##Multipli oggetti JSON, ne faccio un parse decente in un array di oggetti json.
-            arrayDati = datiapi.split("\n") #Ne ottengo un array
-            print(arrayDati)
-            print(len(arrayDati))
-            arrayDati.pop(len(arrayDati) - 1) #Rimuovo un elemento vuoto creato con lo split, all'ultimo posto
-            return arrayDati
-        else:
-            return datiapi  #Qualsiasi altro formato, è buono così com'è.
+        adapter = SenseSquareAdapter(nazione, regione, provincia, comune, start_date = dataInizio, end_date = dataFine, formato = formato)
+        datiapi = adapter.get_data_time_interval()
+        return datiapi
 
     def aggiungiIrrigatore(id_terreno: str, nome_irrigatore: str, posizione_irrigatore: str) -> str:
         impianto = ImpiantoDiIrrigazione("", nome_irrigatore, "irrigatore", "", posizione_irrigatore, False)
@@ -212,9 +176,9 @@ class AmbienteAgricoloService():
             return lon
         
     def cercaMeteo(lat:float, lon:float):
-        url = "https://api.open-meteo.com/v1/forecast?"\
-        "latitude="+str(lat)+"&longitude="+str(lon)+ "&hourly=temperature_2m,relativehumidity_2m,precipitation"
-        data = requests.get(url).json()
+        #creo l'oggetto meteo
+        meteo = OpenMeteoAdapter(lat, lon)
+        data = meteo.get_data()
         
         #fai la somma delle precipitazioni per le prossime 24 ore
         somma = 0
