@@ -32,6 +32,22 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
     
     #Limoni non sono una coltura valida
     #Controllo colture non dovrebbe essere il formato ma se esistono tra quelle preinserite
+    
+    def test_eliminaTerreno(self):
+        print("Elimina Terreno")
+        #Creo il Terreno
+        nome = "Terreno-B"
+        coltura = "Orzo"
+        posizione = {"type":"Feature","properties":{},"geometry":{"type":"Polygon","coordinates":[[[14.783607,40.772225],[14.783735,40.772745],[14.784594,40.771965],[14.783607,40.772225]]]}}
+        preferito = True
+        priorita = 15
+        proprietario = "63b9e6a27862c31f1f7b221f"
+        stadio_crescita = "Sviluppo"
+        risultato = AmbienteAgricoloService.aggiungiTerreno(nome, coltura, stadio_crescita, posizione, preferito, priorita, proprietario)
+        print(risultato["restituito"])
+        #Elimino il Terreno
+        risultato2 = AmbienteAgricoloService.eliminaTerreno(risultato["restituito"]) 
+        self.assertTrue(risultato2) #Eliminazione Riuscita
        
     #ORACOLO: Inserimento fallisce per formato del nome errato       
     def test_aggiungiTerreno_TC_2_1_1(self):
