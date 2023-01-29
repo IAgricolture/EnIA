@@ -4,7 +4,10 @@ from unittest.mock import Mock
 from bson import ObjectId
 from mockito import mock, patch, when
 
+
 sys.path.append(os.path.abspath(os.path.join('.' )))
+from src.logic.GestioneEventi import GestioneEventiService
+from src.logic.Storage.ImpiantoDiIrrigazioneDAO import ImpiantoDiIrrigazioneDAO
 from src.logic.Adapters.NominatimAdapter import NominatimAdapter
 from src.logic.Storage.TerrenoDAO import TerrenoDAO
 from src.logic.AmbienteAgricolo.AmbienteAgricoloService import AmbienteAgricoloService
@@ -168,6 +171,28 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
         # Assert
         self.assertTrue(result)
     
+    def test_aggiungiIrrigatore(self):
+        id_terreno = ObjectId()
+        id_irr = ObjectId()
+        nome_irrigatore = "Irrigatore1"
+        posizione_irrigatore = "Posizione1"
+        aggiungi_irrigatore_mock = Mock()
+        aggiungi_irrigatore_mock.return_value = id_irr
+        creaEvento_mock = Mock()
+        
+        ImpiantoDiIrrigazioneDAO.creaImpianto = aggiungi_irrigatore_mock
+        GestioneEventiService.creaEvento = creaEvento_mock
+        id = AmbienteAgricoloService.aggiungiIrrigatore(ObjectId(), nome_irrigatore, posizione_irrigatore)
+        
+        self.assertEquals(id, id_irr)
+    
+    def test_modifica_irrigatore(self):    
+        ImpiantoDiIrrigazioneDAO.modificaImpianto = Mock()
+        result = AmbienteAgricoloService.modificaIrrigatore(ObjectId(), "Irrigatore1", "Posizione1")
+        
+        self.assertTrue(result)
+
+       
     #Limoni non sono una coltura valida
     #Controllo colture non dovrebbe essere il formato ma se esistono tra quelle preinserite
     
