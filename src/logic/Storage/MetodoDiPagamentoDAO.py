@@ -58,7 +58,7 @@ class MetodoDiPagamentoDAO():
             Questo metodo prende in ingresso un oggetto Metodo di pagamento e lo modifica nel database
         """  
         trovato = MetodoDiPagamentoDAO.findMetodo(metodo.id)
-        if(trovato == None):
+        if(trovato is None):
             return None
 
         metodi_di_pagamento.update_one({"_id": ObjectId(trovato.id)},
