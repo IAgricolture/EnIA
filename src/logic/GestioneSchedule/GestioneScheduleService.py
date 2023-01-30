@@ -16,16 +16,21 @@ class GestioneScheduleService:
         return dict
     
     def modificaLivelloSchedule(id_terreno: str, data: str, modalita: str):
-        ScheduleDAO.modificaLivelloSchedule(id_terreno, data, modalita)
-        return True
+        result = ScheduleDAO.modificaLivelloSchedule(id_terreno, data, modalita)
+        return result
     
     def usaSchedulingConsigliato(id_terreno: str, lat: float, lon: float, stage: str, coltura: str):
         dict = DecisionIntelligenceService.getPredizioneLivelliIrrigazione(lon, lat, coltura, stage)
+        result = True
         #per ogni data nel dizionario
         for data in dict:
             #modifica il livello di irrigazione
-            ScheduleDAO.modificaLivelloSchedule(id_terreno, data, dict.get(data))
+            result = ScheduleDAO.modificaLivelloSchedule(id_terreno, data, dict.get(data))
+            #se result è false, esce dal ciclo
+            if result == False:
+                print("errore nell'aggiornamento dello schedule")
+                break
             
         evento = Evento("", "Scheduling", "Scheduling consigliato applicato", datetime.datetime.now(), "Scheduling", False, False, id_terreno)
         GestioneEventiService.creaEvento(evento)
-        return True
+        return result
