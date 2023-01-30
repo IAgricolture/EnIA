@@ -23,7 +23,18 @@ class RegistrazioneService():
 
     Metodi
     -------
-
+    trovaUtenteByCodiceDiAccesso(codice: str):
+        Cerca un utente attraverso il suo codice di accesso
+    trovaUtenteByEmail(email: str):
+        Cerca un utente attraverso la sua email
+    modificaUtente(nome: str, cognome: str, email: str, password: str, dataDiNascita: str, codice: str, indirizzo: str):
+        Modifica i dati relativi ad un utente
+    creaFarmer(nome: str, cognome: str, email: str, password: str, dataDiNascita: str, partitaiva: str, indirizzo: str):
+        Crea un nuovo utente farmer
+    creaLicenza(id: str, tipo: str):
+        Crea una nuova licenza
+    creaMetodoDiPagamento(numerocarta, titolare, scadenza, cvv, id):
+        Crea una nuovo metodo di pagamento
     '''
     def trovaUtenteByCodiceDiAccesso(codice: str) -> Utente:
         '''
