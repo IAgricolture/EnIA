@@ -16,8 +16,8 @@ class GestioneScheduleService:
         return dict
     
     def modificaLivelloSchedule(id_terreno: str, data: str, modalita: str):
-        ScheduleDAO.modificaLivelloSchedule(id_terreno, data, modalita)
-        return True
+        result = ScheduleDAO.modificaLivelloSchedule(id_terreno, data, modalita)
+        return result
     
     def usaSchedulingConsigliato(id_terreno: str, lat: float, lon: float, stage: str, coltura: str):
         dict = DecisionIntelligenceService.getPredizioneLivelliIrrigazione(lon, lat, coltura, stage)

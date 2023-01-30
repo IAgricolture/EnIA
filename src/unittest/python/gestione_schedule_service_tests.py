@@ -64,6 +64,26 @@ class gestione_schedule_service_tests(unittest.TestCase):
         GestioneEventiService.creaEvento = buffer_eventi
         DecisionIntelligenceService.getPredizioneLivelliIrrigazione = buffer_decision_intelligence_service
         
+    def test_modificaLivelloSchedule(self):
+        # Arrange
+        buffer_schedule_dao = ScheduleDAO.modificaLivelloSchedule
+        id_terreno = "id_terreno"
+        data = "12-11-2020"
+        modalita = "modalita"
+        ScheduleDAO.modificaLivelloSchedule = MagicMock(return_value = True)
+        
+        # Act
+        result = GestioneScheduleService.modificaLivelloSchedule(id_terreno, data, modalita)
+        
+        # Assert
+        self.assertTrue(result)
+        #clean
+        ScheduleDAO.modificaLivelloSchedule = buffer_schedule_dao
+        
+        
+        
+       
+        
         
 if __name__ == '__main__':
     unittest.main()
