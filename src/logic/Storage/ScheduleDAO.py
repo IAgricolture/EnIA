@@ -130,12 +130,12 @@ class ScheduleDAO():
         #get tomorrow
         tomorrow = date + timedelta(days=1)
         #modifica la modalita dello schedule nel database sulla entry che ha id_terreno e date uguali a quelle passate
-        schedule.update_one({
+        result = schedule.update_one({
             "terreno": ObjectId(id_terreno),
             "inizio": {"$gte": date, "$lt": tomorrow}
         }, { "$set": { "modalita": modalita } })
         
-        return True
+        return result.modified_count > 0
         
         
 
