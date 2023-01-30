@@ -41,5 +41,11 @@ class Utente():
     def is_anonymous(self): #Se esiste, di sicuro non può essere anonimo, perciò false. Serve per @login_required.
         return False
 
+    def __eq__(self, __o: object) -> bool:
+        if(self.nome == __o.nome and self.cognome == __o.cognome and self.email == __o.email and self.ruolo == __o.ruolo and self.indirizzo == __o.indirizzo and self.dataNascita == __o.dataNascita and self.partitaIVA == __o.partitaIVA and self.codice == __o.codice and self.datore == __o.datore and self.password == __o.password):
+           return True 
+        else:
+            return False
+        
 
 
