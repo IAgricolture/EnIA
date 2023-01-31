@@ -20,12 +20,20 @@ class AutenticazioneService():
 
     Metodi
     -------
+    login(email: str, password: str):
+        Controlla se le credenziali di accesso sono presenti sul database
+    trovaUtenteById(id: str):
+        Cerca un utente sul DataBase attraverso il suo id
+    logout():
+        Effettua il logout
+    getDatoreFromDipendente(idDipendente: str):
+        Recupera il datore del dipendente
 
     '''
 
     def login(email: str, password: str) -> bool:
         '''
-        Controlla se le credenziali di accesso sono presentio sul database
+        Controlla se le credenziali di accesso sono presenti sul database
 
         Parametri
         ----------
