@@ -59,7 +59,7 @@ class AutenticazioneService():
 
     def trovaUtenteById(id: str) -> Utente:
         '''
-        Cerca un utente sul DB attraverso il suo id
+        Cerca un utente sul DataBase attraverso il suo id
 
         Parametri
         ----------
