@@ -188,6 +188,35 @@ class MetodoDiPagamentoDAOTests(unittest.TestCase):
         result = MetodoDiPagamentoDAO.eliminaMetodo(self.metodoID)
         self.assertEqual(result, True)
         
+class LicenzaDAOTests(unittest.TestCase):
+    
+    def setUp(self):
+        self.licenza = Licenza("", "licenza standard", 29.99, "2022-01-31", "2023-01-31", False, "63bd21ceb7dba69993e45sms")
+        self.licenzaID = LicenzaDAO.creaLicenza(self.licenza)
+        self.licenzaExpected = LicenzaDAO.findLicenza(self.licenzaID)
+        
+    def tearDown(self):
+        LicenzaDAO.eliminaLicenza(self.licenzaID)
+            
+    def test_findLicenza_pass(self):
+        print("findLicenza")
+        licenzaResult = LicenzaDAO.findLicenza(self.licenzaID)
+        self.assertEqual(licenzaResult, self.licenzaExpected)
+
+    def test_creaLicenza_pass(self):
+        print("creaLicenza")
+        self.assertEqual(self.licenza, self.licenzaExpected)
+    
+    def test_findLicenzaByProprietario_pass(self):
+        print("findLicenzaByProprietario")
+        licenzaResult = LicenzaDAO.findLicenzaByProprietario(self.licenza.proprietario)
+        self.assertEqual(licenzaResult, self.licenzaExpected)
+    
+    def test_eliminaLicenza_pass(self):
+        print("eliminaLicenza")
+        result = LicenzaDAO.eliminaLicenza(self.licenzaID)
+        self.assertEqual(result, True)     
+        
 if __name__ == '__main__':
     print("Partenza test di TerrenoDAO")
     test = TerrenoDAOTests()
@@ -199,5 +228,9 @@ if __name__ == '__main__':
     test.run()
     print("Partenza test di MetodoDiPagamentoDAO")
     test = MetodoDiPagamentoDAOTests()
+    test.setUp()
+    test.run()
+    print("Partenza test di LicenzaPagamentoDAO")
+    test = LicenzaDAOTests()
     test.setUp()
     test.run()

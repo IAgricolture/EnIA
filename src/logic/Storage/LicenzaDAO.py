@@ -59,4 +59,15 @@ class LicenzaDAO():
 
         return licenzaTrovata
 
+    def eliminaLicenza(id : str)->bool:
+        '''
+            Questo metodo prende in ingresso un id ed elimina
+            la corrispondente licenza dal database
+        '''
+            
+        result = licenze.delete_one({"_id": ObjectId(id)})
+        if(result.deleted_count == 1):
+            return True
+        else:
+            return False
 
