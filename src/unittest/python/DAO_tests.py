@@ -151,6 +151,42 @@ class AutenticazioneDAOTests(unittest.TestCase):
         result = AutenticazioneDAO.getDatore(self.dipendenteExpected.id)
         self.assertEqual(result, self.dipendenteExpected.datore) 
         
+class MetodoDiPagamentoDAOTests(unittest.TestCase):
+    
+    def setUp(self):
+        self.metodo = MetodoDiPagamento("", "5220629405479725", "Marco Rossi", "12/24", "874", "63b9e6a27862c31f1f7p40p")
+        self.metodoID = MetodoDiPagamentoDAO.creaMetodo(self.metodo)
+        self.metodoExpected = MetodoDiPagamentoDAO.findMetodo(self.metodoID)
+        
+    def tearDown(self):
+        MetodoDiPagamentoDAO.eliminaMetodo(self.metodoID)
+            
+    def test_findMetodo_pass(self):
+        print("findMetodo")
+        metodoResult = MetodoDiPagamentoDAO.findMetodo(self.metodoID)
+        self.assertEqual(metodoResult, self.metodoExpected)
+
+    def test_creaMetodo_pass(self):
+        print("creaMetodo")
+        self.assertEqual(self.metodo, self.metodoExpected)
+    
+    def test_findMetodoByProprietario_pass(self):
+        print("findMetodoByProprietario")
+        metodoResult = MetodoDiPagamentoDAO.findMetodoByProprietario(self.metodo.proprietario)
+        self.assertEqual(metodoResult, self.metodoExpected)
+    
+    def test_modificaMetodo_pass(self):
+        print("modificaMetodo")
+        scadenzaPrecedenteMetodo = self.metodoExpected.scadenza
+        self.metodoExpected.scadenza = "11/25"
+        MetodoDiPagamentoDAO.modificaMetodo(self.metodoExpected)
+        resultMetodo = MetodoDiPagamentoDAO.findMetodo(self.metodoExpected.id)
+        self.assertNotEqual(scadenzaPrecedenteMetodo, resultMetodo.scadenza)
+    
+    def test_eliminaMetodo_pass(self):
+        print("eliminaMetodo")
+        result = MetodoDiPagamentoDAO.eliminaMetodo(self.metodoID)
+        self.assertEqual(result, True)
         
 if __name__ == '__main__':
     print("Partenza test di TerrenoDAO")
@@ -159,5 +195,9 @@ if __name__ == '__main__':
     test.run()
     print("Partenza test di AutenticazioneDAO")
     test = AutenticazioneDAOTests()
+    test.setUp()
+    test.run()
+    print("Partenza test di MetodoDiPagamentoDAO")
+    test = MetodoDiPagamentoDAOTests()
     test.setUp()
     test.run()
