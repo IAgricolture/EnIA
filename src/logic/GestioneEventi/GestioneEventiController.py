@@ -7,10 +7,29 @@ from src import app
 from src.logic.GestioneEventi.GestioneEventiService import GestioneEventiService
 
 class GestioneEventiController():
-    
+    '''
+    Classe Controller di Eventi
+
+    ...
+
+    Attributi
+    ----------
+    None
+
+    Metodi
+    -------
+    visualizzaEventi():
+        Carica tutti gli eventi associati ad quel terreno 
+    cancellaEvento():
+        Cancella un singolo evento associati ad quel terreno
+    cancellaTuttiEventi():
+        Cancella tutti gli eventi associati ad quel terreno
+
+    '''
     
     @app.route('/eventi', methods=['GET', 'POST'])
     def visualizzaEventi():
+        '''Carica tutti gli eventi associati ad quel terreno'''
         #get idTerreno
         #get json request
         idTerreno = request.json['id_terreno']
@@ -22,6 +41,7 @@ class GestioneEventiController():
     
     @app.route('/cancellaTuttiEventi', methods=['GET', 'POST'])
     def cancellaTuttiEventi():
+        '''Cancella un singolo evento associati ad quel terreno'''
         #get idTerreno
         #get json request
         idTerreno = request.json['id_terreno']
@@ -33,6 +53,7 @@ class GestioneEventiController():
     
     @app.route("/eliminaEvento", methods=['GET', 'POST'])
     def eliminaEvento():
+        ''' Cancella tutti gli eventi associati ad quel terreno'''
         #get json request
         idEvento = request.json['id_evento']
         #cancella evento
