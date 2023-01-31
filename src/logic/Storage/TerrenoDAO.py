@@ -28,7 +28,7 @@ class TerrenoDAO():
         Questo metodo dato un id in input retituisce un terrreno con l'id corrispondenti  
         """
         trovato = terreni.find_one({"_id" : ObjectId(id)})
-        if(trovato == None):
+        if(trovato is None):
             return None
         id2 = str(trovato.get("_id"))
         nome = str(trovato.get("Nome"))
@@ -39,22 +39,20 @@ class TerrenoDAO():
         proprietario = str(trovato.get("proprietario"))
         stadio_crescita = str(trovato.get("stadio_crescita"))
         NewTerreno = Terreno(id2,nome,coltura, stadio_crescita,posizione,preferito,priorita, proprietario)
-        print(NewTerreno.stadio_crescita)
         return NewTerreno
 
 
-    def RimuoviTerreno(terreno : Terreno):
+    def RimuoviTerreno(terreno : Terreno)->bool:
         trovato = terreni.delete_one({"_id" : ObjectId(terreno.id)})
         if trovato.deleted_count == 1:
-            print("Eliminato")
+            return True
         else:
-            print("Errore nel eliminazione")
+            return False
 
     def modificaTerreno(terrenoMod : Terreno): 
         """ Il metodo modifica un'entità terreno presente nel database, trasformandola in quella passata come parametro."""  
         trovato = TerrenoDAO.TrovaTerreno(str(terrenoMod.id))
-        print(terrenoMod.preferito)
-        if(trovato == None):
+        if(trovato is None):
             return None
         return terreni.update_one({"_id": ObjectId(trovato.id)},
         {"$set": {

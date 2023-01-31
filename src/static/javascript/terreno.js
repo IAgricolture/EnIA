@@ -41,7 +41,7 @@
           }).then(res=>res.json())
           .then(data=>{
               console.log(data)
-              if(data["TerrenoAggiunto"] =="True"){
+              if(data["TerrenoAggiunto"]){
                 creaNotifica("Terreno aggiunto correttamente!", "successo", document.getElementById("form1"), "notificamodifica")
                 } else {
                   creaNotifica("Si è verificato un errore durante l'aggiunta del terreno.", "fallimento", document.getElementById("form1"), "notificamodifica")
@@ -65,7 +65,7 @@
       Per ogni form, controlla che non sia vuoto o incorretto: altrimenti, crea una notifica di errore, se
       non esiste già. Se invece il form è corretto e la notifica esiste, la rimuove.*/
     {
-      var regexp = /[\w\s]+$/  //Regex per testo alfanumerico, con o senza spazi
+      var regexp = /[a-zA-z0-9_]+[\w\s\W]*$/  //Regex per testo alfanumerico, con o senza spazi, e prima lettera non è un simbolo
       var validAll = true
       var forms = [ document.getElementById('nome'), document.getElementById('coltura'), document.getElementById('priorita')]     
       forms.forEach(function(form){   //Per ogni form, controlla se ha testo al suo interno e se ha formato corretto con REGEXP.

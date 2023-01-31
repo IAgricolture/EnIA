@@ -27,7 +27,7 @@ class AmbienteAgricoloController():
             
             risultato = AmbienteAgricoloService.aggiungiTerreno(nome, coltura, stadio_crescita, posizione, preferito, priorita, proprietario)
             risposta = {
-                "TerrenoAggiunto" : "True" #TODO:QUI CI VA IL RISULTATO
+                "TerrenoAggiunto" : risultato["esitoOperazione"] #TODO:QUI CI VA IL RISULTATO
             }
             #TODO implememtare i controlli per l'aggiunta
 
@@ -76,18 +76,24 @@ class AmbienteAgricoloController():
         terreno = AmbienteAgricoloService.trovaTerreno(idTerreno)
         posizioneapi = AmbienteAgricoloService.cercaPosizione(idTerreno)
         print(posizioneapi)
-        indirizzo = posizioneapi["address"]
-        if("town" in indirizzo): #Pontecagnano, Salerno le porta come town
-            comune = indirizzo["town"]
-        else:
-            if("city" in indirizzo):
-                comune = indirizzo["city"]  #Avellino, Potenza
+        try:
+            indirizzo = posizioneapi["address"]
+            if("town" in indirizzo): #Pontecagnano, Salerno le porta come town
+                comune = indirizzo["town"]
             else:
-                comune = indirizzo["village"] #Molise
-        provincia = indirizzo["county"]
-        regione = indirizzo["state"]
-        nazione = indirizzo["country"]
-        inquinamentoapi = AmbienteAgricoloService.cercaInquinamento(provincia, regione, nazione, comune)
+                if("city" in indirizzo):
+                    comune = indirizzo["city"]  #Avellino, Potenza
+                else:
+                    comune = indirizzo["village"] #Molise
+            provincia = indirizzo["county"]
+            regione = indirizzo["state"]
+            nazione = indirizzo["country"]
+            inquinamentoapi = AmbienteAgricoloService.cercaInquinamento(provincia, regione, nazione, comune)
+        except KeyError:
+            #Formato della posizione non si trova con quello standard, quindi l'inquinamentoapi fallirà. Per evitare crash, gestisco qui l'eccezione.
+            inquinamentoapi = {
+                'message': 'Impossibile soddisfare questa richiesta'
+            }
         lat = AmbienteAgricoloService.cercalat(idTerreno)
         lon = AmbienteAgricoloService.cercalon(idTerreno)
         meteoapi = AmbienteAgricoloService.cercaMeteo(lat,lon)

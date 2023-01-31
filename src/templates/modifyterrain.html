@@ -33,10 +33,8 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="http://localhost:5000/index.html"><img src="/static/images/enia.png"
-            alt="logo"></a>
-        <a class="navbar-brand brand-logo-mini" href="http://localhost:5000/index.html"><img
-            src="/static/images/enia.png" alt="logo"></a>
+        <a class="brand-logo-mini" href="index.html"><img
+          src="/static/images/enia.png" alt="logo"></a>
         <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex" type="button"
           data-toggle="minimize">
           <span class="typcn typcn-th-menu"></span>
@@ -285,6 +283,9 @@
         console.log(points)
     });
 
+    function redirect() {
+      window.location.href = "/visualizzaTerreni";
+  }
     
     if("{{terreno.preferito}}" == "True"){
       document.getElementById("preferito").checked = true
@@ -324,6 +325,7 @@
           console.log(data)
           if(data["modificato"] =="true"){
             creaNotifica("Terreno modificato correttamente!", "successo", document.getElementById("formnascosto"), "notificamodifica")
+            setTimeout(redirect, 1000);
             } else {
               creaNotifica("Si è verificato un errore durante la modifica del terreno.", "fallimento", document.getElementById("formnascosto"), "notificamodifica")
             }

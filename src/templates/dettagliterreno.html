@@ -65,9 +65,7 @@
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo" href="http://localhost:5000/index.html"><img
-                        src="/static/images/enia.png" alt="logo"></a>
-                <a class="navbar-brand brand-logo-mini" href="http://localhost:5000/index.html"><img
+                <a class="brand-logo-mini" href="index.html"><img
                         src="/static/images/enia.png" alt="logo"></a>
                 <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex" type="button"
                     data-toggle="minimize">
@@ -289,7 +287,7 @@
                             </div>
                             <div class = "d-flex justify-content-between mb-4">
                               <div>Preferito</div>
-                              <div><i class="fa fa-heart" onclick="like()"></i></div>
+                              <div><i class="fa fa-heart" onclick="like()" id="heart"></i></div>
                             </div>
                             <div class="d-flex justify-content-center mb-4">
                               <div>Posizione</div>
@@ -1307,14 +1305,14 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
 
       function rimandamodifica()
       {
-        window.location.href = "http://localhost:5000/modificaTerreno?idTerreno=" + terreno.id 
+        window.location.href = "modificaTerreno?idTerreno=" + terreno.id 
       }
 
       function rimandaelimina()
       {
         if(confirm("ATTENZIONE: Si sta per eliminare il terreno PERMANENTEMENTE. Premere OK per confermare la propria scelta, o Cancel per tornare indietro."))
         {
-          window.location.href = "http://localhost:5000/eliminaTerreno?idTerreno=" + terreno.id 
+          window.location.href = "eliminaTerreno?idTerreno=" + terreno.id 
         }
       }
 
