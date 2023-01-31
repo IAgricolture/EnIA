@@ -19,7 +19,7 @@ class AutenticazioneController():
     Metodi
     -------
     load_user(user_id):
-        Carica un utente dalla sessione utilizzando il suo id univoco
+        Carica dal DataBase un utente dalla sessione utilizzando il suo id univoco
     login():
         Controlla le credenziali inserite dall'utente, se c'è una corrispondenza sul database il sistema
         cambia il suo stato da anonimo ad utente loggato
@@ -30,7 +30,7 @@ class AutenticazioneController():
     # This method is mandatory to use the flask_login module
     @login_manager.user_loader
     def load_user(user_id):
-        '''Carica un utente dalla sessione utilizzando il suo id univoco'''
+        '''Carica dal DataBase un utente dalla sessione utilizzando il suo id univoco'''
         return AutenticazioneService.trovaUtenteById(user_id)
 
     @app.route("/login", methods=["GET", "POST"])

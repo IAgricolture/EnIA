@@ -19,7 +19,7 @@ class GestioneEventiController():
     Metodi
     -------
     visualizzaEventi():
-        Carica tutti gli eventi associati ad quel terreno 
+        Carica dal DataBase tutti gli eventi associati ad quel terreno 
     cancellaEvento():
         Cancella un singolo evento associati ad quel terreno
     cancellaTuttiEventi():
@@ -29,7 +29,7 @@ class GestioneEventiController():
     
     @app.route('/eventi', methods=['GET', 'POST'])
     def visualizzaEventi():
-        '''Carica tutti gli eventi associati ad quel terreno'''
+        '''Carica dal DataBase tutti gli eventi associati ad quel terreno'''
         #get idTerreno
         #get json request
         idTerreno = request.json['id_terreno']
