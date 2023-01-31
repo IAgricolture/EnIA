@@ -7,11 +7,31 @@ from src.logic.model.Evento import Evento
 
 class GestioneScheduleController:
     
+    '''
+    Classe Controller di Schedule
+
+    ...
+
+    Attributi
+    ----------
+    None
+
+    Metodi
+    -------
+    restituisciSchedule():
+        Questo metodo restituisce lo schedule settimanale di un terreno
+    modificaLivelloSchedule():
+        Questo metodo modifica lo schedule settimanale di un terreno
+    usaScheduleConsigliato():
+        Questo metodo va a settare uno schedule consignato dall analisi delle previsioni meteo
+
+    '''
+    
     @app.route("/schedule", methods=["GET", "POST"])
     def restituisciSchedule():
-        """
+        '''
             Questo metodo restituisce lo schedule settimanale di un terreno
-        """
+        '''
         #get json from request
         json = request.get_json()
         schedule_settimanale = GestioneScheduleService.trovaScheduleTerreno(json.get("id_terreno"))
@@ -19,6 +39,7 @@ class GestioneScheduleController:
     
     @app.route(("/modificaLivelloSchedule"), methods=["POST"])
     def modificaLivelloSchedule():
+        '''Questo metodo modifica lo schedule settimanale di un terreno'''
         json = request.get_json()
         id_terreno = json.get("id_terreno")
         data = json.get("data")
@@ -33,6 +54,7 @@ class GestioneScheduleController:
     
     @app.route(("/usaSchedulingConsigliato"), methods=["POST"])
     def usaScheduleConsigliato():
+        '''Questo metodo va a settare uno schedule consignato dall analisi delle previsioni meteo'''
         json = request.get_json()
         id_terreno = json.get("id_terreno")
         lat = json.get("lat")
