@@ -4,6 +4,7 @@ import datetime
 from src.logic.Storage.EventoDAO import EventoDAO
 from src.logic.model.Evento import Evento
 
+
 class GestioneEventiService():
     '''
     Classe Service di Eventi
@@ -24,7 +25,7 @@ class GestioneEventiService():
     cancellaEvento(idEvento:str):
 
     '''
-    def creaEvento(evento : Evento):
+    def creaEvento(evento: Evento):
         '''
         Creazione di un nuovo evento
 
@@ -37,8 +38,8 @@ class GestioneEventiService():
         -------
         '''
         EventoDAO.creaEvento(evento)
-    
-    def visualizzaEventiByTerreno(idTerreno:str):
+
+    def visualizzaEventiByTerreno(idTerreno: str):
         '''
         Recupera nel DB gli eventi associati ad un terreno tramite id
 
@@ -54,8 +55,8 @@ class GestioneEventiService():
         '''
         eventiTrovati = EventoDAO.findEventiByTerreno(idTerreno)
         return eventiTrovati
-    
-    def cancellaTuttiEventiByTerreno(idTerreno:str):
+
+    def cancellaTuttiEventiByTerreno(idTerreno: str):
         '''
         Cancella nel DataBase tutti gli eventi associati ad un terreno tramite id
 
@@ -68,8 +69,8 @@ class GestioneEventiService():
         -------
         '''
         EventoDAO.cancellaTuttiEventiByTerreno(idTerreno)
-        
-    def cancellaEvento(idEvento:str):
+
+    def cancellaEvento(idEvento: str):
         '''
         Cancella DataBase l'evento associato ad un terreno tramite id
 
@@ -82,4 +83,3 @@ class GestioneEventiService():
         -------
         '''
         EventoDAO.cancellaEvento(idEvento)
-
