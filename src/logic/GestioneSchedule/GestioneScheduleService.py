@@ -23,7 +23,7 @@ class GestioneScheduleService:
     usaSchedulingConsigliato(id_terreno: str, lat: float, lon: float, stage: str, coltura: str):
 
     '''
-    def trovaScheduleTerreno(idTerreno : str):
+    def trovaScheduleTerreno(idTerreno: str):
         '''
         Recupera i dati riguardanti lo schedule per l'irrigazione per il terreno passato in input
 
@@ -39,18 +39,19 @@ class GestioneScheduleService:
         '''
         schedule_settimanale = ScheduleDAO.getWeeklySchedule(idTerreno)
         dict = {}
-        #push in dict the schedule
+        # push in dict the schedule
         for i in range(0, 7):
-            dict[schedule_settimanale[i].get("inizio")] = schedule_settimanale[i].get("modalita")
+            dict[schedule_settimanale[i].get(
+                "inizio")] = schedule_settimanale[i].get("modalita")
         return dict
-    
+
     def modificaLivelloSchedule(id_terreno: str, data: str, modalita: str):
         '''
-        Aggiorna le informazioni sul database in base alle informaizoni passate in input 
+        Aggiorna le informazioni sul database in base alle informaizoni passate in input
 
         Parametri
         ----------
-        id_terreno: str 
+        id_terreno: str
             id del Terrreno
         data: str
             Variabile riferita alla data in vui esegluimo la modifica
@@ -64,10 +65,11 @@ class GestioneScheduleService:
         '''
         ScheduleDAO.modificaLivelloSchedule(id_terreno, data, modalita)
         return True
-    
-    def usaSchedulingConsigliato(id_terreno: str, lat: float, lon: float, stage: str, coltura: str):
+
+    def usaSchedulingConsigliato(
+            id_terreno: str, lat: float, lon: float, stage: str, coltura: str):
         '''
-        Setta lo Scheduling in base alle inforrmazione risultanti dalle previsioni su quel determinato terreno 
+        Setta lo Scheduling in base alle inforrmazione risultanti dalle previsioni su quel determinato terreno
 
         Parametri
         ----------
@@ -78,21 +80,31 @@ class GestioneScheduleService:
         lon: float
             Longitudine del Terreno
         stage: str
-            Livello di crescita 
+            Livello di crescita
         coltura: str
             Tipologia di coltivazione in quel terreno
 
         Returns
         -------
         True : bool
-            Esito positivo 
+            Esito positivo
         '''
-        dict = DecisionIntelligenceService.getPredizioneLivelliIrrigazione(lon, lat, coltura, stage)
-        #per ogni data nel dizionario
+        dict = DecisionIntelligenceService.getPredizioneLivelliIrrigazione(
+            lon, lat, coltura, stage)
+        # per ogni data nel dizionario
         for data in dict:
-            #modifica il livello di irrigazione
-            ScheduleDAO.modificaLivelloSchedule(id_terreno, data, dict.get(data))
-            
-        evento = Evento("", "Scheduling", "Scheduling consigliato applicato", datetime.datetime.now(), "Scheduling", False, False, id_terreno)
+            # modifica il livello di irrigazione
+            ScheduleDAO.modificaLivelloSchedule(
+                id_terreno, data, dict.get(data))
+
+        evento = Evento(
+            "",
+            "Scheduling",
+            "Scheduling consigliato applicato",
+            datetime.datetime.now(),
+            "Scheduling",
+            False,
+            False,
+            id_terreno)
         GestioneEventiService.creaEvento(evento)
         return True
