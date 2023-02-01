@@ -6,7 +6,27 @@ from bson.objectid import ObjectId
 
 
 class LicenzaDAO():
+    
+    '''
+    Classe DAO di Licenza
 
+    ...
+
+    Attributi
+    ----------
+    None
+
+    Metodi
+    -------
+    findLicenza(id: str):
+        Questo metodo trova una licenza sul database, usando il suo ObjectId
+    creaLicenza(licenza: Licenza):
+        Questo metodo instanzia una licenza sul database
+    findLicenzaByProprietario(id: str):        
+        Questo metodo trova una licenza non scaduta sul database, usando l'identificativo del suo proprietario
+
+    '''
+    
     def findLicenza(id: str) -> Licenza:
         """
             Questo metodo trova una licenza sul database, usando il suo ObjectId
