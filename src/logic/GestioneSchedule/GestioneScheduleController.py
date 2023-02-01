@@ -26,7 +26,7 @@ class GestioneScheduleController:
         
         GestioneScheduleService.modificaLivelloSchedule(id_terreno, data, modalita)
         evento = Evento("", "Scheduling", "Livello di irrigazione modificato per la data " + data +" con la modalità " + modalita
-                        , datetime.now(), "Scheduling", False, False, id_terreno)
+                        , datetime.now().isoformat(' ', 'seconds'), "Scheduling", False, False, id_terreno)
         print(evento)
         GestioneEventiService.creaEvento(evento)        
         return jsonify({"success": True})
