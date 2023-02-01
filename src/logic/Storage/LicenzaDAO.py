@@ -28,10 +28,19 @@ class LicenzaDAO():
     '''
     
     def findLicenza(id: str) -> Licenza:
-        """
-            Questo metodo trova una licenza sul database, usando il suo ObjectId
-            :return: Licenza
-        """
+        '''
+        Questo metodo trova una licenza sul database, usando il suo ObjectId
+
+        Parametri
+        ----------
+        id: str
+            id del Utente
+
+        Returns
+        -------
+        utenteTrovato : utente
+            Restituisce l'utente desiderato
+        '''
         trovato = licenze.find_one({"_id": ObjectId(id)})
 
         id = str(trovato.get("_id"))
@@ -54,9 +63,20 @@ class LicenzaDAO():
         return licenzaTrovata
 
     def creaLicenza(licenza: Licenza) -> str:
-        """
-            Questo metodo instanzia una licenza sul database
-        """
+        '''
+        Questo metodo instanzia una licenza sul database
+        
+        Parametri
+        ----------
+        id: str
+            id del Utente
+
+        Returns
+        -------
+        utenteTrovato : utente
+            Restituisce l'utente desiderato
+        '''
+        
         result = licenze.insert_one({
             "tipo": licenza.tipo,
             "costo": licenza.costo,
@@ -69,10 +89,20 @@ class LicenzaDAO():
         return str(result.inserted_id)
 
     def findLicenzaByProprietario(id: str) -> Licenza:
-        """
-            Questo metodo trova una licenza non scaduta sul database, usando l'identificativo del suo proprietario
-            :return: Licenza
-        """
+        '''
+        Questo metodo trova una licenza non scaduta sul database, usando l'identificativo del suo proprietario
+
+        Parametri
+        ----------
+        id: str
+            id del Proprietario
+
+        Returns
+        -------
+        licenzaTrovato : licenza
+            Restituisce la licenza appena trovata 
+        '''
+        
         trovato = licenze.find_one({"proprietario": id, "scaduta": False})
 
         id = str(trovato.get("_id"))
