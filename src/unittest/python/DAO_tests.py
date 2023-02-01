@@ -2,6 +2,7 @@ import os
 import sys
 from unittest import mock
 import unittest
+import datetime
 
 sys.path.append(os.path.abspath(os.path.join('.' )))
 from src import app
@@ -216,6 +217,47 @@ class LicenzaDAOTests(unittest.TestCase):
         print("eliminaLicenza")
         result = LicenzaDAO.eliminaLicenza(self.licenzaID)
         self.assertEqual(result, True)     
+ 
+class EventoDAOTests(unittest.TestCase):
+    
+    def setUp(self):
+        self.evento = Evento("", "Scheduling", "Scheduling consigliato applicato", datetime.datetime.now().isoformat(' ', 'seconds'), "Scheduling", False, True, "63d1a61ecf0e0efd3dee3asw")
+        print(self.evento.orario)
+        self.eventoID = EventoDAO.creaEvento(self.evento)
+        self.eventoExpected = EventoDAO.findEvento(self.eventoID)
+        print(self.eventoExpected.orario)
+        
+    def tearDown(self):
+        EventoDAO.cancellaEvento(self.eventoID)
+            
+    def test_findEvento_pass(self):
+        print("findEvento")
+        eventoResult = EventoDAO.findEvento(self.eventoID)
+        self.assertEqual(eventoResult, self.eventoExpected)
+
+    def test_creaEvento_pass(self):
+        print("creaEvento")
+        self.assertEqual(self.evento, self.eventoExpected)
+    
+    def test_findEventiByTerreno_pass(self):
+        print("findEventiByTerreno")
+        evento2 = Evento("", "Scheduling", "Scheduling consigliato applicato", datetime.datetime.now().isoformat(' ', 'seconds'), "Scheduling", False, False, "63d1a61ecf0e0efd3dee3asw")
+        evento2ID = EventoDAO.creaEvento(evento2)
+        results = list(EventoDAO.findEventiByTerreno(evento2.terreno))
+        EventoDAO.cancellaEvento(evento2ID)
+        self.assertGreaterEqual(len(results), 2)
+    
+    def test_cancellaTuttiEventiByTerreno_pass(self):
+        print("cancellaEvento")
+        evento2 = Evento("", "Scheduling", "Scheduling consigliato applicato", datetime.datetime.now().isoformat(' ', 'seconds'), "Scheduling", False, False, "63d1a61ecf0e0efd3dee3asw")
+        evento2ID = EventoDAO.creaEvento(evento2)
+        result = EventoDAO.cancellaTuttiEventiByTerreno(evento2.terreno)
+        self.assertEqual(result, 2)     
+    
+    def test_cancellaEvento_pass(self):
+        print("cancellaEvento")
+        result = EventoDAO.cancellaEvento(self.eventoID)
+        self.assertEqual(result, True)     
         
 if __name__ == '__main__':
     print("Partenza test di TerrenoDAO")
@@ -232,5 +274,9 @@ if __name__ == '__main__':
     test.run()
     print("Partenza test di LicenzaPagamentoDAO")
     test = LicenzaDAOTests()
+    test.setUp()
+    test.run()
+    print("Partenza test di EventoDAO")
+    test = EventoDAOTests()
     test.setUp()
     test.run()
