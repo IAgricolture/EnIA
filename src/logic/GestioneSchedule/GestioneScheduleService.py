@@ -31,6 +31,6 @@ class GestioneScheduleService:
                 print("errore nell'aggiornamento dello schedule")
                 break
             
-        evento = Evento("", "Scheduling", "Scheduling consigliato applicato", datetime.datetime.now(), "Scheduling", False, False, id_terreno)
+        evento = Evento("", "Scheduling", "Scheduling consigliato applicato", datetime.datetime.now().isoformat(' ', 'seconds'), "Scheduling", False, False, id_terreno)
         GestioneEventiService.creaEvento(evento)
         return result
