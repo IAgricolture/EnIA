@@ -135,7 +135,7 @@ class EventoDAO():
         -------
         '''
         
-        eventiTrovati = eventi.delete_many({"terreno": idTerreno})
+        eventi.delete_many({"terreno": idTerreno})
 
     def cancellaEvento(idEvento: str):
         '''
@@ -150,4 +150,4 @@ class EventoDAO():
         -------
         '''
         
-        eventiTrovati = eventi.delete_one({"_id": ObjectId(idEvento)})
+        eventi.delete_one({"_id": ObjectId(idEvento)})
