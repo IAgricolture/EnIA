@@ -69,13 +69,14 @@ class RegistrazioneService():
         '''
         return AutenticazioneDAO.trovaUtenteByEmail(email)
 
-    def modificaUtente(nome: str, cognome: str, email: str, password: str, dataDiNascita: str, codice: str, indirizzo: str):
+    def modificaUtente(nome: str, cognome: str, email: str, password: str,
+                       dataDiNascita: str, codice: str, indirizzo: str):
         '''
         Modifica i dati relativi ad un utente
 
         Parametri
         ----------
-        nome : str 
+        nome : str
             nome
         cognome : str
             cognome
@@ -168,7 +169,7 @@ class RegistrazioneService():
 
         Parametri
         ----------
-        nome : str 
+        nome : str
             nome
         cognome : str
             cognome
@@ -213,7 +214,8 @@ class RegistrazioneService():
                     datetime.now().date().isoformat(), False, id)
         return LicenzaDAO.creaLicenza(l)
 
-    def creaMetodoDiPagamento(numerocarta, titolare, scadenza, cvv, id) -> MetodoDiPagamento:
+    def creaMetodoDiPagamento(numerocarta, titolare,
+                              scadenza, cvv, id) -> MetodoDiPagamento:
         '''
         Crea una nuovo metodo di pagamento
 
