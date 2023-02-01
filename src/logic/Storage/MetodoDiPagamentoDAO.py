@@ -6,12 +6,42 @@ from bson.objectid import ObjectId
 
 
 class MetodoDiPagamentoDAO():
+    '''
+    Classe DAO di Metodi di Pagamento
+
+    ...
+
+    Attributi
+    ----------
+    None
+
+    Metodi
+    -------
+    findMetodo(id: str):
+        Questo metodo trova un Metodo di pagamento sul database, usando il suo ObjectId
+    creaMetodo(metodo: MetodoDiPagamento):
+        Questo metodo instanzia un Metodo di pagamento sul database
+    findMetodoByProprietario(id: str:        
+        Questo metodo trova un Metodo di pagamento sul database, usando l'identificativo del suo proprietario
+    modificaMetodo(metodo: MetodoDiPagamento):
+        Questo metodo prende in ingresso un oggetto Metodo di pagamento e lo modifica nel database
+    '''
 
     def findMetodo(id: str) -> MetodoDiPagamento:
-        """
-            Questo metodo trova un Metodo di pagamento sul database, usando il suo ObjectId
-            :return: MetodoDiPagamento
-        """
+        '''
+        Questo metodo trova un Metodo di pagamento sul database, usando il suo ObjectId
+
+        Parametri
+        ----------
+        id : str
+            id del Metodo
+
+        Returns
+        -------
+        MetodoTrovato : MetodoDiPagamento
+            Restituisce il metodo avente come id quello passto in input
+        '''
+        
         trovato = metodi_di_pagamento.find_one({"_id": ObjectId(id)})
         id = str(trovato.get("_id"))
         num_carta = str(trovato.get("numero_carta"))
@@ -25,9 +55,20 @@ class MetodoDiPagamentoDAO():
         return metodoTrovato
 
     def creaMetodo(metodo: MetodoDiPagamento) -> str:
-        """
-            Questo metodo instanzia un Metodo si pagamento sul database
-        """
+        '''
+        Questo metodo trova un utente nel database, utilizzando la sua email
+
+        Parametri
+        ----------
+        metodo : MetodoDiPagamento
+            istanza del metodo di Pagamento da memorizzare nel database 
+
+        Returns
+        -------
+        result : str
+            id del metodo di pagamento 
+        '''
+        
         result = metodi_di_pagamento.insert_one({
             "numero_carta": metodo.num_carta,
             "titolare": metodo.titolare,
@@ -39,10 +80,20 @@ class MetodoDiPagamentoDAO():
         return str(result.inserted_id)
 
     def findMetodoByProprietario(id: str) -> MetodoDiPagamento:
-        """
-            Questo metodo trova un Metodo di pagamento sul database, usando l'identificativo del suo proprietario
-            :return: MetodoDiPagamento
-        """
+        '''
+        Questo metodo trova un Metodo di pagamento sul database, usando l'identificativo del suo proprietario
+
+        Parametri
+        ----------
+        id : str
+            id del proprietario
+
+        Returns
+        -------
+        metodoTrovato : MetodoDiPagamento
+            Restituisce il netodo avente come id quello passto in input
+        '''
+        
         trovato = metodi_di_pagamento.find_one({"proprietario": id})
         id = str(trovato.get("_id"))
         num_carta = str(trovato.get("numero_carta"))
@@ -56,9 +107,20 @@ class MetodoDiPagamentoDAO():
         return metodoTrovato
 
     def modificaMetodo(metodo: MetodoDiPagamento):
-        """
-            Questo metodo prende in ingresso un oggetto Metodo di pagamento e lo modifica nel database
-        """
+        '''
+        Questo metodo prende in ingresso un oggetto Metodo di pagamento e lo modifica nel database
+
+        Parametri
+        ----------
+        metodo : MetodoDiPagamento
+            istanza del Metodo Di Pagamento da modificare
+
+        Returns
+        -------
+        None : NoneType
+            Restituisce None in caso non e stata effettuata alcuna modifica 
+        '''
+        
         trovato = MetodoDiPagamentoDAO.findMetodo(metodo.id)
         if (trovato is None):
             return None
