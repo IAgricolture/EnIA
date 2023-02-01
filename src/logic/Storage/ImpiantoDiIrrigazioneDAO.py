@@ -7,27 +7,25 @@ from bson.objectid import ObjectId
 
 class ImpiantoDiIrrigazioneDAO():
 
-
-    def findImpiantiByTerreno(idTerreno:str):
-        #trova impianti sul database con l'id del terreno
-        impiantiTrovati = impianti.find({"terreno" : ObjectId(idTerreno)})
+    def findImpiantiByTerreno(idTerreno: str):
+        # trova impianti sul database con l'id del terreno
+        impiantiTrovati = impianti.find({"terreno": ObjectId(idTerreno)})
         impiantiTrovati = list(impiantiTrovati)
-        
-        #cast all objectid to string
+
+        # cast all objectid to string
         for impianto in impiantiTrovati:
             impianto["_id"] = str(impianto["_id"])
             impianto["terreno"] = str(impianto["terreno"])
-        
-        
+
         return list(impiantiTrovati)
 
-    def findImpiantoById(id : str) -> ImpiantoDiIrrigazione:
+    def findImpiantoById(id: str) -> ImpiantoDiIrrigazione:
         """
             Questo metodo trova un Impianto di irrigazione sul database, usando il suo ObjectId
             :return: ImpiantoDiIrrigazione
         """
-        trovato = impianti.find_one({"_id" : ObjectId(id)})
-        
+        trovato = impianti.find_one({"_id": ObjectId(id)})
+
         id = str(trovato.get("_id"))
         nome = str(trovato.get("nome"))
         tipo = str(trovato.get("tipo"))
@@ -35,81 +33,76 @@ class ImpiantoDiIrrigazioneDAO():
         attivo = bool(trovato.get("attivo"))
         posizione = trovato.get("posizione")
 
-        impiantoTrovato = ImpiantoDiIrrigazione(id, nome, tipo, codice, posizione, attivo)
+        impiantoTrovato = ImpiantoDiIrrigazione(
+            id, nome, tipo, codice, posizione, attivo)
 
         return impiantoTrovato
-    
-    def creaImpianto(impianto : ImpiantoDiIrrigazione, idTerreno: str) -> str:
+
+    def creaImpianto(impianto: ImpiantoDiIrrigazione, idTerreno: str) -> str:
         """
             Questo metodo instanzia un impianto di irrigazione sul database
-        """  
-           
+        """
+
         result = impianti.insert_one({
-            "nome" : impianto.nome,
-            "tipo" : impianto.tipo,
-            "codice" : impianto.codice,
-            "attivo" : impianto.attivo,
+            "nome": impianto.nome,
+            "tipo": impianto.tipo,
+            "codice": impianto.codice,
+            "attivo": impianto.attivo,
             "posizione": impianto.posizione,
             "terreno": ObjectId(idTerreno)
         })
-        
+
         return str(result.inserted_id)
-    
-    def modificaImpianto(impianto : ImpiantoDiIrrigazione):
+
+    def modificaImpianto(impianto: ImpiantoDiIrrigazione):
         """
             Questo metodo modifica un impianto di irrigazione sul database
-        """  
+        """
         impianti.update_one(
-            {"_id" : ObjectId(impianto.id)},
+            {"_id": ObjectId(impianto.id)},
             {
-                "$set" : {
-                    "nome" : impianto.nome,
-                    "tipo" : impianto.tipo,
-                    "codice" : impianto.codice,
-                    "attivo" : impianto.attivo,
+                "$set": {
+                    "nome": impianto.nome,
+                    "tipo": impianto.tipo,
+                    "codice": impianto.codice,
+                    "attivo": impianto.attivo,
                     "posizione": impianto.posizione
                 }
             }
         )
-    
-    def attivaImpianto(id : str):
+
+    def attivaImpianto(id: str):
         """
             Questo metodo attiva un impianto di irrigazione sul database
-        """  
+        """
         result = impianti.update_one(
-            {"_id" : ObjectId(id)},
+            {"_id": ObjectId(id)},
             {
-                "$set" : {
-                    "attivo" : True
+                "$set": {
+                    "attivo": True
                 }
             }
         )
-        #se non è stato trovato nessun impianto con quell'id
+        # se non è stato trovato nessun impianto con quell'id
         return result.modified_count == 1
-    
-    def disattivaImpianto(id : str):
+
+    def disattivaImpianto(id: str):
         """
             Questo metodo disattiva un impianto di irrigazione sul database
-        """  
+        """
         result = impianti.update_one(
-            {"_id" : ObjectId(id)},
+            {"_id": ObjectId(id)},
             {
-                "$set" : {
-                    "attivo" : False
+                "$set": {
+                    "attivo": False
                 }
             }
         )
-        #se non è stato trovato nessun impianto con quell'id
+        # se non è stato trovato nessun impianto con quell'id
         return result.modified_count == 1
-    
-    def eliminaImpianto(id : str):
+
+    def eliminaImpianto(id: str):
         """
             Questo metodo elimina un impianto di irrigazione sul database
-        """  
-        impianti.delete_one({"_id" : ObjectId(id)})
-        
-
-
-
-
-
+        """
+        impianti.delete_one({"_id": ObjectId(id)})

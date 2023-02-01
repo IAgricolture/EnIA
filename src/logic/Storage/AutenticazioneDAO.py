@@ -5,6 +5,7 @@ from flask import jsonify
 import datetime
 from bson.objectid import ObjectId
 
+
 class AutenticazioneDAO():
 
     def trovaUtenteByEmail(email: str) -> Utente:
@@ -12,30 +13,8 @@ class AutenticazioneDAO():
             This method find one user in the database, using his email
             :return: Utente
         """
-        trovato = utenti.find_one({"email" : email})
-        if(trovato == None):
-            return None
-        id = str(trovato.get("_id"))
-        nome = trovato.get("nome")
-        cognome = trovato.get("cognome")
-        email = trovato.get("email")
-        ruolo = trovato.get("ruolo")
-        dataNascita = trovato.get("dataNascita")
-        codice = trovato.get("codice")
-        indirizzo = trovato.get("indirizzo")
-        password = trovato.get("password")
-        partitaIVA = trovato.get("partitaIVA") 
-        datore = trovato.get("datore") 
-        utenteTrovato = Utente(id, nome, cognome, email, password, ruolo, dataNascita, partitaIVA, codice, indirizzo, datore)
-        return utenteTrovato
-
-    def trovaUtente(id : str) -> Utente:
-        """
-            This method find one user in the database, using his ObjectId
-            :return: Utente
-        """
-        trovato = utenti.find_one({"_id" : ObjectId(id)})
-        if trovato == None:
+        trovato = utenti.find_one({"email": email})
+        if (trovato is None):
             return None
         id = str(trovato.get("_id"))
         nome = trovato.get("nome")
@@ -48,18 +27,62 @@ class AutenticazioneDAO():
         password = trovato.get("password")
         partitaIVA = trovato.get("partitaIVA")
         datore = trovato.get("datore")
-        utenteTrovato = Utente(id, nome, cognome, email, password, ruolo, dataNascita, partitaIVA, codice, indirizzo, datore)
+        utenteTrovato = Utente(
+            id,
+            nome,
+            cognome,
+            email,
+            password,
+            ruolo,
+            dataNascita,
+            partitaIVA,
+            codice,
+            indirizzo,
+            datore)
         return utenteTrovato
-        
+
+    def trovaUtente(id: str) -> Utente:
+        """
+            This method find one user in the database, using his ObjectId
+            :return: Utente
+        """
+        trovato = utenti.find_one({"_id": ObjectId(id)})
+        if trovato is None:
+            return None
+        id = str(trovato.get("_id"))
+        nome = trovato.get("nome")
+        cognome = trovato.get("cognome")
+        email = trovato.get("email")
+        ruolo = trovato.get("ruolo")
+        dataNascita = trovato.get("dataNascita")
+        codice = trovato.get("codice")
+        indirizzo = trovato.get("indirizzo")
+        password = trovato.get("password")
+        partitaIVA = trovato.get("partitaIVA")
+        datore = trovato.get("datore")
+        utenteTrovato = Utente(
+            id,
+            nome,
+            cognome,
+            email,
+            password,
+            ruolo,
+            dataNascita,
+            partitaIVA,
+            codice,
+            indirizzo,
+            datore)
+        return utenteTrovato
 
     def trovaUtenteByCodiceDiAccesso(codice: str) -> Utente:
         """
             This method find one user in the database, using his codiceDiAccesso
             :return: Utente
         """
-        trovato = utenti.find_one({"codice" : codice, "ruolo": {"$ne": "farmer"}})
-        
-        if trovato == None:
+        trovato = utenti.find_one(
+            {"codice": codice, "ruolo": {"$ne": "farmer"}})
+
+        if trovato is None:
             return None
         id = str(trovato.get("_id"))
         nome = trovato.get("nome")
@@ -72,32 +95,43 @@ class AutenticazioneDAO():
         password = trovato.get("password")
         partitaIVA = trovato.get("partitaIVA")
         datore = trovato.get("datore")
-        utenteTrovato = Utente(id, nome, cognome, email, password, ruolo, dataNascita, partitaIVA, codice, indirizzo, datore)
+        utenteTrovato = Utente(
+            id,
+            nome,
+            cognome,
+            email,
+            password,
+            ruolo,
+            dataNascita,
+            partitaIVA,
+            codice,
+            indirizzo,
+            datore)
         return utenteTrovato
-    
-    def creaUtente(utente : Utente) -> str:
+
+    def creaUtente(utente: Utente) -> str:
         """
             This method instantiate one utente on the database
         """
         if utente.ruolo == "farmer":
             result = utenti.insert_one({
-                "nome" : utente.nome,
+                "nome": utente.nome,
                 "cognome": utente.cognome,
                 "email": utente.email,
                 "password": utente.password,
                 "ruolo": utente.ruolo,
-                "dataNascita" : utente.dataNascita,
+                "dataNascita": utente.dataNascita,
                 "partitaIVA": utente.partitaIVA,
                 "indirizzo": utente.indirizzo,
             })
         else:
             result = utenti.insert_one({
-                "nome" : utente.nome,
+                "nome": utente.nome,
                 "cognome": utente.cognome,
                 "email": utente.email,
                 "password": utente.password,
                 "ruolo": utente.ruolo,
-                "dataNascita" : utente.dataNascita,
+                "dataNascita": utente.dataNascita,
                 "codice": utente.codice,
                 "indirizzo": utente.indirizzo,
                 "datore": utente.datore,
@@ -105,77 +139,68 @@ class AutenticazioneDAO():
 
         return str(result.inserted_id)
 
-
-    def eliminaUtente(id : str):
+    def eliminaUtente(id: str):
         """
             Questo metodo prende in ingresso un id ed elimina
             il corrispondente utente dal database
         """
         return utenti.delete_one({"_id": ObjectId(id)})
-    
-    def modificaUtente(utente : Utente): 
+
+    def modificaUtente(utente: Utente):
         """
             Questo metodo prende in ingresso un oggetto utente e lo modifica nel database
-        """  
+        """
         trovato = AutenticazioneDAO.trovaUtente(str(utente.id))
-        if(trovato == None):
+        if (trovato is None):
             return None
 
         if utente.ruolo == "farmer":
             return utenti.update_one({"_id": ObjectId(trovato.id)},
-            {"$set": {
-                "nome" : utente.nome,
-                "cognome": utente.cognome,
-                "email": utente.email,
-                "password": utente.password,
-                "ruolo": utente.ruolo,
-                "dataNascita" : utente.dataNascita,
-                "partitaIVA": utente.partitaIVA,
-                "indirizzo": utente.indirizzo,
-            }})
+                                     {"$set": {
+                                         "nome": utente.nome,
+                                         "cognome": utente.cognome,
+                                         "email": utente.email,
+                                         "password": utente.password,
+                                         "ruolo": utente.ruolo,
+                                         "dataNascita": utente.dataNascita,
+                                         "partitaIVA": utente.partitaIVA,
+                                         "indirizzo": utente.indirizzo,
+                                     }})
         else:
             return utenti.update_one({"_id": ObjectId(trovato.id)},
-            {"$set": {
-                "nome" : utente.nome,
-                "cognome": utente.cognome,
-                "email": utente.email,
-                "password": utente.password,
-                "ruolo": utente.ruolo,
-                "dataNascita" : utente.dataNascita,
-                "codice": utente.codice,
-                "indirizzo": utente.indirizzo,
-                "datore": utente.datore,
-            }})
-
+                                     {"$set": {
+                                         "nome": utente.nome,
+                                         "cognome": utente.cognome,
+                                         "email": utente.email,
+                                         "password": utente.password,
+                                         "ruolo": utente.ruolo,
+                                         "dataNascita": utente.dataNascita,
+                                         "codice": utente.codice,
+                                         "indirizzo": utente.indirizzo,
+                                         "datore": utente.datore,
+                                     }})
 
     def listaUtentiTutti():
         """
             Questo metodo restituisce una lista di tutte le entry di utente presenti sul database
         """
         return utenti.find()
-    
-    def listaDipendenti(datore: str)-> list: 
+
+    def listaDipendenti(datore: str) -> list:
         return list(utenti.find({"datore": datore}))
-    
+
     def insertSlot(ruolo: str, codice: str, datore: str):
         utenti.insert_one({
-                "nome" : "",
-                "cognome": "",
-                "email": "",
-                "password": "",
-                "ruolo": ruolo,
-                "dataNascita" : "",
-                "codice": codice,
-                "indirizzo": "",
-                "datore": datore,
-            })
-        
+            "nome": "",
+            "cognome": "",
+            "email": "",
+            "password": "",
+            "ruolo": ruolo,
+            "dataNascita": "",
+            "codice": codice,
+            "indirizzo": "",
+            "datore": datore,
+        })
+
     def getDatore(codice: str) -> str:
         return utenti.find_one({"_id": ObjectId(codice)}).get("datore")
-        
-        
-
-
-
-
-
