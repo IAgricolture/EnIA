@@ -43,12 +43,17 @@
               console.log(data)
               if(data["TerrenoAggiunto"]){
                 creaNotifica("Terreno aggiunto correttamente!", "successo", document.getElementById("form1"), "notificamodifica")
+                setTimeout(redirect, 1000);
                 } else {
                   creaNotifica("Si è verificato un errore durante l'aggiunta del terreno.", "fallimento", document.getElementById("form1"), "notificamodifica")
                 }
           })        
     }
 
+    function redirect() {
+      window.location.href = "/visualizzaTerreni";
+    }
+    
     function validateMap()
     {
        if(!validMap)
@@ -57,7 +62,7 @@
        }
        return validMap
     }
-
+    
     function validate() 
     /*Controlla che i dati siano stati correttamente inseriti nei form.
       Funzionamento: creo una Regexp, che viene poi modificata a seconda del form type. validAll indica 
