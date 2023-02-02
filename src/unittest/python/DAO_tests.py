@@ -62,6 +62,7 @@ class TerrenoDAOTests(unittest.TestCase):
         IDTerreno2 = TerrenoDAO.InserisciTerreno(terreno2)
         terreno2 = TerrenoDAO.TrovaTerreno(IDTerreno2)
         result = TerrenoDAO.restituisciTerreniByFarmer(resultTerreno.proprietario)
+        TerrenoDAO.RimuoviTerreno(resultTerreno)
         TerrenoDAO.RimuoviTerreno(terreno2)
         self.assertEqual(resultTerreno, result[0])
         self.assertEqual(terreno2, result[1])        
@@ -222,10 +223,8 @@ class EventoDAOTests(unittest.TestCase):
     
     def setUp(self):
         self.evento = Evento("", "Scheduling", "Scheduling consigliato applicato", datetime.datetime.now().isoformat(' ', 'seconds'), "Scheduling", False, True, "63d1a61ecf0e0efd3dee3asw")
-        print(self.evento.orario)
         self.eventoID = EventoDAO.creaEvento(self.evento)
         self.eventoExpected = EventoDAO.findEvento(self.eventoID)
-        print(self.eventoExpected.orario)
         
     def tearDown(self):
         EventoDAO.cancellaEvento(self.eventoID)
@@ -259,6 +258,68 @@ class EventoDAOTests(unittest.TestCase):
         result = EventoDAO.cancellaEvento(self.eventoID)
         self.assertEqual(result, True)     
         
+class ImpiantoDiIrrigazioneDAOTests(unittest.TestCase):
+    
+    def setUp(self):
+        terrenoperimpianto = Terreno(None, "Terreno-A", "Orzo", "Sviluppo", {"type":"Feature","properties":{},"geometry":{"type":"Polygon","coordinates":[[[14.783607,40.772225],[14.783735,40.772745],[14.784594,40.771965],[14.783607,40.772225]]]}}, True, 15, "63b9e6a27862c31f1f7b221p")
+        self.terrenoperimpiantoID = TerrenoDAO.InserisciTerreno(terrenoperimpianto)
+        self.impianto = ImpiantoDiIrrigazione("", "IrrigatoreTest", "irrigatore", "", "{'type': 'Feature', 'properties': {}, 'geometry': {'type': 'Point', 'coordinates': [14.789861, 40.774736]}}", False) 
+        print("Creato impianto")
+        self.impiantoID = ImpiantoDiIrrigazioneDAO.creaImpianto(self.impianto, self.terrenoperimpiantoID)
+        print("Ottenuto impiantoID")
+        self.impiantoExpected = ImpiantoDiIrrigazioneDAO.findImpiantoById(self.impiantoID)
+        print("Ottenuto impiantoExpected")
+        
+    def tearDown(self):
+        TerrenoDAO.RimuoviTerreno(TerrenoDAO.TrovaTerreno(self.terrenoperimpiantoID))
+        ImpiantoDiIrrigazioneDAO.eliminaImpianto(self.impiantoID)      
+              
+    def test_findImpiantiByTerreno_pass(self):
+        print("findImpiantiByTerreno")
+        impianto2 = ImpiantoDiIrrigazione("", "NuovoIrrigatore", "irrigatore", "", "{'type': 'Feature', 'properties': {}, 'geometry': {'type': 'Point', 'coordinates': [7.306682, 45.172598]}}", True)
+        impianto2ID = ImpiantoDiIrrigazioneDAO.creaImpianto(impianto2, self.terrenoperimpiantoID)
+        results = ImpiantoDiIrrigazioneDAO.findImpiantiByTerreno(self.terrenoperimpiantoID)
+        ImpiantoDiIrrigazioneDAO.eliminaImpianto(impianto2ID)
+        self.assertGreaterEqual(len(results), 2)
+              
+    def test_findImpiantoById_pass(self):
+        print("findImpiantoById")
+        impiantoResult = ImpiantoDiIrrigazioneDAO.findImpiantoById(self.impiantoID)
+        self.assertEqual(impiantoResult, self.impiantoExpected)
+
+    def test_creaImpianto_pass(self):
+        print("creaImpianto")
+        self.assertEqual(self.impianto, self.impiantoExpected)
+    
+    def test_modificaImpianto_pass(self):
+        print("modificaImpianto")
+        nomePrecedenteImpianto = self.impiantoExpected.nome
+        self.impiantoExpected.nome = "NomeCambiato"
+        ImpiantoDiIrrigazioneDAO.modificaImpianto(self.impiantoExpected)
+        resultImpianto = ImpiantoDiIrrigazioneDAO.findImpiantoById(self.impiantoExpected.id)
+        self.assertNotEqual(nomePrecedenteImpianto, resultImpianto.nome)          
+    
+    def test_attivaImpianto_pass(self):
+        print("attivaImpianto")
+        result = ImpiantoDiIrrigazioneDAO.attivaImpianto(self.impiantoID)
+        self.assertEqual(result, True)
+        attivo = ImpiantoDiIrrigazioneDAO.findImpiantoById(self.impiantoID).attivo
+        self.assertEqual(attivo, True)
+
+    def test_disattivaImpianto_pass(self):
+        print("disattivaImpianto")
+        ImpiantoDiIrrigazioneDAO.attivaImpianto(self.impiantoID) #Necessario perchè input non è attivo
+        result = ImpiantoDiIrrigazioneDAO.disattivaImpianto(self.impiantoID)
+        self.assertEqual(result, True)
+        attivo = ImpiantoDiIrrigazioneDAO.findImpiantoById(self.impiantoID).attivo
+        self.assertEqual(attivo, False)
+        
+    def test_eliminaImpianto_pass(self):
+        print("eliminaImpianto")
+        result = ImpiantoDiIrrigazioneDAO.eliminaImpianto(self.impiantoID)
+        self.assertEqual(result, True)     
+                
+        
 if __name__ == '__main__':
     print("Partenza test di TerrenoDAO")
     test = TerrenoDAOTests()
@@ -278,5 +339,9 @@ if __name__ == '__main__':
     test.run()
     print("Partenza test di EventoDAO")
     test = EventoDAOTests()
+    test.setUp()
+    test.run()
+    print("Partenza test di ImpiantoDiIrrigazioneDAO")
+    test = ImpiantoDiIrrigazioneDAOTests()
     test.setUp()
     test.run()
