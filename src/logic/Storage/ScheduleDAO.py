@@ -8,11 +8,46 @@ from bson.objectid import ObjectId
 
 class ScheduleDAO():
 
+    '''
+    Classe DAO di Autenticazione
+
+    ...
+
+    Attributi
+    ----------
+    None
+
+    Metodi
+    -------
+    findSchedule(id: str):
+        Questo metodo ci permette di trovare un Schedule sul database, usando il suo ObjectId
+    creaSettimanaScheduleNullo(id_terreno: str):
+        Questo metodo ci permette di istanziare una settimana di schedule vuota sul database
+    creaSchedule(sched: Schedule):        
+        Questo metodo ci permette di instanziare un nuovo schedule sul DataBase
+    getWeeklySchedule(id_terreno: str)
+        Questo metodo ci permette di ottenere le informazioni riguradanti la settimana 
+        di schedule di un terreno
+    modificaLivelloSchedule(id_terreno: str, date: str, modalita: str):
+        Questo metodo ci permtette di modifica la modalità di un schedule di un determinato terreno
+
+    '''
+    
     def findSchedule(id: str) -> Schedule:
-        """
-            Questo metodo trova un Schedule sul database, usando il suo ObjectId
-            :return: Schedule
-        """
+        '''
+        Questo metodo ci permette di trovare un Schedule sul database, usando il suo ObjectId
+
+        Parametri
+        ----------
+        id : str
+            id dello schedule
+
+        Returns
+        -------
+        scheduleTrovato : Schedule
+            Restituisce lo schedule trovato nel DataBase
+        '''
+        
         trovato = schedule.find_one({"_id": ObjectId(id)})
 
         id = str(trovato.get("_id"))
@@ -25,9 +60,20 @@ class ScheduleDAO():
         return scheduleTrovato
 
     def creaSettimanaScheduleNullo(id_terreno: str):
-        """
-            Questo metodo istanzia una settimana di schedule vuota sul database
-        """
+        '''
+        Questo metodo ci permette di istanziare una settimana di schedule vuota sul database
+
+        Parametri
+        ----------
+        id : str
+            ID del Terreno su cui creare lo schedule
+
+        Returns
+        -------
+        True : bool
+            Valore restituito in caso di corretto inserimento
+        '''
+        
         # get today
         today = datetime.now()
 
@@ -54,9 +100,19 @@ class ScheduleDAO():
         return True
 
     def creaSchedule(sched: Schedule) -> str:
-        """
-            Questo metodo instanzia un schedule sul database
-        """
+        '''
+        Questo metodo ci permette di instanziare un nuovo schedule sul DataBase
+
+        Parametri
+        ----------
+        sched: Schedule
+            Schedule da istanziare nel DataBase
+
+        Returns
+        -------
+        result : str
+            Restituisce l'id del terreno appena creato
+        '''
 
         result = schedule.insert_one({
             "inizio": sched.inizio,
@@ -67,9 +123,21 @@ class ScheduleDAO():
         return str(result.inserted_id)
 
     def getWeeklySchedule(id_terreno: str) -> list:
-        """
-            Questo metodo ritorna la settimana di schedule di un terreno
-        """
+        '''
+        Questo metodo ci permette di ottenere le informazioni riguradanti la settimana 
+        di schedule di un terreno
+
+        Parametri
+        ----------
+        id_terreno : str
+            id del Terreno
+
+        Returns
+        -------
+        schedules : Schedule
+            Restituisce lo scheduling della settimana di un deteminato terreno
+        '''
+        
         # get today
         today = datetime.now()
         # put today at 00:00:00
@@ -123,9 +191,24 @@ class ScheduleDAO():
         return schedules
 
     def modificaLivelloSchedule(id_terreno: str, date: str, modalita: str):
-        """
-            Questo metodo modifica la modalità di un schedule
-        """
+        '''
+        Questo metodo ci permtette di modifica la modalità di un schedule di un determinato terreno
+
+        Parametri
+        ----------
+        id_terreno : str
+            id del Terreno
+        date : str
+            data in cui effettuare la modifica
+        modalita : str
+            nuova modalita dello scheduling
+
+        Returns
+        -------
+        True : bool
+            Valore restituito in caso di avvenuta modifica
+        '''
+        
         # parse to datetime date
         date = datetime.strptime(date, "%d-%m-%Y")
 
