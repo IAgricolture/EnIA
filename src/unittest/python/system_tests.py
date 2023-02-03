@@ -645,6 +645,28 @@ class SystemTest (unittest.TestCase):
         for td in tds:
             assert td is not None
 
+    def test_visualizzazione_meteo(self):
+        driver = self.driver
+        driver.get(self.urllogin)
+        time.sleep(1)
+        
+        assert "Login" in driver.title
+        
+        inserisci_dati_login(driver, "prova@gmail.com", "password")
+
+        elem = driver.find_element(By.ID, "signin")
+        elem.click()
+        elem = driver.find_element(By.LINK_TEXT,"Dettagli")
+        elem.click()
+        elem = driver.find_element(By.ID, "datiMeteo")
+        #find elem with class chartjs-size-monitor
+        try:
+            elem = elem.find_element(By.CLASS_NAME, "chartjs-size-monitor")
+        except Exception:
+            elem = None
+        assert elem is not None
+
+
     def tearDown(self):
         self.p.terminate()
         self.driver.close()
@@ -653,6 +675,6 @@ class SystemTest (unittest.TestCase):
 if __name__ == "__main__":
     t = SystemTest()
     t.setUp()
-    t.tc_5_1_1()
+    t.test_visualizzazione_meteo()
     t.tearDown()        
 
