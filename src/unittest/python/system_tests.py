@@ -18,6 +18,16 @@ def inserisci_dati_login(driver: webdriver.Chrome, email, password):
         elem = driver.find_element(By.ID, "password")
         elem.send_keys(password)
 
+def inserisci_ruolo(driver: webdriver.Chrome, ruolo):
+        elem = driver.find_element(By.ID, "ruolo")
+        select = Select(elem)
+        try:
+            select.select_by_visible_text(ruolo)
+        except:
+            print("ruolo non valido")
+            return False
+        return True
+
 def inserisci_dati_aggiunta_terreno(driver: webdriver.Chrome, nome, coltura,stadio_sviluppo, preferito, priorita):
         elem = driver.find_element(By.ID, "nome")
         elem.send_keys(nome)
@@ -116,6 +126,7 @@ class SystemTest (unittest.TestCase):
     url = "http://127.0.0.1:5000/login"
     urllogin= "http://127.0.0.1:5000/login"
     urlinserisciterreno = "http://127.0.0.1:5000/aggiuntaTerreno"
+    urlazienda_agricola = "http://127.0.0.1:5000/AziendaAgricola"
 
     def setUp(self):
         self.p = Process(target=run_flask_app)
@@ -144,6 +155,9 @@ class SystemTest (unittest.TestCase):
         self.tc_2_1_9()
         self.tc_2_1_11()
 
+    def test_genera_codice(self):
+        self.tc_4_1_1()
+        self.tc_4_1_2()
 
     def tc_1_1_1(self):
         driver = self.driver
@@ -556,13 +570,62 @@ class SystemTest (unittest.TestCase):
         #assert che elem esiste
         assert elem is None
 
+    def tc_4_1_1(self):
+        driver = self.driver
+        driver.get(self.urllogin)
+        time.sleep(1)
+        
+        assert "Login" in driver.title
+        
+        inserisci_dati_login(driver, "prova@gmail.com", "password")
+
+        elem = driver.find_element(By.ID, "signin")
+        elem.click()
+
+        self.driver.get(self.urlazienda_agricola)
+        time.sleep(1)
+        elem = driver.find_element(By.ID, "aggiungi")
+        elem.click()
+        result = inserisci_ruolo(driver, "ruolo1")
+        assert result is False
+    
+    def tc_4_1_2(self):
+        driver = self.driver
+        driver.get(self.urllogin)
+        time.sleep(1)
+        
+        assert "Login" in driver.title
+        
+        inserisci_dati_login(driver, "prova@gmail.com", "password")
+
+        elem = driver.find_element(By.ID, "signin")
+        elem.click()
+
+        self.driver.get(self.urlazienda_agricola)
+        time.sleep(1)
+        elem = driver.find_element(By.ID, "aggiungi")
+        elem.click()
+        result = inserisci_ruolo(driver, "Irrigation Manager")
+        assert result is True
+        elem = driver.find_element(By.ID, "generacodice")
+        elem.click()
+
+        try:
+            elem = driver.find_element(By.ID, "gencode")
+        except Exception:
+            elem = None
+
+        assert elem is not None
+
     def tearDown(self):
         self.p.terminate()
         self.driver.close()
 
 
 if __name__ == "__main__":
-    unittest.main()
+    t = SystemTest()
+    t.setUp()
+    t.tc_4_1_2()
 
         
 
