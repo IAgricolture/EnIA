@@ -6,8 +6,83 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
 sys.path.append(os.path.abspath(os.path.join('.' )))
 from src import app
+from flask_cors import CORS
+
+def inserisci_dati_login(driver: webdriver.Chrome, email, password):
+        elem = driver.find_element(By.ID, "email")
+        elem.send_keys(email)
+
+        elem = driver.find_element(By.ID, "password")
+        elem.send_keys(password)
+
+def inserisci_dati_aggiunta_terreno(driver: webdriver.Chrome, nome, coltura,stadio_sviluppo, preferito, priorita):
+        elem = driver.find_element(By.ID, "nome")
+        elem.send_keys(nome)
+
+        elem = driver.find_element(By.ID, "coltura")
+        #elem è un oggetto di tipo select
+        try:
+            select = Select(elem)
+            select.select_by_visible_text(coltura)
+        except:
+            print("coltura non valida")
+            return False
+     
+        elem = driver.find_element(By.ID, "stadio")
+        select = Select(elem)
+        print(stadio_sviluppo)
+        #catch exception
+        try:
+            
+            select.select_by_visible_text(stadio_sviluppo)
+        except:
+            print("stadio di sviluppo non valido")
+            return False
+        
+        elem = driver.find_element(By.ID, "preferito")
+        if preferito:
+            elem.click()
+        elem = driver.find_element(By.ID, "priorita")
+        elem.send_keys(priorita)
+
+        elem = driver.find_element(By.ID, "map")
+        elem.click()
+        elem.click()
+        elem.click()
+        return True
+
+def inserisci_dati_aggiunta_terreno_click_sbagliati(driver: webdriver.Chrome, nome, coltura,stadio_sviluppo, preferito, priorita):
+        elem = driver.find_element(By.ID, "nome")
+        elem.send_keys(nome)
+
+        elem = driver.find_element(By.ID, "coltura")
+        #elem è un oggetto di tipo select
+        try:
+            select = Select(elem)
+            select.select_by_visible_text(coltura)
+        except:
+            print("coltura non valida")
+            return
+     
+        elem = driver.find_element(By.ID, "stadio")
+        select = Select(elem)
+        #catch exception
+        try:
+            select.select_by_visible_text(stadio_sviluppo)
+        except:
+            print("stadio di sviluppo non valido")
+            return
+        
+        elem = driver.find_element(By.ID, "preferito")
+        if preferito:
+            elem.click()
+        elem = driver.find_element(By.ID, "priorita")
+        elem.send_keys(priorita)
+
+        elem = driver.find_element(By.ID, "map")
 
 def Inserisci_dati_registrazione_codice_accesso(driver: webdriver.Chrome, nome, cognome, email, password, conferma, codice, indirizzo, data_nascita):
         elem = driver.find_element(By.ID, "nome")
@@ -36,8 +111,11 @@ def Inserisci_dati_registrazione_codice_accesso(driver: webdriver.Chrome, nome, 
 def run_flask_app():
     #start the flask app in a second thread
     app.run(port=5000)
+
 class SystemTest (unittest.TestCase):
     url = "http://127.0.0.1:5000/login"
+    urllogin= "http://127.0.0.1:5000/login"
+    urlinserisciterreno = "http://127.0.0.1:5000/aggiuntaTerreno"
 
     def setUp(self):
         
@@ -50,7 +128,7 @@ class SystemTest (unittest.TestCase):
     def test_case_1_1_1(self):
         driver = self.driver
         driver.get(self.url)
-        time.sleep(2)
+        time.sleep(1)
         assert "Login" in driver.title
 
         elem = driver.find_element(By.LINK_TEXT, "Registrati qui")
@@ -71,14 +149,14 @@ class SystemTest (unittest.TestCase):
 
         elem = driver.find_element(By.LINK_TEXT, "SIGN UP")
         elem.click()
-
+        time.sleep(1)
         elem = driver.find_element(By.ID, "emailerr")
         assert "Formato non valido" in elem.text
 
     def test_case_1_1_2(self):
         driver = self.driver
         driver.get(self.url)
-        time.sleep(2)
+        time.sleep(1)
 
         assert "Login" in driver.title
 
@@ -107,7 +185,7 @@ class SystemTest (unittest.TestCase):
     def test_case_1_1_3(self):
         driver = self.driver
         driver.get(self.url)
-        time.sleep(2)
+        time.sleep(1)
 
         assert "Login" in driver.title
 
@@ -136,7 +214,7 @@ class SystemTest (unittest.TestCase):
     def test_case_1_1_4(self):
         driver = self.driver
         driver.get(self.url)
-        time.sleep(2)
+        time.sleep(1)
 
         assert "Login" in driver.title
 
@@ -165,7 +243,7 @@ class SystemTest (unittest.TestCase):
     def test_case_1_1_5(self):
         driver = self.driver
         driver.get(self.url)
-        time.sleep(2)
+        time.sleep(1)
 
         assert "Login" in driver.title
 
@@ -195,7 +273,7 @@ class SystemTest (unittest.TestCase):
     def test_case_1_1_6(self):
         driver = self.driver
         driver.get(self.url)
-        time.sleep(2)
+        time.sleep(1)
 
         assert "Login" in driver.title
 
@@ -225,7 +303,7 @@ class SystemTest (unittest.TestCase):
     def test_case_1_1_7(self):
         driver = self.driver
         driver.get(self.url)
-        time.sleep(2)
+        time.sleep(1)
 
         assert "Login" in driver.title
 
@@ -255,7 +333,7 @@ class SystemTest (unittest.TestCase):
     def test_case_1_1_8(self):
         driver = self.driver
         driver.get(self.url)
-        time.sleep(2)
+        time.sleep(1)
 
         assert "Login" in driver.title
 
@@ -280,11 +358,192 @@ class SystemTest (unittest.TestCase):
         
         assert "Registrazione" in driver.title
 
+    def test_case_2_1_1(self):
+        driver = self.driver
+        driver.get(self.urllogin)
+        time.sleep(1)
+        
+        assert "Login" in driver.title
+        
+        inserisci_dati_login(driver, "prova@gmail.com", "password")
+
+        elem = driver.find_element(By.ID, "signin")
+        elem.click()
+
+        self.driver.get(self.urlinserisciterreno)
+        time.sleep(1)
+        result = inserisci_dati_aggiunta_terreno(driver, "Ç?(&%U", "Orzo", "Fine Stagione", True, 12)
+        elem = driver.find_element(By.ID, "add")
+        elem.click()
+
+        #find one class alert alert-danger
+        time.sleep(1)
+        elem = driver.find_element(By.CLASS_NAME, "alert-danger")
+        #assert che elem esiste
+        assert elem is not None
+    
+    def test_case_2_1_2(self):
+        driver = self.driver
+        driver.get(self.urllogin)
+        time.sleep(1)
+        
+        assert "Login" in driver.title
+        
+        inserisci_dati_login(driver, "prova@gmail.com", "password")
+
+        elem = driver.find_element(By.ID, "signin")
+        elem.click()
+
+        self.driver.get(self.urlinserisciterreno)
+        time.sleep(1)
+        result = inserisci_dati_aggiunta_terreno(driver, "", "Orzo", "Fine Stagione", True, 12)
+        elem = driver.find_element(By.ID, "add")
+        elem.click()
+
+        #find one class alert alert-danger
+        elem = driver.find_element(By.CLASS_NAME, "alert-danger")
+        #assert che elem esiste
+        assert elem is not None
+    
+    def test_case_2_1_3(self):
+        driver = self.driver
+        driver.get(self.urllogin)
+        time.sleep(1)
+        
+        assert "Login" in driver.title
+        
+        inserisci_dati_login(driver, "prova@gmail.com", "password")
+
+        elem = driver.find_element(By.ID, "signin")
+        elem.click()
+
+        self.driver.get(self.urlinserisciterreno)
+        time.sleep(1)
+        result = inserisci_dati_aggiunta_terreno(driver, "terreno1", "", "Fine Stagione", True, 12)
+        elem = driver.find_element(By.ID, "add")
+        elem.click()
+
+        #find one class alert alert-danger
+        elem = driver.find_element(By.CLASS_NAME, "alert-danger")
+        #assert che elem esiste
+        assert elem is not None
+
+    #ORACOLO: Inserimento fallisce per formato invalido di coltura
+    def test_case_2_1_4(self):
+        driver = self.driver
+        driver.get(self.urllogin)
+        time.sleep(1)
+        
+        assert "Login" in driver.title
+        
+        inserisci_dati_login(driver, "prova@gmail.com", "password")
+
+        elem = driver.find_element(By.ID, "signin")
+        elem.click()
+
+        self.driver.get(self.urlinserisciterreno)
+        time.sleep(1)
+        result = inserisci_dati_aggiunta_terreno(driver, "terreno1", "*çéçé=(", "Fine Stagione", True, 12)
+        
+        elem = driver.find_element(By.ID, "add")
+        elem.click()
+
+        #find one class alert alert-danger
+        elem = driver.find_element(By.CLASS_NAME, "alert-danger")
+        #assert che elem esiste
+        assert elem is not None
+
+    #ORACOLO: Inserimento fallisce per formato invalido di coltura
+    def test_case_2_1_5(self):
+        driver = self.driver
+        driver.get(self.urllogin)
+        time.sleep(1)
+        
+        assert "Login" in driver.title
+        
+        inserisci_dati_login(driver, "prova@gmail.com", "password")
+
+        elem = driver.find_element(By.ID, "signin")
+        elem.click()
+
+        self.driver.get(self.urlinserisciterreno)
+        time.sleep(1)
+        result = inserisci_dati_aggiunta_terreno(driver, "terreno1", "Orzaiolinoo", "Fine Stagione", True, 12)
+        assert result is False
+        elem = driver.find_element(By.ID, "add")
+        elem.click()
+
+        #find one class alert alert-danger
+        elem = driver.find_element(By.CLASS_NAME, "alert-danger")
+        #assert che elem esiste
+        assert elem is not None
+
+    #ORACOLO: Fallisce in quanto manca la posizione
+    def test_case_2_1_8(self):
+        pass
+
+    #ORACOLO: Fallito per non aver inserito posizione
+    def test_case_2_1_9(self):
+        driver = self.driver
+        driver.get(self.urllogin)
+        time.sleep(1)
+        
+        assert "Login" in driver.title
+        
+        inserisci_dati_login(driver, "prova@gmail.com", "password")
+
+        elem = driver.find_element(By.ID, "signin")
+        elem.click()
+
+        self.driver.get(self.urlinserisciterreno)
+        time.sleep(1)
+        result = inserisci_dati_aggiunta_terreno_click_sbagliati(driver, "terreno1", "Orzo", "Fine Stagione", True, 12)
+        elem = driver.find_element(By.ID, "add")
+        elem.click()
+
+        #find one class alert alert-danger
+        elem = driver.find_element(By.CLASS_NAME, "alert-danger")
+        #assert che elem esiste
+        assert elem is not None
+
+    #test_case_2_1_10 non si può fare dato che il preferito o è checked o non è checked
+
+    #ORACOLO: Inserimento va a buon fine in quanto tutti i campi sono corretti.
+    def test_case_2_1_11(self):
+        driver = self.driver
+        driver.get(self.urllogin)
+        time.sleep(1)
+        
+        assert "Login" in driver.title
+        
+        inserisci_dati_login(driver, "prova@gmail.com", "password")
+
+        elem = driver.find_element(By.ID, "signin")
+        elem.click()
+
+        self.driver.get(self.urlinserisciterreno)
+        time.sleep(1)
+        result = inserisci_dati_aggiunta_terreno(driver, "terreno1", "Orzo", "Fine Stagione", True, 12)
+        elem = driver.find_element(By.ID, "add")
+        elem.click()
+
+        #find one class alert alert-danger
+        try:
+            elem = driver.find_element(By.CLASS_NAME, "alert-danger")
+        except Exception:
+            elem = None
+        #assert che elem esiste
+        assert elem is None
+
     def tearDown(self):
         self.p.terminate()
         self.driver.close()
 
+
 if __name__ == "__main__":
-    unittest.main()
+    t = SystemTest()
+    t.setUp()
+    t.test_case_2_1_5()
+
         
 

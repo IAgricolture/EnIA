@@ -11,7 +11,7 @@
         var priorita = document.getElementById("priorita").value
         var stadio_crescita = document.getElementById("stadio").value
         
-          var url = new URL("http://localhost:5000/aggiuntaTerreno")
+          var url = "aggiuntaTerreno"
           data = new FormData()
           console.log(polygon.toGeoJSON())
           data.append("nome", nome)
