@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Registrazione package &#8212; EnIA 1.0 documentazione</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/translations.js"></script>
+    <link rel="index" title="Indice" href="genindex.html" />
+    <link rel="search" title="Cerca" href="search.html" />
+    <link rel="next" title="Storage package" href="Storage.html" />
+    <link rel="prev" title="GestioneSchedule package" href="GestioneSchedule.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="registrazione-package">
+<h1>Registrazione package<a class="headerlink" href="#registrazione-package" title="Permalink to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="registrazione-registrazionecontroller-module">
+<h2>Registrazione.RegistrazioneController module<a class="headerlink" href="#registrazione-registrazionecontroller-module" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="module-Registrazione.RegistrazioneService">
+<span id="registrazione-registrazioneservice-module"></span><h2>Registrazione.RegistrazioneService module<a class="headerlink" href="#module-Registrazione.RegistrazioneService" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Registrazione.RegistrazioneService.RegistrazioneService">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Registrazione.RegistrazioneService.</span></span><span class="sig-name descname"><span class="pre">RegistrazioneService</span></span><a class="headerlink" href="#Registrazione.RegistrazioneService.RegistrazioneService" title="Link a questa definizione">¶</a></dt>
+<dd><blockquote>
+<div><p>Basi: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="Registrazione.RegistrazioneService.RegistrazioneService.creaFarmer">
+<span class="sig-name descname"><span class="pre">creaFarmer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cognome</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataDiNascita</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partitaiva</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indirizzo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#Registrazione.RegistrazioneService.RegistrazioneService.creaFarmer" title="Link a questa definizione">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Registrazione.RegistrazioneService.RegistrazioneService.creaLicenza">
+<span class="sig-name descname"><span class="pre">creaLicenza</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tipo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Licenza</span></span></span><a class="headerlink" href="#Registrazione.RegistrazioneService.RegistrazioneService.creaLicenza" title="Link a questa definizione">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Registrazione.RegistrazioneService.RegistrazioneService.creaMetodoDiPagamento">
+<span class="sig-name descname"><span class="pre">creaMetodoDiPagamento</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titolare</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scadenza</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cvv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">MetodoDiPagamento</span></span></span><a class="headerlink" href="#Registrazione.RegistrazioneService.RegistrazioneService.creaMetodoDiPagamento" title="Link a questa definizione">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Registrazione.RegistrazioneService.RegistrazioneService.modificaUtente">
+<span class="sig-name descname"><span class="pre">modificaUtente</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cognome</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataDiNascita</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codice</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indirizzo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Registrazione.RegistrazioneService.RegistrazioneService.modificaUtente" title="Link a questa definizione">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Registrazione.RegistrazioneService.RegistrazioneService.trovaUtenteByCodiceDiAccesso">
+<span class="sig-name descname"><span class="pre">trovaUtenteByCodiceDiAccesso</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Utente</span></span></span><a class="headerlink" href="#Registrazione.RegistrazioneService.RegistrazioneService.trovaUtenteByCodiceDiAccesso" title="Link a questa definizione">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Registrazione.RegistrazioneService.RegistrazioneService.trovaUtenteByEmail">
+<span class="sig-name descname"><span class="pre">trovaUtenteByEmail</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Utente</span></span></span><a class="headerlink" href="#Registrazione.RegistrazioneService.RegistrazioneService.trovaUtenteByEmail" title="Link a questa definizione">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-Registrazione">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-Registrazione" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">EnIA</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigazione</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">logic</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="AmbienteAgricolo.html">AmbienteAgricolo package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Autenticazione.html">Autenticazione package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DecisionIntelligence.html">DecisionIntelligence package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GestioneEventi.html">GestioneEventi package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GestionePagamento.html">GestionePagamento package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GestioneSchedule.html">GestioneSchedule package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Registrazione package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Storage.html">Storage package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Utente.html">Utente package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model.html">model package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">logic</a><ul>
+      <li>Previous: <a href="GestioneSchedule.html" title="capitolo precedente">GestioneSchedule package</a></li>
+      <li>Next: <a href="Storage.html" title="capitolo successivo">Storage package</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Ricerca veloce</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Vai" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Pierluigi Lambiase, Carmine Laudato, Francesco Maria Puca, Benedetto Scala, Maria Lombardi, Gerardo Frino, Francesco Fattorusso.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/Registrazione.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
