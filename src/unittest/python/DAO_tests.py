@@ -264,11 +264,8 @@ class ImpiantoDiIrrigazioneDAOTests(unittest.TestCase):
         terrenoperimpianto = Terreno(None, "Terreno-A", "Orzo", "Sviluppo", {"type":"Feature","properties":{},"geometry":{"type":"Polygon","coordinates":[[[14.783607,40.772225],[14.783735,40.772745],[14.784594,40.771965],[14.783607,40.772225]]]}}, True, 15, "63b9e6a27862c31f1f7b221p")
         self.terrenoperimpiantoID = TerrenoDAO.InserisciTerreno(terrenoperimpianto)
         self.impianto = ImpiantoDiIrrigazione("", "IrrigatoreTest", "irrigatore", "", "{'type': 'Feature', 'properties': {}, 'geometry': {'type': 'Point', 'coordinates': [14.789861, 40.774736]}}", False) 
-        print("Creato impianto")
         self.impiantoID = ImpiantoDiIrrigazioneDAO.creaImpianto(self.impianto, self.terrenoperimpiantoID)
-        print("Ottenuto impiantoID")
         self.impiantoExpected = ImpiantoDiIrrigazioneDAO.findImpiantoById(self.impiantoID)
-        print("Ottenuto impiantoExpected")
         
     def tearDown(self):
         TerrenoDAO.RimuoviTerreno(TerrenoDAO.TrovaTerreno(self.terrenoperimpiantoID))
@@ -319,6 +316,60 @@ class ImpiantoDiIrrigazioneDAOTests(unittest.TestCase):
         result = ImpiantoDiIrrigazioneDAO.eliminaImpianto(self.impiantoID)
         self.assertEqual(result, True)     
                 
+class ScheduleDAOTests(unittest.TestCase):
+    
+    def setUp(self):
+        terrenoperschedule = Terreno(None, "Terreno-C", "Orzo", "Sviluppo", {"type":"Feature","properties":{},"geometry":{"type":"Polygon","coordinates":[[[14.783607,40.772225],[14.783735,40.772745],[14.784594,40.771965],[14.783607,40.772225]]]}}, False, 15, "63b9e6a27862c31f1f7b221p")
+        self.terrenoperscheduleID = TerrenoDAO.InserisciTerreno(terrenoperschedule)
+        print(self.terrenoperscheduleID)
+        self.schedule = Schedule("", datetime.datetime.now(), datetime.datetime.now(), "basso", self.terrenoperscheduleID)
+        print(self.schedule.terreno)
+        self.scheduleID = ScheduleDAO.creaSchedule(self.schedule)
+        self.scheduleExpected = ScheduleDAO.findSchedule(self.scheduleID)
+        print(self.scheduleExpected.terreno)
+        
+    def tearDown(self):
+        TerrenoDAO.RimuoviTerreno(TerrenoDAO.TrovaTerreno(self.terrenoperscheduleID))
+        ScheduleDAO.eliminaSchedule(self.scheduleID)      
+              
+    def test_findSchedule_pass(self):
+        print("findSchedule")
+        scheduleResult = ScheduleDAO.findSchedule(self.scheduleID)
+        self.assertEqual(scheduleResult, self.scheduleExpected)
+             
+    def test_creaSettimanaScheduleNullo_pass(self):
+        print("creaSettimanaScheduleNullo")
+        result = ScheduleDAO.creaSettimanaScheduleNullo(self.schedule.terreno)
+        self.assertEqual(result.acknowledged, True)
+        for id in result.inserted_ids:
+            resultSchedule = ScheduleDAO.findSchedule(id)
+            self.assertEqual(resultSchedule.modalita, "Nessuno")
+            self.assertEqual(resultSchedule.terreno, self.schedule.terreno)
+        
+
+    def test_creaSchedule_pass(self):
+        print("creaSchedule")
+        self.assertEqual(self.schedule.inizio.replace(microsecond=0).time(), self.scheduleExpected.inizio.replace(microsecond=0))
+    
+    def test_getWeeklySchedule_pass(self):
+        print("getWeeklySchedule")
+        weekly = list(ScheduleDAO.getWeeklySchedule(self.schedule.terreno))
+        self.assertEqual(len(weekly), 7)
+        for schedule in weekly:
+            self.assertEqual(str(schedule["terreno"]), str(self.schedule.terreno))
+            
+    def test_modificaLivelloSchedule_pass(self):
+        print("modificaLivelloSchedule")
+        try:
+            result = ScheduleDAO.modificaLivelloSchedule(self.schedule.terreno, datetime.datetime.now().date().strftime("%d-%m-%Y"), "Alto")
+            self.assertEqual(result, True)
+        except Exception as e:
+            print(e)
+        
+    def test_eliminaSchedule_pass(self):
+        print("eliminaSchedule")
+        result = ScheduleDAO.eliminaSchedule(self.scheduleID)
+        self.assertEqual(result, True)
         
 if __name__ == '__main__':
     print("Partenza test di TerrenoDAO")
@@ -343,5 +394,9 @@ if __name__ == '__main__':
     test.run()
     print("Partenza test di ImpiantoDiIrrigazioneDAO")
     test = ImpiantoDiIrrigazioneDAOTests()
+    test.setUp()
+    test.run()
+    print("Partenza test di ScheduleDAO")
+    test = ScheduleDAOTests()
     test.setUp()
     test.run()
