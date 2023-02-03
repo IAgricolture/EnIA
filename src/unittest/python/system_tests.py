@@ -617,6 +617,34 @@ class SystemTest (unittest.TestCase):
 
         assert elem is not None
 
+    def test_decision_intelligence(self):
+        driver = self.driver
+        driver.get(self.urllogin)
+        time.sleep(1)
+        
+        assert "Login" in driver.title
+        
+        inserisci_dati_login(driver, "prova@gmail.com", "password")
+
+        elem = driver.find_element(By.ID, "signin")
+        elem.click()
+        elem = driver.find_element(By.LINK_TEXT,"Dettagli")
+        elem.click()
+        elem = driver.find_element(By.ID, "data-consigliati")
+        #find table in elem
+        table = elem.find_element(By.CLASS_NAME, "table")
+        #find all tr in table
+        trs = table.find_elements(By.TAG_NAME, "tr")
+
+        #find all td in trs
+        tds = []
+        for tr in trs:
+            tds.append(tr.find_elements(By.TAG_NAME, "td"))
+        
+        #assert that td in tds are not empty
+        for td in tds:
+            assert td is not None
+
     def tearDown(self):
         self.p.terminate()
         self.driver.close()
@@ -625,7 +653,6 @@ class SystemTest (unittest.TestCase):
 if __name__ == "__main__":
     t = SystemTest()
     t.setUp()
-    t.tc_4_1_2()
-
-        
+    t.tc_5_1_1()
+    t.tearDown()        
 
