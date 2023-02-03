@@ -659,8 +659,9 @@ class SystemTest (unittest.TestCase):
         time.sleep(1)
         elem = driver.find_element(By.LINK_TEXT,"Dettagli")
         elem.click()
-        time.sleep(1)
+        time.sleep(4)
         elem = driver.find_element(By.ID, "datiMeteo")
+
         #find elem with class chartjs-size-monitor
         try:
             elem = elem.find_element(By.CLASS_NAME, "chartjs-size-monitor")
