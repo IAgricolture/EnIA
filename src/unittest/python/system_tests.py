@@ -656,8 +656,10 @@ class SystemTest (unittest.TestCase):
 
         elem = driver.find_element(By.ID, "signin")
         elem.click()
+        time.sleep(1)
         elem = driver.find_element(By.LINK_TEXT,"Dettagli")
         elem.click()
+        time.sleep(1)
         elem = driver.find_element(By.ID, "datiMeteo")
         #find elem with class chartjs-size-monitor
         try:
@@ -665,6 +667,7 @@ class SystemTest (unittest.TestCase):
         except Exception:
             elem = None
         assert elem is not None
+        print(elem)
 
 
     def tearDown(self):
