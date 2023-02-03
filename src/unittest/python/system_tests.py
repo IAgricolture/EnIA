@@ -118,16 +118,37 @@ class SystemTest (unittest.TestCase):
     urlinserisciterreno = "http://127.0.0.1:5000/aggiuntaTerreno"
 
     def setUp(self):
-        
         self.p = Process(target=run_flask_app)
         #start the flask app in a thread
         self.p.start()
         print("starting server...")
         self.driver = webdriver.Chrome()
 
-    def test_case_1_1_1(self):
+    def test_login(self):
+        self.tc_1_1_1()
+        self.tc_1_1_2()
+        self.tc_1_1_3()
+        self.tc_1_1_4()
+        self.tc_1_1_5()
+        self.tc_1_1_6()
+        self.tc_1_1_7()
+        self.tc_1_1_8()
+    
+    def test_aggiunta_terreno(self):
+        self.tc_2_1_1()
+        self.tc_2_1_2()
+        self.tc_2_1_3()
+        self.tc_2_1_4()
+        self.tc_2_1_5()
+        self.tc_2_1_8()
+        self.tc_2_1_9()
+        self.tc_2_1_11()
+
+
+    def tc_1_1_1(self):
         driver = self.driver
         driver.get(self.url)
+        print(self.url)
         time.sleep(1)
         assert "Login" in driver.title
 
@@ -153,7 +174,7 @@ class SystemTest (unittest.TestCase):
         elem = driver.find_element(By.ID, "emailerr")
         assert "Formato non valido" in elem.text
 
-    def test_case_1_1_2(self):
+    def tc_1_1_2(self):
         driver = self.driver
         driver.get(self.url)
         time.sleep(1)
@@ -182,7 +203,7 @@ class SystemTest (unittest.TestCase):
         elem = driver.find_element(By.ID, "passerr")
         assert "Formato non valido" in elem.text
 
-    def test_case_1_1_3(self):
+    def tc_1_1_3(self):
         driver = self.driver
         driver.get(self.url)
         time.sleep(1)
@@ -211,7 +232,7 @@ class SystemTest (unittest.TestCase):
         elem = driver.find_element(By.ID, "conferr")
         assert "Le due password non corrispondono" in elem.text
 
-    def test_case_1_1_4(self):
+    def tc_1_1_4(self):
         driver = self.driver
         driver.get(self.url)
         time.sleep(1)
@@ -240,7 +261,7 @@ class SystemTest (unittest.TestCase):
         elem = driver.find_element(By.ID, "nomeerr")
         assert "Formato non valido" in elem.text
     
-    def test_case_1_1_5(self):
+    def tc_1_1_5(self):
         driver = self.driver
         driver.get(self.url)
         time.sleep(1)
@@ -270,7 +291,7 @@ class SystemTest (unittest.TestCase):
         assert "Formato non valido" in elem.text
     
     #TODO: Farlo funzionare con le chiamate asincrone 
-    def test_case_1_1_6(self):
+    def tc_1_1_6(self):
         driver = self.driver
         driver.get(self.url)
         time.sleep(1)
@@ -300,7 +321,7 @@ class SystemTest (unittest.TestCase):
         #correggere
         #assert "codice non valido o gia' usato" in elem.text
 
-    def test_case_1_1_7(self):
+    def tc_1_1_7(self):
         driver = self.driver
         driver.get(self.url)
         time.sleep(1)
@@ -330,7 +351,7 @@ class SystemTest (unittest.TestCase):
         assert "Formato non valido" in elem.text    
 
     #TODO: Farlo funzionare con le chiamate asincrone 
-    def test_case_1_1_8(self):
+    def tc_1_1_8(self):
         driver = self.driver
         driver.get(self.url)
         time.sleep(1)
@@ -358,7 +379,7 @@ class SystemTest (unittest.TestCase):
         
         assert "Registrazione" in driver.title
 
-    def test_case_2_1_1(self):
+    def tc_2_1_1(self):
         driver = self.driver
         driver.get(self.urllogin)
         time.sleep(1)
@@ -382,7 +403,7 @@ class SystemTest (unittest.TestCase):
         #assert che elem esiste
         assert elem is not None
     
-    def test_case_2_1_2(self):
+    def tc_2_1_2(self):
         driver = self.driver
         driver.get(self.urllogin)
         time.sleep(1)
@@ -405,7 +426,7 @@ class SystemTest (unittest.TestCase):
         #assert che elem esiste
         assert elem is not None
     
-    def test_case_2_1_3(self):
+    def tc_2_1_3(self):
         driver = self.driver
         driver.get(self.urllogin)
         time.sleep(1)
@@ -429,7 +450,7 @@ class SystemTest (unittest.TestCase):
         assert elem is not None
 
     #ORACOLO: Inserimento fallisce per formato invalido di coltura
-    def test_case_2_1_4(self):
+    def tc_2_1_4(self):
         driver = self.driver
         driver.get(self.urllogin)
         time.sleep(1)
@@ -454,7 +475,7 @@ class SystemTest (unittest.TestCase):
         assert elem is not None
 
     #ORACOLO: Inserimento fallisce per formato invalido di coltura
-    def test_case_2_1_5(self):
+    def tc_2_1_5(self):
         driver = self.driver
         driver.get(self.urllogin)
         time.sleep(1)
@@ -479,11 +500,11 @@ class SystemTest (unittest.TestCase):
         assert elem is not None
 
     #ORACOLO: Fallisce in quanto manca la posizione
-    def test_case_2_1_8(self):
+    def tc_2_1_8(self):
         pass
 
     #ORACOLO: Fallito per non aver inserito posizione
-    def test_case_2_1_9(self):
+    def tc_2_1_9(self):
         driver = self.driver
         driver.get(self.urllogin)
         time.sleep(1)
@@ -509,7 +530,7 @@ class SystemTest (unittest.TestCase):
     #test_case_2_1_10 non si può fare dato che il preferito o è checked o non è checked
 
     #ORACOLO: Inserimento va a buon fine in quanto tutti i campi sono corretti.
-    def test_case_2_1_11(self):
+    def tc_2_1_11(self):
         driver = self.driver
         driver.get(self.urllogin)
         time.sleep(1)
@@ -541,9 +562,7 @@ class SystemTest (unittest.TestCase):
 
 
 if __name__ == "__main__":
-    t = SystemTest()
-    t.setUp()
-    t.test_case_2_1_5()
+    unittest.main()
 
         
 
