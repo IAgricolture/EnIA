@@ -366,7 +366,65 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
         print(risultato)
         AmbienteAgricoloService.eliminaTerreno(risultato["restituito"])        
         self.assertEqual(risultato["esitoOperazione"], True)  #Inserimento riesce
+    
+    #TEST VISUALIZZAZIONE METEO
+    
+    def test_visualizza_meteo_tc_3_1_1(self):
+        print("TC_3_1_1")
         
+        #arrange
+        long = 190
+        lat = 12.2
+        
+        try:
+            #act
+            AmbienteAgricoloService.cercaMeteo(lat, long)
+        except Exception as e:
+            #assert
+            self.assertEqual(e.args[0], "Longitudine non valida")
+            return 
+        #assert
+        self.fail("Eccezione non lanciata")
+        
+    def test_visualizza_meteo_tc_3_1_2(self):
+        print("TC_3_1_2")
+        
+        #arrange
+        long = 12.2
+        lat = -25555
+        
+        try:
+            #act
+            AmbienteAgricoloService.cercaMeteo(lat, long)
+        except Exception as e:
+            #assert
+            self.assertEqual(e.args[0], "Latitudine non valida")
+            return 
+        #assert
+        self.fail("Eccezione non lanciata")
+        
+    def test_visualizza_meteo_tc_3_1_3(self):
+        print("TC_3_1_3")
+        
+        #arrange
+        long = 12.2
+        lat = 14.3
+        
+        try:
+            #act
+            result = AmbienteAgricoloService.cercaMeteo(lat, long)
+        except Exception as e:
+            #assert
+            self.fail("Eccezione non dovrebbe essere lanciata")
+            
+        #assert that result is a dictionary and has the right keys
+        self.assertIsInstance(result, dict)
+        #assert that is not null
+        self.assertIsNotNone(result)
+        print(result)
+        #assert that has lat and long keys and that they are almost equal to the ones passed
+        self.assertAlmostEqual(result["latitude"], lat, delta=1)
+        self.assertAlmostEqual(result["longitude"], long, delta=1)
     
 if __name__ == '__main__':
     unittest.main()
