@@ -18,5 +18,7 @@ class OpenMeteoAdapter():
         url = "https://api.open-meteo.com/v1/forecast?"\
         "latitude="+str(self.lat)+"&longitude="+str(self.lon)+ "&hourly=temperature_2m,relativehumidity_2m,precipitation"
         data = requests.get(url).json()
-        
+        print("dati meteo ------------------------------------------")
+        print(data)
+        print("fine dati meteo ------------------------------------")
         return data
