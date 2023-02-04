@@ -415,6 +415,9 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
             result = AmbienteAgricoloService.cercaMeteo(lat, long)
         except Exception as e:
             #assert
+            print("--------------------Eccezione---------------------")
+            print(e.args[0])
+            print("--------------------Eccezione---------------------")
             self.fail("Eccezione non dovrebbe essere lanciata")
             
         #assert that result is a dictionary and has the right keys
