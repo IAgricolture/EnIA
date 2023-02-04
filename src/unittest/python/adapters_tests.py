@@ -4,8 +4,10 @@ import unittest
 import requests_mock
 
 
+
 sys.path.append(os.path.abspath(os.path.join('.' )))
 from src.logic.Adapters.OpenMeteoAdapter import OpenMeteoAdapter
+from src.logic.Adapters.NominatimAdapter import NominatimAdapter
 from src.logic.Adapters.IAdapter import IAdapter
 class TestIAdapter(unittest.TestCase):
     def setUp(self):
@@ -135,5 +137,56 @@ class TestOpenMeteoAdapter(unittest.TestCase):
 
             # Assert
             self.assertEqual(result, expected_data)
+            
+class TestNominatimAdapter(unittest.TestCase):
+    
+    def setUp(self) -> None:
+        self.valid_lat = 0
+        self.valid_lon = 0
+        self.valid_format = "json"
+        self.valid_zoom = 0
+        self.invalid_lat = 91
+        self.invalid_lon = 181
+        self.invalid_format = "invalid"
+        self.invalid_zoom = "ss"
+    
+    def test_valid(self):
+        # test valid nominatim adapter doesn't raise exception
+        NominatimAdapter(self.valid_lat, self.valid_lon, self.valid_format, self.valid_zoom)
+    
+    def test_invalid_latitude(self):
+        # test invalid latitude
+        with self.assertRaises(Exception) as context:
+            NominatimAdapter(self.invalid_lat, 0, "json", 0)
+        self.assertEqual(str(context.exception), "Latitudine o longitudine non valide")
+
+    def test_invalid_longitude(self):
+        # test invalid longitude
+        with self.assertRaises(Exception) as context:
+            NominatimAdapter(0, self.invalid_lon, "json", 0)
+        self.assertEqual(str(context.exception), "Latitudine o longitudine non valide")
+
+    def test_invalid_format(self):
+        # test invalid format
+        with self.assertRaises(Exception) as context:
+            NominatimAdapter(0, 0, self.invalid_format, 0)
+        self.assertEqual(str(context.exception), "Formato non valido")
+
+    def test_invalid_zoom(self):
+        # test invalid zoom
+        with self.assertRaises(Exception) as context:
+            NominatimAdapter(0, 0, "json", self.invalid_zoom)
+        self.assertEqual(str(context.exception), "Zoom non valido")
+        
+    def test_get_data(self):
+        # simulate response from Nominatim API
+        with requests_mock.Mocker() as m:
+            m.get("https://nominatim.openstreetmap.org/reverse", json={"key1": "value1", "key2": "value2"})
+
+            # test get_data method
+            nominatim_adapter = NominatimAdapter(0, 0, "json", 0)
+            result = nominatim_adapter.get_data()
+            self.assertEqual(result, {"key1": "value1", "key2": "value2"})
+            
 if __name__ == '__main__':
     unittest.main()
