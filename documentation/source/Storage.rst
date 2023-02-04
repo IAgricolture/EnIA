@@ -59,3 +59,11 @@ Storage.TerrenoDAO module
    :members:
    :undoc-members:
    :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: Storage
+   :members:
+   :undoc-members:
+   :show-inheritance:
