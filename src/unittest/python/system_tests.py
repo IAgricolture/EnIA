@@ -630,6 +630,7 @@ class SystemTest (unittest.TestCase):
         elem.click()
         elem = driver.find_element(By.LINK_TEXT,"Dettagli")
         elem.click()
+        time.sleep(10)
         elem = driver.find_element(By.ID, "data-consigliati")
         #find table in elem
         table = elem.find_element(By.CLASS_NAME, "table")
