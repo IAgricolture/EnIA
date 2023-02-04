@@ -9,7 +9,12 @@ from src.logic.Adapters.OpenMeteoAdapter import OpenMeteoAdapter
 from src.logic.Adapters.NominatimAdapter import NominatimAdapter
 from src.logic.Adapters.IAdapter import IAdapter
 class TestIAdapter(unittest.TestCase):
+    """classe di test per IAdapter
+    """
     def setUp(self):
+        """
+        Inizializza i valori di test
+        """
         self.valid_lat = 45.0
         self.valid_lon = 90.0
         self.valid_crop = "Orzo"
@@ -22,6 +27,9 @@ class TestIAdapter(unittest.TestCase):
         self.invalid_stage = "germoglione"
 
     def test_valid_input(self):
+        """
+        Testa l'init di IAdapter con valori validi
+        """
         info = IAdapter(self.valid_lat, self.valid_lon, self.valid_crop, self.valid_stage)
         self.assertEqual(info.lat, self.valid_lat)
         self.assertEqual(info.lon, self.valid_lon)
@@ -29,26 +37,41 @@ class TestIAdapter(unittest.TestCase):
         self.assertEqual(info.stage, self.translated_stage)
 
     def test_invalid_lat(self):
+        """
+        Testa l'init di IAdapter con la latitudine non valida
+        """
         with self.assertRaises(Exception) as context:
             IAdapter(self.invalid_lat, self.valid_lon, self.valid_crop, self.valid_stage)
         self.assertEqual(str(context.exception), "Latitudine o longitudine non valide")
 
     def test_invalid_lon(self):
+        """
+        Testa l'init di IAdapter con la longitudine non valida
+        """
         with self.assertRaises(Exception) as context:
             IAdapter(self.valid_lat, self.invalid_lon, self.valid_crop, self.valid_stage)
         self.assertEqual(str(context.exception), "Latitudine o longitudine non valide")
 
     def test_invalid_crop(self):
+        """
+        Testa l'init di IAdapter con la coltura non valida
+        """
         with self.assertRaises(Exception) as context:
             IAdapter(self.valid_lat, self.valid_lon, self.invalid_crop, self.valid_stage)
         self.assertEqual(str(context.exception), "Coltura non valida")
 
     def test_invalid_stage(self):
+        """
+        Testa l'init di IAdapter con lo stadio di crescita non valido
+        """
         with self.assertRaises(Exception) as context:
             IAdapter(self.valid_lat, self.valid_lon, self.valid_crop, self.invalid_stage)
         self.assertEqual(str(context.exception), "Stadio di crescita non valido")
 
     def test_none_value(self):
+        """
+        Testa l'init di IAdapter con valori None
+        """
         with self.assertRaises(Exception) as context:
             IAdapter(None, self.valid_lon, self.valid_crop, self.valid_stage)
         self.assertEqual(str(context.exception), "None value not allowed")
@@ -63,6 +86,9 @@ class TestIAdapter(unittest.TestCase):
         self.assertEqual(str(context.exception), "Stadio di crescita non valido")
         
     def test_get_ai_prediction(self):
+        """
+        Testa il metodo getAiPrediction
+        """
         # Arrange
         mock_response = {
             "irrigationLevel": [1, 1, 1, 1, 1, 1, 1]
@@ -88,7 +114,14 @@ class TestIAdapter(unittest.TestCase):
             }
             self.assertEqual(result, expected_result)
 class TestOpenMeteoAdapter(unittest.TestCase):
+    """
+    Testa la classe OpenMeteoAdapter
+    """
     def test_valid_lat_lon(self):
+        """
+        Testa l'init di OpenMeteoAdapter con valori validi di latitudine
+        e longitudine
+        """
         # Arrange
         lat = 45
         lon = 120
@@ -102,6 +135,9 @@ class TestOpenMeteoAdapter(unittest.TestCase):
         self.assertEqual(result.lon, lon)
 
     def test_invalid_lat(self):
+        """
+        Testa l'init di OpenMeteoAdapter con la latitudine non valida
+        """
         # Arrange
         lat = 91
         lon = 120
@@ -112,6 +148,9 @@ class TestOpenMeteoAdapter(unittest.TestCase):
         self.assertEqual(str(context.exception), "Latitudine non valida")
 
     def test_invalid_lon(self):
+        """
+        Testa l'init di OpenMeteoAdapter con la longitudine non valida
+        """
         # Arrange
         lat = 45
         lon = 181
@@ -122,12 +161,16 @@ class TestOpenMeteoAdapter(unittest.TestCase):
         self.assertEqual(str(context.exception), "Longitudine non valida")
         
     def test_get_data(self):
+        """
+        Testa il metodo get_data che restituisce i dati meteo
+        dei prossimi 7 giorni
+        """
         # Arrange
         lat = 45
         lon = 120
         my_class = OpenMeteoAdapter(lat, lon)
         expected_data = {"temperature_2m": [], "relativehumidity_2m": [], "precipitation": []}
-        
+        #mock sulla risposta della get
         with requests_mock.Mocker() as m:
             m.get("https://api.open-meteo.com/v1/forecast?latitude="+str(lat)+"&longitude="+str(lon)+ "&hourly=temperature_2m,relativehumidity_2m,precipitation", json=expected_data)
             
@@ -138,8 +181,13 @@ class TestOpenMeteoAdapter(unittest.TestCase):
             self.assertEqual(result, expected_data)
             
 class TestNominatimAdapter(unittest.TestCase):
-    
+    """
+    Testa la classe NominatimAdapter
+    """
     def setUp(self) -> None:
+        """
+        Inizializza i valori validi e invalidi per i test
+        """
         self.valid_lat = 0
         self.valid_lon = 0
         self.valid_format = "json"
@@ -150,34 +198,52 @@ class TestNominatimAdapter(unittest.TestCase):
         self.invalid_zoom = "ss"
     
     def test_valid(self):
+        """
+        Testa l'init di NominatimAdapter con valori validi
+        """
         # test valid nominatim adapter doesn't raise exception
         NominatimAdapter(self.valid_lat, self.valid_lon, self.valid_format, self.valid_zoom)
     
     def test_invalid_latitude(self):
+        """
+        Testa l'init di NominatimAdapter con la latitudine non valida
+        """
         # test invalid latitude
         with self.assertRaises(Exception) as context:
             NominatimAdapter(self.invalid_lat, 0, "json", 0)
         self.assertEqual(str(context.exception), "Latitudine o longitudine non valide")
 
     def test_invalid_longitude(self):
+        """
+        Testa l'init di NominatimAdapter con la longitudine non valida
+        """
         # test invalid longitude
         with self.assertRaises(Exception) as context:
             NominatimAdapter(0, self.invalid_lon, "json", 0)
         self.assertEqual(str(context.exception), "Latitudine o longitudine non valide")
 
     def test_invalid_format(self):
+        """
+        Testa l'init di NominatimAdapter con il formato non valido
+        """
         # test invalid format
         with self.assertRaises(Exception) as context:
             NominatimAdapter(0, 0, self.invalid_format, 0)
         self.assertEqual(str(context.exception), "Formato non valido")
 
     def test_invalid_zoom(self):
+        """
+        Testa l'init di NominatimAdapter con lo zoom non valido
+        """
         # test invalid zoom
         with self.assertRaises(Exception) as context:
             NominatimAdapter(0, 0, "json", self.invalid_zoom)
         self.assertEqual(str(context.exception), "Zoom non valido")
         
     def test_get_data(self):
+        """
+        Testa il metodo get_data che restituisce gli indirizzi
+        """
         # simulate response from Nominatim API
         with requests_mock.Mocker() as m:
             m.get("https://nominatim.openstreetmap.org/reverse", json={"key1": "value1", "key2": "value2"})
@@ -188,7 +254,13 @@ class TestNominatimAdapter(unittest.TestCase):
             self.assertEqual(result, {"key1": "value1", "key2": "value2"})
 
 class SenseSquareAdapterTest(unittest.TestCase):
+    """
+    Testa la classe SenseSquareAdapter
+    """
     def setUp(self):
+        """
+        Inizializza i valori validi e invalidi per i test
+        """
         self.valid_nazione = "Italy"
         self.valid_regione = "Lombardy"
         self.valid_provincia = "Milan"
@@ -205,6 +277,9 @@ class SenseSquareAdapterTest(unittest.TestCase):
         self.invalid_formato = "invalid"
     
     def test_init(self):
+        """
+        Testa l'init di SenseSquareAdapter con valori validi
+        """
         nazione = "Italy"
         regione = "Lombardy"
         provincia = "Milan"
@@ -224,6 +299,9 @@ class SenseSquareAdapterTest(unittest.TestCase):
         self.assertEqual(adapter.formato, formato)
     
     def test_get_data_for_today(self):
+        """
+        Testa il metodo get_data_for_today che restituisce i dati inquinamento per oggi
+        """
         adapter = SenseSquareAdapter("valid_nation", "valid_regione", "valid_provincia", "valid_comune")
         with requests_mock.Mocker() as m:
             m.post('https://square.sensesquare.eu:5001/placeView', json={'response_code': 200, 'message': 'Success', 'result': '{data}'})
@@ -231,12 +309,18 @@ class SenseSquareAdapterTest(unittest.TestCase):
             self.assertEqual(data, {'response_code': 200, 'message': 'Success', 'result': '{data}'})
     
     def test_invalid_get_data_for_today(self):
+        """
+        Testa il metodo get_data_for_today che lancia un eccezione con valori invalidi
+        """
         adapter = SenseSquareAdapter("invalid_nation", "valid_regione", "valid_provincia", "valid_comune")
         with self.assertRaises(Exception) as context:
             adapter.get_data_for_today()
         self.assertEqual("Impossibile soddisfare questa richiesta", str(context.exception))
         
     def test_get_data_time_interval(self):
+        """
+        Testa il metodo get_data_time_interval che restituisce i dati inquinamento per un intervallo di tempo
+        """
         with requests_mock.Mocker() as mock:
             mock.post('https://square.sensesquare.eu:5001/download', json={'response_code': 200, 'message': 'Success', 'result': 'test_response'})
             # Assume that self.start_date, self.end_date, and self.formato are set to appropriate values
