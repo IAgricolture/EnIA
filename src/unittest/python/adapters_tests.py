@@ -1,6 +1,7 @@
 import os
 import sys
 import unittest
+import requests_mock
 sys.path.append(os.path.abspath(os.path.join('.' )))
 from src.logic.Adapters.IAdapter import IAdapter
 class TestIAdapter(unittest.TestCase):
@@ -56,6 +57,32 @@ class TestIAdapter(unittest.TestCase):
         with self.assertRaises(Exception) as context:
             IAdapter(self.valid_lat, self.valid_lon, self.valid_crop, None)
         self.assertEqual(str(context.exception), "Stadio di crescita non valido")
+        
+    def test_get_ai_prediction(self):
+        # Arrange
+        mock_response = {
+            "irrigationLevel": [1, 1, 1, 1, 1, 1, 1]
+        }
+        with requests_mock.Mocker() as m:
+            m.get("https://benedettoscala.pythonanywhere.com/getIrrigationDecision?"
+                  "lat=0&lon=0&crop=Barley&growthStage=CropDevStage",
+                  json=mock_response)
+
+            # Act
+            adapter = IAdapter(0, 0, self.valid_crop, self.valid_stage)
+            result = adapter.getAiPrediction()
+
+            # Assert
+            expected_result = {
+                '04-02-2023': 'Basso',
+                '05-02-2023': 'Basso',
+                '06-02-2023': 'Basso',
+                '07-02-2023': 'Basso',
+                '08-02-2023': 'Basso',
+                '09-02-2023': 'Basso',
+                '10-02-2023': 'Basso'
+            }
+            self.assertEqual(result, expected_result)
         
 if __name__ == '__main__':
     unittest.main()

@@ -47,5 +47,5 @@ class IAdapter:
             giorno_formattato = giorno.strftime("%d-%m-%Y")
             livello_irrigazione[giorno_formattato] = IAdapter.irrigazione_translator[p]
             giorno = giorno + datetime.timedelta(days=1)
-        
+        print(livello_irrigazione)
         return livello_irrigazione   
