@@ -2,7 +2,10 @@ import os
 import sys
 import unittest
 import requests_mock
+
+
 sys.path.append(os.path.abspath(os.path.join('.' )))
+from src.logic.Adapters.OpenMeteoAdapter import OpenMeteoAdapter
 from src.logic.Adapters.IAdapter import IAdapter
 class TestIAdapter(unittest.TestCase):
     def setUp(self):
@@ -83,6 +86,54 @@ class TestIAdapter(unittest.TestCase):
                 '10-02-2023': 'Basso'
             }
             self.assertEqual(result, expected_result)
+class TestOpenMeteoAdapter(unittest.TestCase):
+    def test_valid_lat_lon(self):
+        # Arrange
+        lat = 45
+        lon = 120
+
+        # Act
         
+        result = OpenMeteoAdapter(lat, lon)
+
+        # Assert
+        self.assertEqual(result.lat, lat)
+        self.assertEqual(result.lon, lon)
+
+    def test_invalid_lat(self):
+        # Arrange
+        lat = 91
+        lon = 120
+
+        # Act & Assert
+        with self.assertRaises(Exception) as context:
+            OpenMeteoAdapter(lat, lon)
+        self.assertEqual(str(context.exception), "Latitudine non valida")
+
+    def test_invalid_lon(self):
+        # Arrange
+        lat = 45
+        lon = 181
+
+        # Act & Assert
+        with self.assertRaises(Exception) as context:
+            OpenMeteoAdapter(lat, lon)
+        self.assertEqual(str(context.exception), "Longitudine non valida")
+        
+    def test_get_data(self):
+        # Arrange
+        lat = 45
+        lon = 120
+        my_class = OpenMeteoAdapter(lat, lon)
+        expected_data = {"temperature_2m": [], "relativehumidity_2m": [], "precipitation": []}
+        
+        with requests_mock.Mocker() as m:
+            m.get("https://api.open-meteo.com/v1/forecast?latitude="+str(lat)+"&longitude="+str(lon)+ "&hourly=temperature_2m,relativehumidity_2m,precipitation", json=expected_data)
+            
+            # Act
+            result = my_class.get_data()
+
+            # Assert
+            self.assertEqual(result, expected_data)
 if __name__ == '__main__':
     unittest.main()
