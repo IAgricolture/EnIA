@@ -1,0 +1,489 @@
+
+<!DOCTYPE html>
+
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTTP Routing Table &#8212; EnIA 1.0 documentazione</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/translations.js"></script>
+    <link rel="index" title="Indice" href="genindex.html" />
+    <link rel="search" title="Cerca" href="search.html" />
+
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+    <script>
+      DOCUMENTATION_OPTIONS.COLLAPSE_INDEX = true;
+    </script>
+
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+
+   <h1>HTTP Routing Table</h1>
+
+   <div class="modindex-jumpbox">
+   <a href="#cap-/"><strong>/</strong></a> | 
+   <a href="#cap-/AziendaAgricola"><strong>/AziendaAgricola</strong></a> | 
+   <a href="#cap-/GenCode"><strong>/GenCode</strong></a> | 
+   <a href="#cap-/aggiungiIrrigatore"><strong>/aggiungiIrrigatore</strong></a> | 
+   <a href="#cap-/aggiuntaTerreno"><strong>/aggiuntaTerreno</strong></a> | 
+   <a href="#cap-/attivaDisattivaIrrigatore"><strong>/attivaDisattivaIrrigatore</strong></a> | 
+   <a href="#cap-/cancellaTuttiEventi"><strong>/cancellaTuttiEventi</strong></a> | 
+   <a href="#cap-/dettagliterreno"><strong>/dettagliterreno</strong></a> | 
+   <a href="#cap-/downloadStoricoInquinamento"><strong>/downloadStoricoInquinamento</strong></a> | 
+   <a href="#cap-/eliminaEvento"><strong>/eliminaEvento</strong></a> | 
+   <a href="#cap-/eliminaIrrigatore"><strong>/eliminaIrrigatore</strong></a> | 
+   <a href="#cap-/eliminaTerreno"><strong>/eliminaTerreno</strong></a> | 
+   <a href="#cap-/eventi"><strong>/eventi</strong></a> | 
+   <a href="#cap-/getIrrigatore"><strong>/getIrrigatore</strong></a> | 
+   <a href="#cap-/getStoricoInquinamento"><strong>/getStoricoInquinamento</strong></a> | 
+   <a href="#cap-/login"><strong>/login</strong></a> | 
+   <a href="#cap-/logout"><strong>/logout</strong></a> | 
+   <a href="#cap-/modificaIrrigatore"><strong>/modificaIrrigatore</strong></a> | 
+   <a href="#cap-/modificaLivelloSchedule"><strong>/modificaLivelloSchedule</strong></a> | 
+   <a href="#cap-/modificaTerreno"><strong>/modificaTerreno</strong></a> | 
+   <a href="#cap-/register"><strong>/register</strong></a> | 
+   <a href="#cap-/registerf"><strong>/registerf</strong></a> | 
+   <a href="#cap-/removeFromAzienda"><strong>/removeFromAzienda</strong></a> | 
+   <a href="#cap-/schedule"><strong>/schedule</strong></a> | 
+   <a href="#cap-/test"><strong>/test</strong></a> | 
+   <a href="#cap-/usaSchedulingConsigliato"><strong>/usaSchedulingConsigliato</strong></a> | 
+   <a href="#cap-/user"><strong>/user</strong></a> | 
+   <a href="#cap-/visualizzaIrrigatori"><strong>/visualizzaIrrigatori</strong></a> | 
+   <a href="#cap-/visualizzaPredizioneIrrigazione"><strong>/visualizzaPredizioneIrrigazione</strong></a> | 
+   <a href="#cap-/visualizzaTerreni"><strong>/visualizzaTerreni</strong></a>
+   </div>
+
+   <table class="indextable modindextable">
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/"><td></td><td>
+       <strong>/</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#get--"><code class="xref">GET /</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/AziendaAgricola"><td></td><td>
+       <strong>/AziendaAgricola</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#get--AziendaAgricola"><code class="xref">GET /AziendaAgricola</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--AziendaAgricola"><code class="xref">POST /AziendaAgricola</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/GenCode"><td></td><td>
+       <strong>/GenCode</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#get--GenCode"><code class="xref">GET /GenCode</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--GenCode"><code class="xref">POST /GenCode</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/aggiungiIrrigatore"><td></td><td>
+       <strong>/aggiungiIrrigatore</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#get--aggiungiIrrigatore"><code class="xref">GET /aggiungiIrrigatore</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--aggiungiIrrigatore"><code class="xref">POST /aggiungiIrrigatore</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/aggiuntaTerreno"><td></td><td>
+       <strong>/aggiuntaTerreno</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#get--aggiuntaTerreno"><code class="xref">GET /aggiuntaTerreno</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--aggiuntaTerreno"><code class="xref">POST /aggiuntaTerreno</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/attivaDisattivaIrrigatore"><td></td><td>
+       <strong>/attivaDisattivaIrrigatore</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#get--attivaDisattivaIrrigatore"><code class="xref">GET /attivaDisattivaIrrigatore</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--attivaDisattivaIrrigatore"><code class="xref">POST /attivaDisattivaIrrigatore</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/cancellaTuttiEventi"><td></td><td>
+       <strong>/cancellaTuttiEventi</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#get--cancellaTuttiEventi"><code class="xref">GET /cancellaTuttiEventi</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--cancellaTuttiEventi"><code class="xref">POST /cancellaTuttiEventi</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/dettagliterreno"><td></td><td>
+       <strong>/dettagliterreno</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#get--dettagliterreno"><code class="xref">GET /dettagliterreno</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--dettagliterreno"><code class="xref">POST /dettagliterreno</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/downloadStoricoInquinamento"><td></td><td>
+       <strong>/downloadStoricoInquinamento</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--downloadStoricoInquinamento"><code class="xref">POST /downloadStoricoInquinamento</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/eliminaEvento"><td></td><td>
+       <strong>/eliminaEvento</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#get--eliminaEvento"><code class="xref">GET /eliminaEvento</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--eliminaEvento"><code class="xref">POST /eliminaEvento</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/eliminaIrrigatore"><td></td><td>
+       <strong>/eliminaIrrigatore</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#get--eliminaIrrigatore"><code class="xref">GET /eliminaIrrigatore</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--eliminaIrrigatore"><code class="xref">POST /eliminaIrrigatore</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/eliminaTerreno"><td></td><td>
+       <strong>/eliminaTerreno</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#get--eliminaTerreno"><code class="xref">GET /eliminaTerreno</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/eventi"><td></td><td>
+       <strong>/eventi</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#get--eventi"><code class="xref">GET /eventi</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--eventi"><code class="xref">POST /eventi</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/getIrrigatore"><td></td><td>
+       <strong>/getIrrigatore</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#get--getIrrigatore"><code class="xref">GET /getIrrigatore</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--getIrrigatore"><code class="xref">POST /getIrrigatore</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/getStoricoInquinamento"><td></td><td>
+       <strong>/getStoricoInquinamento</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--getStoricoInquinamento"><code class="xref">POST /getStoricoInquinamento</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/login"><td></td><td>
+       <strong>/login</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#get--login"><code class="xref">GET /login</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--login"><code class="xref">POST /login</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/logout"><td></td><td>
+       <strong>/logout</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#get--logout"><code class="xref">GET /logout</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/modificaIrrigatore"><td></td><td>
+       <strong>/modificaIrrigatore</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#get--modificaIrrigatore"><code class="xref">GET /modificaIrrigatore</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--modificaIrrigatore"><code class="xref">POST /modificaIrrigatore</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/modificaLivelloSchedule"><td></td><td>
+       <strong>/modificaLivelloSchedule</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--modificaLivelloSchedule"><code class="xref">POST /modificaLivelloSchedule</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/modificaTerreno"><td></td><td>
+       <strong>/modificaTerreno</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#get--modificaTerreno"><code class="xref">GET /modificaTerreno</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--modificaTerreno"><code class="xref">POST /modificaTerreno</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/register"><td></td><td>
+       <strong>/register</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#get--register"><code class="xref">GET /register</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--register"><code class="xref">POST /register</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/registerf"><td></td><td>
+       <strong>/registerf</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#get--registerf"><code class="xref">GET /registerf</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--registerf"><code class="xref">POST /registerf</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/removeFromAzienda"><td></td><td>
+       <strong>/removeFromAzienda</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--removeFromAzienda"><code class="xref">POST /removeFromAzienda</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/schedule"><td></td><td>
+       <strong>/schedule</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#get--schedule"><code class="xref">GET /schedule</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--schedule"><code class="xref">POST /schedule</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/test"><td></td><td>
+       <strong>/test</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#get--test"><code class="xref">GET /test</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/usaSchedulingConsigliato"><td></td><td>
+       <strong>/usaSchedulingConsigliato</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--usaSchedulingConsigliato"><code class="xref">POST /usaSchedulingConsigliato</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/user"><td></td><td>
+       <strong>/user</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#get--user"><code class="xref">GET /user</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--user"><code class="xref">POST /user</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/visualizzaIrrigatori"><td></td><td>
+       <strong>/visualizzaIrrigatori</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#get--visualizzaIrrigatori"><code class="xref">GET /visualizzaIrrigatori</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--visualizzaIrrigatori"><code class="xref">POST /visualizzaIrrigatori</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/visualizzaPredizioneIrrigazione"><td></td><td>
+       <strong>/visualizzaPredizioneIrrigazione</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#get--visualizzaPredizioneIrrigazione"><code class="xref">GET /visualizzaPredizioneIrrigazione</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--visualizzaPredizioneIrrigazione"><code class="xref">POST /visualizzaPredizioneIrrigazione</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/visualizzaTerreni"><td></td><td>
+       <strong>/visualizzaTerreni</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#get--visualizzaTerreni"><code class="xref">GET /visualizzaTerreni</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="FlaskRoutes.html#post--visualizzaTerreni"><code class="xref">POST /visualizzaTerreni</code></a></td><td>
+       <em></em></td></tr>
+   </table>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">EnIA</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigazione</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="FlaskRoutes.html">Flask Routes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">logic</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Ricerca veloce</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Vai" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Pierluigi Lambiase, Carmine Laudato, Francesco Maria Puca, Benedetto Scala, Maria Lombardi, Gerardo Frino, Francesco Fattorusso.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

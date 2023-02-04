@@ -10,11 +10,13 @@ Welcome to EnIA's documentation!
    :maxdepth: 2
    :caption: Contents:
    
+   FlaskRoutes
    modules
 
 Indices and tables
 ==================
 
+* :ref:`http-routingtable`
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`

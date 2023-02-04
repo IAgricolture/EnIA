@@ -12,7 +12,6 @@ Storage.AutenticazioneDAO module
    :undoc-members:
    :show-inheritance:
 
-
 Storage.EventoDAO module
 ------------------------
 
@@ -57,14 +56,6 @@ Storage.TerrenoDAO module
 -------------------------
 
 .. automodule:: Storage.TerrenoDAO
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: Storage
    :members:
    :undoc-members:
    :show-inheritance:
