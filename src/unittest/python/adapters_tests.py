@@ -3,9 +3,8 @@ import sys
 import unittest
 import requests_mock
 
-
-
 sys.path.append(os.path.abspath(os.path.join('.' )))
+from src.logic.Adapters.SenseSquareAdapter import SenseSquareAdapter
 from src.logic.Adapters.OpenMeteoAdapter import OpenMeteoAdapter
 from src.logic.Adapters.NominatimAdapter import NominatimAdapter
 from src.logic.Adapters.IAdapter import IAdapter
@@ -187,6 +186,78 @@ class TestNominatimAdapter(unittest.TestCase):
             nominatim_adapter = NominatimAdapter(0, 0, "json", 0)
             result = nominatim_adapter.get_data()
             self.assertEqual(result, {"key1": "value1", "key2": "value2"})
+
+class SenseSquareAdapterTest(unittest.TestCase):
+    def setUp(self):
+        self.valid_nazione = "Italy"
+        self.valid_regione = "Lombardy"
+        self.valid_provincia = "Milan"
+        self.valid_comune = "Milan"
+        self.valid_start_date = "2022-01-01"
+        self.valid_end_date = "2022-12-31"
+        self.valid_formato = "json"
+        self.invalid_nazione = "invalid"
+        self.invalid_regione = "invalid"
+        self.invalid_provincia = "invalid"
+        self.invalid_comune = "invalid"
+        self.invalid_start_date = "invalid"
+        self.invalid_end_date = "invalid"
+        self.invalid_formato = "invalid"
+    
+    def test_init(self):
+        nazione = "Italy"
+        regione = "Lombardy"
+        provincia = "Milan"
+        comune = "Milan"
+        start_date = "2022-01-01"
+        end_date = "2022-12-31"
+        formato = "json"
+        
+        adapter = SenseSquareAdapter(nazione, regione, provincia, comune, start_date, end_date, formato)
+        
+        self.assertEqual(adapter.nazione, nazione)
+        self.assertEqual(adapter.regione, regione)
+        self.assertEqual(adapter.provincia, provincia)
+        self.assertEqual(adapter.comune, comune)
+        self.assertEqual(adapter.start_date, start_date)
+        self.assertEqual(adapter.end_date, end_date)
+        self.assertEqual(adapter.formato, formato)
+    
+    def test_get_data_for_today(self):
+        adapter = SenseSquareAdapter("valid_nation", "valid_regione", "valid_provincia", "valid_comune")
+        with requests_mock.Mocker() as m:
+            m.post('https://square.sensesquare.eu:5001/placeView', json={'response_code': 200, 'message': 'Success', 'result': '{data}'})
+            data = adapter.get_data_for_today()
+            self.assertEqual(data, {'response_code': 200, 'message': 'Success', 'result': '{data}'})
+    
+    def test_invalid_get_data_for_today(self):
+        adapter = SenseSquareAdapter("invalid_nation", "valid_regione", "valid_provincia", "valid_comune")
+        with self.assertRaises(Exception) as context:
+            adapter.get_data_for_today()
+        self.assertEqual("Impossibile soddisfare questa richiesta", str(context.exception))
+        
+    def test_get_data_time_interval(self):
+        with requests_mock.Mocker() as mock:
+            mock.post('https://square.sensesquare.eu:5001/download', json={'response_code': 200, 'message': 'Success', 'result': 'test_response'})
+            # Assume that self.start_date, self.end_date, and self.formato are set to appropriate values
+            adapter = SenseSquareAdapter("valid_nation", "valid_regione", "valid_provincia", "valid_comune", self.valid_start_date, self.valid_end_date, self.valid_formato)
             
+            # Test the case when the response code is not 400
+            result = adapter.get_data_time_interval()
+            #assert that result is an array
+            self.assertEqual(result, [])
+
+            # Test the case when the response code is 400
+            mock.post('https://square.sensesquare.eu:5001/download', json={'response_code': 400})
+            with self.assertRaises(Exception) as context:
+                result = adapter.get_data_time_interval()
+            self.assertEqual(str(context.exception), 'Impossibile soddisfare questa richiesta')
+
+            # Test the case when start_date or end_date is None
+            self.start_date = None
+            with self.assertRaises(Exception) as context:
+                result = adapter.get_data_time_interval()
+            self.assertEqual(str(context.exception), 'Impossibile soddisfare questa richiesta')
+
 if __name__ == '__main__':
     unittest.main()
