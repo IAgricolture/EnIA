@@ -13,7 +13,7 @@ class AutenticazioneDAO():
             :return: Utente
         """
         trovato = utenti.find_one({"email" : email})
-        if(trovato == None):
+        if(trovato is None):
             return None
         id = str(trovato.get("_id"))
         nome = trovato.get("nome")
@@ -35,7 +35,7 @@ class AutenticazioneDAO():
             :return: Utente
         """
         trovato = utenti.find_one({"_id" : ObjectId(id)})
-        if trovato == None:
+        if trovato is None:
             return None
         id = str(trovato.get("_id"))
         nome = trovato.get("nome")
@@ -59,7 +59,7 @@ class AutenticazioneDAO():
         """
         trovato = utenti.find_one({"codice" : codice, "ruolo": {"$ne": "farmer"}})
         
-        if trovato == None:
+        if(trovato is None):
             return None
         id = str(trovato.get("_id"))
         nome = trovato.get("nome")
@@ -106,19 +106,22 @@ class AutenticazioneDAO():
         return str(result.inserted_id)
 
 
-    def eliminaUtente(id : str):
+    def eliminaUtente(id : str)->bool:
         """
             Questo metodo prende in ingresso un id ed elimina
             il corrispondente utente dal database
         """
-        return utenti.delete_one({"_id": ObjectId(id)})
-    
+        result = utenti.delete_one({"_id": ObjectId(id)})
+        if(result.deleted_count == 1):
+            return True
+        else:
+            return False
     def modificaUtente(utente : Utente): 
         """
             Questo metodo prende in ingresso un oggetto utente e lo modifica nel database
         """  
         trovato = AutenticazioneDAO.trovaUtente(str(utente.id))
-        if(trovato == None):
+        if(trovato is None):
             return None
 
         if utente.ruolo == "farmer":
@@ -158,7 +161,7 @@ class AutenticazioneDAO():
         return list(utenti.find({"datore": datore}))
     
     def insertSlot(ruolo: str, codice: str, datore: str):
-        utenti.insert_one({
+        return utenti.insert_one({
                 "nome" : "",
                 "cognome": "",
                 "email": "",
@@ -170,8 +173,8 @@ class AutenticazioneDAO():
                 "datore": datore,
             })
         
-    def getDatore(codice: str) -> str:
-        return utenti.find_one({"_id": ObjectId(codice)}).get("datore")
+    def getDatore(id: str) -> str:
+        return utenti.find_one({"_id": ObjectId(id)}).get("datore")
         
         
 

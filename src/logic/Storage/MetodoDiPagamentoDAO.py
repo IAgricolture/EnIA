@@ -58,7 +58,7 @@ class MetodoDiPagamentoDAO():
             Questo metodo prende in ingresso un oggetto Metodo di pagamento e lo modifica nel database
         """  
         trovato = MetodoDiPagamentoDAO.findMetodo(metodo.id)
-        if(trovato == None):
+        if(trovato is None):
             return None
 
         metodi_di_pagamento.update_one({"_id": ObjectId(trovato.id)},
@@ -68,3 +68,15 @@ class MetodoDiPagamentoDAO():
             "scadenza": metodo.scadenza,
             "cvv": metodo.cvv,
         }})
+        
+    def eliminaMetodo(id : str)->bool:
+        '''
+            Questo metodo prende in ingresso un id ed elimina
+             il corrispondente metodo dal database
+        '''
+            
+        result = metodi_di_pagamento.delete_one({"_id": ObjectId(id)})
+        if(result.deleted_count == 1):
+            return True
+        else:
+            return False

@@ -59,7 +59,7 @@ class RegistrazioneService():
         if AutenticazioneDAO.trovaUtenteByEmail(email) != None:
             risposta["emailUsata"] = True
             #Se il codice è già usato oppure non è valido il server avviserà il front end
-        if slotUtente == None or slotUtente.nome != "":
+        if slotUtente is None or slotUtente.nome != "":
             
             risposta["codiceNonValido"] = True
             #Altrimenti si recupera lo slot Utente dal database lo si modifica con i dati utente

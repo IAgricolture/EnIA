@@ -127,7 +127,7 @@ class AmbienteAgricoloService():
     def aggiungiIrrigatore(id_terreno: str, nome_irrigatore: str, posizione_irrigatore: str) -> str:
         impianto = ImpiantoDiIrrigazione("", nome_irrigatore, "irrigatore", "", posizione_irrigatore, False)
         id = ImpiantoDiIrrigazioneDAO.creaImpianto(impianto, id_terreno)
-        evento = Evento("", "Creazione Irrigatore", "L'irrigatore :" + nome_irrigatore + " è stato creato",datetime.now(), "INFO",False ,False, id_terreno)
+        evento = Evento("", "Creazione Irrigatore", "L'irrigatore :" + nome_irrigatore + " è stato creato",datetime.now().isoformat(' ', 'seconds'), "INFO",False ,False, id_terreno)
         GestioneEventiService.creaEvento(evento)
         return id
     
@@ -186,7 +186,7 @@ class AmbienteAgricoloService():
             somma += data["hourly"]["precipitation"][i]
         
         if somma > 10:
-            u = Evento("", "Pioggia", "Ci saranno ingenti quantità di pioggia nelle prossime 24 ore", datetime.now(), "Pioggia", False, False, "")
+            u = Evento("", "Pioggia", "Ci saranno ingenti quantità di pioggia nelle prossime 24 ore", datetime.now().isoformat(' ', 'seconds'), "Pioggia", False, False, "")
             GestioneEventiService.creaEvento(u)
         
         return data
