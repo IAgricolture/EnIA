@@ -8,7 +8,6 @@ class IAdapter:
     growth_translator = {"Iniziale": "InitialStage", "Sviluppo": "CropDevStage", "Metà Stagione": "MidSeasonStage", "Fine Stagione": "LateSeasonStage"}
     
     def __init__(self, lat, lon, crop, stage):
-        #traduci crop e stage
         crop = IAdapter.crop_translator.get(crop)
         stage = IAdapter.growth_translator.get(stage)
         
@@ -48,5 +47,5 @@ class IAdapter:
             giorno_formattato = giorno.strftime("%d-%m-%Y")
             livello_irrigazione[giorno_formattato] = IAdapter.irrigazione_translator[p]
             giorno = giorno + datetime.timedelta(days=1)
-        
+        print(livello_irrigazione)
         return livello_irrigazione   
