@@ -8,5 +8,3 @@ geopy
 pybuilder
 mockito
 pybuilder
-sphinx
-sphinxcontrib.httpdomain
