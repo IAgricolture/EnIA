@@ -11,7 +11,9 @@ from src.logic.AmbienteAgricolo.AmbienteAgricoloService import AmbienteAgricoloS
 
 
 class AmbienteAgricoloControllerTests(unittest.TestCase):
-    
+    """
+    Classe di test per il controller dell'ambiente agricolo
+    """
     def setUp(self):
         self.app = app.test_client()
         #fai il login con ruolo "Farmer"
@@ -19,6 +21,11 @@ class AmbienteAgricoloControllerTests(unittest.TestCase):
         
     @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.aggiungiTerreno')
     def test_aggiungiTerreno_post(self, mock_aggiungiTerreno):
+        """
+        Test per il metodo AmbienteAgricoloController.aggiungiTerreno
+        Args:
+            mock_aggiungiTerreno ():   Mock per il metodo AmbienteAgricoloService.aggiungiTerreno
+        """
         with self.app:
             self.app.post("/login", data={"email": "prova@gmail.com", "password": "password", "next": "visualizzaTerreni"})
             # Impostare il valore di ritorno di mock_aggiungiTerreno
@@ -52,6 +59,16 @@ class AmbienteAgricoloControllerTests(unittest.TestCase):
     @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercalon')
     @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercaMeteo')
     def test_dettagli(self, mock_cercaMeteo, mock_cercalon, mock_cercalat, mock_cercaInquinamento, mock_cercaPosizione, mock_trovaTerreno):
+        """
+        Test per il metodo AmbienteAgricoloController.dettagli
+        Args:
+            mock_cercaMeteo (mock): Mock per il metodo AmbienteAgricoloService.cercaMeteo
+            mock_cercalon (mock): Mock per il metodo AmbienteAgricoloService.cercalon
+            mock_cercalat (mock): Mock per il metodo AmbienteAgricoloService.cercalat
+            mock_cercaInquinamento (mock): Mock per il metodo AmbienteAgricoloService.cercaInquinamento
+            mock_cercaPosizione (mock): Mock per il metodo AmbienteAgricoloService.cercaPosizione
+            mock_trovaTerreno (mock): Mock per il metodo AmbienteAgricoloService.trovaTerreno
+        """
         with self.app:
             self.app.post("/login", data={"email": "prova@gmail.com", "password": "password", "next": "visualizzaTerreni"})
             # Definire i dati di test per i mock
@@ -84,6 +101,16 @@ class AmbienteAgricoloControllerTests(unittest.TestCase):
     @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercalon')
     @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercaMeteo')
     def test_dettagli_key_error(self, mock_cercaMeteo, mock_cercalon, mock_cercalat, mock_cercaInquinamento, mock_cercaPosizione, mock_trovaTerreno):
+        """
+        Test per il metodo AmbienteAgricoloController.dettagli con KeyError
+        Args:
+            mock_cercaMeteo (mock): Mock per il metodo AmbienteAgricoloService.cercaMeteo
+            mock_cercalon (mock): Mock per il metodo AmbienteAgricoloService.cercalon
+            mock_cercalat (mock): Mock per il metodo AmbienteAgricoloService.cercalat
+            mock_cercaInquinamento (mock): Mock per il metodo AmbienteAgricoloService.cercaInquinamento
+            mock_cercaPosizione (mock): Mock per il metodo AmbienteAgricoloService.cercaPosizione
+            mock_trovaTerreno (mock): Mock per il metodo AmbienteAgricoloService.trovaTerreno
+        """
         with self.app:
             self.app.post("/login", data={"email": "prova@gmail.com", "password": "password", "next": "visualizzaTerreni"})
             # Definire i dati di test per i mock
@@ -118,6 +145,16 @@ class AmbienteAgricoloControllerTests(unittest.TestCase):
     @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercalon')
     @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercaMeteo')
     def test_dettagli_city_in_address(self, mock_cercaMeteo, mock_cercalon, mock_cercalat, mock_cercaInquinamento, mock_cercaPosizione, mock_trovaTerreno):
+        """
+        Test per il metodo AmbienteAgricoloController.dettagli con city in address
+        Args:
+            mock_cercaMeteo (mock): Mock per il metodo AmbienteAgricoloService.cercaMeteo
+            mock_cercalon (mock): Mock per il metodo AmbienteAgricoloService.cercalon
+            mock_cercalat (mock): Mock per il metodo AmbienteAgricoloService.cercalat
+            mock_cercaInquinamento (mock): Mock per il metodo AmbienteAgricoloService.cercaInquinamento
+            mock_cercaPosizione (mock): Mock per il metodo AmbienteAgricoloService.cercaPosizione
+            mock_trovaTerreno (mock): Mock per il metodo AmbienteAgricoloService.trovaTerreno
+        """
         with self.app:
             self.app.post("/login", data={"email": "prova@gmail.com", "password": "password", "next": "visualizzaTerreni"})
             # Definire i dati di test per i mock
@@ -150,6 +187,16 @@ class AmbienteAgricoloControllerTests(unittest.TestCase):
     @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercalon')
     @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercaMeteo')
     def test_dettagli_village_in_address(self, mock_cercaMeteo, mock_cercalon, mock_cercalat, mock_cercaInquinamento, mock_cercaPosizione, mock_trovaTerreno):
+        """
+        Test per il metodo AmbienteAgricoloController.dettagli con village in address
+        Args:
+            mock_cercaMeteo (mock): Mock per il metodo AmbienteAgricoloService.cercaMeteo
+            mock_cercalon (mock): Mock per il metodo AmbienteAgricoloService.cercalon
+            mock_cercalat (mock): Mock per il metodo AmbienteAgricoloService.cercalat
+            mock_cercaInquinamento (mock): Mock per il metodo AmbienteAgricoloService.cercaInquinamento
+            mock_cercaPosizione (mock): Mock per il metodo AmbienteAgricoloService.cercaPosizione
+            mock_trovaTerreno (mock): Mock per il metodo AmbienteAgricoloService.trovaTerreno
+        """
         with self.app:
             self.app.post("/login", data={"email": "prova@gmail.com", "password": "password", "next": "visualizzaTerreni"})
             # Definire i dati di test per i mock
@@ -180,6 +227,14 @@ class AmbienteAgricoloControllerTests(unittest.TestCase):
     @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercalon')
     @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.restituisciPredizioneLivelliIrrigazione')
     def test_visualizzaPredizioneIrrigazione(self, mock_restituisciPredizioneLivelliIrrigazione, mock_cercalon, mock_cercalat, mock_trovaTerreno):
+        """
+        Test per il metodo AmbienteAgricoloController.visualizzaPredizioneIrrigazione
+        Args:
+            mock_restituisciPredizioneLivelliIrrigazione (mock): Mock per il metodo AmbienteAgricoloService.restituisciPredizioneLivelliIrrigazione
+            mock_cercalon (mock): Mock per il metodo AmbienteAgricoloService.cercalon
+            mock_cercalat (mock): Mock per il metodo AmbienteAgricoloService.cercalat
+            mock_trovaTerreno (mock): Mock per il metodo AmbienteAgricoloService.trovaTerreno
+        """
         mock_terreno = Terreno(1, 'Terreno 1', 'Pomodori', 'Semina', 'Latitudine: 40.730610, Longitudine: -73.935242', False, 1, 1)
         mock_lat = '40.730610'
         mock_lon = '-73.935242'
