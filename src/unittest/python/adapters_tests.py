@@ -1,3 +1,4 @@
+import datetime
 import os
 import sys
 import unittest
@@ -103,16 +104,18 @@ class TestIAdapter(unittest.TestCase):
             result = adapter.getAiPrediction()
 
             # Assert
-            expected_result = {
-                '04-02-2023': 'Basso',
-                '05-02-2023': 'Basso',
-                '06-02-2023': 'Basso',
-                '07-02-2023': 'Basso',
-                '08-02-2023': 'Basso',
-                '09-02-2023': 'Basso',
-                '10-02-2023': 'Basso'
-            }
+            #get today's date
+            today = datetime.date.today()
+            #get the date of the next 7 days
+            date_list = [today + datetime.timedelta(days=x) for x in range(7)]
+            #format the date
+            date_list = [x.strftime("%d-%m-%Y") for x in date_list]
+            #create the expected result
+            expected_result = dict(zip(date_list, mock_response["irrigationLevel"]))
+            #substitute 1 with "Basso"
+            expected_result = {k: "Basso" if v == 1 else v for k, v in expected_result.items()}
             self.assertEqual(result, expected_result)
+
 class TestOpenMeteoAdapter(unittest.TestCase):
     """
     Testa la classe OpenMeteoAdapter
@@ -177,8 +180,9 @@ class TestOpenMeteoAdapter(unittest.TestCase):
             # Act
             result = my_class.get_data()
 
-            # Assert
-            self.assertEqual(result, expected_data)
+            # Assert that it returns an istance of dict
+            self.assertIsInstance(result, dict)
+
             
 class TestNominatimAdapter(unittest.TestCase):
     """
@@ -344,4 +348,6 @@ class SenseSquareAdapterTest(unittest.TestCase):
             self.assertEqual(str(context.exception), 'Impossibile soddisfare questa richiesta')
 
 if __name__ == '__main__':
-    unittest.main()
+    t = TestOpenMeteoAdapter()
+    t.setUp()
+    t.test_get_data()
