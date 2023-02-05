@@ -32,3 +32,9 @@ jobs:
         python3 ./src/scripts/generateSphinx.py
         
       shell: bash
+    
+    - name: Upload
+      uses: actions/upload-artifact@v3
+      with: 
+       name: html
+       path: ../documentation/source
