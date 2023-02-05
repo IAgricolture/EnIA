@@ -2,16 +2,8 @@ import unittest
 import os, sys
 from flask import jsonify
 from flask_login import current_user
-
-import requests
-
-
-
-
-
-
-
 sys.path.append(os.path.abspath(os.path.join('.' )))
+from src.logic.model.Terreno import Terreno
 from unittest.mock import patch
 from src import app
 from src.logic.Storage.TerrenoDAO import TerrenoDAO
@@ -182,6 +174,24 @@ class AmbienteAgricoloControllerTests(unittest.TestCase):
             # Verificare che la risposta sia corretta
             #verificare che la risposta sia corretta
             self.assertEqual(response.status_code, 200)
+            
+    @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.trovaTerreno')
+    @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercalat')
+    @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercalon')
+    @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.restituisciPredizioneLivelliIrrigazione')
+    def test_visualizzaPredizioneIrrigazione(self, mock_restituisciPredizioneLivelliIrrigazione, mock_cercalon, mock_cercalat, mock_trovaTerreno):
+        mock_terreno = Terreno(1, 'Terreno 1', 'Pomodori', 'Semina', 'Latitudine: 40.730610, Longitudine: -73.935242', False, 1, 1)
+        mock_lat = '40.730610'
+        mock_lon = '-73.935242'
+        mock_predizione = {'data': '2021-05-01', 'livello': '1'}
+        mock_trovaTerreno.return_value = mock_terreno
+        mock_cercalat.return_value = mock_lat
+        mock_cercalon.return_value = mock_lon
+        mock_restituisciPredizioneLivelliIrrigazione.return_value = mock_predizione
+       
+        response = self.app.post('/visualizzaPredizioneIrrigazione', json={'id_terreno': '1'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.get_json(), mock_predizione)
             
 if  __name__ == '__main__':
     unittest.main()
