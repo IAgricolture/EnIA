@@ -25,7 +25,7 @@ jobs:
         python-version: "3.10"
     - name: Run Script
       
-      run: 
+      run: |
         pip install sphinx
         pip install sphinxcontrib.httpdomain
         python3 ./src/scripts/generateSphinx.py
