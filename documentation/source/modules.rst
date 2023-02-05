@@ -1,3 +1,11 @@
+Controllers
+====
+
+.. toctree::
+   :maxdepth: 4
+
+   Controllers
+
 logic
 =====
 
