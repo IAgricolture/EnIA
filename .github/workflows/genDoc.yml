@@ -26,7 +26,7 @@ jobs:
     - name: Run Script
       
       run: |
-        apt-get install python3-sphinx
+        sudo apt-get install python3-sphinx
         pip install -r requirements.txt
         pip install sphinxcontrib.httpdomain
         python3 ./src/scripts/generateSphinx.py
