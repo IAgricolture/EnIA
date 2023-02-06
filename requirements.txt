@@ -9,3 +9,4 @@ pybuilder
 mockito
 pybuilder
 sphinx
+sphinx-rtd-theme
