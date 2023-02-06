@@ -99,7 +99,7 @@ class AmbienteAgricoloService():
             TerrenoDAO.RimuoviTerreno(terreno)
             return True
     
-    def cercaPosizione(id:str):
+    def cercaPosizione(id:str) -> dict:
         terreno = TerrenoDAO.TrovaTerreno(id)
         if(terreno is None):
             return None
@@ -111,7 +111,6 @@ class AmbienteAgricoloService():
             print(lon)
             nominatim = NominatimAdapter(lat, lon, "json", 10)
             datiapi = nominatim.get_data()
-            print(datiapi)
             return datiapi  #JSON
         
     def cercaInquinamento(provincia:str, regione:str, nazione:str, comune:str):
