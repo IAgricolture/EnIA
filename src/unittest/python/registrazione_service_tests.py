@@ -46,10 +46,6 @@ class RegistrazioneServiceTest(unittest.TestCase):
         self.assertEqual(risultato["utenteRegistrato"], False)
         
     def test_case_1_1_3(self):
-        #TODO conferma password non esiste
-        pass
-    
-    def test_case_1_1_4(self):
         # Arrange
         nome="Willie13"
         cognome="The Duck"
@@ -66,7 +62,7 @@ class RegistrazioneServiceTest(unittest.TestCase):
         self.assertEqual(risultato["nomeNonValido"], True)
         self.assertEqual(risultato["utenteRegistrato"], False)
         
-    def test_case_1_1_5(self):
+    def test_case_1_1_4(self):
         # Arrange
         nome="Willie"
         cognome="The Duck13"
@@ -83,16 +79,10 @@ class RegistrazioneServiceTest(unittest.TestCase):
         self.assertEqual(risultato["cognomeNonValido"], True)
         self.assertEqual(risultato["utenteRegistrato"], False)
         
-    def test_case_1_1_6(self):
-        pass #TODO numero di telefono non esiste modificare tcs
-    
-    def test_case_1_1_7(self):
-        pass #TODO il codice di accesso è una stringa di 6 caratteri numerici randomici si evita quindi questo caso di test
-    
         """
         _summary_: Test case 1.1.8 : La registrazione non va a buon fine dato che il codice di accesso non è presente nel database
         """
-    def test_case_1_1_8(self):
+    def test_case_1_1_5(self):
         # Arrange
         nome="Kratos"
         cognome="Zeus"
@@ -110,7 +100,7 @@ class RegistrazioneServiceTest(unittest.TestCase):
         
         """_summary_: Test case 1.1.9 : La registrazione non va a buon fine dato che il codice è già stato utilizzato
         """
-    def test_case_1_1_9(self):
+    def test_case_1_1_6(self):
         # Arrange
         nome="Kratos"
         cognome="Zeus"
@@ -126,9 +116,9 @@ class RegistrazioneServiceTest(unittest.TestCase):
         self.assertEqual(risultato["codiceNonValido"], True)
         self.assertEqual(risultato["utenteRegistrato"], False)
     
-        """_summary_: Test case 1.1.10 : La registrazione non va a buon fine dato che l'indirizzo non è valido
+        """_summary_: Test case 1.1.7 : La registrazione non va a buon fine dato che l'indirizzo non è valido
        
-    def test_case_1_1_10(self):
+    def test_case_1_1_7(self):
         # Arrange
         nome="Giuseppe"
         cognome="Della Zappa"
@@ -146,10 +136,9 @@ class RegistrazioneServiceTest(unittest.TestCase):
         self.assertEqual(risultato["utenteRegistrato"], False)
          """
     
-    """_summary_: Test case 1.1.11 : La registrazione non va a buon fine dato che l'indirizzo non esiste
+    """_summary_: Test case 1.1.8 : La registrazione non va a buon fine dato che l'indirizzo non esiste
     """
-    def test_case_1_1_11(self):
-        #arrange
+    def test_case_1_1_8(self):
         # Arrange
         nome="Giuseppe"
         cognome="Della Zappa"
@@ -165,9 +154,18 @@ class RegistrazioneServiceTest(unittest.TestCase):
         #assert
         self.assertEqual(risultato["indirizzoNonValido"], True)
         self.assertEqual(risultato["utenteRegistrato"], False)
-    """_summary_: Test case 1.1.12 : La registrazione va a buon fine
+    """_summary_: Test case 1.1.9 : La registrazione va a buon fine
     """
-    def test_case_1_1_12(self):
-        #TODO 
-        pass
+    def test_case_1_1_9(self):
+        nome="Giuseppe"
+        cognome="Della Zappa"
+        email="PeppinoELoZappino@gmail.com"
+        password = "ZappaForever#56 "
+        codice = "AC48D20F20SC73L"
+        indirizzo = "Via Molino 12, Saviano, Napoli, Italia, 80039 "
+        data_nascita = "01/01/2000"
+        
+        risultato = RegistrazioneService.modificaUtente(nome, cognome, email,data_nascita, password, codice, indirizzo)
+        
+        self.assertEqual(risultato["utenteRegistrato"], True)
         
