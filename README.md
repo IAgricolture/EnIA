@@ -17,7 +17,7 @@
 
 # Introduction
 
-🐝 Web Application built with Python Flask with  
+ Web Application built with Python Flask with  
 
 Produced for the Software Engineering and Software Project Management courses of Computer Science at University of Salerno.
 
