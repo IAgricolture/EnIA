@@ -33,7 +33,7 @@ class GestioneUtenteController():
             elif tipo == "licenza":
                 licenza = Licenza(**session["licenza"])
                 nuovotipo = richiesta.get("tipo")
-                GestioneUtenteService.moficicaLicenza(licenza,nuovotipo)
+                GestioneUtenteService.modificaLicenza(licenza,nuovotipo)
             elif tipo == "metodo":
                 mp = MetodoDiPagamento(**session["metodo"])
                 num_carta = richiesta.get("num_carta")

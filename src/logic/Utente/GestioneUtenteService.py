@@ -24,7 +24,7 @@ class GestioneUtenteService():
     def findMetodoByProprietario(id:str)->MetodoDiPagamento:
         return MetodoDiPagamentoDAO.findMetodoByProprietario(id)
     
-    def moficicaLicenza(licenza:Licenza,nuovotipo:str):
+    def modificaLicenza(licenza:Licenza,nuovotipo:str):
         licenza.tipo = nuovotipo
         return LicenzaDAO.modificaLicenza(licenza)
 
