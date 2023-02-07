@@ -4,6 +4,7 @@ from src.logic.Storage.LicenzaDAO import LicenzaDAO
 from src.logic.Storage.MetodoDiPagamentoDAO import MetodoDiPagamentoDAO
 from src.logic.model.MetodoDiPagamento import MetodoDiPagamento
 from src.logic.Utente.GestioneUtenteService import GestioneUtenteService
+from src.logic.GestionePagamento.GestionePagamentoService import GestionePagamentoService
 
 from flask import request, render_template, session, jsonify
 from src import app
@@ -37,7 +38,7 @@ class GestioneUtenteController():
                 titolare = richiesta.get("titolare")
                 scadenza = richiesta.get("scadenza")
                 cvv = richiesta.get("cvv")
-                GestioneUtenteService.modificaMetodo(mp, num_carta, titolare, scadenza, cvv)
+                GestionePagamentoService.modificaMetodo(mp, num_carta, titolare, scadenza, cvv)
                 
         if current_user.ruolo == "farmer":
             session["licenza"] = GestioneUtenteService.findLicenzaByProprietario(current_user.id).__dict__

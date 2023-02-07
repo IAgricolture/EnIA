@@ -85,6 +85,4 @@ class RegistrazioneService():
         l = Licenza("", tipo, 5000, datetime.now().date().isoformat(), datetime.now().date().isoformat(), False, id)
         return LicenzaDAO.creaLicenza(l)
     
-    def creaMetodoDiPagamento(numerocarta, titolare, scadenza, cvv, id)->MetodoDiPagamento:
-        m = MetodoDiPagamento("", numerocarta, titolare, scadenza, cvv, id)
-        return MetodoDiPagamentoDAO.creaMetodo(m)
+    

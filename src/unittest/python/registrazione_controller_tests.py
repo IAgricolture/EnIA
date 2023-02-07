@@ -69,7 +69,7 @@ class RegistrazioneControllerTests(unittest.TestCase):
     @patch('src.logic.Registrazione.RegistrazioneService.RegistrazioneService.trovaUtenteByEmail')
     @patch('src.logic.Registrazione.RegistrazioneService.RegistrazioneService.creaFarmer')
     @patch('src.logic.Registrazione.RegistrazioneService.RegistrazioneService.creaLicenza')
-    @patch('src.logic.Registrazione.RegistrazioneService.RegistrazioneService.creaMetodoDiPagamento')
+    @patch('src.logic.GestionePagamento.GestionePagamentoService.GestionePagamentoService.creaMetodoDiPagamento')
     def test_registrazioneFarmer_post(self, mock_creaMetodoDiPagamento, mock_creaLicenza, mock_creaFarmer, mock_trovaUtenteByEmail):
         """
         Testa la registrazione di un farmer con una chiamata POST al controller
