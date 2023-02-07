@@ -18,7 +18,7 @@ class RegistrazioneController():
             codiceDiAccesso = richiesta.get("codice")
             #TODO: Implementare la verifica dell'indirizzo
             indirizzo = richiesta.get("indirizzo")
-            risposta = RegistrazioneService.modificaUtente(nome, cognome, email, password, dataDiNascita, codiceDiAccesso, indirizzo)
+            risposta = RegistrazioneService.creaUtente(nome, cognome, email, password, dataDiNascita, codiceDiAccesso, indirizzo)
             return jsonify(risposta)
         else:
             return render_template("register.html")

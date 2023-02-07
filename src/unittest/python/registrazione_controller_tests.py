@@ -32,9 +32,9 @@ class RegistrazioneControllerTests(unittest.TestCase):
         """
         Testa la POST request per la /register route
         """
-        # Set up the mock object for RegistrazioneService.modificaUtente
-        buffer = RegistrazioneService.modificaUtente
-        RegistrazioneService.modificaUtente = MagicMock(return_value={'success': True})
+        # Set up the mock object for RegistrazioneService.creaUtente
+        buffer = RegistrazioneService.creaUtente
+        RegistrazioneService.creaUtente = MagicMock(return_value={'success': True})
 
         # Set up the form data for the POST request
         form_data = {
@@ -60,11 +60,11 @@ class RegistrazioneControllerTests(unittest.TestCase):
         
         self.assertEqual(response.get_json(), expected_content)
 
-        # Check that the RegistrazioneService.modificaUtente method was called with the correct arguments
-        RegistrazioneService.modificaUtente.assert_called_with('John', 'Doe', 'example@email.com', 'secret', '2000-01-01', 'ABCD1234', '123 Main St')
+        # Check that the RegistrazioneService.creaUtente method was called with the correct arguments
+        RegistrazioneService.creaUtente.assert_called_with('John', 'Doe', 'example@email.com', 'secret', '2000-01-01', 'ABCD1234', '123 Main St')
 
         # Restore the original method
-        RegistrazioneService.modificaUtente = buffer
+        RegistrazioneService.creaUtente = buffer
 
     @patch('src.logic.Registrazione.RegistrazioneService.RegistrazioneService.trovaUtenteByEmail')
     @patch('src.logic.Registrazione.RegistrazioneService.RegistrazioneService.creaFarmer')
