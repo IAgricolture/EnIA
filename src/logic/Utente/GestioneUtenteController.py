@@ -4,6 +4,7 @@ from src.logic.Storage.LicenzaDAO import LicenzaDAO
 from src.logic.Storage.MetodoDiPagamentoDAO import MetodoDiPagamentoDAO
 from src.logic.model.MetodoDiPagamento import MetodoDiPagamento
 from src.logic.Utente.GestioneUtenteService import GestioneUtenteService
+from src.logic.GestionePagamento.GestionePagamentoService import GestionePagamentoService
 from src.logic.model.Licenza import Licenza
 
 from flask import request, render_template, session, jsonify
@@ -39,11 +40,11 @@ class GestioneUtenteController():
                 titolare = richiesta.get("titolare")
                 scadenza = richiesta.get("scadenza")
                 cvv = richiesta.get("cvv")
-                GestioneUtenteService.modificaMetodo(mp, num_carta, titolare, scadenza, cvv)
+                GestionePagamentoService.modificaMetodo(mp, num_carta, titolare, scadenza, cvv)
                 
         if current_user.ruolo == "farmer":
             session["licenza"] = GestioneUtenteService.findLicenzaByProprietario(current_user.id).__dict__
-            session["metodo"] = GestioneUtenteService.findMetodoByProprietario(current_user.id).__dict__
+            session["metodo"] = GestionePagamentoService.findMetodoByProprietario(current_user.id).__dict__
         return render_template("user.html")
         
     @app.route("/AziendaAgricola", methods = ["GET", "POST"])

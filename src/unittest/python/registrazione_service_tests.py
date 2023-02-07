@@ -22,7 +22,7 @@ class RegistrazioneServiceTest(unittest.TestCase):
         data_nascita = "01/01/2000"
         
         #act
-        risultato = RegistrazioneService.modificaUtente(nome, cognome, email, password,data_nascita, codice, indirizzo)
+        risultato = RegistrazioneService.creaUtente(nome, cognome, email, password,data_nascita, codice, indirizzo)
         
         #assert
         self.assertEqual(risultato["emailNonValida"], True)
@@ -39,7 +39,7 @@ class RegistrazioneServiceTest(unittest.TestCase):
         data_nascita = "01/01/2000"
         
         #act
-        risultato = RegistrazioneService.modificaUtente(nome, cognome, email, password,data_nascita, codice, indirizzo)
+        risultato = RegistrazioneService.creaUtente(nome, cognome, email, password,data_nascita, codice, indirizzo)
         
         #assert
         self.assertEqual(risultato["passwordNonValida"], True)
@@ -60,7 +60,7 @@ class RegistrazioneServiceTest(unittest.TestCase):
         data_nascita = "01/01/2000"
         
         #act
-        risultato = RegistrazioneService.modificaUtente(nome, cognome, email, password,data_nascita, codice, indirizzo)
+        risultato = RegistrazioneService.creaUtente(nome, cognome, email, password,data_nascita, codice, indirizzo)
         
         #assert
         self.assertEqual(risultato["nomeNonValido"], True)
@@ -77,7 +77,7 @@ class RegistrazioneServiceTest(unittest.TestCase):
         data_nascita = "01/01/2000"
         
         #act
-        risultato = RegistrazioneService.modificaUtente(nome, cognome, email, password,data_nascita, codice, indirizzo)
+        risultato = RegistrazioneService.creaUtente(nome, cognome, email, password,data_nascita, codice, indirizzo)
         
         #assert
         self.assertEqual(risultato["cognomeNonValido"], True)
@@ -103,7 +103,7 @@ class RegistrazioneServiceTest(unittest.TestCase):
         data_nascita = "01/01/2000"
         
         #act
-        risultato = RegistrazioneService.modificaUtente(nome, cognome, email, password, data_nascita, codice, indirizzo)
+        risultato = RegistrazioneService.creaUtente(nome, cognome, email, password, data_nascita, codice, indirizzo)
         #assert
         self.assertEqual(risultato["codiceNonValido"], True)
         self.assertEqual(risultato["utenteRegistrato"], False)
@@ -121,7 +121,7 @@ class RegistrazioneServiceTest(unittest.TestCase):
         data_nascita = "01/01/2000"
         
         #act
-        risultato = RegistrazioneService.modificaUtente(nome, cognome, email, password, data_nascita, codice, indirizzo)
+        risultato = RegistrazioneService.creaUtente(nome, cognome, email, password, data_nascita, codice, indirizzo)
         #assert
         self.assertEqual(risultato["codiceNonValido"], True)
         self.assertEqual(risultato["utenteRegistrato"], False)
@@ -139,7 +139,7 @@ class RegistrazioneServiceTest(unittest.TestCase):
         data_nascita = "01/01/2000"
         
         #act
-        risultato = RegistrazioneService.modificaUtente(nome, cognome, email,data_nascita, password, codice, indirizzo)
+        risultato = RegistrazioneService.creaUtente(nome, cognome, email,data_nascita, password, codice, indirizzo)
         
         #assert
         self.assertEqual(risultato["indirizzoNonValido"], True)
@@ -160,7 +160,7 @@ class RegistrazioneServiceTest(unittest.TestCase):
         data_nascita = "01/01/2000"
         
         #act
-        risultato = RegistrazioneService.modificaUtente(nome, cognome, email,data_nascita, password, codice, indirizzo)
+        risultato = RegistrazioneService.creaUtente(nome, cognome, email,data_nascita, password, codice, indirizzo)
 
         #assert
         self.assertEqual(risultato["indirizzoNonValido"], True)

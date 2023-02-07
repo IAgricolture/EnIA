@@ -57,7 +57,7 @@ class AmbienteAgricoloControllerTests(unittest.TestCase):
     @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercaInquinamento')
     @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercalat')
     @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercalon')
-    @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercaMeteo')
+    @patch('src.logic.DecisionIntelligence.DecisionIntelligenceService.DecisionIntelligenceService.cercaMeteo')
     def test_dettagli(self, mock_cercaMeteo, mock_cercalon, mock_cercalat, mock_cercaInquinamento, mock_cercaPosizione, mock_trovaTerreno):
         """
         Test per il metodo AmbienteAgricoloController.dettagli
@@ -99,7 +99,7 @@ class AmbienteAgricoloControllerTests(unittest.TestCase):
     @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercaInquinamento')
     @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercalat')
     @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercalon')
-    @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercaMeteo')
+    @patch('src.logic.DecisionIntelligence.DecisionIntelligenceService.DecisionIntelligenceService.cercaMeteo')
     def test_dettagli_key_error(self, mock_cercaMeteo, mock_cercalon, mock_cercalat, mock_cercaInquinamento, mock_cercaPosizione, mock_trovaTerreno):
         """
         Test per il metodo AmbienteAgricoloController.dettagli con KeyError
@@ -143,7 +143,7 @@ class AmbienteAgricoloControllerTests(unittest.TestCase):
     @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercaInquinamento')
     @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercalat')
     @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercalon')
-    @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercaMeteo')
+    @patch('src.logic.DecisionIntelligence.DecisionIntelligenceService.DecisionIntelligenceService.cercaMeteo')
     def test_dettagli_city_in_address(self, mock_cercaMeteo, mock_cercalon, mock_cercalat, mock_cercaInquinamento, mock_cercaPosizione, mock_trovaTerreno):
         """
         Test per il metodo AmbienteAgricoloController.dettagli con city in address
@@ -185,7 +185,7 @@ class AmbienteAgricoloControllerTests(unittest.TestCase):
     @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercaInquinamento')
     @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercalat')
     @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercalon')
-    @patch('src.logic.AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercaMeteo')
+    @patch('src.logic.DecisionIntelligence.DecisionIntelligenceService.DecisionIntelligenceService.cercaMeteo')
     def test_dettagli_village_in_address(self, mock_cercaMeteo, mock_cercalon, mock_cercalat, mock_cercaInquinamento, mock_cercaPosizione, mock_trovaTerreno):
         """
         Test per il metodo AmbienteAgricoloController.dettagli con village in address
