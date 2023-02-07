@@ -1,4 +1,4 @@
-# BeeHave
+# Enia
 
 <p align = "center">
   <img src = "enia-logo.png" width = "256" heigth = "256">
