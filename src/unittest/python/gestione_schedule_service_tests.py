@@ -7,7 +7,7 @@ from src.logic.DecisionIntelligence.DecisionIntelligenceService import DecisionI
 from src.logic.GestioneEventi.GestioneEventiService import GestioneEventiService
 import unittest
 from unittest.mock import MagicMock
-from src.logic.GestioneSchedule.GestioneScheduleService import GestioneScheduleService
+from src.logic.DecisionIntelligence.GestioneScheduleService import GestioneScheduleService
 from src.logic.Storage.ScheduleDAO import ScheduleDAO
 
 

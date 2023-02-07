@@ -62,7 +62,8 @@ class SenseSquareAdapter:
             "comune": self.comune,
             "format": self.formato
             }
-        if requests.post(url=url, data = body).json()["response_code"] == 400:
+        #se il response code è 400 lancia eccezione
+        if requests.post(url=url, data = body).status_code == 400:
             raise Exception("Impossibile soddisfare questa richiesta")
         datiapi = requests.post(url=url, data = body).text
         if(self.formato == "json"):  ##Multipli oggetti JSON, ne faccio un parse decente in un array di oggetti json.

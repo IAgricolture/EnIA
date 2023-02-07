@@ -336,7 +336,7 @@ class SenseSquareAdapterTest(unittest.TestCase):
             self.assertEqual(result, [])
 
             # Test the case when the response code is 400
-            mock.post('https://square.sensesquare.eu:5001/download', json={'response_code': 400})
+            mock.post('https://square.sensesquare.eu:5001/download', status_code=400)
             with self.assertRaises(Exception) as context:
                 result = adapter.get_data_time_interval()
             self.assertEqual(str(context.exception), 'Impossibile soddisfare questa richiesta')

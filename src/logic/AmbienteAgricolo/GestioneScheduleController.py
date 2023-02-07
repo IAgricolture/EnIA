@@ -2,7 +2,7 @@ from datetime import datetime
 from flask import jsonify, request
 from src import app
 from src.logic.GestioneEventi.GestioneEventiService import GestioneEventiService
-from src.logic.GestioneSchedule.GestioneScheduleService import GestioneScheduleService
+from src.logic.DecisionIntelligence.GestioneScheduleService import GestioneScheduleService
 from src.logic.model.Evento import Evento
 
 class GestioneScheduleController:

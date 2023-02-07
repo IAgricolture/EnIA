@@ -174,21 +174,7 @@ class AmbienteAgricoloService():
             lon = terreno.posizione["geometry"]["coordinates"][0][0][0]
             return lon
         
-    def cercaMeteo(lat:float, lon:float):
-        #creo l'oggetto meteo
-        meteo = OpenMeteoAdapter(lat, lon)
-        data = meteo.get_data()
-        
-        #fai la somma delle precipitazioni per le prossime 24 ore
-        somma = 0
-        for i in range(0,24):
-            somma += data["hourly"]["precipitation"][i]
-        
-        if somma > 10:
-            u = Evento("", "Pioggia", "Ci saranno ingenti quantità di pioggia nelle prossime 24 ore", datetime.now().isoformat(' ', 'seconds'), "Pioggia", False, False, "")
-            GestioneEventiService.creaEvento(u)
-        
-        return data
+    
     
     def restituisciPredizioneLivelliIrrigazione(lon:float, lat:float, crop:str, stage:str):
         return DecisionIntelligenceService.getPredizioneLivelliIrrigazione(lon, lat, crop, stage)

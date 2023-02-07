@@ -1,7 +1,7 @@
 import hashlib
 
 from src.logic.Registrazione.RegistrazioneService import RegistrazioneService
-
+from src.logic.GestionePagamento.GestionePagamentoService import GestionePagamentoService
 from flask import jsonify, request, render_template, redirect
 from src import app
 
@@ -17,7 +17,7 @@ class RegistrazioneController():
             dataDiNascita = richiesta.get("dataNascita")
             codiceDiAccesso = richiesta.get("codice")
             indirizzo = richiesta.get("indirizzo")
-            risposta = RegistrazioneService.modificaUtente(nome, cognome, email, password, dataDiNascita, codiceDiAccesso, indirizzo)
+            risposta = RegistrazioneService.creaUtente(nome, cognome, email, password, dataDiNascita, codiceDiAccesso, indirizzo)
             return jsonify(risposta)
         else:
             return render_template("register.html")
@@ -47,7 +47,7 @@ class RegistrazioneController():
             else:
                 id = RegistrazioneService.creaFarmer(nome,cognome, email, password, dataDiNascita, partitaiva, indirizzo)
                 l = RegistrazioneService.creaLicenza(id, licenza)
-                m = RegistrazioneService.creaMetodoDiPagamento(numerocarta, titolare, scadenza, cvv, id)
+                m = GestionePagamentoService.creaMetodoDiPagamento(numerocarta, titolare, scadenza, cvv, id)
 
                 return redirect("/login")
         return render_template("registerfarmer.html")

@@ -14,14 +14,7 @@ class GestioneUtenteService():
     
     def modificaUtente(current_user):
         return AutenticazioneDAO.modificaUtente(current_user)
-        
-    def modificaMetodo(mp: MetodoDiPagamento, num_carta:str, titolare:str, scadenza:str, cvv:str):
-        mp.num_carta = num_carta
-        mp.titolare = titolare
-        mp.scadenza = scadenza
-        mp.cvv = cvv
-        return MetodoDiPagamentoDAO.modificaMetodo(mp)
-     
+      
     def findLicenzaByProprietario(id:str)->Licenza:
         return LicenzaDAO.findLicenzaByProprietario(id)    
     
@@ -34,7 +27,7 @@ class GestioneUtenteService():
     def moficicaLicenza(licenza:Licenza,nuovotipo:str):
         licenza.tipo = nuovotipo
         return LicenzaDAO.modificaLicenza(licenza)
-    
+
     def removeUtenteFromAzienda(id:str)->bool:
         return AutenticazioneDAO.eliminaUtente(id)
         

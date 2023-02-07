@@ -16,7 +16,7 @@ class RegistrazioneService():
     def trovaUtenteByEmail(email:str)->Utente:
         return AutenticazioneDAO.trovaUtenteByEmail(email)
     
-    def modificaUtente(nome:str, cognome:str, email:str, password:str, dataDiNascita:str, codice:str, indirizzo:str):
+    def creaUtente(nome:str, cognome:str, email:str, password:str, dataDiNascita:str, codice:str, indirizzo:str):
         slotUtente = AutenticazioneDAO.trovaUtenteByCodiceDiAccesso(codice)
         print(password)
         #decrypt password from sha512 to plain text
@@ -76,7 +76,7 @@ class RegistrazioneService():
             risposta["utenteRegistrato"] = True 
         
         return risposta
-    
+
     def creaFarmer(nome:str, cognome:str, email:str, password:str, dataDiNascita:str, partitaiva:str, indirizzo:str)->str:  #Restituisce l'id
         utente = Utente("", nome, cognome, email, password, "farmer", dataDiNascita, partitaiva, None, indirizzo, None)
         return AutenticazioneDAO.creaUtente(utente)
@@ -85,6 +85,4 @@ class RegistrazioneService():
         l = Licenza("", tipo, 5000, datetime.now().date().isoformat(), datetime.now().date().isoformat(), False, id)
         return LicenzaDAO.creaLicenza(l)
     
-    def creaMetodoDiPagamento(numerocarta, titolare, scadenza, cvv, id)->MetodoDiPagamento:
-        m = MetodoDiPagamento("", numerocarta, titolare, scadenza, cvv, id)
-        return MetodoDiPagamentoDAO.creaMetodo(m)
+    
