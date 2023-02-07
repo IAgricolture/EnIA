@@ -42,7 +42,7 @@ class GestioneUtenteController():
                 
         if current_user.ruolo == "farmer":
             session["licenza"] = GestioneUtenteService.findLicenzaByProprietario(current_user.id).__dict__
-            session["metodo"] = GestioneUtenteService.findMetodoByProprietario(current_user.id).__dict__
+            session["metodo"] = GestionePagamentoService.findMetodoByProprietario(current_user.id).__dict__
         return render_template("user.html")
         
     @app.route("/AziendaAgricola", methods = ["GET", "POST"])

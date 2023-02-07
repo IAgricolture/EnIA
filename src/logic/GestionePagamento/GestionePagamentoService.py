@@ -12,3 +12,7 @@ class GestionePagamentoService():
         mp.scadenza = scadenza
         mp.cvv = cvv
         return MetodoDiPagamentoDAO.modificaMetodo(mp)
+    
+    def findMetodoByProprietario(id:str)->MetodoDiPagamento:
+        return MetodoDiPagamentoDAO.findMetodoByProprietario(id)
+    

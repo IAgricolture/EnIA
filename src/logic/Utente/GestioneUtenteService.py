@@ -14,18 +14,13 @@ class GestioneUtenteService():
     
     def modificaUtente(current_user):
         return AutenticazioneDAO.modificaUtente(current_user)
-        
-    
-     
+      
     def findLicenzaByProprietario(id:str)->Licenza:
         return LicenzaDAO.findLicenzaByProprietario(id)    
     
     def getUtenti(id: str)-> list:
         return AutenticazioneDAO.listaDipendenti(id)
 
-    def findMetodoByProprietario(id:str)->MetodoDiPagamento:
-        return MetodoDiPagamentoDAO.findMetodoByProprietario(id)
-    
 
     def removeUtenteFromAzienda(id:str)->bool:
         return AutenticazioneDAO.eliminaUtente(id)
