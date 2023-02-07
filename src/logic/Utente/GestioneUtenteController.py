@@ -5,6 +5,7 @@ from src.logic.Storage.MetodoDiPagamentoDAO import MetodoDiPagamentoDAO
 from src.logic.model.MetodoDiPagamento import MetodoDiPagamento
 from src.logic.Utente.GestioneUtenteService import GestioneUtenteService
 from src.logic.GestionePagamento.GestionePagamentoService import GestionePagamentoService
+from src.logic.model.Licenza import Licenza
 
 from flask import request, render_template, session, jsonify
 from src import app
@@ -30,8 +31,9 @@ class GestioneUtenteController():
                 
                 GestioneUtenteService.modificaUtente(current_user)
             elif tipo == "licenza":
-                #TODO decidere come far avvenire il cambio licenza
-                print(richiesta.get("licenza"))
+                licenza = Licenza(**session["licenza"])
+                nuovotipo = richiesta.get("tipo")
+                GestioneUtenteService.moficicaLicenza(licenza,nuovotipo)
             elif tipo == "metodo":
                 mp = MetodoDiPagamento(**session["metodo"])
                 num_carta = richiesta.get("num_carta")

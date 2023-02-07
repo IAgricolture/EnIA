@@ -16,7 +16,6 @@ class RegistrazioneController():
             password = richiesta.get("password")
             dataDiNascita = richiesta.get("dataNascita")
             codiceDiAccesso = richiesta.get("codice")
-            #TODO: Implementare la verifica dell'indirizzo
             indirizzo = richiesta.get("indirizzo")
             risposta = RegistrazioneService.creaUtente(nome, cognome, email, password, dataDiNascita, codiceDiAccesso, indirizzo)
             return jsonify(risposta)
@@ -38,7 +37,6 @@ class RegistrazioneController():
             titolare = richiesta.get("titolare")
             scadenza = richiesta.get("scadenza")
             cvv = richiesta.get("cvv") 
-            #TODO: Implementare la verifica dell'indirizzo
             indirizzo = richiesta.get("indirizzo")
             risposta = {
                 "emailUsata": False
@@ -48,7 +46,6 @@ class RegistrazioneController():
                 risposta["emailUsata"] = True
             else:
                 id = RegistrazioneService.creaFarmer(nome,cognome, email, password, dataDiNascita, partitaiva, indirizzo)
-                #TODO decidere i parametri delle licenze
                 l = RegistrazioneService.creaLicenza(id, licenza)
                 m = GestionePagamentoService.creaMetodoDiPagamento(numerocarta, titolare, scadenza, cvv, id)
 
