@@ -289,6 +289,19 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
         self.assertEqual(risultato["esitoOperazione"], False)  #Fallito inserimento
         self.assertEqual(risultato["colturaNonValida"], True) #Fallito a causa del formato sbagliato della coltura 
     
+    #Oracolo:Inserimento fallito perchè la posizione è nulla
+    def test_aggiungiTerreno_TC_2_1_5(self):
+        print("TC_2_1_5")
+        nome = "Terreno-A"
+        coltura = "Limoni"
+        posizione = None
+        preferito = True
+        priorita = 15
+        proprietario = "63b9e6a27862c31f1f7b221f"
+        stadio_crescita = "Sviluppo"
+        risultato = AmbienteAgricoloService.aggiungiTerreno(nome, coltura, stadio_crescita, posizione, preferito, priorita, proprietario)
+        self.assertEqual(risultato["esitoOperazione"], False)
+
     #ORACOLO: Fallisce in quanto manca la posizione
     def test_aggiungiTerreno_TC_2_1_8(self):
         print("TC_2_1_5")

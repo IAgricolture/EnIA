@@ -43,18 +43,21 @@ class AmbienteAgricoloService():
         if(terreno.coltura not in AmbienteAgricoloService.Colture):
             risultato["colturaNonValida"] = True
         posizione = terreno.posizione
-        try: #Se non esiste uno dei campi richiesti, la posizione è invalida.
-            if(posizione["type"] != "Feature"):  #Una sola posizione
-                risultato["posizioneNonValida"] = True
-            if(posizione["properties"]):    #Non ha proprietà aggiuntive
-                risultato["posizioneNonValida"] = True 
-            geometria = posizione["geometry"]
-            if(geometria["type"] != "Polygon"):
-                risultato["posizioneNonValida"] = True
-            if(len(geometria["coordinates"][0]) < 2 or len(geometria["coordinates"][0][0]) != 2): #Ha un array di coordinate
-                risultato["posizioneNonValida"] = True 
-        except KeyError:
+        if posizione == None:
             risultato["posizioneNonValida"] = True
+        else:
+            try: #Se non esiste uno dei campi richiesti, la posizione è invalida.
+                if(posizione["type"] != "Feature"):  #Una sola posizione
+                    risultato["posizioneNonValida"] = True
+                if(posizione["properties"]):    #Non ha proprietà aggiuntive
+                    risultato["posizioneNonValida"] = True 
+                geometria = posizione["geometry"]
+                if(geometria["type"] != "Polygon"):
+                    risultato["posizioneNonValida"] = True
+                if(len(geometria["coordinates"][0]) < 2 or len(geometria["coordinates"][0][0]) != 2): #Ha un array di coordinate
+                    risultato["posizioneNonValida"] = True 
+            except KeyError:
+                risultato["posizioneNonValida"] = True
         if(terreno.preferito != True and terreno.preferito != False):
             risultato["preferitoNonValido"] = True   
         if(not re.match(regexPriorita, str(terreno.priorita))):
