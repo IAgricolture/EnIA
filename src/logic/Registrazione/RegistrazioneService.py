@@ -51,10 +51,11 @@ class RegistrazioneService():
         if not re.match(indireg, indirizzo):
             risposta["indirizzoNonValido"] = True
         #use nominatim to check if the address exists
-        geolocator = Nominatim(user_agent="geoapiExercises")
-        location = geolocator.geocode(indirizzo)
-        if location == None:
-            risposta["indirizzoNonValido"] = True
+        if risposta["indirizzoNonValido"] == False:
+            geolocator = Nominatim(user_agent="geoapiExercises")
+            location = geolocator.geocode(indirizzo)
+            if location == None:
+                risposta["indirizzoNonValido"] = True
         #Se l'email è già usata il server avviserà il front-end
         if AutenticazioneDAO.trovaUtenteByEmail(email) != None:
             risposta["emailUsata"] = True
