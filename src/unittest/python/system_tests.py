@@ -648,7 +648,7 @@ class SystemTest (unittest.TestCase):
         #assert that td in tds are not empty
         for td in tds:
             assert td is not None
-            
+
     def tearDown(self):
         self.p.terminate()
         self.driver.close()
