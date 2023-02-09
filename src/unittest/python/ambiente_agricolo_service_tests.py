@@ -333,9 +333,18 @@ class AmbienteAgricoloServiceTest(unittest.TestCase):
         print(risultato)
         self.assertRaises(TypeError)
 
-        #TODO: CONTROLLO DELLO STADIO DI CRESCITA
-        '''def test_aggiungiTerreno_TC_2_1_8(self): '''
-   
+    #Oracolo : Fallito a causa del tipo sbagliato di crescita
+    def test_aggiungiTerreno_TC_2_1_8(self):
+        print("TC_2_1_8")
+        nome = "Terreno-A"
+        coltura = "Limoni"
+        posizione = {"type":"Feature","properties":{},"geometry":{"type":"Polygon","coordinates":[[[14.783607,40.772225],[14.783735,40.772745],[14.784594,40.771965],[14.783607,40.772225]]]}}
+        preferito = True
+        priorita = 15
+        proprietario = "63b9e6a27862c31f1f7b221f"
+        stadio_crescita = 45
+        AmbienteAgricoloService.aggiungiTerreno(nome, coltura, stadio_crescita, posizione, preferito, priorita, proprietario)
+        self.assertRaises(TypeError)
    
     #ORACOLO: Inserimento va a buon fine in quanto tutti i campi sono corretti.
     def test_aggiungiTerreno_TC_2_1_9(self):
