@@ -151,6 +151,7 @@ class RegistrazioneServiceTest(unittest.TestCase):
     """_summary_: Test case 1.1.8 : La registrazione non va a buon fine dato che l'indirizzo non esiste
     """
     def test_case_1_1_8(self):
+        print("test-case_1_1_8")
         # Arrange
         nome="Giuseppe"
         cognome="Della Zappa"
@@ -169,7 +170,7 @@ class RegistrazioneServiceTest(unittest.TestCase):
     """_summary_: Test case 1.1.9 : La registrazione va a buon fine
     """
     def test_case_1_1_9(self):
-        
+        print("test-case_1_1_9")
         nome="Giuseppe"
         cognome="Della Zappa"
         email="PeppinoELoZappino@gmail.com"
