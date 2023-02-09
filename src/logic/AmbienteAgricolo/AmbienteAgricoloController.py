@@ -2,6 +2,7 @@ from flask import jsonify, request, render_template, Response, make_response, ur
 from src import app, farmer_required
 import json
 from src.logic.Autenticazione import AutenticazioneService
+from src.logic.DecisionIntelligence.DecisionIntelligenceService import DecisionIntelligenceService
 from src.logic.model.Terreno import Terreno
 from src.logic.AmbienteAgricolo.AmbienteAgricoloService import AmbienteAgricoloService
 from flask_login import current_user, login_required
@@ -96,7 +97,7 @@ class AmbienteAgricoloController():
             }
         lat = AmbienteAgricoloService.cercalat(idTerreno)
         lon = AmbienteAgricoloService.cercalon(idTerreno)
-        meteoapi = AmbienteAgricoloService.cercaMeteo(lat,lon)
+        meteoapi = DecisionIntelligenceService.cercaMeteo(lat,lon)
         return render_template("dettagliterreno.html", terreno = terreno, posizioneapi = posizioneapi, inquinamentoapi = inquinamentoapi, meteoapi=meteoapi)
     
     @app.route("/getStoricoInquinamento", methods=["POST"])

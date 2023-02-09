@@ -71,3 +71,13 @@ class LicenzaDAO():
         else:
             return False
 
+    def modificaLicenza(licenza : Licenza):
+    
+        trovato = LicenzaDAO.findLicenza(licenza.id)
+        if(trovato is None):
+            return None
+        
+        licenze.update_one.update_one({"_id": ObjectId(trovato.id)},
+        {"$set": {
+            "tipo" : licenza.tipo,
+        }})

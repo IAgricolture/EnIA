@@ -30,3 +30,4 @@ def set_properties(project):
     project.build_depends_on("mockito")
     project.build_depends_on("geopy")
     project.build_depends_on("selenium")
+    project.build_depends_on("requests_mock")

@@ -257,6 +257,7 @@
   <script src="/static/javascript/misc.js"></script>
   <script src="/static/javascript/terreno.js"></script>
   <script>
+    var terrenoModificato = false
     var map = L.map('map').setView([40.77393162437966, 14.789718084808584], 15);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
@@ -269,6 +270,15 @@
     map.fitBounds(polygon.getBounds())
 
     var validMap = true
+
+    function resetMapModifica(points) {
+      if (validMap) {
+        map.removeLayer(polygon)
+        points = []
+        validMap = false
+        terrenoModificato = true
+      }
+    }
 
     map.on('click', function(e) {
         points.push(e.latlng);
@@ -310,7 +320,10 @@
                 stadio_crescita: document.getElementById('stadio').value,
                 posizione : polygon.toGeoJSON()
            }
-      
+      if( terrenoModificato != true)
+      {
+        data["posizione"] = u 
+      }
       let response = fetch("modificaTerreno",
         {
           /*"method": "GET",

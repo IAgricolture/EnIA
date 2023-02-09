@@ -43,18 +43,21 @@ class AmbienteAgricoloService():
         if(terreno.coltura not in AmbienteAgricoloService.Colture):
             risultato["colturaNonValida"] = True
         posizione = terreno.posizione
-        try: #Se non esiste uno dei campi richiesti, la posizione è invalida.
-            if(posizione["type"] != "Feature"):  #Una sola posizione
-                risultato["posizioneNonValida"] = True
-            if(posizione["properties"]):    #Non ha proprietà aggiuntive
-                risultato["posizioneNonValida"] = True 
-            geometria = posizione["geometry"]
-            if(geometria["type"] != "Polygon"):
-                risultato["posizioneNonValida"] = True
-            if(len(geometria["coordinates"][0]) < 2 or len(geometria["coordinates"][0][0]) != 2): #Ha un array di coordinate
-                risultato["posizioneNonValida"] = True 
-        except KeyError:
+        if posizione == None:
             risultato["posizioneNonValida"] = True
+        else:
+            try: #Se non esiste uno dei campi richiesti, la posizione è invalida.
+                if(posizione["type"] != "Feature"):  #Una sola posizione
+                    risultato["posizioneNonValida"] = True
+                if(posizione["properties"]):    #Non ha proprietà aggiuntive
+                    risultato["posizioneNonValida"] = True 
+                geometria = posizione["geometry"]
+                if(geometria["type"] != "Polygon"):
+                    risultato["posizioneNonValida"] = True
+                if(len(geometria["coordinates"][0]) < 2 or len(geometria["coordinates"][0][0]) != 2): #Ha un array di coordinate
+                    risultato["posizioneNonValida"] = True 
+            except KeyError:
+                risultato["posizioneNonValida"] = True
         if(terreno.preferito != True and terreno.preferito != False):
             risultato["preferitoNonValido"] = True   
         if(not re.match(regexPriorita, str(terreno.priorita))):
@@ -99,7 +102,7 @@ class AmbienteAgricoloService():
             TerrenoDAO.RimuoviTerreno(terreno)
             return True
     
-    def cercaPosizione(id:str):
+    def cercaPosizione(id:str) -> dict:
         terreno = TerrenoDAO.TrovaTerreno(id)
         if(terreno is None):
             return None
@@ -111,7 +114,6 @@ class AmbienteAgricoloService():
             print(lon)
             nominatim = NominatimAdapter(lat, lon, "json", 10)
             datiapi = nominatim.get_data()
-            print(datiapi)
             return datiapi  #JSON
         
     def cercaInquinamento(provincia:str, regione:str, nazione:str, comune:str):
@@ -175,21 +177,7 @@ class AmbienteAgricoloService():
             lon = terreno.posizione["geometry"]["coordinates"][0][0][0]
             return lon
         
-    def cercaMeteo(lat:float, lon:float):
-        #creo l'oggetto meteo
-        meteo = OpenMeteoAdapter(lat, lon)
-        data = meteo.get_data()
-        
-        #fai la somma delle precipitazioni per le prossime 24 ore
-        somma = 0
-        for i in range(0,24):
-            somma += data["hourly"]["precipitation"][i]
-        
-        if somma > 10:
-            u = Evento("", "Pioggia", "Ci saranno ingenti quantità di pioggia nelle prossime 24 ore", datetime.now().isoformat(' ', 'seconds'), "Pioggia", False, False, "")
-            GestioneEventiService.creaEvento(u)
-        
-        return data
+    
     
     def restituisciPredizioneLivelliIrrigazione(lon:float, lat:float, crop:str, stage:str):
         return DecisionIntelligenceService.getPredizioneLivelliIrrigazione(lon, lat, crop, stage)

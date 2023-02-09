@@ -3,6 +3,7 @@ import requests
 
 
 class SenseSquareAdapter:
+    
     #prendi attributi opzionali start_date, end_date, start_time, end_time
     def __init__(self, nazione, regione, provincia, comune, start_date=None, end_date=None, formato = "json"):
         currentdate = str(datetime.now()).split(" ")
@@ -35,6 +36,11 @@ class SenseSquareAdapter:
             "predictions": "true", #NON TOCCARE
             "fonti":"[]" #NON TOCCARE
             }
+        print(requests.post(url=url, data = body).json())
+        #se restituisce un dizionario del genere {'response_code': 400, 'message': 'Impossibile soddisfare questa richiesta', 'result': ''}
+        #lancia eccezione
+        if requests.post(url=url, data = body).json()["response_code"] == 400:
+            raise Exception("Impossibile soddisfare questa richiesta")
         return requests.post(url=url, data = body).json()
     
     def get_data_time_interval(self):
@@ -56,8 +62,10 @@ class SenseSquareAdapter:
             "comune": self.comune,
             "format": self.formato
             }
+        #se il response code è 400 lancia eccezione
+        if requests.post(url=url, data = body).status_code == 400:
+            raise Exception("Impossibile soddisfare questa richiesta")
         datiapi = requests.post(url=url, data = body).text
-        print("formato"+self.formato)
         if(self.formato == "json"):  ##Multipli oggetti JSON, ne faccio un parse decente in un array di oggetti json.
             arrayDati = datiapi.split("\n") #Ne ottengo un array
             arrayDati.pop(len(arrayDati) - 1) #Rimuovo un elemento vuoto creato con lo split, all'ultimo posto       

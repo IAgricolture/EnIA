@@ -43,4 +43,4 @@ from src.logic.AmbienteAgricolo import AmbienteAgricoloController
 from src.logic.DecisionIntelligence import DecisionIntelligenceController
 from src.logic.GestioneEventi import GestioneEventiController, GestioneEventiService
 from src.logic.GestionePagamento import GestionePagamentoController
-from src.logic.GestioneSchedule import GestioneScheduleController
+from src.logic.AmbienteAgricolo import GestioneScheduleController
