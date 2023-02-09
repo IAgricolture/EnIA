@@ -31,7 +31,7 @@
           console.log(JSON.stringify(data))
           console.log(data)
 
-          let response = fetch(url,
+          let response = fetch("/aggiuntaTerreno",
           {
             "method": "POST",
             headers: {
