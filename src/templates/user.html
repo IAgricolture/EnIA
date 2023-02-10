@@ -317,7 +317,7 @@
                                 {%if current_user.ruolo == "farmer"%}
                                 <div class="card" id="licenzamod" style="display: none;">
                                     <div class="card-body">
-                                        <form method="post" action="/user">
+                                        <form method="post" action="/user" id="licenzaform" >
                                             <h2 class="card-title"> Modifica Licenza</h2><br>
                                             <input type="hidden" name="type" value="licenza">
                                             {%if session['licenza'].tipo == "licenza standard"%}
@@ -334,7 +334,7 @@
                                             {%endif%}
                                             <label for="premium">Premium</label>
                                             <br>
-                                            <input type="button" class="btn btn-primary" value="Modifica">
+                                            <input type="button" class="btn btn-primary" value="Modifica" onclick="CheckLicenza()">
                                             <input type="button" class="btn btn-primary" value="Annulla" onclick="Annulla()">
                                         </form>
                                     </div>

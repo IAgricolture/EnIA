@@ -142,7 +142,7 @@ class LicenzaDAO():
         if(trovato is None):
             return None
         
-        licenze.update_one.update_one({"_id": ObjectId(trovato.id)},
+        licenze.update_one({"_id": ObjectId(trovato.id)},
         {"$set": {
             "tipo" : licenza.tipo,
         }})
