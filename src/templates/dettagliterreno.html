@@ -463,7 +463,7 @@
                                 </div>
                                 <div class="form-group" id="mapIrrigazione">
                                 </div>
-                                <button type="submit" class="btn ml-3 btn-primary my-custom-bg-color btn-sm p-1">Aggiungi</button>
+                                <button type="submit" class="btn ml-3 btn-primary my-custom-bg-color btn-sm p-1" id = "btnModificaIrrigatore">Modifica</button>
                             </div>
                           </div>
                         </div>
@@ -1087,6 +1087,8 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         innerDiv.setAttribute("class", "d-flex w-100 justify-content-between");
 
         const h5 = document.createElement("h5");
+        //aggiungi id irrigatore
+        h5.id = "irrigatore"+idIrrigatore;
         h5.setAttribute("class", "mb-1");
         h5.innerText = nomeIrrigatore;
         innerDiv.appendChild(h5);
@@ -1248,7 +1250,9 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         document.getElementById("listaIrrigatori").setAttribute("hidden", "true");
         mapModificaIrrigatore.invalidateSize()
         mapModificaIrrigatore.fitBounds(polygon.getBounds())
-
+        //aggiungi un on click al bottone per salvare le modifiche
+        document.getElementById("btnModificaIrrigatore").setAttribute("onclick", "buttonModificaIrrigatore('"+idIrrigatore+"')");
+        
         //get posizione of irrigatore
         fetch('getIrrigatore', {
           method: 'POST',
@@ -1274,7 +1278,12 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
 
         //set on click listener for submit
         
-        document.getElementById("btnModificaIrrigatore").addEventListener("click", function(){
+       
+        
+      }
+      
+      function buttonModificaIrrigatore(idIrrigatore)
+      {
           var nomeIrrigatore = document.getElementById("NomeImpiantoModificaIrrigatore").value;
           var posizioneIrrigatore = markerModificaIrrigatore.toGeoJSON();
 
@@ -1291,11 +1300,28 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
           }).then(function(response) {
             return response.json();
           }).then(function(data) {
-            tornaIndietro();
+            //elimina gli irrigatori dal document
+            var listaIrrigatori = document.getElementById("sprinklers")
+            listaIrrigatori.innerHTML = ""
+            //aggiorna la lista degli irrigatori nel document dal db
+            fetch('visualizzaIrrigatori', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                idTerreno: terreno.id
+              })
+            }).then(function(response) {
+              return response.json();
+            }).then(function(data) {
+              tornaIndietro()
+              for(var i = 0; i < data.length; i++){
+                aggiungiIrrigatoreAlDom(data[i].nome, data[i]._id, data[i].attivo);
+              }
+            })
           })
-        })
-        
-      }
+        }
 
       function isMarkerInsidePolygon(marker, polygon) {
         // utilizziamo la funzione leaflet contains() per verificare se il marker è all'interno del poligono
