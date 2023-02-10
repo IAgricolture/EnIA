@@ -11,7 +11,6 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>CelestialUI Admin</title>
     <!-- base:css -->
     <link rel="stylesheet" href="/static/vendors/typicons.font/font/typicons.css">
     <link rel="stylesheet" href="/static/vendors/css/vendor.bundle.base.css">
@@ -223,6 +222,7 @@
             </div>
           </div>
           <input type="button" id = "aggiungi" class="btn btn-primary mt-4" style= "background-color:#4DBAF6 ; border-color: #4DBAF6 " onclick="Aggiungi()" value="Aggiungi">
+          <input type="button" id = "aggiungi" class="btn btn-primary mt-4" style= "background-color:#4DBAF6 ; border-color: #4DBAF6 " onclick="Indietro()" value="Indietro">
           <!-- content-wrapper ends -->
         </div>
 
@@ -282,6 +282,15 @@
    <script src="/static/javascript/aziendaagricola.js"></script>
    <script src="/static/javascript/misc.js"></script>
 
+   <script>
+    function Indietro(){
+      setTimeout(redirect, 1000);
+    }
+
+    function redirect() {
+      window.location.href = "/user";
+    }
+   </script>
   <!-- End custom js for this page-->
 </body>
 
