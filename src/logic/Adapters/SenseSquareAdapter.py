@@ -3,9 +3,9 @@ import requests
 
 
 class SenseSquareAdapter:
-    
-    #prendi attributi opzionali start_date, end_date, start_time, end_time
-    def __init__(self, nazione, regione, provincia, comune, start_date=None, end_date=None, formato = "json"):
+    # prendi attributi opzionali start_date, end_date, start_time, end_time
+    def __init__(self, nazione, regione, provincia, comune,
+                 start_date=None, end_date=None, formato="json"):
         currentdate = str(datetime.now()).split(" ")
         date = currentdate[0]
         precisehour = currentdate[1].split(":")
@@ -19,12 +19,11 @@ class SenseSquareAdapter:
         self.start_date = start_date
         self.end_date = end_date
         self.formato = formato
-        
 
     def get_data_for_today(self):
         url = "https://square.sensesquare.eu:5001/placeView"
         body = {
-            "apikey": "3BK3D0LWE8DQ", #Codice API, NON MODIFICARE
+            "apikey": "3BK3D0LWE8DQ",  # Codice API, NON MODIFICARE
             "tempo": "giorno",
             "date": self.date,
             "time": self.time,
@@ -44,7 +43,7 @@ class SenseSquareAdapter:
         return requests.post(url=url, data = body).json()
     
     def get_data_time_interval(self):
-        #se gli attributi opzionali sono none lancia eccezione
+        # se gli attributi opzionali sono none lancia eccezione
         if self.start_date is None or self.end_date is None:
             raise Exception("Missing optional attributes")
         url = "https://square.sensesquare.eu:5001/download"
@@ -52,7 +51,7 @@ class SenseSquareAdapter:
             "apikey": "3BK3D0LWE8DQ",
             "req_type": "daily",
             "zoom": "3",
-            "start_date": self.start_date,    #Formato deve essere YYYY-MM-DD
+            "start_date": self.start_date,  # Formato deve essere YYYY-MM-DD
             "start_hour": "0",
             "end_date": self.end_date,
             "end_hour": "0",
@@ -71,4 +70,4 @@ class SenseSquareAdapter:
             arrayDati.pop(len(arrayDati) - 1) #Rimuovo un elemento vuoto creato con lo split, all'ultimo posto       
             return arrayDati
         else:
-            return datiapi  #Qualsiasi altro formato, è buono così com'è.
+            return datiapi  # Qualsiasi altro formato, è buono così com'è.

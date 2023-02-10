@@ -3,11 +3,33 @@ from src.logic.Adapters.OpenMeteoAdapter import OpenMeteoAdapter
 from src.logic.GestioneEventi.GestioneEventiService import GestioneEventiService
 from src.logic.model.Evento import Evento
 
-class DecisionIntelligenceService:  
-    def getPredizioneLivelliIrrigazione(lon : float, lat : float, crop : str, stage : str):
+class DecisionIntelligenceService():
+    '''
+    Classe Service di Decision Inteligence
+
+    ...
+
+    Attributi
+    ----------
+    None
+
+    Metodi
+    getPredizioneLivelliIrrigazione(lon : float, lat : float, crop : str, stage : str)
+        Dati i valori di latitudine, longitudine la tipologia di crops ed lo stato di crescita
+        restiuisce le previsioni meteo
+
+    '''
+    def getPredizioneLivelliIrrigazione(
+            lon: float, lat: float, crop: str, stage: str):
+        
+        '''
+        Dati i valori di latitudine, longitudine la tipologia di crops ed lo stato di crescita
+        restiuisce le previsioni meteo
+        '''
         try:
             adapter = IAdapter(lat, lon, crop, stage)
             return adapter.getAiPrediction()
+
         except Exception as e:
             raise e
         
