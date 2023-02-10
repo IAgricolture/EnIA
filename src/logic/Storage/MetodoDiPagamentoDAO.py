@@ -132,3 +132,16 @@ class MetodoDiPagamentoDAO():
                                            "scadenza": metodo.scadenza,
                                            "cvv": metodo.cvv,
                                        }})
+
+        
+    def eliminaMetodo(id : str)->bool:
+        '''
+            Questo metodo prende in ingresso un id ed elimina
+             il corrispondente metodo dal database
+        '''
+            
+        result = metodi_di_pagamento.delete_one({"_id": ObjectId(id)})
+        if(result.deleted_count == 1):
+            return True
+        else:
+            return False

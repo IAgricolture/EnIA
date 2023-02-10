@@ -31,12 +31,17 @@ class SenseSquareAdapter:
             "regione": self.regione,
             "provincia": self.provincia,
             "comune": self.comune,
-            "zoom": "3",  # 0 per tutte le nazioni, 1 per tutte le regioni, 2 per tutte le province, 3 per tutti i comuni, 4 NON VA
-            "predictions": "true",  # NON TOCCARE
-            "fonti": "[]"  # NON TOCCARE
-        }
-        return requests.post(url=url, data=body).json()
-
+            "zoom": "3", #0 per tutte le nazioni, 1 per tutte le regioni, 2 per tutte le province, 3 per tutti i comuni, 4 NON VA
+            "predictions": "true", #NON TOCCARE
+            "fonti":"[]" #NON TOCCARE
+            }
+        print(requests.post(url=url, data = body).json())
+        #se restituisce un dizionario del genere {'response_code': 400, 'message': 'Impossibile soddisfare questa richiesta', 'result': ''}
+        #lancia eccezione
+        if requests.post(url=url, data = body).json()["response_code"] == 400:
+            raise Exception("Impossibile soddisfare questa richiesta")
+        return requests.post(url=url, data = body).json()
+    
     def get_data_time_interval(self):
         # se gli attributi opzionali sono none lancia eccezione
         if self.start_date is None or self.end_date is None:
@@ -55,15 +60,14 @@ class SenseSquareAdapter:
             "provincia": self.provincia,
             "comune": self.comune,
             "format": self.formato
-        }
-        datiapi = requests.post(url=url, data=body).text
-        print("formato" + self.formato)
-        # Multipli oggetti JSON, ne faccio un parse decente in un array di
-        # oggetti json.
-        if (self.formato == "json"):
-            arrayDati = datiapi.split("\n")  # Ne ottengo un array
-            # Rimuovo un elemento vuoto creato con lo split, all'ultimo posto
-            arrayDati.pop(len(arrayDati) - 1)
+            }
+        #se il response code è 400 lancia eccezione
+        if requests.post(url=url, data = body).status_code == 400:
+            raise Exception("Impossibile soddisfare questa richiesta")
+        datiapi = requests.post(url=url, data = body).text
+        if(self.formato == "json"):  ##Multipli oggetti JSON, ne faccio un parse decente in un array di oggetti json.
+            arrayDati = datiapi.split("\n") #Ne ottengo un array
+            arrayDati.pop(len(arrayDati) - 1) #Rimuovo un elemento vuoto creato con lo split, all'ultimo posto       
             return arrayDati
         else:
             return datiapi  # Qualsiasi altro formato, è buono così com'è.

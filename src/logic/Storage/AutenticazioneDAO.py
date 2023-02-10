@@ -212,7 +212,7 @@ class AutenticazioneDAO():
 
         return str(result.inserted_id)
 
-    def eliminaUtente(id: str):
+    def eliminaUtente(id: str)->bool:
         '''
         Questo metodo prende in ingresso un id ed elimina il corrispondente utente dal database
 
@@ -226,7 +226,11 @@ class AutenticazioneDAO():
         True : bool
             Valore Booleano per avvenuta cancellazione
         '''
-        return utenti.delete_one({"_id": ObjectId(id)})
+        result = utenti.delete_one({"_id": ObjectId(id)})
+        if(result.deleted_count == 1):
+            return True
+        else:
+            return False
 
     def modificaUtente(utente: Utente):
         '''
@@ -318,7 +322,7 @@ class AutenticazioneDAO():
         Returns
         -------
         '''
-        utenti.insert_one({
+        return utenti.insert_one({
             "nome": "",
             "cognome": "",
             "email": "",
@@ -330,7 +334,7 @@ class AutenticazioneDAO():
             "datore": datore,
         })
 
-    def getDatore(codice: str) -> str:
+    def getDatore(id: str) -> str:
         '''
         Questo metodo permette di ottenere il datore il lavoro avendo un codice
 
@@ -344,4 +348,4 @@ class AutenticazioneDAO():
         utente : Utente
             lista di dipendenti con quel datore
         '''
-        return utenti.find_one({"_id": ObjectId(codice)}).get("datore")
+        return utenti.find_one({"_id": ObjectId(id)}).get("datore")

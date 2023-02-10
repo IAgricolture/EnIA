@@ -11,7 +11,7 @@ ruoli = ["irrigation manager", "pollution analyst"]
 
 class GestioneUtenteServiceTest(unittest.TestCase):
 
-    def test_case_1_3_1(self):
+    def test_case_4_1_1(self):
 
         ruolo = "zappatore"
 
@@ -19,7 +19,7 @@ class GestioneUtenteServiceTest(unittest.TestCase):
 
         self.assertEqual("Error", risultato)
 
-    def test_case_1_3_2(self):
+    def test_case_4_1_2(self):
 
         risultato = GestioneUtenteService.GenerateCode(ruoli[0], farmer)
 

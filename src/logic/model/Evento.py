@@ -15,3 +15,11 @@ class Evento():
         self.azione_umana = azione_umana
         self.visto = visto
         self.terreno = terreno
+    
+    def __eq__(self, __o: object) -> bool:
+        if(self.titolo == __o.titolo and self.descrizione == __o.descrizione and self.orario == __o.orario and self.tipo == __o.tipo and self.azione_umana == __o.azione_umana and self.visto == __o.visto and self.terreno == __o.terreno):
+            return True
+        else:
+            return False
+
+

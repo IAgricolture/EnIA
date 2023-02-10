@@ -131,6 +131,10 @@ class GestioneUtenteService():
         '''
         return MetodoDiPagamentoDAO.findMetodoByProprietario(id)
 
+    def modificaLicenza(licenza:Licenza,nuovotipo:str):
+        licenza.tipo = nuovotipo
+        return LicenzaDAO.modificaLicenza(licenza)
+        
     def removeUtenteFromAzienda(id: str) -> bool:
         '''
         Rimuove un dipendente

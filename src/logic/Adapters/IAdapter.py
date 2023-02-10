@@ -29,11 +29,21 @@ class IAdapter:
         # traduci crop e stage
         crop = IAdapter.crop_translator.get(crop)
         stage = IAdapter.growth_translator.get(stage)
-
-        # se non si possono tradurre lancia eccezione
-        if crop is None or stage is None:
-            raise Exception("Errore nella traduzione dei parametri")
-
+        
+        if crop == None:
+            raise Exception("Coltura non valida")
+        
+        if stage == None:
+            raise Exception("Stadio di crescita non valido")
+        
+        #se non si possono tradurre lancia eccezione
+        if crop == None or stage == None or lat == None or lon == None:
+            raise Exception("None value not allowed")
+        
+        if lat < -90 or lat > 90 or lon < -180 or lon > 180:
+            raise Exception("Latitudine o longitudine non valide")
+        
+        
         self.lat = lat
         self.lon = lon
         self.crop = crop
@@ -56,5 +66,5 @@ class IAdapter:
             giorno_formattato = giorno.strftime("%d-%m-%Y")
             livello_irrigazione[giorno_formattato] = IAdapter.irrigazione_translator[p]
             giorno = giorno + datetime.timedelta(days=1)
-
-        return livello_irrigazione
+        print(livello_irrigazione)
+        return livello_irrigazione   

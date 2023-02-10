@@ -123,3 +123,26 @@ class LicenzaDAO():
             proprietario)
 
         return licenzaTrovata
+
+    def eliminaLicenza(id : str)->bool:
+        '''
+            Questo metodo prende in ingresso un id ed elimina
+            la corrispondente licenza dal database
+        '''
+            
+        result = licenze.delete_one({"_id": ObjectId(id)})
+        if(result.deleted_count == 1):
+            return True
+        else:
+            return False
+
+    def modificaLicenza(licenza : Licenza):
+    
+        trovato = LicenzaDAO.findLicenza(licenza.id)
+        if(trovato is None):
+            return None
+        
+        licenze.update_one.update_one({"_id": ObjectId(trovato.id)},
+        {"$set": {
+            "tipo" : licenza.tipo,
+        }})

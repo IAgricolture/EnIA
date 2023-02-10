@@ -14,3 +14,12 @@ class Licenza():
         self.data_scadenza = data_scadenza
         self.scaduta = scaduta
         self.proprietario = proprietario
+    
+    def __eq__(self, __o: object) -> bool:
+        if(self.tipo == __o.tipo and self.costo == __o.costo and self.data_attivazione == __o.data_attivazione and self.data_scadenza == __o.data_scadenza and self.scaduta == __o.scaduta and self.proprietario == __o.proprietario):
+            return True
+        else:
+            return False
+
+
+

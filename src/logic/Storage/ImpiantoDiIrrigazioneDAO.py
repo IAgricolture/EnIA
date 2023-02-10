@@ -203,4 +203,8 @@ class ImpiantoDiIrrigazioneDAO():
         Returns
         -------
         '''
-        impianti.delete_one({"_id": ObjectId(id)})
+        result = impianti.delete_one({"_id" : ObjectId(id)})
+        if(result.deleted_count == 1):
+            return True
+        else:
+            return False

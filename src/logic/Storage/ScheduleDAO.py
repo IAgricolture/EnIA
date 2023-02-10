@@ -54,9 +54,10 @@ class ScheduleDAO():
         inizio = trovato.get("inizio").time()
         fine = trovato.get("fine").time()
         modalita = str(trovato.get("modalita"))
+        terreno = str(trovato.get("terreno"))
 
-        scheduleTrovato = Schedule(id, inizio, fine, modalita)
-
+        scheduleTrovato = Schedule(id, inizio, fine, modalita, terreno)
+        
         return scheduleTrovato
 
     def creaSettimanaScheduleNullo(id_terreno: str):
@@ -97,7 +98,7 @@ class ScheduleDAO():
         # Inserisco la settimana di schedule vuota sul database
         result = schedule.insert_many(settimanaSchedule)
 
-        return True
+        return result
 
     def creaSchedule(sched: Schedule) -> str:
         '''
@@ -117,7 +118,8 @@ class ScheduleDAO():
         result = schedule.insert_one({
             "inizio": sched.inizio,
             "fine": sched.fine,
-            "modalita": sched.modalita
+            "modalita": sched.modalita,
+            "terreno": ObjectId(sched.terreno)
         })
 
         return str(result.inserted_id)
@@ -216,9 +218,18 @@ class ScheduleDAO():
         tomorrow = date + timedelta(days=1)
         # modifica la modalita dello schedule nel database sulla entry che ha
         # id_terreno e date uguali a quelle passate
-        schedule.update_one({
+        result = schedule.update_one({
             "terreno": ObjectId(id_terreno),
-            "inizio": {"$gte": date, "$lt": tomorrow}
-        }, {"$set": {"modalita": modalita}})
+             "inizio": {"$gte": date, "$lt": tomorrow}
+        }, { "$set": { "modalita": modalita } })
+            
+        return(result.modified_count > 0)
+        
+    def eliminaSchedule(id: str)->bool:
+        result = schedule.delete_one({"_id": ObjectId(id)})
+        if(result.deleted_count == 1):
+            return True
+        else:
+            return False
 
-        return True
+

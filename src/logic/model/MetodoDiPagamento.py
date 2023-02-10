@@ -11,3 +11,10 @@ class MetodoDiPagamento():
         self.scadenza = scadenza
         self.cvv = cvv
         self.proprietario = proprietario
+        
+    def __eq__(self, __o: object) -> bool:
+        if(self.num_carta == __o.num_carta and self.titolare == __o.titolare and self.scadenza == __o.scadenza and self.cvv == __o.cvv and self.proprietario == __o.proprietario):
+            return True
+        else:
+            return False
+    

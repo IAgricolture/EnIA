@@ -34,7 +34,7 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="brand-logo-mini" href="http://localhost:5000/index.html"><img
+        <a class="brand-logo-mini" href="index.html"><img
           src="/static/images/enia.png" alt="logo"></a>
         <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex" type="button"
           data-toggle="minimize">
@@ -190,7 +190,7 @@
                     <tr id = "{{dipendente["_id"]}}">
                       <td>
                         <div class="d-flex" bis_skin_checked="1">
-                          <img class="img-sm rounded-circle mb-md-0 mr-2" src="images/faces/face30.png"
+                          <img class="img-sm rounded-circle mb-md-0 mr-2" src="static/images/samples/300x300/12.jpg"
                             alt="profile image">
                           <div bis_skin_checked="1">
                             <div bis_skin_checked="1"> </div>
@@ -205,7 +205,7 @@
                       </td>
                       <td>
                         Email
-                        <div class="font-weight-bold text-success  mt-1" bis_skin_checked="1">{{dipendente["email"]}}
+                        <div class="font-weight-bold mt-1" bis_skin_checked="1">{{dipendente["email"]}}
                         </div>
                       </td>
                       <td>
@@ -213,7 +213,7 @@
                         <div class="font-weight-bold  mt-1" bis_skin_checked="1">{{dipendente["ruolo"]}}</div>
                       </td>
                       <td>
-                        <button type="button" class="btn btn-sm btn-secondary" onclick="rimandaelimina('{{dipendente["_id"]}}')">Elimina</button>
+                        <button type="button" class="btn btn-sm btn-primary" onclick="rimandaelimina('{{dipendente["_id"]}}')">Elimina</button>
                       </td>
                     </tr>
                     {%endfor%}
@@ -222,7 +222,7 @@
               </div>
             </div>
           </div>
-          <input type="button" onclick="Aggiungi()" value="Aggiungi">
+          <input type="button" id = "aggiungi" class="btn btn-primary mt-4" style= "background-color:#4DBAF6 ; border-color: #4DBAF6 " onclick="Aggiungi()" value="Aggiungi">
           <!-- content-wrapper ends -->
         </div>
 
@@ -236,13 +236,13 @@
                   <option value="pollution analyst">Pollution Analyst</option>
                 </select>
                 <br>
-                <input class="mt-4" type="button" value="Genera codice" onclick="Add('{{current_user.id}}')">
+                <input id="generacodice" class="mt-4 btn btn-success btn-primary" style= "background-color:#92E351 ; border-color: #92E351; margin-top: 3rem !important;" type="button" value="Genera codice" onclick="Add('{{current_user.id}}')">
               </div>
 
               <div class="card-body" id="codice" style="background-color: white; text-align: center;">
                 Codice: <p id="gencode"></p>
                 <br>
-                <input class="mt-4" type="button" value="Chiudi" onclick="Chiudi()">
+                <input class="mt-4 btn btn-primary" type="button" value="Chiudi" onclick="Chiudi()">
               </div>
             </div>
           </div>

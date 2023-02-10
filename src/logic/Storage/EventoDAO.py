@@ -56,6 +56,7 @@ class EventoDAO():
         tipo = str(trovato.get("tipo"))
         azione_umana = bool(trovato.get("azione_umana"))
         visto = bool(trovato.get("visto"))
+        terreno = str(trovato.get("terreno"))
         eventoTrovato = Evento(
             id,
             titolo,
@@ -63,7 +64,7 @@ class EventoDAO():
             orario,
             tipo,
             azione_umana,
-            visto)
+            visto, terreno)
         return eventoTrovato
 
     def creaEvento(evento: Evento) -> str:
@@ -135,7 +136,8 @@ class EventoDAO():
         -------
         '''
         
-        eventi.delete_many({"terreno": idTerreno})
+        eventiTrovati = eventi.delete_many({"terreno" : idTerreno})
+        return eventiTrovati.deleted_count
 
     def cancellaEvento(idEvento: str):
         '''
@@ -150,4 +152,8 @@ class EventoDAO():
         -------
         '''
         
-        eventi.delete_one({"_id": ObjectId(idEvento)})
+        eventiTrovati = eventi.delete_one({"_id" : ObjectId(idEvento)})
+        if(eventiTrovati.deleted_count == 1):
+            return True
+        else:
+            return False

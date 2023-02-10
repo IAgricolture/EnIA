@@ -101,9 +101,9 @@ function register() {
         .then(data => {
           console.log(data)
           if (data["emailUsata"]) {
-            emailerr.innerHTML = "email già usata"
+            emailerr.innerHTML = "email gia' usata"
           } if (data["codiceNonValido"]) {
-            cod.innerHTML = "codice non valido o già usato"
+            cod.innerHTML = "codice non valido o gia' usato"
           }if(data["utenteRegistrato"]){
               window.location.href ="/login"
           }

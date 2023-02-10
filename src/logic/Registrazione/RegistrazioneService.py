@@ -69,7 +69,7 @@ class RegistrazioneService():
         '''
         return AutenticazioneDAO.trovaUtenteByEmail(email)
 
-    def modificaUtente(nome: str, cognome: str, email: str, password: str,
+    def creaUtente(nome: str, cognome: str, email: str, password: str,
                        dataDiNascita: str, codice: str, indirizzo: str):
         '''
         Modifica i dati relativi ad un utente
@@ -112,15 +112,11 @@ class RegistrazioneService():
             "nomeNonValido": False,
         }
 
-        nomereg = re.compile(r'^[a-z]{2,30}$', re.IGNORECASE)
-        mailreg = re.compile(
-            r'[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}',
-            re.IGNORECASE)
-        # passreg = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&_])[A-Za-z\d$@$!%*?&_]{8,20}$/"
-        passreg = re.compile(
-            r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&_])[A-Za-z\d$@$!%*?&_]{8,20}$',
-            re.IGNORECASE)
-        # indireg = "/^[A-Za-zÀ-ù0-9 ,‘-]+$/"
+        nomereg = re.compile(r'^[a-z ]{2,30}$', re.IGNORECASE)
+        mailreg = re.compile(r'[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}', re.IGNORECASE)
+        #passreg = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&_])[A-Za-z\d$@$!%*?&_]{8,20}$/"
+        passreg = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@#$!%*?&_])[A-Za-z\d$@$!%*?&_]{8,20}$', re.IGNORECASE)
+        #indireg = "/^[A-Za-zÀ-ù0-9 ,‘-]+$/"
         indireg = re.compile(r'^[A-Za-zÀ-ù0-9 ,‘-]+$', re.IGNORECASE)
         # controlla che il pattern del nome sia valido
         if not re.match(nomereg, nome):
@@ -134,10 +130,11 @@ class RegistrazioneService():
         if not re.match(indireg, indirizzo):
             risposta["indirizzoNonValido"] = True
         # use nominatim to check if the address exists
-        geolocator = Nominatim(user_agent="geoapiExercises")
-        location = geolocator.geocode(indirizzo)
-        if location is None:
-            risposta["indirizzoNonValido"] = True
+        if risposta["indirizzoNonValido"] == False:
+            geolocator = Nominatim(user_agent="geoapiExercises")
+            location = geolocator.geocode(indirizzo)
+            if location is None:
+                risposta["indirizzoNonValido"] = True
         # Se l'email è già usata il server avviserà il front-end
         if AutenticazioneDAO.trovaUtenteByEmail(email) is not None:
             risposta["emailUsata"] = True

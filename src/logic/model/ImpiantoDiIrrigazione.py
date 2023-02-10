@@ -12,3 +12,11 @@ class ImpiantoDiIrrigazione():
         self.codice = codice
         self.attivo = attivo
         self.posizione = posizione
+        
+    def __eq__(self, __o: object) -> bool:
+        if(self.nome == __o.nome and self.tipo == __o.tipo and self.codice == __o.codice and self.attivo == __o.attivo and self.posizione == __o.posizione):
+            return True
+        else:
+            return False
+
+

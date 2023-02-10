@@ -15,3 +15,13 @@ class Schedule():
         self.fine = fine
         self.modalita = modalita
         self.terreno = terreno
+    
+    def __eq__(self, __o: object) -> bool:
+        try:
+            if(self.inizio == __o.inizio and self.fine == __o.fine and self.modalita == __o.modalita and self.terreno == __o.terreno):
+                return True
+            else:
+                return False
+        except Exception as e:
+            print(e)
+
