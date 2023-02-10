@@ -15,7 +15,6 @@ from flask_cors import CORS
    such as routes, or gestioneUtenteControl
 """
 app = Flask(__name__)
-CORS(app)
 app.config["MONGO_URI"] = "mongodb://enia:vp7CMyN7V5Rl8FZR@ac-raqtab6-shard-00-00.o0m35vt.mongodb.net:27017,ac-raqtab6-shard-00-01.o0m35vt.mongodb.net:27017,ac-raqtab6-shard-00-02.o0m35vt.mongodb.net:27017/EnIA?ssl=true&replicaSet=atlas-6sol94-shard-0&authSource=admin&retryWrites=true&w=majority"
 app.config["COMPRESS_ALGORITHM"] = 'gzip'  # disable default compression of all eligible requests
 app.config['SECRET_KEY'] = 'jshwifhjwieoajhf5847f5ae4eaws'
