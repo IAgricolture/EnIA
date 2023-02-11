@@ -10,3 +10,5 @@ mockito
 pybuilder
 sphinx
 sphinx-rtd-theme
+sphinxcontrib-httpdomain
+selenium
