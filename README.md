@@ -5,7 +5,7 @@
 </p>
 
 <p align = "center">
-   Web application built to support farmers and crops  
+   👨‍🌾 Web application built to support farmers and crops 👨‍🌾  
   <br>
   A project for
   <br>
@@ -17,7 +17,7 @@
 
 # Introduction
 
- Web Application built with Python Flask with  
+ Web Application built with Python Flask for facilitate farm management  
 
 Produced for the Software Engineering and Software Project Management courses of Computer Science at University of Salerno.
 
