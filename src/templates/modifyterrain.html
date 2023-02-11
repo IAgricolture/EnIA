@@ -181,7 +181,7 @@
               <div id="map">
               </div>
               <div class="mt-3">
-                <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" style= "background-color: #92E351; border-color: #92E351" onclick="resetMap(points)">MODIFICA CONFINI</a>
+                <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" style= "background-color: #92E351; border-color: #92E351" onclick="resetMapModifica(points)">MODIFICA CONFINI</a>
               </div>
               <div id = "spazioNotifica" class="mb-4">
               </div>
@@ -270,7 +270,7 @@
         map.removeLayer(polygon)
         points = []
         validMap = false
-        terrenoModificato = true
+        window.terrenoModificato = true
       }
     }
 
@@ -279,10 +279,10 @@
         validMap = true
         if (points.length >= 1) {
             if (polygon != null){
-                polygon.remove()
+                window.polygon.remove()
             }
             
-            polygon = L.polygon(points).addTo(map);
+            window.polygon = L.polygon(points).addTo(map);
         }
         console.log(points)
     });
@@ -312,10 +312,12 @@
                 preferito : document.getElementById('preferito').checked,
                 priorita : document.getElementById('priorita').value,
                 stadio_crescita: document.getElementById('stadio').value,
-                posizione : polygon.toGeoJSON()
+                posizione : window.polygon.toGeoJSON()
            }
       if( terrenoModificato != true)
       {
+        console.log("non modificato")
+        
         data["posizione"] = u 
       }
       let response = fetch("modificaTerreno",
