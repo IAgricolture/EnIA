@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="it" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registrazione package &mdash; EnIA 1.0 documentazione</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Indice" href="genindex.html" />
+    <link rel="search" title="Cerca" href="search.html" />
+    <link rel="next" title="Storage package" href="Storage.html" />
+    <link rel="prev" title="GestionePagamento package" href="GestionePagamento.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> EnIA
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cerca documenti" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu di navigazione">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Controllers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html#logic">logic</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="AmbienteAgricolo.html">AmbienteAgricolo package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Autenticazione.html">Autenticazione package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DecisionIntelligence.html">DecisionIntelligence package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GestioneEventi.html">GestioneEventi package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GestionePagamento.html">GestionePagamento package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Registrazione package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#registrazione-registrazionecontroller-module">Registrazione.RegistrazioneController module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-Registrazione.RegistrazioneService">Registrazione.RegistrazioneService module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Registrazione.RegistrazioneService.RegistrazioneService"><code class="docutils literal notranslate"><span class="pre">RegistrazioneService</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Storage.html">Storage package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Utente.html">Utente package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model.html">model package</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu navigazione dispositivi mobili" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EnIA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Naviga tra le pagine">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Controllers</a></li>
+      <li class="breadcrumb-item active">Registrazione package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Registrazione.rst.txt" rel="nofollow"> Visualizza sorgente pagina</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="registrazione-package">
+<h1>Registrazione package<a class="headerlink" href="#registrazione-package" title="Permalink to this heading"></a></h1>
+<section id="registrazione-registrazionecontroller-module">
+<h2>Registrazione.RegistrazioneController module<a class="headerlink" href="#registrazione-registrazionecontroller-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-Registrazione.RegistrazioneService">
+<span id="registrazione-registrazioneservice-module"></span><h2>Registrazione.RegistrazioneService module<a class="headerlink" href="#module-Registrazione.RegistrazioneService" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Registrazione.RegistrazioneService.RegistrazioneService">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Registrazione.RegistrazioneService.</span></span><span class="sig-name descname"><span class="pre">RegistrazioneService</span></span><a class="headerlink" href="#Registrazione.RegistrazioneService.RegistrazioneService" title="Link a questa definizione"></a></dt>
+<dd><blockquote>
+<div><p>Basi: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</div></blockquote>
+<p>Classe Service di Ambiente Agricolo</p>
+<p>…</p>
+<section id="attributi">
+<h3>Attributi<a class="headerlink" href="#attributi" title="Permalink to this heading"></a></h3>
+<p>None</p>
+</section>
+<section id="metodi">
+<h3>Metodi<a class="headerlink" href="#metodi" title="Permalink to this heading"></a></h3>
+<dl class="simple">
+<dt>trovaUtenteByCodiceDiAccesso(codice: str):</dt><dd><p>Cerca un utente attraverso il suo codice di accesso</p>
+</dd>
+<dt>trovaUtenteByEmail(email: str):</dt><dd><p>Cerca un utente attraverso la sua email</p>
+</dd>
+<dt>modificaUtente(nome: str, cognome: str, email: str, password: str, dataDiNascita: str, codice: str, indirizzo: str):</dt><dd><p>Modifica i dati relativi ad un utente</p>
+</dd>
+<dt>creaFarmer(nome: str, cognome: str, email: str, password: str, dataDiNascita: str, partitaiva: str, indirizzo: str):</dt><dd><p>Crea un nuovo utente farmer</p>
+</dd>
+<dt>creaLicenza(id: str, tipo: str):</dt><dd><p>Crea una nuova licenza</p>
+</dd>
+<dt>creaMetodoDiPagamento(numerocarta, titolare, scadenza, cvv, id):</dt><dd><p>Crea una nuovo metodo di pagamento</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="Registrazione.RegistrazioneService.RegistrazioneService.creaFarmer">
+<span class="sig-name descname"><span class="pre">creaFarmer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cognome</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataDiNascita</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partitaiva</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indirizzo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#Registrazione.RegistrazioneService.RegistrazioneService.creaFarmer" title="Link a questa definizione"></a></dt>
+<dd><p>Crea un nuovo utente farmer</p>
+<section id="parametri">
+<h4>Parametri<a class="headerlink" href="#parametri" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>nome<span class="classifier">str</span></dt><dd><p>nome</p>
+</dd>
+<dt>cognome<span class="classifier">str</span></dt><dd><p>cognome</p>
+</dd>
+<dt>email<span class="classifier">str</span></dt><dd><p>email</p>
+</dd>
+<dt>password<span class="classifier">str</span></dt><dd><p>password</p>
+</dd>
+<dt>dataDiNascita<span class="classifier">str</span></dt><dd><p>Data di nascita</p>
+</dd>
+<dt>partitaiva<span class="classifier">str</span></dt><dd><p>Partita IVA</p>
+</dd>
+<dt>indirizzo<span class="classifier">str</span></dt><dd><p>Indirizzo</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h4>Returns<a class="headerlink" href="#returns" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>AutenticazioneDAO.creaUtente(utente)<span class="classifier">str</span></dt><dd><p>L’id del nuovo utente creato</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Registrazione.RegistrazioneService.RegistrazioneService.creaLicenza">
+<span class="sig-name descname"><span class="pre">creaLicenza</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tipo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Licenza</span></span></span><a class="headerlink" href="#Registrazione.RegistrazioneService.RegistrazioneService.creaLicenza" title="Link a questa definizione"></a></dt>
+<dd><p>Crea una nuova licenza</p>
+<section id="id1">
+<h4>Parametri<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id<span class="classifier">str</span></dt><dd><p>Id del proprietario della licenza</p>
+</dd>
+<dt>tipo<span class="classifier">str</span></dt><dd><p>tipo di licenza</p>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h4>Returns<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>LicenzaDAO.creaLicenza(l)<span class="classifier">Licenza</span></dt><dd><p>La licenza appena creata</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Registrazione.RegistrazioneService.RegistrazioneService.creaMetodoDiPagamento">
+<span class="sig-name descname"><span class="pre">creaMetodoDiPagamento</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titolare</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scadenza</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cvv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">MetodoDiPagamento</span></span></span><a class="headerlink" href="#Registrazione.RegistrazioneService.RegistrazioneService.creaMetodoDiPagamento" title="Link a questa definizione"></a></dt>
+<dd><p>Crea una nuovo metodo di pagamento</p>
+<section id="id3">
+<h4>Parametri<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>numerocarta<span class="classifier">str</span></dt><dd><p>Numero della carta</p>
+</dd>
+<dt>titolare<span class="classifier">str</span></dt><dd><p>Titolare della carta</p>
+</dd>
+<dt>scadenza<span class="classifier">str</span></dt><dd><p>Scadenza della carta</p>
+</dd>
+<dt>cvv<span class="classifier">str</span></dt><dd><p>CVV della carta</p>
+</dd>
+<dt>id<span class="classifier">str</span></dt><dd><p>Id dell’utilizzatore del metodo di pagamento</p>
+</dd>
+</dl>
+</section>
+<section id="id4">
+<h4>Returns<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>MetodoDiPagamentoDAO.creaMetodo(m)<span class="classifier">MetodoDiPagamento</span></dt><dd><p>Il metodo di pagamento appena creato</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Registrazione.RegistrazioneService.RegistrazioneService.creaUtente">
+<span class="sig-name descname"><span class="pre">creaUtente</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cognome</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataDiNascita</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codice</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indirizzo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Registrazione.RegistrazioneService.RegistrazioneService.creaUtente" title="Link a questa definizione"></a></dt>
+<dd><p>Modifica i dati relativi ad un utente</p>
+<section id="id5">
+<h4>Parametri<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>nome<span class="classifier">str</span></dt><dd><p>nome</p>
+</dd>
+<dt>cognome<span class="classifier">str</span></dt><dd><p>cognome</p>
+</dd>
+<dt>email<span class="classifier">str</span></dt><dd><p>email</p>
+</dd>
+<dt>password<span class="classifier">str</span></dt><dd><p>password</p>
+</dd>
+<dt>dataDiNascita<span class="classifier">str</span></dt><dd><p>Data di nascita</p>
+</dd>
+<dt>codice<span class="classifier">str</span></dt><dd><p>codice di accesso</p>
+</dd>
+<dt>indirizzo<span class="classifier">str</span></dt><dd><p>Indirizzo</p>
+</dd>
+</dl>
+</section>
+<section id="id6">
+<h4>Returns<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>risposta<span class="classifier">dict</span></dt><dd><p>Esito dell’operazione</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Registrazione.RegistrazioneService.RegistrazioneService.trovaUtenteByCodiceDiAccesso">
+<span class="sig-name descname"><span class="pre">trovaUtenteByCodiceDiAccesso</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Utente</span></span></span><a class="headerlink" href="#Registrazione.RegistrazioneService.RegistrazioneService.trovaUtenteByCodiceDiAccesso" title="Link a questa definizione"></a></dt>
+<dd><p>Cerca un utente attraverso il suo codice di accesso</p>
+<section id="id7">
+<h4>Parametri<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>codice<span class="classifier">str</span></dt><dd><p>Codice di accesso</p>
+</dd>
+</dl>
+</section>
+<section id="id8">
+<h4>Returns<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>AutenticazioneDAO.trovaUtenteByCodiceDiAccesso(codice)<span class="classifier">Utente</span></dt><dd><p>Utente a cui fa riferimento il codice di accesso</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Registrazione.RegistrazioneService.RegistrazioneService.trovaUtenteByEmail">
+<span class="sig-name descname"><span class="pre">trovaUtenteByEmail</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Utente</span></span></span><a class="headerlink" href="#Registrazione.RegistrazioneService.RegistrazioneService.trovaUtenteByEmail" title="Link a questa definizione"></a></dt>
+<dd><p>Cerca un utente attraverso la sua email</p>
+<section id="id9">
+<h4>Parametri<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>email<span class="classifier">str</span></dt><dd><p>email</p>
+</dd>
+</dl>
+</section>
+<section id="id10">
+<h4>Returns<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>AutenticazioneDAO.trovaUtenteByEmail(email)<span class="classifier">Utente</span></dt><dd><p>Utente a cui fa riferimento la mail</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Piè di pagina">
+        <a href="GestionePagamento.html" class="btn btn-neutral float-left" title="GestionePagamento package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Precedente</a>
+        <a href="Storage.html" class="btn btn-neutral float-right" title="Storage package" accesskey="n" rel="next">Prossimo <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Pierluigi Lambiase, Carmine Laudato, Francesco Maria Puca, Gerardo Frino, Maria Lombardi, Benedetto Scala, Francesco Fattorusso.</p>
+  </div>
+
+  Realizzato con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornito da <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

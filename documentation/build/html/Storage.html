@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="it" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Storage package &mdash; EnIA 1.0 documentazione</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Indice" href="genindex.html" />
+    <link rel="search" title="Cerca" href="search.html" />
+    <link rel="next" title="Utente package" href="Utente.html" />
+    <link rel="prev" title="Registrazione package" href="Registrazione.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> EnIA
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cerca documenti" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu di navigazione">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Controllers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html#logic">logic</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="AmbienteAgricolo.html">AmbienteAgricolo package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Autenticazione.html">Autenticazione package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DecisionIntelligence.html">DecisionIntelligence package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GestioneEventi.html">GestioneEventi package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GestionePagamento.html">GestionePagamento package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Registrazione.html">Registrazione package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Storage package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-Storage.AutenticazioneDAO">Storage.AutenticazioneDAO module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Storage.AutenticazioneDAO.AutenticazioneDAO"><code class="docutils literal notranslate"><span class="pre">AutenticazioneDAO</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-Storage.EventoDAO">Storage.EventoDAO module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Storage.EventoDAO.EventoDAO"><code class="docutils literal notranslate"><span class="pre">EventoDAO</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-Storage.ImpiantoDiIrrigazioneDAO">Storage.ImpiantoDiIrrigazioneDAO module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Storage.ImpiantoDiIrrigazioneDAO.ImpiantoDiIrrigazioneDAO"><code class="docutils literal notranslate"><span class="pre">ImpiantoDiIrrigazioneDAO</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-Storage.LicenzaDAO">Storage.LicenzaDAO module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Storage.LicenzaDAO.LicenzaDAO"><code class="docutils literal notranslate"><span class="pre">LicenzaDAO</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-Storage.MetodoDiPagamentoDAO">Storage.MetodoDiPagamentoDAO module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Storage.MetodoDiPagamentoDAO.MetodoDiPagamentoDAO"><code class="docutils literal notranslate"><span class="pre">MetodoDiPagamentoDAO</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-Storage.ScheduleDAO">Storage.ScheduleDAO module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Storage.ScheduleDAO.ScheduleDAO"><code class="docutils literal notranslate"><span class="pre">ScheduleDAO</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-Storage.TerrenoDAO">Storage.TerrenoDAO module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Storage.TerrenoDAO.TerrenoDAO"><code class="docutils literal notranslate"><span class="pre">TerrenoDAO</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Utente.html">Utente package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model.html">model package</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu navigazione dispositivi mobili" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EnIA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Naviga tra le pagine">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Controllers</a></li>
+      <li class="breadcrumb-item active">Storage package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Storage.rst.txt" rel="nofollow"> Visualizza sorgente pagina</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="storage-package">
+<h1>Storage package<a class="headerlink" href="#storage-package" title="Permalink to this heading"></a></h1>
+<section id="module-Storage.AutenticazioneDAO">
+<span id="storage-autenticazionedao-module"></span><h2>Storage.AutenticazioneDAO module<a class="headerlink" href="#module-Storage.AutenticazioneDAO" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Storage.AutenticazioneDAO.AutenticazioneDAO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Storage.AutenticazioneDAO.</span></span><span class="sig-name descname"><span class="pre">AutenticazioneDAO</span></span><a class="headerlink" href="#Storage.AutenticazioneDAO.AutenticazioneDAO" title="Link a questa definizione"></a></dt>
+<dd><blockquote>
+<div><p>Basi: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</div></blockquote>
+<p>Classe DAO di Autenticazione</p>
+<p>…</p>
+<section id="attributi">
+<h3>Attributi<a class="headerlink" href="#attributi" title="Permalink to this heading"></a></h3>
+<p>None</p>
+</section>
+<section id="metodi">
+<h3>Metodi<a class="headerlink" href="#metodi" title="Permalink to this heading"></a></h3>
+<dl class="simple">
+<dt>trovaUtenteByEmail(email: str):</dt><dd><p>Questo metodo trova un utente nel database, utilizzando la sua email</p>
+</dd>
+<dt>trovaUtente(id: str):</dt><dd><p>Questo metodo trova un utente nel database, utilizzando il suo ObjectId</p>
+</dd>
+<dt>trovaUtenteByCodiceDiAccesso(codice: str):        </dt><dd><p>Questo metodo trova un utente nel database, utilizzando il suo codiceDiAccesso</p>
+</dd>
+<dt>creaUtente(utente: Utente):</dt><dd><p>Questo metodo permette di istanziare un utente sul database</p>
+</dd>
+<dt>eliminaUtente(id: str):</dt><dd><p>Questo metodo prende in ingresso un id ed elimina il corrispondente utente dal database</p>
+</dd>
+<dt>modificaUtente(id: str):</dt><dd><p>Questo metodo prende in ingresso un oggetto utente e lo modifica nel database</p>
+</dd>
+<dt>listaUtentiTutti():</dt><dd><p>Questo metodo restituisce una lista di tutte le entry di utente presenti sul database</p>
+</dd>
+<dt>listaDipendenti(datore: str):</dt><dd><p>Questo metodo restituisce una lista di tutte le entry dei dipendenti relativi ad un datore di lavoro</p>
+</dd>
+<dt>insertSlot(ruolo: str, codice: str, datore: str):</dt><dd><p>Questo metodo permette al datore di settare il ruolo ad un dipendete</p>
+</dd>
+<dt>getDatore(codice: str):</dt><dd><p>Questo metodo permette di ottenere il datore il lavoro avendo un codice</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.AutenticazioneDAO.AutenticazioneDAO.creaUtente">
+<span class="sig-name descname"><span class="pre">creaUtente</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#Storage.AutenticazioneDAO.AutenticazioneDAO.creaUtente" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo permette di istanziare un utente sul database</p>
+<section id="parametri">
+<h4>Parametri<a class="headerlink" href="#parametri" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>utente: Utente</dt><dd><p>Utente da inserire nel DataBase</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h4>Returns<a class="headerlink" href="#returns" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>result.inserted_id: str</dt><dd><p>id del Utente appena inserito</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.AutenticazioneDAO.AutenticazioneDAO.eliminaUtente">
+<span class="sig-name descname"><span class="pre">eliminaUtente</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#Storage.AutenticazioneDAO.AutenticazioneDAO.eliminaUtente" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo prende in ingresso un id ed elimina il corrispondente utente dal database</p>
+<section id="id1">
+<h4>Parametri<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id<span class="classifier">str</span></dt><dd><p>id del Utente</p>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h4>Returns<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>True<span class="classifier">bool</span></dt><dd><p>Valore Booleano per avvenuta cancellazione</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.AutenticazioneDAO.AutenticazioneDAO.getDatore">
+<span class="sig-name descname"><span class="pre">getDatore</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#Storage.AutenticazioneDAO.AutenticazioneDAO.getDatore" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo permette di ottenere il datore il lavoro avendo un codice</p>
+<section id="id3">
+<h4>Parametri<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>codice<span class="classifier">str</span></dt><dd><p>codice del dipendente</p>
+</dd>
+</dl>
+</section>
+<section id="id4">
+<h4>Returns<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>utente<span class="classifier">Utente</span></dt><dd><p>lista di dipendenti con quel datore</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.AutenticazioneDAO.AutenticazioneDAO.insertSlot">
+<span class="sig-name descname"><span class="pre">insertSlot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codice</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datore</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Storage.AutenticazioneDAO.AutenticazioneDAO.insertSlot" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo permette al datore di settare il ruolo ad un dipendete</p>
+<section id="id5">
+<h4>Parametri<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>ruolo<span class="classifier">str</span></dt><dd><p>ruolo del dipendete</p>
+</dd>
+<dt>codice: str</dt><dd><p>codice del dipendete</p>
+</dd>
+<dt>datore: str</dt><dd><p>datore del dipendente</p>
+</dd>
+</dl>
+</section>
+<section id="id6">
+<h4>Returns<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h4>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.AutenticazioneDAO.AutenticazioneDAO.listaDipendenti">
+<span class="sig-name descname"><span class="pre">listaDipendenti</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#Storage.AutenticazioneDAO.AutenticazioneDAO.listaDipendenti" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo restituisce una lista di tutte le entry dei dipendenti relativi ad un datore di lavoro</p>
+<section id="id7">
+<h4>Parametri<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>datore<span class="classifier">str</span></dt><dd><p>datore di lavore del dipendente</p>
+</dd>
+</dl>
+</section>
+<section id="id8">
+<h4>Returns<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>utenti<span class="classifier">Utente</span></dt><dd><p>Lista di dipendenti relativi a quel datore</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.AutenticazioneDAO.AutenticazioneDAO.listaUtentiTutti">
+<span class="sig-name descname"><span class="pre">listaUtentiTutti</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Storage.AutenticazioneDAO.AutenticazioneDAO.listaUtentiTutti" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo restituisce una lista di tutte le entry di utente presenti sul database</p>
+<section id="id9">
+<h4>Parametri<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h4>
+</section>
+<section id="id10">
+<h4>Returns<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>utenti<span class="classifier">Utente</span></dt><dd><p>Lista di utenti</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.AutenticazioneDAO.AutenticazioneDAO.modificaUtente">
+<span class="sig-name descname"><span class="pre">modificaUtente</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Storage.AutenticazioneDAO.AutenticazioneDAO.modificaUtente" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo prende in ingresso un oggetto utente e lo modifica nel database</p>
+<section id="id11">
+<h4>Parametri<a class="headerlink" href="#id11" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>utente: Utente</dt><dd><p>Utente da modificare</p>
+</dd>
+</dl>
+</section>
+<section id="id12">
+<h4>Returns<a class="headerlink" href="#id12" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>True<span class="classifier">bool</span></dt><dd><p>Modifica avvenuta con successo</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.AutenticazioneDAO.AutenticazioneDAO.trovaUtente">
+<span class="sig-name descname"><span class="pre">trovaUtente</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Utente</span></span></span><a class="headerlink" href="#Storage.AutenticazioneDAO.AutenticazioneDAO.trovaUtente" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo trova un utente nel database, utilizzando il suo ObjectId</p>
+<section id="id13">
+<h4>Parametri<a class="headerlink" href="#id13" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id: str</dt><dd><p>id del Utente</p>
+</dd>
+</dl>
+</section>
+<section id="id14">
+<h4>Returns<a class="headerlink" href="#id14" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>utenteTrovato<span class="classifier">utente</span></dt><dd><p>Restituisce l’utente desiderato</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.AutenticazioneDAO.AutenticazioneDAO.trovaUtenteByCodiceDiAccesso">
+<span class="sig-name descname"><span class="pre">trovaUtenteByCodiceDiAccesso</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Utente</span></span></span><a class="headerlink" href="#Storage.AutenticazioneDAO.AutenticazioneDAO.trovaUtenteByCodiceDiAccesso" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo trova un utente nel database, utilizzando il suo codiceDiAccesso</p>
+<section id="id15">
+<h4>Parametri<a class="headerlink" href="#id15" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>codice<span class="classifier">str</span></dt><dd><p>codice univoco del dipendente</p>
+</dd>
+</dl>
+</section>
+<section id="id16">
+<h4>Returns<a class="headerlink" href="#id16" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>utenteTrovato<span class="classifier">utente</span></dt><dd><p>Restituisce l’utente desiderato</p>
+</dd>
+<dt>None<span class="classifier">NoneType</span></dt><dd><p>Nessun utente restituito</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.AutenticazioneDAO.AutenticazioneDAO.trovaUtenteByEmail">
+<span class="sig-name descname"><span class="pre">trovaUtenteByEmail</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Utente</span></span></span><a class="headerlink" href="#Storage.AutenticazioneDAO.AutenticazioneDAO.trovaUtenteByEmail" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo trova un utente nel database, utilizzando la sua email</p>
+<section id="id17">
+<h4>Parametri<a class="headerlink" href="#id17" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>email<span class="classifier">str</span></dt><dd><p>email del utente</p>
+</dd>
+</dl>
+</section>
+<section id="id18">
+<h4>Returns<a class="headerlink" href="#id18" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>utenteTrovato<span class="classifier">utente</span></dt><dd><p>Restituisce l’utente desiderato</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-Storage.EventoDAO">
+<span id="storage-eventodao-module"></span><h2>Storage.EventoDAO module<a class="headerlink" href="#module-Storage.EventoDAO" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Storage.EventoDAO.EventoDAO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Storage.EventoDAO.</span></span><span class="sig-name descname"><span class="pre">EventoDAO</span></span><a class="headerlink" href="#Storage.EventoDAO.EventoDAO" title="Link a questa definizione"></a></dt>
+<dd><blockquote>
+<div><p>Basi: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</div></blockquote>
+<p>Classe DAO di Evento</p>
+<p>…</p>
+<section id="id19">
+<h3>Attributi<a class="headerlink" href="#id19" title="Permalink to this heading"></a></h3>
+<p>None</p>
+</section>
+<section id="id20">
+<h3>Metodi<a class="headerlink" href="#id20" title="Permalink to this heading"></a></h3>
+<dl class="simple">
+<dt>findEvento(id: str):</dt><dd><p>Questo metodo trova un Evento sul database, usando il suo ObjectId</p>
+</dd>
+<dt>creaEvento(evento: Evento):</dt><dd><p>Questo metodo ci permette l’istanziazione di un evento sul database</p>
+</dd>
+<dt>findEventiByTerreno(idTerreno: str):       </dt><dd><p>Questo metodo trova gli eventi associati ad un detereminato terreno grazie da suo id passato in input</p>
+</dd>
+<dt>cancellaTuttiEventiByTerreno(idTerreno: str):</dt><dd><p>Questo metodo cancella gli eventi associati ad un detereminato terreno grazie da suo id passato in input</p>
+</dd>
+<dt>cancellaEvento(idEvento: str):</dt><dd><p>Questo metodo cancella un evento specifico trimite il suo id</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.EventoDAO.EventoDAO.cancellaEvento">
+<span class="sig-name descname"><span class="pre">cancellaEvento</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Storage.EventoDAO.EventoDAO.cancellaEvento" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo cancella un evento specifico trimite il suo id</p>
+<section id="id21">
+<h4>Parametri<a class="headerlink" href="#id21" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>idEvento<span class="classifier">str</span></dt><dd><p>id dell evento</p>
+</dd>
+</dl>
+</section>
+<section id="id22">
+<h4>Returns<a class="headerlink" href="#id22" title="Permalink to this heading"></a></h4>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.EventoDAO.EventoDAO.cancellaTuttiEventiByTerreno">
+<span class="sig-name descname"><span class="pre">cancellaTuttiEventiByTerreno</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Storage.EventoDAO.EventoDAO.cancellaTuttiEventiByTerreno" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo cancella gli eventi associati ad un detereminato terreno grazie da suo id passato in input</p>
+<section id="id23">
+<h4>Parametri<a class="headerlink" href="#id23" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>idTerreno<span class="classifier">str</span></dt><dd><p>id del Terreno</p>
+</dd>
+</dl>
+</section>
+<section id="id24">
+<h4>Returns<a class="headerlink" href="#id24" title="Permalink to this heading"></a></h4>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.EventoDAO.EventoDAO.creaEvento">
+<span class="sig-name descname"><span class="pre">creaEvento</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#Storage.EventoDAO.EventoDAO.creaEvento" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo ci permette l’istanziazione di un evento sul database</p>
+<section id="id25">
+<h4>Parametri<a class="headerlink" href="#id25" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>evento<span class="classifier">Evento</span></dt><dd><p>evento da creare</p>
+</dd>
+</dl>
+</section>
+<section id="id26">
+<h4>Returns<a class="headerlink" href="#id26" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>result.inserted_id<span class="classifier">str</span></dt><dd><p>id dell evento appena creato</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.EventoDAO.EventoDAO.findEventiByTerreno">
+<span class="sig-name descname"><span class="pre">findEventiByTerreno</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Storage.EventoDAO.EventoDAO.findEventiByTerreno" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo trova gli eventi associati ad un detereminato terreno grazie da suo id passato in input</p>
+<section id="id27">
+<h4>Parametri<a class="headerlink" href="#id27" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>idTerreno<span class="classifier">str</span></dt><dd><p>id del Terreno</p>
+</dd>
+</dl>
+</section>
+<section id="id28">
+<h4>Returns<a class="headerlink" href="#id28" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>eventiTrovati<span class="classifier">list Eventi</span></dt><dd><p>Restituisce la lista degli eventi</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.EventoDAO.EventoDAO.findEvento">
+<span class="sig-name descname"><span class="pre">findEvento</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Evento</span></span></span><a class="headerlink" href="#Storage.EventoDAO.EventoDAO.findEvento" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo trova un Evento sul database, usando il suo ObjectId</p>
+<section id="id29">
+<h4>Parametri<a class="headerlink" href="#id29" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id<span class="classifier">str</span></dt><dd><p>id dell Evento</p>
+</dd>
+</dl>
+</section>
+<section id="id30">
+<h4>Returns<a class="headerlink" href="#id30" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>eventoTrovato<span class="classifier">Evento</span></dt><dd><p>Restituisce l’evento avente come id quello passato in input</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-Storage.ImpiantoDiIrrigazioneDAO">
+<span id="storage-impiantodiirrigazionedao-module"></span><h2>Storage.ImpiantoDiIrrigazioneDAO module<a class="headerlink" href="#module-Storage.ImpiantoDiIrrigazioneDAO" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Storage.ImpiantoDiIrrigazioneDAO.ImpiantoDiIrrigazioneDAO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Storage.ImpiantoDiIrrigazioneDAO.</span></span><span class="sig-name descname"><span class="pre">ImpiantoDiIrrigazioneDAO</span></span><a class="headerlink" href="#Storage.ImpiantoDiIrrigazioneDAO.ImpiantoDiIrrigazioneDAO" title="Link a questa definizione"></a></dt>
+<dd><blockquote>
+<div><p>Basi: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</div></blockquote>
+<p>Classe DAO di Impianto di Irrigazione</p>
+<p>…</p>
+<section id="id31">
+<h3>Attributi<a class="headerlink" href="#id31" title="Permalink to this heading"></a></h3>
+<p>None</p>
+</section>
+<section id="id32">
+<h3>Metodi<a class="headerlink" href="#id32" title="Permalink to this heading"></a></h3>
+<dl class="simple">
+<dt>findImpiantiByTerreno(idTerreno: str):</dt><dd><p>Questo metodo trova tutti gli impiati di irrigazioni associati a id del terreno</p>
+</dd>
+<dt>findImpiantoById(id: str):</dt><dd><p>Questo metodo trova un Impianto di irrigazione sul database, usando il suo ObjectId</p>
+</dd>
+<dt>creaImpianto(impianto: ImpiantoDiIrrigazione, idTerreno: str)        </dt><dd><p>Questo metodo instanzia un impianto di irrigazione sul database</p>
+</dd>
+<dt>modificaImpianto(impianto: ImpiantoDiIrrigazione):</dt><dd><p>Questo metodo permette la modifica di un impianto di irrigazione sul database</p>
+</dd>
+<dt>attivaImpianto(id: str):</dt><dd><p>Questo metodo attiva un impianto di irrigazione sul database tramite il suo id</p>
+</dd>
+<dt>disattivaImpianto(id: str):</dt><dd><p>Questo metodo disattiva un impianto di irrigazione sul database tramite il suo id</p>
+</dd>
+<dt>eliminaImpianto(id: str):</dt><dd><p>Questo metodo elimina un impianto di irrigazione sul database tramite il suo id</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.ImpiantoDiIrrigazioneDAO.ImpiantoDiIrrigazioneDAO.attivaImpianto">
+<span class="sig-name descname"><span class="pre">attivaImpianto</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Storage.ImpiantoDiIrrigazioneDAO.ImpiantoDiIrrigazioneDAO.attivaImpianto" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo attiva un impianto di irrigazione sul database tramite il suo id</p>
+<section id="id33">
+<h4>Parametri<a class="headerlink" href="#id33" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id: str</dt><dd><p>id del Impianto da attivare</p>
+</dd>
+</dl>
+</section>
+<section id="id34">
+<h4>Returns<a class="headerlink" href="#id34" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>Result<span class="classifier">int</span></dt><dd><p>Restituisce un valore intero per il controllo</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.ImpiantoDiIrrigazioneDAO.ImpiantoDiIrrigazioneDAO.creaImpianto">
+<span class="sig-name descname"><span class="pre">creaImpianto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idTerreno</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#Storage.ImpiantoDiIrrigazioneDAO.ImpiantoDiIrrigazioneDAO.creaImpianto" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo instanzia un impianto di irrigazione sul database</p>
+<section id="id35">
+<h4>Parametri<a class="headerlink" href="#id35" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>idTerreno: str</dt><dd><p>id del Terreno</p>
+</dd>
+<dt>Impianto: ImpiantoDiIrrigazione</dt><dd><p>istanza da craeare nel DataBase</p>
+</dd>
+</dl>
+</section>
+<section id="id36">
+<h4>Returns<a class="headerlink" href="#id36" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>result<span class="classifier">str</span></dt><dd><p>Restituisce l’id del impianto appena craeato</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.ImpiantoDiIrrigazioneDAO.ImpiantoDiIrrigazioneDAO.disattivaImpianto">
+<span class="sig-name descname"><span class="pre">disattivaImpianto</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Storage.ImpiantoDiIrrigazioneDAO.ImpiantoDiIrrigazioneDAO.disattivaImpianto" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo disattiva un impianto di irrigazione sul database tramite il suo id</p>
+<section id="id37">
+<h4>Parametri<a class="headerlink" href="#id37" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id: str</dt><dd><p>id del Impianto da disattivare</p>
+</dd>
+</dl>
+</section>
+<section id="id38">
+<h4>Returns<a class="headerlink" href="#id38" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>Result<span class="classifier">int</span></dt><dd><p>Restituisce un valore intero per il controllo</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.ImpiantoDiIrrigazioneDAO.ImpiantoDiIrrigazioneDAO.eliminaImpianto">
+<span class="sig-name descname"><span class="pre">eliminaImpianto</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Storage.ImpiantoDiIrrigazioneDAO.ImpiantoDiIrrigazioneDAO.eliminaImpianto" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo elimina un impianto di irrigazione sul database tramite il suo id</p>
+<section id="id39">
+<h4>Parametri<a class="headerlink" href="#id39" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id: str</dt><dd><p>id del Impianto da eliminare</p>
+</dd>
+</dl>
+</section>
+<section id="id40">
+<h4>Returns<a class="headerlink" href="#id40" title="Permalink to this heading"></a></h4>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.ImpiantoDiIrrigazioneDAO.ImpiantoDiIrrigazioneDAO.findImpiantiByTerreno">
+<span class="sig-name descname"><span class="pre">findImpiantiByTerreno</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Storage.ImpiantoDiIrrigazioneDAO.ImpiantoDiIrrigazioneDAO.findImpiantiByTerreno" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo trova tutti gli impiati di irrigazioni associati a id del terreno</p>
+<section id="id41">
+<h4>Parametri<a class="headerlink" href="#id41" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>idTerreno: str</dt><dd><p>id del Terreno</p>
+</dd>
+</dl>
+</section>
+<section id="id42">
+<h4>Returns<a class="headerlink" href="#id42" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>impiantiTrovato<span class="classifier">ImpiantoDiIrrigazione</span></dt><dd><p>Restituisce una lista contenete gli impianti trovati</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.ImpiantoDiIrrigazioneDAO.ImpiantoDiIrrigazioneDAO.findImpiantoById">
+<span class="sig-name descname"><span class="pre">findImpiantoById</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ImpiantoDiIrrigazione</span></span></span><a class="headerlink" href="#Storage.ImpiantoDiIrrigazioneDAO.ImpiantoDiIrrigazioneDAO.findImpiantoById" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo trova un Impianto di irrigazione sul database, usando il suo ObjectId</p>
+<section id="id43">
+<h4>Parametri<a class="headerlink" href="#id43" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id: str</dt><dd><p>id del Impianto</p>
+</dd>
+</dl>
+</section>
+<section id="id44">
+<h4>Returns<a class="headerlink" href="#id44" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>impiantoTrovato<span class="classifier">ImpiantoDiIrrigazione</span></dt><dd><p>Restituisce l’occorenza trovata con quell id</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.ImpiantoDiIrrigazioneDAO.ImpiantoDiIrrigazioneDAO.modificaImpianto">
+<span class="sig-name descname"><span class="pre">modificaImpianto</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Storage.ImpiantoDiIrrigazioneDAO.ImpiantoDiIrrigazioneDAO.modificaImpianto" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo permette la modifica di un impianto di irrigazione sul database</p>
+<section id="id45">
+<h4>Parametri<a class="headerlink" href="#id45" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>impianto: ImpiantoDiIrrigazione</dt><dd><p>istanza su cui effetuare la modifica</p>
+</dd>
+</dl>
+</section>
+<section id="id46">
+<h4>Returns<a class="headerlink" href="#id46" title="Permalink to this heading"></a></h4>
+</section>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-Storage.LicenzaDAO">
+<span id="storage-licenzadao-module"></span><h2>Storage.LicenzaDAO module<a class="headerlink" href="#module-Storage.LicenzaDAO" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Storage.LicenzaDAO.LicenzaDAO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Storage.LicenzaDAO.</span></span><span class="sig-name descname"><span class="pre">LicenzaDAO</span></span><a class="headerlink" href="#Storage.LicenzaDAO.LicenzaDAO" title="Link a questa definizione"></a></dt>
+<dd><blockquote>
+<div><p>Basi: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</div></blockquote>
+<p>Classe DAO di Licenza</p>
+<p>…</p>
+<section id="id47">
+<h3>Attributi<a class="headerlink" href="#id47" title="Permalink to this heading"></a></h3>
+<p>None</p>
+</section>
+<section id="id48">
+<h3>Metodi<a class="headerlink" href="#id48" title="Permalink to this heading"></a></h3>
+<dl class="simple">
+<dt>findLicenza(id: str):</dt><dd><p>Questo metodo trova una licenza sul database, usando il suo ObjectId</p>
+</dd>
+<dt>creaLicenza(licenza: Licenza):</dt><dd><p>Questo metodo instanzia una licenza sul database</p>
+</dd>
+<dt>findLicenzaByProprietario(id: str):        </dt><dd><p>Questo metodo trova una licenza non scaduta sul database, usando l’identificativo del suo proprietario</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.LicenzaDAO.LicenzaDAO.creaLicenza">
+<span class="sig-name descname"><span class="pre">creaLicenza</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#Storage.LicenzaDAO.LicenzaDAO.creaLicenza" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo instanzia una licenza sul database</p>
+<section id="id49">
+<h4>Parametri<a class="headerlink" href="#id49" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id: str</dt><dd><p>id del Utente</p>
+</dd>
+</dl>
+</section>
+<section id="id50">
+<h4>Returns<a class="headerlink" href="#id50" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>utenteTrovato<span class="classifier">utente</span></dt><dd><p>Restituisce l’utente desiderato</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.LicenzaDAO.LicenzaDAO.eliminaLicenza">
+<span class="sig-name descname"><span class="pre">eliminaLicenza</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#Storage.LicenzaDAO.LicenzaDAO.eliminaLicenza" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo prende in ingresso un id ed elimina
+la corrispondente licenza dal database</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.LicenzaDAO.LicenzaDAO.findLicenza">
+<span class="sig-name descname"><span class="pre">findLicenza</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Licenza</span></span></span><a class="headerlink" href="#Storage.LicenzaDAO.LicenzaDAO.findLicenza" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo trova una licenza sul database, usando il suo ObjectId</p>
+<section id="id51">
+<h4>Parametri<a class="headerlink" href="#id51" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id: str</dt><dd><p>id del Utente</p>
+</dd>
+</dl>
+</section>
+<section id="id52">
+<h4>Returns<a class="headerlink" href="#id52" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>utenteTrovato<span class="classifier">utente</span></dt><dd><p>Restituisce l’utente desiderato</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.LicenzaDAO.LicenzaDAO.findLicenzaByProprietario">
+<span class="sig-name descname"><span class="pre">findLicenzaByProprietario</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Licenza</span></span></span><a class="headerlink" href="#Storage.LicenzaDAO.LicenzaDAO.findLicenzaByProprietario" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo trova una licenza non scaduta sul database, usando l’identificativo del suo proprietario</p>
+<section id="id53">
+<h4>Parametri<a class="headerlink" href="#id53" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id: str</dt><dd><p>id del Proprietario</p>
+</dd>
+</dl>
+</section>
+<section id="id54">
+<h4>Returns<a class="headerlink" href="#id54" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>licenzaTrovato<span class="classifier">licenza</span></dt><dd><p>Restituisce la licenza appena trovata</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.LicenzaDAO.LicenzaDAO.modificaLicenza">
+<span class="sig-name descname"><span class="pre">modificaLicenza</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Storage.LicenzaDAO.LicenzaDAO.modificaLicenza" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-Storage.MetodoDiPagamentoDAO">
+<span id="storage-metododipagamentodao-module"></span><h2>Storage.MetodoDiPagamentoDAO module<a class="headerlink" href="#module-Storage.MetodoDiPagamentoDAO" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Storage.MetodoDiPagamentoDAO.MetodoDiPagamentoDAO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Storage.MetodoDiPagamentoDAO.</span></span><span class="sig-name descname"><span class="pre">MetodoDiPagamentoDAO</span></span><a class="headerlink" href="#Storage.MetodoDiPagamentoDAO.MetodoDiPagamentoDAO" title="Link a questa definizione"></a></dt>
+<dd><blockquote>
+<div><p>Basi: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</div></blockquote>
+<p>Classe DAO di Metodi di Pagamento</p>
+<p>…</p>
+<section id="id55">
+<h3>Attributi<a class="headerlink" href="#id55" title="Permalink to this heading"></a></h3>
+<p>None</p>
+</section>
+<section id="id56">
+<h3>Metodi<a class="headerlink" href="#id56" title="Permalink to this heading"></a></h3>
+<dl class="simple">
+<dt>findMetodo(id: str):</dt><dd><p>Questo metodo trova un Metodo di pagamento sul database, usando il suo ObjectId</p>
+</dd>
+<dt>creaMetodo(metodo: MetodoDiPagamento):</dt><dd><p>Questo metodo instanzia un Metodo di pagamento sul database</p>
+</dd>
+<dt>findMetodoByProprietario(id: str:        </dt><dd><p>Questo metodo trova un Metodo di pagamento sul database, usando l’identificativo del suo proprietario</p>
+</dd>
+<dt>modificaMetodo(metodo: MetodoDiPagamento):</dt><dd><p>Questo metodo prende in ingresso un oggetto Metodo di pagamento e lo modifica nel database</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.MetodoDiPagamentoDAO.MetodoDiPagamentoDAO.creaMetodo">
+<span class="sig-name descname"><span class="pre">creaMetodo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#Storage.MetodoDiPagamentoDAO.MetodoDiPagamentoDAO.creaMetodo" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo trova un utente nel database, utilizzando la sua email</p>
+<section id="id57">
+<h4>Parametri<a class="headerlink" href="#id57" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>metodo<span class="classifier">MetodoDiPagamento</span></dt><dd><p>istanza del metodo di Pagamento da memorizzare nel database</p>
+</dd>
+</dl>
+</section>
+<section id="id58">
+<h4>Returns<a class="headerlink" href="#id58" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>result<span class="classifier">str</span></dt><dd><p>id del metodo di pagamento</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.MetodoDiPagamentoDAO.MetodoDiPagamentoDAO.eliminaMetodo">
+<span class="sig-name descname"><span class="pre">eliminaMetodo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#Storage.MetodoDiPagamentoDAO.MetodoDiPagamentoDAO.eliminaMetodo" title="Link a questa definizione"></a></dt>
+<dd><dl class="simple">
+<dt>Questo metodo prende in ingresso un id ed elimina</dt><dd><p>il corrispondente metodo dal database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.MetodoDiPagamentoDAO.MetodoDiPagamentoDAO.findMetodo">
+<span class="sig-name descname"><span class="pre">findMetodo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">MetodoDiPagamento</span></span></span><a class="headerlink" href="#Storage.MetodoDiPagamentoDAO.MetodoDiPagamentoDAO.findMetodo" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo trova un Metodo di pagamento sul database, usando il suo ObjectId</p>
+<section id="id59">
+<h4>Parametri<a class="headerlink" href="#id59" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id<span class="classifier">str</span></dt><dd><p>id del Metodo</p>
+</dd>
+</dl>
+</section>
+<section id="id60">
+<h4>Returns<a class="headerlink" href="#id60" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>MetodoTrovato<span class="classifier">MetodoDiPagamento</span></dt><dd><p>Restituisce il metodo avente come id quello passto in input</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.MetodoDiPagamentoDAO.MetodoDiPagamentoDAO.findMetodoByProprietario">
+<span class="sig-name descname"><span class="pre">findMetodoByProprietario</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">MetodoDiPagamento</span></span></span><a class="headerlink" href="#Storage.MetodoDiPagamentoDAO.MetodoDiPagamentoDAO.findMetodoByProprietario" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo trova un Metodo di pagamento sul database, usando l’identificativo del suo proprietario</p>
+<section id="id61">
+<h4>Parametri<a class="headerlink" href="#id61" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id<span class="classifier">str</span></dt><dd><p>id del proprietario</p>
+</dd>
+</dl>
+</section>
+<section id="id62">
+<h4>Returns<a class="headerlink" href="#id62" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>metodoTrovato<span class="classifier">MetodoDiPagamento</span></dt><dd><p>Restituisce il netodo avente come id quello passto in input</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.MetodoDiPagamentoDAO.MetodoDiPagamentoDAO.modificaMetodo">
+<span class="sig-name descname"><span class="pre">modificaMetodo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Storage.MetodoDiPagamentoDAO.MetodoDiPagamentoDAO.modificaMetodo" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo prende in ingresso un oggetto Metodo di pagamento e lo modifica nel database</p>
+<section id="id63">
+<h4>Parametri<a class="headerlink" href="#id63" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>metodo<span class="classifier">MetodoDiPagamento</span></dt><dd><p>istanza del Metodo Di Pagamento da modificare</p>
+</dd>
+</dl>
+</section>
+<section id="id64">
+<h4>Returns<a class="headerlink" href="#id64" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>None<span class="classifier">NoneType</span></dt><dd><p>Restituisce None in caso non e stata effettuata alcuna modifica</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-Storage.ScheduleDAO">
+<span id="storage-scheduledao-module"></span><h2>Storage.ScheduleDAO module<a class="headerlink" href="#module-Storage.ScheduleDAO" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Storage.ScheduleDAO.ScheduleDAO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Storage.ScheduleDAO.</span></span><span class="sig-name descname"><span class="pre">ScheduleDAO</span></span><a class="headerlink" href="#Storage.ScheduleDAO.ScheduleDAO" title="Link a questa definizione"></a></dt>
+<dd><blockquote>
+<div><p>Basi: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</div></blockquote>
+<p>Classe DAO di Autenticazione</p>
+<p>…</p>
+<section id="id65">
+<h3>Attributi<a class="headerlink" href="#id65" title="Permalink to this heading"></a></h3>
+<p>None</p>
+</section>
+<section id="id66">
+<h3>Metodi<a class="headerlink" href="#id66" title="Permalink to this heading"></a></h3>
+<dl class="simple">
+<dt>findSchedule(id: str):</dt><dd><p>Questo metodo ci permette di trovare un Schedule sul database, usando il suo ObjectId</p>
+</dd>
+<dt>creaSettimanaScheduleNullo(id_terreno: str):</dt><dd><p>Questo metodo ci permette di istanziare una settimana di schedule vuota sul database</p>
+</dd>
+<dt>creaSchedule(sched: Schedule):        </dt><dd><p>Questo metodo ci permette di instanziare un nuovo schedule sul DataBase</p>
+</dd>
+<dt>getWeeklySchedule(id_terreno: str)</dt><dd><p>Questo metodo ci permette di ottenere le informazioni riguradanti la settimana 
+di schedule di un terreno</p>
+</dd>
+<dt>modificaLivelloSchedule(id_terreno: str, date: str, modalita: str):</dt><dd><p>Questo metodo ci permtette di modifica la modalità di un schedule di un determinato terreno</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.ScheduleDAO.ScheduleDAO.creaSchedule">
+<span class="sig-name descname"><span class="pre">creaSchedule</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#Storage.ScheduleDAO.ScheduleDAO.creaSchedule" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo ci permette di instanziare un nuovo schedule sul DataBase</p>
+<section id="id67">
+<h4>Parametri<a class="headerlink" href="#id67" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>sched: Schedule</dt><dd><p>Schedule da istanziare nel DataBase</p>
+</dd>
+</dl>
+</section>
+<section id="id68">
+<h4>Returns<a class="headerlink" href="#id68" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>result<span class="classifier">str</span></dt><dd><p>Restituisce l’id del terreno appena creato</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.ScheduleDAO.ScheduleDAO.creaSettimanaScheduleNullo">
+<span class="sig-name descname"><span class="pre">creaSettimanaScheduleNullo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Storage.ScheduleDAO.ScheduleDAO.creaSettimanaScheduleNullo" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo ci permette di istanziare una settimana di schedule vuota sul database</p>
+<section id="id69">
+<h4>Parametri<a class="headerlink" href="#id69" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id<span class="classifier">str</span></dt><dd><p>ID del Terreno su cui creare lo schedule</p>
+</dd>
+</dl>
+</section>
+<section id="id70">
+<h4>Returns<a class="headerlink" href="#id70" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>True<span class="classifier">bool</span></dt><dd><p>Valore restituito in caso di corretto inserimento</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.ScheduleDAO.ScheduleDAO.eliminaSchedule">
+<span class="sig-name descname"><span class="pre">eliminaSchedule</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#Storage.ScheduleDAO.ScheduleDAO.eliminaSchedule" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.ScheduleDAO.ScheduleDAO.findSchedule">
+<span class="sig-name descname"><span class="pre">findSchedule</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Schedule</span></span></span><a class="headerlink" href="#Storage.ScheduleDAO.ScheduleDAO.findSchedule" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo ci permette di trovare un Schedule sul database, usando il suo ObjectId</p>
+<section id="id71">
+<h4>Parametri<a class="headerlink" href="#id71" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id<span class="classifier">str</span></dt><dd><p>id dello schedule</p>
+</dd>
+</dl>
+</section>
+<section id="id72">
+<h4>Returns<a class="headerlink" href="#id72" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>scheduleTrovato<span class="classifier">Schedule</span></dt><dd><p>Restituisce lo schedule trovato nel DataBase</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.ScheduleDAO.ScheduleDAO.getWeeklySchedule">
+<span class="sig-name descname"><span class="pre">getWeeklySchedule</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#Storage.ScheduleDAO.ScheduleDAO.getWeeklySchedule" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo ci permette di ottenere le informazioni riguradanti la settimana 
+di schedule di un terreno</p>
+<section id="id73">
+<h4>Parametri<a class="headerlink" href="#id73" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id_terreno<span class="classifier">str</span></dt><dd><p>id del Terreno</p>
+</dd>
+</dl>
+</section>
+<section id="id74">
+<h4>Returns<a class="headerlink" href="#id74" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>schedules<span class="classifier">Schedule</span></dt><dd><p>Restituisce lo scheduling della settimana di un deteminato terreno</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.ScheduleDAO.ScheduleDAO.modificaLivelloSchedule">
+<span class="sig-name descname"><span class="pre">modificaLivelloSchedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modalita</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Storage.ScheduleDAO.ScheduleDAO.modificaLivelloSchedule" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo ci permtette di modifica la modalità di un schedule di un determinato terreno</p>
+<section id="id75">
+<h4>Parametri<a class="headerlink" href="#id75" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id_terreno<span class="classifier">str</span></dt><dd><p>id del Terreno</p>
+</dd>
+<dt>date<span class="classifier">str</span></dt><dd><p>data in cui effettuare la modifica</p>
+</dd>
+<dt>modalita<span class="classifier">str</span></dt><dd><p>nuova modalita dello scheduling</p>
+</dd>
+</dl>
+</section>
+<section id="id76">
+<h4>Returns<a class="headerlink" href="#id76" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>True<span class="classifier">bool</span></dt><dd><p>Valore restituito in caso di avvenuta modifica</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-Storage.TerrenoDAO">
+<span id="storage-terrenodao-module"></span><h2>Storage.TerrenoDAO module<a class="headerlink" href="#module-Storage.TerrenoDAO" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Storage.TerrenoDAO.TerrenoDAO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Storage.TerrenoDAO.</span></span><span class="sig-name descname"><span class="pre">TerrenoDAO</span></span><a class="headerlink" href="#Storage.TerrenoDAO.TerrenoDAO" title="Link a questa definizione"></a></dt>
+<dd><blockquote>
+<div><p>Basi: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</div></blockquote>
+<p>Classe DAO di Terreno</p>
+<p>…</p>
+<section id="id77">
+<h3>Attributi<a class="headerlink" href="#id77" title="Permalink to this heading"></a></h3>
+<p>None</p>
+</section>
+<section id="id78">
+<h3>Metodi<a class="headerlink" href="#id78" title="Permalink to this heading"></a></h3>
+<dl class="simple">
+<dt>InserisciTerreno(terreno: Terreno):</dt><dd><p>Questo metodo ci permette di istanziare un nuovo terreno su DataBase</p>
+</dd>
+<dt>TrovaTerreno(id: str):</dt><dd><p>Questo metodo ci permette di recuperare dal DataBase un terreno con id 
+corrispondenete a quello passarto in input</p>
+</dd>
+<dt>RimuoviTerreno(terreno: Terreno):        </dt><dd><p>Questo metodo ci permette di elimare dal DataBase il terreno passato in input</p>
+</dd>
+<dt>modificaTerreno(terrenoMod: Terreno):</dt><dd><p>Il metodo ci permette di modificare un’istanza del terreno presente nel database</p>
+</dd>
+<dt>restituisciTerreniByFarmer(farmer: str):</dt><dd><p>Questo metodo ci restiuisce una lista di terreni associati ad un faremer passato come input</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.TerrenoDAO.TerrenoDAO.InserisciTerreno">
+<span class="sig-name descname"><span class="pre">InserisciTerreno</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#Storage.TerrenoDAO.TerrenoDAO.InserisciTerreno" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo ci permette di istanziare un nuovo terreno su DataBase</p>
+<section id="id79">
+<h4>Parametri<a class="headerlink" href="#id79" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>terreno: Terreno</dt><dd><p>Terreno da inserire nel DataBase</p>
+</dd>
+</dl>
+</section>
+<section id="id80">
+<h4>Returns<a class="headerlink" href="#id80" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>result<span class="classifier">str</span></dt><dd><p>Restituisce l’id del terreno appena inserito</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.TerrenoDAO.TerrenoDAO.RimuoviTerreno">
+<span class="sig-name descname"><span class="pre">RimuoviTerreno</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#Storage.TerrenoDAO.TerrenoDAO.RimuoviTerreno" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo ci permette di elimare dal DataBase il terreno passato in input</p>
+<section id="id81">
+<h4>Parametri<a class="headerlink" href="#id81" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>terreno: Terreno</dt><dd><p>Terreno da eliminare</p>
+</dd>
+</dl>
+</section>
+<section id="id82">
+<h4>Returns<a class="headerlink" href="#id82" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>True<span class="classifier">bool</span></dt><dd><p>Valore restituito in caso di corretta eliminazione</p>
+</dd>
+<dt>False<span class="classifier">bool</span></dt><dd><p>Valore restituito in caso di NON eliminazione</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.TerrenoDAO.TerrenoDAO.TrovaTerreno">
+<span class="sig-name descname"><span class="pre">TrovaTerreno</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Terreno</span></span></span><a class="headerlink" href="#Storage.TerrenoDAO.TerrenoDAO.TrovaTerreno" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo ci permette di recuperare dal DataBase un terreno con id 
+corrispondenete a quello passarto in input</p>
+<section id="id83">
+<h4>Parametri<a class="headerlink" href="#id83" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id<span class="classifier">str</span></dt><dd><p>id del terrebi da Trovare</p>
+</dd>
+</dl>
+</section>
+<section id="id84">
+<h4>Returns<a class="headerlink" href="#id84" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>NewTerreno<span class="classifier">Terreno</span></dt><dd><p>Restituisce il terreno trovato</p>
+</dd>
+<dt>None<span class="classifier">Nonetype</span></dt><dd><p>Restituisce None in caso non e stato trovato nessun terreno con id passato</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.TerrenoDAO.TerrenoDAO.modificaTerreno">
+<span class="sig-name descname"><span class="pre">modificaTerreno</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Storage.TerrenoDAO.TerrenoDAO.modificaTerreno" title="Link a questa definizione"></a></dt>
+<dd><p>Il metodo ci permette di modificare un’istanza del terreno presente nel database</p>
+<section id="id85">
+<h4>Parametri<a class="headerlink" href="#id85" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>terrenoMod: Terreno</dt><dd><p>Terreno da modificare</p>
+</dd>
+</dl>
+</section>
+<section id="id86">
+<h4>Returns<a class="headerlink" href="#id86" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>None<span class="classifier">Nonetype</span></dt><dd><p>Valore restituito nel caso in cui non e stato trovato il Terreno su cui 
+effettuare le modifiche</p>
+</dd>
+<dt>terrenoMod<span class="classifier">Terreno</span></dt><dd><p>Restituisce il terreno modificatof</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Storage.TerrenoDAO.TerrenoDAO.restituisciTerreniByFarmer">
+<span class="sig-name descname"><span class="pre">restituisciTerreniByFarmer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#Storage.TerrenoDAO.TerrenoDAO.restituisciTerreniByFarmer" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo ci restiuisce una lista di terreni associati ad un faremer passato come input</p>
+<section id="id87">
+<h4>Parametri<a class="headerlink" href="#id87" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>farmer: str</dt><dd><p>faremr di cui si desidera avere la lista dei Terreno</p>
+</dd>
+</dl>
+</section>
+<section id="id88">
+<h4>Returns<a class="headerlink" href="#id88" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>ListaTerreni<span class="classifier">Terreno</span></dt><dd><p>Lista dei Terreni associato ad un farmer</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Piè di pagina">
+        <a href="Registrazione.html" class="btn btn-neutral float-left" title="Registrazione package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Precedente</a>
+        <a href="Utente.html" class="btn btn-neutral float-right" title="Utente package" accesskey="n" rel="next">Prossimo <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Pierluigi Lambiase, Carmine Laudato, Francesco Maria Puca, Gerardo Frino, Maria Lombardi, Benedetto Scala, Francesco Fattorusso.</p>
+  </div>
+
+  Realizzato con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornito da <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

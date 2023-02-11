@@ -133,6 +133,8 @@ class GestioneUtenteService():
 
     def modificaLicenza(licenza:Licenza,nuovotipo:str):
         licenza.tipo = nuovotipo
+        if nuovotipo != "premium" and nuovotipo != "standard":
+            return
         return LicenzaDAO.modificaLicenza(licenza)
         
     def removeUtenteFromAzienda(id: str) -> bool:

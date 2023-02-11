@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="it" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AmbienteAgricolo package &mdash; EnIA 1.0 documentazione</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Indice" href="genindex.html" />
+    <link rel="search" title="Cerca" href="search.html" />
+    <link rel="next" title="Autenticazione package" href="Autenticazione.html" />
+    <link rel="prev" title="AmbienteAgricoloController" href="Controllers.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> EnIA
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cerca documenti" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu di navigazione">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Controllers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html#logic">logic</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">AmbienteAgricolo package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ambienteagricolo-ambienteagricolocontroller-module">AmbienteAgricolo.AmbienteAgricoloController module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-AmbienteAgricolo.AmbienteAgricoloService">AmbienteAgricolo.AmbienteAgricoloService module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService"><code class="docutils literal notranslate"><span class="pre">AmbienteAgricoloService</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ambienteagricolo-gestioneschedulecontroller-module">AmbienteAgricolo.GestioneScheduleController module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Autenticazione.html">Autenticazione package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DecisionIntelligence.html">DecisionIntelligence package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GestioneEventi.html">GestioneEventi package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GestionePagamento.html">GestionePagamento package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Registrazione.html">Registrazione package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Storage.html">Storage package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Utente.html">Utente package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model.html">model package</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu navigazione dispositivi mobili" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EnIA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Naviga tra le pagine">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Controllers</a></li>
+      <li class="breadcrumb-item active">AmbienteAgricolo package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/AmbienteAgricolo.rst.txt" rel="nofollow"> Visualizza sorgente pagina</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ambienteagricolo-package">
+<h1>AmbienteAgricolo package<a class="headerlink" href="#ambienteagricolo-package" title="Permalink to this heading"></a></h1>
+<section id="ambienteagricolo-ambienteagricolocontroller-module">
+<h2>AmbienteAgricolo.AmbienteAgricoloController module<a class="headerlink" href="#ambienteagricolo-ambienteagricolocontroller-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-AmbienteAgricolo.AmbienteAgricoloService">
+<span id="ambienteagricolo-ambienteagricoloservice-module"></span><h2>AmbienteAgricolo.AmbienteAgricoloService module<a class="headerlink" href="#module-AmbienteAgricolo.AmbienteAgricoloService" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">AmbienteAgricolo.AmbienteAgricoloService.</span></span><span class="sig-name descname"><span class="pre">AmbienteAgricoloService</span></span><a class="headerlink" href="#AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService" title="Link a questa definizione"></a></dt>
+<dd><blockquote>
+<div><p>Basi: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</div></blockquote>
+<p>Classe Service di Ambiente Agricolo</p>
+<p>…</p>
+<section id="attributi">
+<h3>Attributi<a class="headerlink" href="#attributi" title="Permalink to this heading"></a></h3>
+<dl class="simple">
+<dt>ColturaEng<span class="classifier">str[]</span></dt><dd><p>Contiene i nomi di tutte le colture disponibili in inglese</p>
+</dd>
+<dt>Colture<span class="classifier">str[]</span></dt><dd><p>Contine i nomi di tutte le colture</p>
+</dd>
+<dt>StadiCrescita<span class="classifier">str[]</span></dt><dd><p>Contiene tutti gli stati di crescita delle colture</p>
+</dd>
+</dl>
+</section>
+<section id="metodi">
+<h3>Metodi<a class="headerlink" href="#metodi" title="Permalink to this heading"></a></h3>
+<dl class="simple">
+<dt>isValidTerreno(terreno: Terreno) :</dt><dd><p>Controlla se un terreno è valido</p>
+</dd>
+<dt>validateTerreno(terreno: Terreno) :</dt><dd><p>Controlla se tutti gli attributi di terreno sono validi</p>
+</dd>
+<dt>visualizzaTerreni(farmer: str) :</dt><dd><p>Restiruisce una lista dei terreni di cui un utente farmer è proprietario</p>
+</dd>
+<dt>aggiungiTerreno(nome: str, coltura: str, stadio_crescita: str, posizione, preferito: bool, priorita: int, proprietario: str) :</dt><dd><p>Aggiunge un terreno al database</p>
+</dd>
+<dt>trovaTerreno(id: str) :</dt><dd><p>Restiruisce un terreno in base all’id</p>
+</dd>
+<dt>modificaTerreno(id: str, nome: str, coltura: str, stadio_crescita: str, posizione, preferito: bool, priorita: int, proprietario: str) :</dt><dd><p>Modifica i dati di un terreno</p>
+</dd>
+<dt>eliminaTerreno(id: str) :</dt><dd><p>Elimina un terreno</p>
+</dd>
+<dt>cercaPosizione(id: str) :</dt><dd><p>Cerca la posizione di un terreno</p>
+</dd>
+<dt>cercaInquinamento(provincia: str, regione: str, nazione: str, comune: str) :</dt><dd><p>Cerca i dati relativi all’inquinamento di una specifica zone</p>
+</dd>
+<dt>cercaStoricoInquinamento(dataInizio: str, dataFine: str, comune: str, regione: str, nazione: str, provincia: str, formato: str) :</dt><dd><p>Cerca i dati relativi all’inquinamento di una specifica zone in uno specifico range temporale</p>
+</dd>
+<dt>aggiungiIrrigatore(id_terreno: str, nome_irrigatore: str, posizione_irrigatore: str) :</dt><dd><p>Aggiunge un irrigatore ad un terreno e crea un evento della sua creazione</p>
+</dd>
+<dt>modificaIrrigatore(idIrrigatore: str, nomeIrrigatore: str, posizioneIrrigatore: str) :</dt><dd><p>Modifica dei dati di un irrigatore</p>
+</dd>
+<dt>getIrrigatore(idIrrigatore: str) :</dt><dd><p>Restituisce un irrigatore in base all’id</p>
+</dd>
+<dt>visualizzaListaIrrigatori(idTerreno: str) :</dt><dd><p>Restituisce la lista degli irrigatori presenti su un terreno</p>
+</dd>
+<dt>eliminaIrrigatore(idIrrigatore: str) :</dt><dd><p>Elimina un irrigatore</p>
+</dd>
+<dt>attivaDisattivaIrrigatore(idIrrigatore: str) :</dt><dd><p>Attiva o disattiva un irrigatore</p>
+</dd>
+<dt>visualizzaListaEventi(idTerreno: str) :</dt><dd><p>Restituisce la lista degli eventi su un terreno</p>
+</dd>
+<dt>cercalat(id: str) :</dt><dd><p>Recupera la latitudine di un terreno</p>
+</dd>
+<dt>cercalon(id: str) :</dt><dd><p>Recupera la longitudine di un terreno</p>
+</dd>
+<dt>cercaMeteo(lat: float, lon: float) :</dt><dd><p>Recupera i dati meteo di una zona e crea un evento in caso la pioggia superi un certa soglia</p>
+</dd>
+<dt>restituisciPredizioneLivelliIrrigazione(lon: float, lat: float, crop: str, stage: str) :</dt><dd><p>Recupera la predizione dei livelli di irrigazione forniti dal modulo AI</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.ColturaEng">
+<span class="sig-name descname"><span class="pre">ColturaEng</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['Barley',</span> <span class="pre">'Bean',</span> <span class="pre">'Cabbage',</span> <span class="pre">'Carrot',</span> <span class="pre">'Cotton',</span> <span class="pre">'Cucumber',</span> <span class="pre">'Eggplant',</span> <span class="pre">'Grain',</span> <span class="pre">'Lentil',</span> <span class="pre">'Lettuce']</span></em><a class="headerlink" href="#AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.ColturaEng" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.Colture">
+<span class="sig-name descname"><span class="pre">Colture</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['Orzo',</span> <span class="pre">'Fagiolo',</span> <span class="pre">'Cavolo',</span> <span class="pre">'Carota',</span> <span class="pre">'Cotone',</span> <span class="pre">'Cetriolo',</span> <span class="pre">'Melanzana',</span> <span class="pre">'Grano',</span> <span class="pre">'Lenticchia',</span> <span class="pre">'Lattuga']</span></em><a class="headerlink" href="#AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.Colture" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.StadiCrescita">
+<span class="sig-name descname"><span class="pre">StadiCrescita</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['Iniziale',</span> <span class="pre">'Sviluppo',</span> <span class="pre">'Metà</span> <span class="pre">Stagione',</span> <span class="pre">'Fine</span> <span class="pre">Stagione']</span></em><a class="headerlink" href="#AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.StadiCrescita" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.aggiungiIrrigatore">
+<span class="sig-name descname"><span class="pre">aggiungiIrrigatore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nome_irrigatore</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">posizione_irrigatore</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.aggiungiIrrigatore" title="Link a questa definizione"></a></dt>
+<dd><p>Aggiunge un irrigatore ad un terreno e crea un evento della sua creazione</p>
+<section id="parametri">
+<h4>Parametri<a class="headerlink" href="#parametri" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id_terreno<span class="classifier">str</span></dt><dd><p>id del terreno</p>
+</dd>
+<dt>nome_irrigatore<span class="classifier">str</span></dt><dd><p>nome da assegnare all’irrigatore</p>
+</dd>
+<dt>posizione_irrigatore<span class="classifier">str</span></dt><dd><p>json contenente la posizione dell’irrigatore</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h4>Returns<a class="headerlink" href="#returns" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id<span class="classifier">str</span></dt><dd><p>id dell’irriogatore inserito</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.aggiungiTerreno">
+<span class="sig-name descname"><span class="pre">aggiungiTerreno</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coltura</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stadio_crescita</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">posizione</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preferito</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priorita</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proprietario</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.aggiungiTerreno" title="Link a questa definizione"></a></dt>
+<dd><p>Aggiunge un terreno al database</p>
+<section id="id1">
+<h4>Parametri<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>nome<span class="classifier">str</span></dt><dd><p>nome del terreno</p>
+</dd>
+<dt>coltura<span class="classifier">str</span></dt><dd><p>tipo di coltura che crescerà sul terreno</p>
+</dd>
+<dt>stadio_crescita<span class="classifier">str</span></dt><dd><p>stato di crescita di una coltura</p>
+</dd>
+<dt>posizione<span class="classifier">str</span></dt><dd><p>geojson contenente i confini del terreno</p>
+</dd>
+<dt>preferito<span class="classifier">bool</span></dt><dd><p>se il terreno è preferito o meno</p>
+</dd>
+<dt>priorita<span class="classifier">int</span></dt><dd><p>priorità del terreno</p>
+</dd>
+<dt>proprietario<span class="classifier">str</span></dt><dd><p>id dell’utente farmer che è il proprietario</p>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h4>Returns<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>Terreno<span class="classifier">bool</span></dt><dd><p>Esito dell’operazione di aggiunta</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.attivaDisattivaIrrigatore">
+<span class="sig-name descname"><span class="pre">attivaDisattivaIrrigatore</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.attivaDisattivaIrrigatore" title="Link a questa definizione"></a></dt>
+<dd><p>Attiva o disattiva un irrigatore</p>
+<section id="id3">
+<h4>Parametri<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>idIrrigatore<span class="classifier">str</span></dt><dd><p>Id dell’irrigatore</p>
+</dd>
+</dl>
+</section>
+<section id="id4">
+<h4>Returns<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>False<span class="classifier">bool</span></dt><dd><p>Impianto disattivato</p>
+</dd>
+<dt>True<span class="classifier">bool</span></dt><dd><p>Impianto attivato</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercaInquinamento">
+<span class="sig-name descname"><span class="pre">cercaInquinamento</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regione</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nazione</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comune</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercaInquinamento" title="Link a questa definizione"></a></dt>
+<dd><p>Cerca i dati relativi all’inquinamento di una specifica zone</p>
+<section id="id5">
+<h4>Parametri<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>provincia<span class="classifier">str</span></dt><dd><p>Provincia</p>
+</dd>
+<dt>regione<span class="classifier">str</span></dt><dd><p>Regione</p>
+</dd>
+<dt>nazione<span class="classifier">str</span></dt><dd><p>Nazione</p>
+</dd>
+<dt>comune<span class="classifier">str</span></dt><dd><p>Comune</p>
+</dd>
+</dl>
+</section>
+<section id="id6">
+<h4>Returns<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>datiapi<span class="classifier">str</span></dt><dd><p>Json contenente i dati relativi all’inquinamento</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercaPosizione">
+<span class="sig-name descname"><span class="pre">cercaPosizione</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercaPosizione" title="Link a questa definizione"></a></dt>
+<dd><p>Cerca la posizione di un terreno</p>
+<section id="id7">
+<h4>Parametri<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id<span class="classifier">str</span></dt><dd><p>ID di un terreno</p>
+</dd>
+</dl>
+</section>
+<section id="id8">
+<h4>Returns<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>None</dt><dd><p>Posizione non trovata</p>
+</dd>
+<dt>datiapi<span class="classifier">str</span></dt><dd><p>Json contenente la posizione del terreno</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercaStoricoInquinamento">
+<span class="sig-name descname"><span class="pre">cercaStoricoInquinamento</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataFine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comune</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regione</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nazione</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">provincia</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formato</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercaStoricoInquinamento" title="Link a questa definizione"></a></dt>
+<dd><p>Cerca i dati relativi all’inquinamento di una specifica zone in uno specifico range temporale</p>
+<section id="id9">
+<h4>Parametri<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>dataInizio<span class="classifier">str</span></dt><dd><p>Data inizio della ricerca</p>
+</dd>
+<dt>dataFine<span class="classifier">str</span></dt><dd><p>Data fine della ricerca</p>
+</dd>
+<dt>provincia<span class="classifier">str</span></dt><dd><p>Provincia</p>
+</dd>
+<dt>regione<span class="classifier">str</span></dt><dd><p>Regione</p>
+</dd>
+<dt>nazione<span class="classifier">str</span></dt><dd><p>Nazione</p>
+</dd>
+<dt>comune<span class="classifier">str</span></dt><dd><p>Comune</p>
+</dd>
+</dl>
+</section>
+<section id="id10">
+<h4>Returns<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>datiapi<span class="classifier">str</span></dt><dd><p>Json contenente i dati relativi all’inquinamento</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercalat">
+<span class="sig-name descname"><span class="pre">cercalat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercalat" title="Link a questa definizione"></a></dt>
+<dd><p>Recupera la latitudine di un terreno</p>
+<section id="id11">
+<h4>Parametri<a class="headerlink" href="#id11" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id<span class="classifier">str</span></dt><dd><p>Id del terreno</p>
+</dd>
+</dl>
+</section>
+<section id="id12">
+<h4>Returns<a class="headerlink" href="#id12" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>None</dt><dd><p>Latitudine non trovata</p>
+</dd>
+<dt>lat<span class="classifier">float</span></dt><dd><p>Latitudine del terreno</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercalon">
+<span class="sig-name descname"><span class="pre">cercalon</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.cercalon" title="Link a questa definizione"></a></dt>
+<dd><p>Recupera la longitudine di un terreno</p>
+<section id="id13">
+<h4>Parametri<a class="headerlink" href="#id13" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id<span class="classifier">str</span></dt><dd><p>Id del terreno</p>
+</dd>
+</dl>
+</section>
+<section id="id14">
+<h4>Returns<a class="headerlink" href="#id14" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>None</dt><dd><p>Longitudine non trovata</p>
+</dd>
+<dt>lon<span class="classifier">float</span></dt><dd><p>Longitudine del terreno</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.eliminaIrrigatore">
+<span class="sig-name descname"><span class="pre">eliminaIrrigatore</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.eliminaIrrigatore" title="Link a questa definizione"></a></dt>
+<dd><p>Elimina un irrigatore</p>
+<section id="id15">
+<h4>Parametri<a class="headerlink" href="#id15" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>idIrrigatore<span class="classifier">str</span></dt><dd><p>Id dell’irrigatore da eliminare</p>
+</dd>
+</dl>
+</section>
+<section id="id16">
+<h4>Returns<a class="headerlink" href="#id16" title="Permalink to this heading"></a></h4>
+<p>None</p>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.eliminaTerreno">
+<span class="sig-name descname"><span class="pre">eliminaTerreno</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.eliminaTerreno" title="Link a questa definizione"></a></dt>
+<dd><p>Elimina un terreno</p>
+<section id="id17">
+<h4>Parametri<a class="headerlink" href="#id17" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id<span class="classifier">str</span></dt><dd><p>ID di un terreno</p>
+</dd>
+</dl>
+</section>
+<section id="id18">
+<h4>Returns<a class="headerlink" href="#id18" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>False<span class="classifier">bool</span></dt><dd><p>Non è stato possibile rimuovere il terreno dal DB</p>
+</dd>
+<dt>True<span class="classifier">bool</span></dt><dd><p>Rimozione avvenuta con successo</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.getIrrigatore">
+<span class="sig-name descname"><span class="pre">getIrrigatore</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.getIrrigatore" title="Link a questa definizione"></a></dt>
+<dd><p>Restituisce un irrigatore in base all’id</p>
+<section id="id19">
+<h4>Parametri<a class="headerlink" href="#id19" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>idIrrigatore<span class="classifier">str</span></dt><dd><p>Id dell’irrigatore da recuperare</p>
+</dd>
+</dl>
+</section>
+<section id="id20">
+<h4>Returns<a class="headerlink" href="#id20" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>ImpiantoDiIrrigazioneDAO.findImpiantoById(idIrrigatore)<span class="classifier">ImpiantoDiIrrigazione</span></dt><dd><p>Irrigatore recuperato dal DB</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.isValidTerreno">
+<span class="sig-name descname"><span class="pre">isValidTerreno</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.isValidTerreno" title="Link a questa definizione"></a></dt>
+<dd><p>Controlla se un terreno è valido</p>
+<section id="id21">
+<h4>Parametri<a class="headerlink" href="#id21" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>terreno<span class="classifier">Terreno</span></dt><dd><p>Terreno da validare</p>
+</dd>
+</dl>
+</section>
+<section id="id22">
+<h4>Returns<a class="headerlink" href="#id22" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>risultato[«esitoControllo»]<span class="classifier">bool</span></dt><dd><p>Esito del controllo</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.modificaIrrigatore">
+<span class="sig-name descname"><span class="pre">modificaIrrigatore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nomeIrrigatore</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">posizioneIrrigatore</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.modificaIrrigatore" title="Link a questa definizione"></a></dt>
+<dd><p>Modifica dei dati di un irrigatore</p>
+<section id="id23">
+<h4>Parametri<a class="headerlink" href="#id23" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>idIrrigatore<span class="classifier">str</span></dt><dd><p>Id dell’irrigatore da modificare</p>
+</dd>
+<dt>nomeIrrigatore<span class="classifier">str</span></dt><dd><p>nome dell’irrigatore</p>
+</dd>
+<dt>posizioneIrrigatore<span class="classifier">str</span></dt><dd><p>Json contenente la posizione dell’irrigatore</p>
+</dd>
+</dl>
+</section>
+<section id="id24">
+<h4>Returns<a class="headerlink" href="#id24" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>datiapi<span class="classifier">str</span></dt><dd><p>Json contenente i dati relativi all’inquinamento</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.modificaTerreno">
+<span class="sig-name descname"><span class="pre">modificaTerreno</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nome</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coltura</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stadio_crescita</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">posizione</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preferito</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priorita</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proprietario</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.modificaTerreno" title="Link a questa definizione"></a></dt>
+<dd><p>Modifica i dati di un terreno</p>
+<section id="id25">
+<h4>Parametri<a class="headerlink" href="#id25" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id<span class="classifier">str</span></dt><dd><p>ID del terreno</p>
+</dd>
+<dt>nome<span class="classifier">str</span></dt><dd><p>nome del terreno</p>
+</dd>
+<dt>coltura<span class="classifier">str</span></dt><dd><p>tipo di coltura che crescerà sul terreno</p>
+</dd>
+<dt>stadio_crescita<span class="classifier">str</span></dt><dd><p>stato di crescita di una coltura</p>
+</dd>
+<dt>posizione<span class="classifier">str</span></dt><dd><p>geojson contenente i confini del terreno</p>
+</dd>
+<dt>preferito<span class="classifier">bool</span></dt><dd><p>se il terreno è preferito o meno</p>
+</dd>
+<dt>priorita<span class="classifier">int</span></dt><dd><p>priorità del terreno</p>
+</dd>
+<dt>proprietario<span class="classifier">str</span></dt><dd><p>id dell’utente farmer che è il proprietario</p>
+</dd>
+</dl>
+</section>
+<section id="id26">
+<h4>Returns<a class="headerlink" href="#id26" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>result.matched_count &gt; 0<span class="classifier">bool</span></dt><dd><p>Esito dell’operazione di modifica</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.restituisciPredizioneLivelliIrrigazione">
+<span class="sig-name descname"><span class="pre">restituisciPredizioneLivelliIrrigazione</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.restituisciPredizioneLivelliIrrigazione" title="Link a questa definizione"></a></dt>
+<dd><p>Recupera la predizione dei livelli di irrigazione forniti dal modulo AI</p>
+<section id="id27">
+<h4>Parametri<a class="headerlink" href="#id27" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>lon<span class="classifier">float</span></dt><dd><p>Longitudine</p>
+</dd>
+<dt>lat<span class="classifier">float</span></dt><dd><p>Latitudine</p>
+</dd>
+<dt>crop<span class="classifier">str</span></dt><dd><p>Coltura</p>
+</dd>
+<dt>stage: str</dt><dd><p>Stato di crescita</p>
+</dd>
+</dl>
+</section>
+<section id="id28">
+<h4>Returns<a class="headerlink" href="#id28" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>DecisionIntelligenceService.getPredizioneLivelliIrrigazione(lon, lat, crop, stage)<span class="classifier">dict</span></dt><dd><p>Predizione dei livelli di irrigazione forniti dal modulo AI</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.trovaTerreno">
+<span class="sig-name descname"><span class="pre">trovaTerreno</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Terreno</span></span></span><a class="headerlink" href="#AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.trovaTerreno" title="Link a questa definizione"></a></dt>
+<dd><p>Restiruisce un terreno in base all’id</p>
+<section id="id29">
+<h4>Parametri<a class="headerlink" href="#id29" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id<span class="classifier">str</span></dt><dd><p>ID del terreno</p>
+</dd>
+</dl>
+</section>
+<section id="id30">
+<h4>Returns<a class="headerlink" href="#id30" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>Terreno<span class="classifier">Terreno</span></dt><dd><p>Terreno trovato sul DB</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.validateTerreno">
+<span class="sig-name descname"><span class="pre">validateTerreno</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.validateTerreno" title="Link a questa definizione"></a></dt>
+<dd><p>Controlla se tutti gli attributi di terreno sono validi</p>
+<section id="id31">
+<h4>Parametri<a class="headerlink" href="#id31" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>terreno<span class="classifier">Terreno</span></dt><dd><p>Terreno da validare</p>
+</dd>
+</dl>
+</section>
+<section id="id32">
+<h4>Returns<a class="headerlink" href="#id32" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>risultato<span class="classifier">dict</span></dt><dd><p>Esito del controllo</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.visualizzaListaEventi">
+<span class="sig-name descname"><span class="pre">visualizzaListaEventi</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.visualizzaListaEventi" title="Link a questa definizione"></a></dt>
+<dd><p>Restituisce la lista degli eventi su un terreno</p>
+<section id="id33">
+<h4>Parametri<a class="headerlink" href="#id33" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>idTerreno<span class="classifier">str</span></dt><dd><p>Id del terreno</p>
+</dd>
+</dl>
+</section>
+<section id="id34">
+<h4>Returns<a class="headerlink" href="#id34" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>EventoDAO.findEventiByTerreno(idTerreno)<span class="classifier">list</span></dt><dd><p>Lista degli eventi di un terreno</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.visualizzaListaIrrigatori">
+<span class="sig-name descname"><span class="pre">visualizzaListaIrrigatori</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.visualizzaListaIrrigatori" title="Link a questa definizione"></a></dt>
+<dd><p>Restituisce la lista degli irrigatori presenti su un terreno</p>
+<section id="id35">
+<h4>Parametri<a class="headerlink" href="#id35" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>idTerreno<span class="classifier">str</span></dt><dd><p>Id del terreno su cui sono presenti gli irrigatori</p>
+</dd>
+</dl>
+</section>
+<section id="id36">
+<h4>Returns<a class="headerlink" href="#id36" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>ImpiantoDiIrrigazioneDAO.findImpiantiByTerreno(idTerreno)<span class="classifier">list</span></dt><dd><p>Lista degli irrigatori presenti su un terreno</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.visualizzaTerreni">
+<span class="sig-name descname"><span class="pre">visualizzaTerreni</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AmbienteAgricolo.AmbienteAgricoloService.AmbienteAgricoloService.visualizzaTerreni" title="Link a questa definizione"></a></dt>
+<dd><p>Restiruisce una lista dei terreni di cui un utente farmer è proprietario</p>
+<section id="id37">
+<h4>Parametri<a class="headerlink" href="#id37" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>farmer<span class="classifier">str</span></dt><dd><p>ID di un utente farmer</p>
+</dd>
+</dl>
+</section>
+<section id="id38">
+<h4>Returns<a class="headerlink" href="#id38" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>Terreni<span class="classifier">list</span></dt><dd><p>lista dei terrenmi di cui l’utente farmer è proprietario</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="ambienteagricolo-gestioneschedulecontroller-module">
+<h2>AmbienteAgricolo.GestioneScheduleController module<a class="headerlink" href="#ambienteagricolo-gestioneschedulecontroller-module" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Piè di pagina">
+        <a href="Controllers.html" class="btn btn-neutral float-left" title="AmbienteAgricoloController" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Precedente</a>
+        <a href="Autenticazione.html" class="btn btn-neutral float-right" title="Autenticazione package" accesskey="n" rel="next">Prossimo <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Pierluigi Lambiase, Carmine Laudato, Francesco Maria Puca, Gerardo Frino, Maria Lombardi, Benedetto Scala, Francesco Fattorusso.</p>
+  </div>
+
+  Realizzato con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornito da <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

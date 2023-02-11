@@ -55,8 +55,9 @@ class GestioneUtenteController():
 
                 GestioneUtenteService.modificaUtente(current_user)
             elif tipo == "licenza":
-                licenza = Licenza(**session["licenza"])
-                nuovotipo = richiesta.get("tipo")
+                result  = session["licenza"]
+                licenza = Licenza(**result)
+                nuovotipo = richiesta.get("licenza")
                 GestioneUtenteService.modificaLicenza(licenza,nuovotipo)
             elif tipo == "metodo":
                 mp = MetodoDiPagamento(**session["metodo"])
@@ -70,6 +71,7 @@ class GestioneUtenteController():
         if current_user.ruolo == "farmer":
             session["licenza"] = GestioneUtenteService.findLicenzaByProprietario(
                 current_user.id).__dict__
+            print(session["licenza"])
             session["metodo"] = GestionePagamentoService.findMetodoByProprietario(
                 current_user.id).__dict__
         return render_template("user.html")
