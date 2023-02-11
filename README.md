@@ -17,7 +17,7 @@
 
 # Introduction
 
- Web Application built with Python Flask for facilitate farm management  
+ Web Application built with Python Flask with the aim of helping farmers to grow their business by optimising their work and resources  
 
 Produced for the Software Engineering and Software Project Management courses of Computer Science at University of Salerno.
 
@@ -54,3 +54,7 @@ Follow these steps:
 * [Flask](https://flask.palletsprojects.com/en/2.2.x/) - The framework used to build and develop the web application.
 * [HTML5](https://www.w3schools.com/html/default.asp) - Used for the front-end development.
 * [Bootstrap](https://getboostrap.com/) - Front-end framework.
+# Contributors
+<a href="https://github.com/IAgricolture/EnIA/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=IAgricolture/EnIA" />
+</a>
