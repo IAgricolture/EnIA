@@ -14,7 +14,7 @@ logger.addHandler(handler) # adds handler to the werkzeug WSGI logger
 
 @app.route("/")
 def homepage():
-    return render_template("index.html")
+    return redirect(url_for("visualizzaTerreni"))
 
 @app.route("/test")
 def prova():
