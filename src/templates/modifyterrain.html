@@ -278,8 +278,8 @@
 
     function resetMapModifica(points) {
       if (validMap) {
-        map.removeLayer(polygon)
-        points = []
+        window.map.removeLayer(polygon)
+        window.points = []
         validMap = false
         window.terrenoModificato = true
       }
@@ -291,6 +291,7 @@
         if (points.length >= 1) {
             if (polygon != null){
                 window.polygon.remove()
+                window.terrenoModificato = true
             }
             
             window.polygon = L.polygon(points).addTo(map);
