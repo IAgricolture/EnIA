@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="it" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTTP Routing Table &mdash; EnIA 1.0 documentazione</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Indice" href="genindex.html" />
+    <link rel="search" title="Cerca" href="search.html" />
+ 
+
+    <script>
+      DOCUMENTATION_OPTIONS.COLLAPSE_INDEX = true;
+    </script>
+
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> EnIA
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cerca documenti" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu di navigazione">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#logic">logic</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu navigazione dispositivi mobili" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EnIA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Naviga tra le pagine">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">HTTP Routing Table</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+
+   <h1>HTTP Routing Table</h1>
+
+   <div class="modindex-jumpbox">
+   <a href="#cap-/AziendaAgricola"><strong>/AziendaAgricola</strong></a> | 
+   <a href="#cap-/GenCode"><strong>/GenCode</strong></a> | 
+   <a href="#cap-/aggiungiIrrigatore"><strong>/aggiungiIrrigatore</strong></a> | 
+   <a href="#cap-/aggiuntaTerreno"><strong>/aggiuntaTerreno</strong></a> | 
+   <a href="#cap-/attivaDisattivaIrrigatore"><strong>/attivaDisattivaIrrigatore</strong></a> | 
+   <a href="#cap-/cancellaTuttiEventi"><strong>/cancellaTuttiEventi</strong></a> | 
+   <a href="#cap-/dettagliterreno"><strong>/dettagliterreno</strong></a> | 
+   <a href="#cap-/downloadStoricoInquinamento"><strong>/downloadStoricoInquinamento</strong></a> | 
+   <a href="#cap-/eliminaEvento"><strong>/eliminaEvento</strong></a> | 
+   <a href="#cap-/eliminaIrrigatore"><strong>/eliminaIrrigatore</strong></a> | 
+   <a href="#cap-/eliminaTerreno"><strong>/eliminaTerreno</strong></a> | 
+   <a href="#cap-/eventi"><strong>/eventi</strong></a> | 
+   <a href="#cap-/getIrrigatore"><strong>/getIrrigatore</strong></a> | 
+   <a href="#cap-/getStoricoInquinamento"><strong>/getStoricoInquinamento</strong></a> | 
+   <a href="#cap-/login"><strong>/login</strong></a> | 
+   <a href="#cap-/logout"><strong>/logout</strong></a> | 
+   <a href="#cap-/modificaIrrigatore"><strong>/modificaIrrigatore</strong></a> | 
+   <a href="#cap-/modificaLivelloSchedule"><strong>/modificaLivelloSchedule</strong></a> | 
+   <a href="#cap-/modificaTerreno"><strong>/modificaTerreno</strong></a> | 
+   <a href="#cap-/register"><strong>/register</strong></a> | 
+   <a href="#cap-/registerf"><strong>/registerf</strong></a> | 
+   <a href="#cap-/removeFromAzienda"><strong>/removeFromAzienda</strong></a> | 
+   <a href="#cap-/schedule"><strong>/schedule</strong></a> | 
+   <a href="#cap-/usaSchedulingConsigliato"><strong>/usaSchedulingConsigliato</strong></a> | 
+   <a href="#cap-/user"><strong>/user</strong></a> | 
+   <a href="#cap-/visualizzaIrrigatori"><strong>/visualizzaIrrigatori</strong></a> | 
+   <a href="#cap-/visualizzaPredizioneIrrigazione"><strong>/visualizzaPredizioneIrrigazione</strong></a> | 
+   <a href="#cap-/visualizzaTerreni"><strong>/visualizzaTerreni</strong></a>
+   </div>
+
+   <table class="indextable modindextable">
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/AziendaAgricola"><td></td><td>
+       <strong>/AziendaAgricola</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#get--AziendaAgricola"><code class="xref">GET /AziendaAgricola</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--AziendaAgricola"><code class="xref">POST /AziendaAgricola</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/GenCode"><td></td><td>
+       <strong>/GenCode</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#get--GenCode"><code class="xref">GET /GenCode</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--GenCode"><code class="xref">POST /GenCode</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/aggiungiIrrigatore"><td></td><td>
+       <strong>/aggiungiIrrigatore</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#get--aggiungiIrrigatore"><code class="xref">GET /aggiungiIrrigatore</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--aggiungiIrrigatore"><code class="xref">POST /aggiungiIrrigatore</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/aggiuntaTerreno"><td></td><td>
+       <strong>/aggiuntaTerreno</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#get--aggiuntaTerreno"><code class="xref">GET /aggiuntaTerreno</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--aggiuntaTerreno"><code class="xref">POST /aggiuntaTerreno</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/attivaDisattivaIrrigatore"><td></td><td>
+       <strong>/attivaDisattivaIrrigatore</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#get--attivaDisattivaIrrigatore"><code class="xref">GET /attivaDisattivaIrrigatore</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--attivaDisattivaIrrigatore"><code class="xref">POST /attivaDisattivaIrrigatore</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/cancellaTuttiEventi"><td></td><td>
+       <strong>/cancellaTuttiEventi</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#get--cancellaTuttiEventi"><code class="xref">GET /cancellaTuttiEventi</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--cancellaTuttiEventi"><code class="xref">POST /cancellaTuttiEventi</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/dettagliterreno"><td></td><td>
+       <strong>/dettagliterreno</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#get--dettagliterreno"><code class="xref">GET /dettagliterreno</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--dettagliterreno"><code class="xref">POST /dettagliterreno</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/downloadStoricoInquinamento"><td></td><td>
+       <strong>/downloadStoricoInquinamento</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--downloadStoricoInquinamento"><code class="xref">POST /downloadStoricoInquinamento</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/eliminaEvento"><td></td><td>
+       <strong>/eliminaEvento</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#get--eliminaEvento"><code class="xref">GET /eliminaEvento</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--eliminaEvento"><code class="xref">POST /eliminaEvento</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/eliminaIrrigatore"><td></td><td>
+       <strong>/eliminaIrrigatore</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#get--eliminaIrrigatore"><code class="xref">GET /eliminaIrrigatore</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--eliminaIrrigatore"><code class="xref">POST /eliminaIrrigatore</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/eliminaTerreno"><td></td><td>
+       <strong>/eliminaTerreno</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#get--eliminaTerreno"><code class="xref">GET /eliminaTerreno</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/eventi"><td></td><td>
+       <strong>/eventi</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#get--eventi"><code class="xref">GET /eventi</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--eventi"><code class="xref">POST /eventi</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/getIrrigatore"><td></td><td>
+       <strong>/getIrrigatore</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#get--getIrrigatore"><code class="xref">GET /getIrrigatore</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--getIrrigatore"><code class="xref">POST /getIrrigatore</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/getStoricoInquinamento"><td></td><td>
+       <strong>/getStoricoInquinamento</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--getStoricoInquinamento"><code class="xref">POST /getStoricoInquinamento</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/login"><td></td><td>
+       <strong>/login</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#get--login"><code class="xref">GET /login</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--login"><code class="xref">POST /login</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/logout"><td></td><td>
+       <strong>/logout</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#get--logout"><code class="xref">GET /logout</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/modificaIrrigatore"><td></td><td>
+       <strong>/modificaIrrigatore</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#get--modificaIrrigatore"><code class="xref">GET /modificaIrrigatore</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--modificaIrrigatore"><code class="xref">POST /modificaIrrigatore</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/modificaLivelloSchedule"><td></td><td>
+       <strong>/modificaLivelloSchedule</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--modificaLivelloSchedule"><code class="xref">POST /modificaLivelloSchedule</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/modificaTerreno"><td></td><td>
+       <strong>/modificaTerreno</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#get--modificaTerreno"><code class="xref">GET /modificaTerreno</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--modificaTerreno"><code class="xref">POST /modificaTerreno</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/register"><td></td><td>
+       <strong>/register</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#get--register"><code class="xref">GET /register</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--register"><code class="xref">POST /register</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/registerf"><td></td><td>
+       <strong>/registerf</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#get--registerf"><code class="xref">GET /registerf</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--registerf"><code class="xref">POST /registerf</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/removeFromAzienda"><td></td><td>
+       <strong>/removeFromAzienda</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--removeFromAzienda"><code class="xref">POST /removeFromAzienda</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/schedule"><td></td><td>
+       <strong>/schedule</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#get--schedule"><code class="xref">GET /schedule</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--schedule"><code class="xref">POST /schedule</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/usaSchedulingConsigliato"><td></td><td>
+       <strong>/usaSchedulingConsigliato</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--usaSchedulingConsigliato"><code class="xref">POST /usaSchedulingConsigliato</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/user"><td></td><td>
+       <strong>/user</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#get--user"><code class="xref">GET /user</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--user"><code class="xref">POST /user</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/visualizzaIrrigatori"><td></td><td>
+       <strong>/visualizzaIrrigatori</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#get--visualizzaIrrigatori"><code class="xref">GET /visualizzaIrrigatori</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--visualizzaIrrigatori"><code class="xref">POST /visualizzaIrrigatori</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/visualizzaPredizioneIrrigazione"><td></td><td>
+       <strong>/visualizzaPredizioneIrrigazione</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#get--visualizzaPredizioneIrrigazione"><code class="xref">GET /visualizzaPredizioneIrrigazione</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--visualizzaPredizioneIrrigazione"><code class="xref">POST /visualizzaPredizioneIrrigazione</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/visualizzaTerreni"><td></td><td>
+       <strong>/visualizzaTerreni</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#get--visualizzaTerreni"><code class="xref">GET /visualizzaTerreni</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Controllers.html#post--visualizzaTerreni"><code class="xref">POST /visualizzaTerreni</code></a></td><td>
+       <em></em></td></tr>
+   </table>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Pierluigi Lambiase, Carmine Laudato, Francesco Maria Puca, Gerardo Frino, Maria Lombardi, Benedetto Scala, Francesco Fattorusso.</p>
+  </div>
+
+  Realizzato con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornito da <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="it" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>model package &mdash; EnIA 1.0 documentazione</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Indice" href="genindex.html" />
+    <link rel="search" title="Cerca" href="search.html" />
+    <link rel="prev" title="Utente package" href="Utente.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> EnIA
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cerca documenti" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu di navigazione">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Controllers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html#logic">logic</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="AmbienteAgricolo.html">AmbienteAgricolo package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Autenticazione.html">Autenticazione package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DecisionIntelligence.html">DecisionIntelligence package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GestioneEventi.html">GestioneEventi package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GestionePagamento.html">GestionePagamento package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Registrazione.html">Registrazione package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Storage.html">Storage package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Utente.html">Utente package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">model package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-model.DatiInquinamento">model.DatiInquinamento module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#model.DatiInquinamento.DatiInquinamento"><code class="docutils literal notranslate"><span class="pre">DatiInquinamento</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-model.DatiMeteo">model.DatiMeteo module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#model.DatiMeteo.DatiMeteo"><code class="docutils literal notranslate"><span class="pre">DatiMeteo</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-model.Evento">model.Evento module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#model.Evento.Evento"><code class="docutils literal notranslate"><span class="pre">Evento</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-model.ImpiantoDiIrrigazione">model.ImpiantoDiIrrigazione module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#model.ImpiantoDiIrrigazione.ImpiantoDiIrrigazione"><code class="docutils literal notranslate"><span class="pre">ImpiantoDiIrrigazione</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-model.Licenza">model.Licenza module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#model.Licenza.Licenza"><code class="docutils literal notranslate"><span class="pre">Licenza</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-model.MetodoDiPagamento">model.MetodoDiPagamento module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#model.MetodoDiPagamento.MetodoDiPagamento"><code class="docutils literal notranslate"><span class="pre">MetodoDiPagamento</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-model.Schedule">model.Schedule module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#model.Schedule.Schedule"><code class="docutils literal notranslate"><span class="pre">Schedule</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-model.Terreno">model.Terreno module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#model.Terreno.Terreno"><code class="docutils literal notranslate"><span class="pre">Terreno</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-model.Utente">model.Utente module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#model.Utente.Utente"><code class="docutils literal notranslate"><span class="pre">Utente</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu navigazione dispositivi mobili" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EnIA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Naviga tra le pagine">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Controllers</a></li>
+      <li class="breadcrumb-item active">model package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/model.rst.txt" rel="nofollow"> Visualizza sorgente pagina</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="model-package">
+<h1>model package<a class="headerlink" href="#model-package" title="Permalink to this heading"></a></h1>
+<section id="module-model.DatiInquinamento">
+<span id="model-datiinquinamento-module"></span><h2>model.DatiInquinamento module<a class="headerlink" href="#module-model.DatiInquinamento" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="model.DatiInquinamento.DatiInquinamento">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.DatiInquinamento.</span></span><span class="sig-name descname"><span class="pre">DatiInquinamento</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nome:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_rilevazione:</span> <span class="pre">&lt;module</span> <span class="pre">'datetime'</span> <span class="pre">from</span> <span class="pre">'C:\\Users\\Utente\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\datetime.py'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">estremo:</span> <span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aqi:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pm10:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pm25:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">o3:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no2:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">terreno:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id=0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#model.DatiInquinamento.DatiInquinamento" title="Link a questa definizione"></a></dt>
+<dd><blockquote>
+<div><p>Basi: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</div></blockquote>
+</dd></dl>
+
+</section>
+<section id="module-model.DatiMeteo">
+<span id="model-datimeteo-module"></span><h2>model.DatiMeteo module<a class="headerlink" href="#module-model.DatiMeteo" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="model.DatiMeteo.DatiMeteo">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.DatiMeteo.</span></span><span class="sig-name descname"><span class="pre">DatiMeteo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nome:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_rilevazione:</span> <span class="pre">&lt;module</span> <span class="pre">'datetime'</span> <span class="pre">from</span> <span class="pre">'C:\\Users\\Utente\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\datetime.py'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">estremo:</span> <span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pressione:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">umidità:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperatura:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vento_direzione:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vento_intensità:</span> <span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">terreno:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id=0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#model.DatiMeteo.DatiMeteo" title="Link a questa definizione"></a></dt>
+<dd><blockquote>
+<div><p>Basi: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</div></blockquote>
+</dd></dl>
+
+</section>
+<section id="module-model.Evento">
+<span id="model-evento-module"></span><h2>model.Evento module<a class="headerlink" href="#module-model.Evento" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="model.Evento.Evento">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.Evento.</span></span><span class="sig-name descname"><span class="pre">Evento</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">titolo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">descrizione</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orario</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tipo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">azione_umana</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visto</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">terreno</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#model.Evento.Evento" title="Link a questa definizione"></a></dt>
+<dd><blockquote>
+<div><p>Basi: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</div></blockquote>
+</dd></dl>
+
+</section>
+<section id="module-model.ImpiantoDiIrrigazione">
+<span id="model-impiantodiirrigazione-module"></span><h2>model.ImpiantoDiIrrigazione module<a class="headerlink" href="#module-model.ImpiantoDiIrrigazione" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="model.ImpiantoDiIrrigazione.ImpiantoDiIrrigazione">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.ImpiantoDiIrrigazione.</span></span><span class="sig-name descname"><span class="pre">ImpiantoDiIrrigazione</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tipo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codice</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">posizione</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attivo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#model.ImpiantoDiIrrigazione.ImpiantoDiIrrigazione" title="Link a questa definizione"></a></dt>
+<dd><blockquote>
+<div><p>Basi: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</div></blockquote>
+</dd></dl>
+
+</section>
+<section id="module-model.Licenza">
+<span id="model-licenza-module"></span><h2>model.Licenza module<a class="headerlink" href="#module-model.Licenza" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="model.Licenza.Licenza">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.Licenza.</span></span><span class="sig-name descname"><span class="pre">Licenza</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tipo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">costo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_attivazione</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_scadenza</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaduta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proprietario</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#model.Licenza.Licenza" title="Link a questa definizione"></a></dt>
+<dd><blockquote>
+<div><p>Basi: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</div></blockquote>
+</dd></dl>
+
+</section>
+<section id="module-model.MetodoDiPagamento">
+<span id="model-metododipagamento-module"></span><h2>model.MetodoDiPagamento module<a class="headerlink" href="#module-model.MetodoDiPagamento" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="model.MetodoDiPagamento.MetodoDiPagamento">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.MetodoDiPagamento.</span></span><span class="sig-name descname"><span class="pre">MetodoDiPagamento</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_carta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">titolare</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scadenza</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cvv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proprietario</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#model.MetodoDiPagamento.MetodoDiPagamento" title="Link a questa definizione"></a></dt>
+<dd><blockquote>
+<div><p>Basi: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</div></blockquote>
+</dd></dl>
+
+</section>
+<section id="module-model.Schedule">
+<span id="model-schedule-module"></span><h2>model.Schedule module<a class="headerlink" href="#module-model.Schedule" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="model.Schedule.Schedule">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.Schedule.</span></span><span class="sig-name descname"><span class="pre">Schedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inizio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modalita</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">terreno</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#model.Schedule.Schedule" title="Link a questa definizione"></a></dt>
+<dd><blockquote>
+<div><p>Basi: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.Schedule.Schedule.modalita">
+<span class="sig-name descname"><span class="pre">modalita</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['nessuno',</span> <span class="pre">'basso',</span> <span class="pre">'medio',</span> <span class="pre">'alto']</span></em><a class="headerlink" href="#model.Schedule.Schedule.modalita" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-model.Terreno">
+<span id="model-terreno-module"></span><h2>model.Terreno module<a class="headerlink" href="#module-model.Terreno" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="model.Terreno.Terreno">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.Terreno.</span></span><span class="sig-name descname"><span class="pre">Terreno</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coltura</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stadio_crescita</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">posizione</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preferito</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priorita</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proprietario</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#model.Terreno.Terreno" title="Link a questa definizione"></a></dt>
+<dd><blockquote>
+<div><p>Basi: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="model.Terreno.Terreno.getcoltura">
+<span class="sig-name descname"><span class="pre">getcoltura</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.Terreno.Terreno.getcoltura" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="model.Terreno.Terreno.getid">
+<span class="sig-name descname"><span class="pre">getid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.Terreno.Terreno.getid" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="model.Terreno.Terreno.getnome">
+<span class="sig-name descname"><span class="pre">getnome</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.Terreno.Terreno.getnome" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="model.Terreno.Terreno.getposizione">
+<span class="sig-name descname"><span class="pre">getposizione</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.Terreno.Terreno.getposizione" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="model.Terreno.Terreno.getpreferito">
+<span class="sig-name descname"><span class="pre">getpreferito</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.Terreno.Terreno.getpreferito" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="model.Terreno.Terreno.getpriorita">
+<span class="sig-name descname"><span class="pre">getpriorita</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.Terreno.Terreno.getpriorita" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="model.Terreno.Terreno.getproprietario">
+<span class="sig-name descname"><span class="pre">getproprietario</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.Terreno.Terreno.getproprietario" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-model.Utente">
+<span id="model-utente-module"></span><h2>model.Utente module<a class="headerlink" href="#module-model.Utente" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="model.Utente.Utente">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.Utente.</span></span><span class="sig-name descname"><span class="pre">Utente</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cognome</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ruolo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataNascita</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partitaIVA</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codice</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indirizzo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datore</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#model.Utente.Utente" title="Link a questa definizione"></a></dt>
+<dd><blockquote>
+<div><p>Basi: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="model.Utente.Utente.get_id">
+<span class="sig-name descname"><span class="pre">get_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.Utente.Utente.get_id" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="model.Utente.Utente.is_active">
+<span class="sig-name descname"><span class="pre">is_active</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.Utente.Utente.is_active" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="model.Utente.Utente.is_anonymous">
+<span class="sig-name descname"><span class="pre">is_anonymous</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.Utente.Utente.is_anonymous" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="model.Utente.Utente.is_authenticated">
+<span class="sig-name descname"><span class="pre">is_authenticated</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.Utente.Utente.is_authenticated" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Piè di pagina">
+        <a href="Utente.html" class="btn btn-neutral float-left" title="Utente package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Precedente</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Pierluigi Lambiase, Carmine Laudato, Francesco Maria Puca, Gerardo Frino, Maria Lombardi, Benedetto Scala, Francesco Fattorusso.</p>
+  </div>
+
+  Realizzato con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornito da <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

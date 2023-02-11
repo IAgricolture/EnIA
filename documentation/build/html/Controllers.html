@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="it" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AmbienteAgricoloController &mdash; EnIA 1.0 documentazione</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Indice" href="genindex.html" />
+    <link rel="search" title="Cerca" href="search.html" />
+    <link rel="next" title="AmbienteAgricolo package" href="AmbienteAgricolo.html" />
+    <link rel="prev" title="Controllers" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> EnIA
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cerca documenti" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu di navigazione">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Controllers</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">AmbienteAgricoloController</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#autenticazionecontroller">AutenticazioneController</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gestioneeventicontroller">GestioneEventiController</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gestioneschedulecontroller">GestioneScheduleController</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#registrazioneschedulecontroller">RegistrazioneScheduleController</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gestioneutentecontroller">GestioneUtenteController</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#logic">logic</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu navigazione dispositivi mobili" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EnIA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Naviga tra le pagine">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Controllers</a></li>
+      <li class="breadcrumb-item active">AmbienteAgricoloController</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Controllers.rst.txt" rel="nofollow"> Visualizza sorgente pagina</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ambienteagricolocontroller">
+<h1>AmbienteAgricoloController<a class="headerlink" href="#ambienteagricolocontroller" title="Permalink to this heading"></a></h1>
+<dl class="http post">
+<dt class="sig sig-object http" id="post--aggiuntaTerreno">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/aggiuntaTerreno</span></span><a class="headerlink" href="#post--aggiuntaTerreno" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--aggiuntaTerreno">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/aggiuntaTerreno</span></span><a class="headerlink" href="#post--aggiuntaTerreno" title="Link a questa definizione"></a></dt>
+<dd><p>Permette l’aggiunta di un nuovo terreno all’utente farmer</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--aggiuntaTerreno">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/aggiuntaTerreno</span></span><a class="headerlink" href="#get--aggiuntaTerreno" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--aggiuntaTerreno">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/aggiuntaTerreno</span></span><a class="headerlink" href="#get--aggiuntaTerreno" title="Link a questa definizione"></a></dt>
+<dd><p>Permette l’aggiunta di un nuovo terreno all’utente farmer</p>
+</dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--modificaTerreno">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/modificaTerreno</span></span><a class="headerlink" href="#post--modificaTerreno" title="Link a questa definizione"></a></dt>
+<dd><p>Permette la modifica dei dati di un terreno all’utente farmer</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--modificaTerreno">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/modificaTerreno</span></span><a class="headerlink" href="#get--modificaTerreno" title="Link a questa definizione"></a></dt>
+<dd><p>Permette la modifica dei dati di un terreno all’utente farmer</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--eliminaTerreno">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/eliminaTerreno</span></span><a class="headerlink" href="#get--eliminaTerreno" title="Link a questa definizione"></a></dt>
+<dd><p>Permette l’eliminazione di un terreno all’utente farmer</p>
+</dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--dettagliterreno">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/dettagliterreno</span></span><a class="headerlink" href="#post--dettagliterreno" title="Link a questa definizione"></a></dt>
+<dd><p>Permette la visualizzazione di un terreno specifico</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--dettagliterreno">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/dettagliterreno</span></span><a class="headerlink" href="#get--dettagliterreno" title="Link a questa definizione"></a></dt>
+<dd><p>Permette la visualizzazione di un terreno specifico</p>
+</dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--getStoricoInquinamento">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/getStoricoInquinamento</span></span><a class="headerlink" href="#post--getStoricoInquinamento" title="Link a questa definizione"></a></dt>
+<dd><p>Permette la visualizzazione dello storico degli agenti inquinanti di un terreno</p>
+</dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--downloadStoricoInquinamento">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/downloadStoricoInquinamento</span></span><a class="headerlink" href="#post--downloadStoricoInquinamento" title="Link a questa definizione"></a></dt>
+<dd><p>Permette il download dello storico inquinamento</p>
+</dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--aggiungiIrrigatore">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/aggiungiIrrigatore</span></span><a class="headerlink" href="#post--aggiungiIrrigatore" title="Link a questa definizione"></a></dt>
+<dd><p>Permette l’aggiunta di un irrigatore ad un utente</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--aggiungiIrrigatore">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/aggiungiIrrigatore</span></span><a class="headerlink" href="#get--aggiungiIrrigatore" title="Link a questa definizione"></a></dt>
+<dd><p>Permette l’aggiunta di un irrigatore ad un utente</p>
+</dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--getIrrigatore">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/getIrrigatore</span></span><a class="headerlink" href="#post--getIrrigatore" title="Link a questa definizione"></a></dt>
+<dd><p>Permette la visualizzazione di tutti gli irrigatori presenti su un terreno</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--getIrrigatore">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/getIrrigatore</span></span><a class="headerlink" href="#get--getIrrigatore" title="Link a questa definizione"></a></dt>
+<dd><p>Permette la visualizzazione di tutti gli irrigatori presenti su un terreno</p>
+</dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--modificaIrrigatore">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/modificaIrrigatore</span></span><a class="headerlink" href="#post--modificaIrrigatore" title="Link a questa definizione"></a></dt>
+<dd><p>Permette la modifica dei dati di un irrigatore</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--modificaIrrigatore">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/modificaIrrigatore</span></span><a class="headerlink" href="#get--modificaIrrigatore" title="Link a questa definizione"></a></dt>
+<dd><p>Permette la modifica dei dati di un irrigatore</p>
+</dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--visualizzaIrrigatori">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/visualizzaIrrigatori</span></span><a class="headerlink" href="#post--visualizzaIrrigatori" title="Link a questa definizione"></a></dt>
+<dd><p>Permette la visualizzazionde di tutti gli irrigatori di un terreno</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--visualizzaIrrigatori">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/visualizzaIrrigatori</span></span><a class="headerlink" href="#get--visualizzaIrrigatori" title="Link a questa definizione"></a></dt>
+<dd><p>Permette la visualizzazionde di tutti gli irrigatori di un terreno</p>
+</dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--eliminaIrrigatore">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/eliminaIrrigatore</span></span><a class="headerlink" href="#post--eliminaIrrigatore" title="Link a questa definizione"></a></dt>
+<dd><p>Permette l’eliminazione di un irrigatore</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--eliminaIrrigatore">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/eliminaIrrigatore</span></span><a class="headerlink" href="#get--eliminaIrrigatore" title="Link a questa definizione"></a></dt>
+<dd><p>Permette l’eliminazione di un irrigatore</p>
+</dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--attivaDisattivaIrrigatore">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/attivaDisattivaIrrigatore</span></span><a class="headerlink" href="#post--attivaDisattivaIrrigatore" title="Link a questa definizione"></a></dt>
+<dd><p>Permette l’attivazione e la disattivazione di un irrigatore</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--attivaDisattivaIrrigatore">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/attivaDisattivaIrrigatore</span></span><a class="headerlink" href="#get--attivaDisattivaIrrigatore" title="Link a questa definizione"></a></dt>
+<dd><p>Permette l’attivazione e la disattivazione di un irrigatore</p>
+</dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--visualizzaTerreni">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/visualizzaTerreni</span></span><a class="headerlink" href="#post--visualizzaTerreni" title="Link a questa definizione"></a></dt>
+<dd><p>Permette la visualizzazione di tutti i terreni di proprietà di utente farmer</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--visualizzaTerreni">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/visualizzaTerreni</span></span><a class="headerlink" href="#get--visualizzaTerreni" title="Link a questa definizione"></a></dt>
+<dd><p>Permette la visualizzazione di tutti i terreni di proprietà di utente farmer</p>
+</dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--visualizzaPredizioneIrrigazione">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/visualizzaPredizioneIrrigazione</span></span><a class="headerlink" href="#post--visualizzaPredizioneIrrigazione" title="Link a questa definizione"></a></dt>
+<dd><p>Permette la visualizzazione della predizione di irrigazione fornita dal modulo AI</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--visualizzaPredizioneIrrigazione">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/visualizzaPredizioneIrrigazione</span></span><a class="headerlink" href="#get--visualizzaPredizioneIrrigazione" title="Link a questa definizione"></a></dt>
+<dd><p>Permette la visualizzazione della predizione di irrigazione fornita dal modulo AI</p>
+</dd></dl>
+
+</section>
+<section id="autenticazionecontroller">
+<h1>AutenticazioneController<a class="headerlink" href="#autenticazionecontroller" title="Permalink to this heading"></a></h1>
+<dl class="http post">
+<dt class="sig sig-object http" id="post--login">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/login</span></span><a class="headerlink" href="#post--login" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--login">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/login</span></span><a class="headerlink" href="#post--login" title="Link a questa definizione"></a></dt>
+<dd><p>Controlla le credenziali inserite dall’utente, se c’è una corrispondenza
+sul database il sistema cambia il suo stato da anonimo ad utente loggato</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--login">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/login</span></span><a class="headerlink" href="#get--login" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--login">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/login</span></span><a class="headerlink" href="#get--login" title="Link a questa definizione"></a></dt>
+<dd><p>Controlla le credenziali inserite dall’utente, se c’è una corrispondenza
+sul database il sistema cambia il suo stato da anonimo ad utente loggato</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--logout">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/logout</span></span><a class="headerlink" href="#get--logout" title="Link a questa definizione"></a></dt>
+<dd><p>Effettua il logout di un utente</p>
+</dd></dl>
+
+</section>
+<section id="gestioneeventicontroller">
+<h1>GestioneEventiController<a class="headerlink" href="#gestioneeventicontroller" title="Permalink to this heading"></a></h1>
+<dl class="http post">
+<dt class="sig sig-object http" id="post--eventi">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/eventi</span></span><a class="headerlink" href="#post--eventi" title="Link a questa definizione"></a></dt>
+<dd><p>Carica dal DataBase tutti gli eventi associati ad quel terreno</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--eventi">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/eventi</span></span><a class="headerlink" href="#get--eventi" title="Link a questa definizione"></a></dt>
+<dd><p>Carica dal DataBase tutti gli eventi associati ad quel terreno</p>
+</dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--cancellaTuttiEventi">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/cancellaTuttiEventi</span></span><a class="headerlink" href="#post--cancellaTuttiEventi" title="Link a questa definizione"></a></dt>
+<dd><p>Cancella un singolo evento associati ad quel terreno</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--cancellaTuttiEventi">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/cancellaTuttiEventi</span></span><a class="headerlink" href="#get--cancellaTuttiEventi" title="Link a questa definizione"></a></dt>
+<dd><p>Cancella un singolo evento associati ad quel terreno</p>
+</dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--eliminaEvento">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/eliminaEvento</span></span><a class="headerlink" href="#post--eliminaEvento" title="Link a questa definizione"></a></dt>
+<dd><p>Cancella tutti gli eventi associati ad quel terreno</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--eliminaEvento">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/eliminaEvento</span></span><a class="headerlink" href="#get--eliminaEvento" title="Link a questa definizione"></a></dt>
+<dd><p>Cancella tutti gli eventi associati ad quel terreno</p>
+</dd></dl>
+
+</section>
+<section id="gestioneschedulecontroller">
+<h1>GestioneScheduleController<a class="headerlink" href="#gestioneschedulecontroller" title="Permalink to this heading"></a></h1>
+<dl class="http post">
+<dt class="sig sig-object http" id="post--schedule">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/schedule</span></span><a class="headerlink" href="#post--schedule" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--schedule">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/schedule</span></span><a class="headerlink" href="#post--schedule" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo restituisce lo schedule settimanale di un terreno</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--schedule">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/schedule</span></span><a class="headerlink" href="#get--schedule" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--schedule">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/schedule</span></span><a class="headerlink" href="#get--schedule" title="Link a questa definizione"></a></dt>
+<dd><p>Questo metodo restituisce lo schedule settimanale di un terreno</p>
+</dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--modificaLivelloSchedule">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/modificaLivelloSchedule</span></span><a class="headerlink" href="#post--modificaLivelloSchedule" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--usaSchedulingConsigliato">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/usaSchedulingConsigliato</span></span><a class="headerlink" href="#post--usaSchedulingConsigliato" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="registrazioneschedulecontroller">
+<h1>RegistrazioneScheduleController<a class="headerlink" href="#registrazioneschedulecontroller" title="Permalink to this heading"></a></h1>
+<dl class="http post">
+<dt class="sig sig-object http" id="post--register">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/register</span></span><a class="headerlink" href="#post--register" title="Link a questa definizione"></a></dt>
+<dd><p>Permette di effettuare la registrazione di un dipendente tramite codice di accesso</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--register">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/register</span></span><a class="headerlink" href="#get--register" title="Link a questa definizione"></a></dt>
+<dd><p>Permette di effettuare la registrazione di un dipendente tramite codice di accesso</p>
+</dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--registerf">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/registerf</span></span><a class="headerlink" href="#post--registerf" title="Link a questa definizione"></a></dt>
+<dd><p>Permette di effettuare la registrazione da parte del farmer</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--registerf">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/registerf</span></span><a class="headerlink" href="#get--registerf" title="Link a questa definizione"></a></dt>
+<dd><p>Permette di effettuare la registrazione da parte del farmer</p>
+</dd></dl>
+
+</section>
+<section id="gestioneutentecontroller">
+<h1>GestioneUtenteController<a class="headerlink" href="#gestioneutentecontroller" title="Permalink to this heading"></a></h1>
+<dl class="http post">
+<dt class="sig sig-object http" id="post--user">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/user</span></span><a class="headerlink" href="#post--user" title="Link a questa definizione"></a></dt>
+<dd><p>Permette sia la visualizzazione sia la modifica dei dati degli utenti</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--user">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/user</span></span><a class="headerlink" href="#get--user" title="Link a questa definizione"></a></dt>
+<dd><p>Permette sia la visualizzazione sia la modifica dei dati degli utenti</p>
+</dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--AziendaAgricola">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/AziendaAgricola</span></span><a class="headerlink" href="#post--AziendaAgricola" title="Link a questa definizione"></a></dt>
+<dd><p>Permette la visualizzazione dei dipendenti di un farmer</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--AziendaAgricola">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/AziendaAgricola</span></span><a class="headerlink" href="#get--AziendaAgricola" title="Link a questa definizione"></a></dt>
+<dd><p>Permette la visualizzazione dei dipendenti di un farmer</p>
+</dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--removeFromAzienda">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/removeFromAzienda</span></span><a class="headerlink" href="#post--removeFromAzienda" title="Link a questa definizione"></a></dt>
+<dd><p>Permette la rimozione di un dipendente</p>
+</dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--GenCode">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/GenCode</span></span><a class="headerlink" href="#post--GenCode" title="Link a questa definizione"></a></dt>
+<dd><p>Permette di generare un codice di accesso per un dipendente</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--GenCode">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/GenCode</span></span><a class="headerlink" href="#get--GenCode" title="Link a questa definizione"></a></dt>
+<dd><p>Permette di generare un codice di accesso per un dipendente</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Piè di pagina">
+        <a href="modules.html" class="btn btn-neutral float-left" title="Controllers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Precedente</a>
+        <a href="AmbienteAgricolo.html" class="btn btn-neutral float-right" title="AmbienteAgricolo package" accesskey="n" rel="next">Prossimo <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Pierluigi Lambiase, Carmine Laudato, Francesco Maria Puca, Gerardo Frino, Maria Lombardi, Benedetto Scala, Francesco Fattorusso.</p>
+  </div>
+
+  Realizzato con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornito da <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
