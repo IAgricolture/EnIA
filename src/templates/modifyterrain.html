@@ -13,11 +13,13 @@
   <!-- endinject -->
   <!-- plugin css for this page -->
    <!-- plugin css for this page -->
+
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
      integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
      crossorigin=""/>
      <style>
       #map{
+        border-radius: 3%;
           height: 400px;
       }
   </style>
@@ -26,6 +28,9 @@
   <link rel="stylesheet" href="/static/css/vertical-layout-light/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="/static/images/enia.png" />
+  <link rel = "stylesheet" href ="/static/css/stile.css">
+  <link rel = "stylesheet" href = "/static/css/log.css">
+
 </head>
 
 <body>
@@ -171,7 +176,7 @@
       <div class="main-panel">
       <div class="content-wrapper d-flex align-items-center auth px-0"  style="background-image: url('/static/images/register.jpg'); background-repeat: no-repeat; background-size: cover;">>
         <div class="row w-100 mx-0">
-          <div class="col-lg-12 mx-auto">
+          <div class="col-lg-8 mb-3 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
               <div class="brand-logo">
                 <img src="/static/images/enia.png" alt="logo">
@@ -181,7 +186,7 @@
               <div id="map">
               </div>
               <div class="mt-3">
-                <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" style= "background-color: #92E351; border-color: #92E351" onclick="resetMapModifica(points)">MODIFICA CONFINI</a>
+                <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" style= "background-color: #92E351; border-color: #92E351" onclick="resetMapModifica(points)">Resetta I Confini</a>
               </div>
               <div id = "spazioNotifica" class="mb-4">
               </div>
@@ -235,6 +240,12 @@
     </div>
     <!-- page-body-wrapper ends -->
   </div>
+  <footer class="footer" style= "background: border-box">
+    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+      <span class="text-center text-sm-left d-block d-sm-inline-block">Progetto IS e GPS <a href="#" target="_blank">EnIA</a> 2023</span>
+      <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Sviluppato da: Benedetto Scala, Maria Lombardi, Gerardo Frino, Francesco Maria Puca, Francesco Fattorusso</span>
+    </div>
+  </footer>
   <!-- container-scroller -->
   <!-- base:js -->
   <script src="/static/vendors/js/vendor.bundle.base.js"></script>

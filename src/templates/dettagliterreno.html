@@ -20,10 +20,14 @@
      integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
      crossorigin=""/>
      <style>
+      .card{
+        border-radius: 3%;
+      }
       #datiMeteo{
         width: 100%;
       }
       #map{
+        border-radius: 3%;
           height: 400px;
           width: 100%;
           z-index: 1;
@@ -340,7 +344,10 @@
                                 <div id = "pm10" class="text-muted"></div>
                               </div>
                           </div>
-                           <div class="btn-group-sm mr-2 mb-4" id = "bottoniInq" role="group">
+                           <div class="btn-group-sm mr-2 mb-4" style = 
+                               "position: absolute;
+                               bottom: 0;"
+                               id = "bottoniInq" role="group">
                             <button type="button" id="bottoneinq1"  style= "background-color: #92E351; border-color: #92E351" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Tabella</button>
                             <button type="button" id="bottoneinq2"  style= "background-color: #92E351; border-color: #92E351" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Grafico1</button>
                             <button type="button" id="bottoneinq3"  style= "background-color: #92E351; border-color: #92E351" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Grafico2</button>
@@ -487,17 +494,19 @@
           
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
-          <footer class="footer">
-            <div class="d-sm-flex justify-content-center justify-content-sm-between">
-              <span class="text-center text-sm-left d-block d-sm-inline-block">Progetto EnIA</span>
-            </div>
-          </footer>
+          
           <!-- partial -->
         </div>
         <!-- main-panel ends -->
       </div>
       <!-- page-body-wrapper ends -->
     </div>
+    <footer class="footer" style= "background: border-box">
+      <div class="d-sm-flex justify-content-center justify-content-sm-between">
+        <span class="text-center text-sm-left d-block d-sm-inline-block">Progetto IS e GPS <a href="#" target="_blank">EnIA</a> 2023</span>
+        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Sviluppato da: Benedetto Scala, Maria Lombardi, Gerardo Frino, Francesco Maria Puca, Francesco Fattorusso</span>
+      </div>
+    </footer>
     <!--Lo script della divisione ruoli è più in alto perchè deve essere caricato prima di tutti gli altri-->
     <script>
       //Divisione Ruoli
