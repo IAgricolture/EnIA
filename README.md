@@ -1,7 +1,7 @@
 # Enia
 
 <p align = "center">
-  <img src = "enia-logo.png" width = "256" heigth = "256">
+  <img src = "src/static/images/enia.png" width = "256" heigth = "256">
 </p>
 
 <p align = "center">
@@ -26,7 +26,7 @@ Produced for the Software Engineering and Software Project Management courses of
 * **Carmine Laudato**       - *Project Manager*         - [carminelau](https://github.com/carminelau)
 * **PierLuigi Lambiase**   - *Project Manager*         - [pierluigilambiase](https://github.com/pierluigilambiase)
 * **Gerardo Frino**      - *Developer*         - [Paneenutella0654](https://github.com/Paneenutella0654)
-* **Benedetto Scala **      - *Developer*         - [benedettoscala](https://github.com/benedettoscala)
+* **Benedetto Scala**      - *Developer*         - [benedettoscala](https://github.com/benedettoscala)
 * **Maria Lombardi**         - *Developer*         - [marialombardi861](https://github.com/marialombardi861)
 * **Francesco Fattorusso**       - *Developer*         - [OddSnike](https://github.com/OddSnike)
 * **Francesco Maria Puca**        - *Developer*         - [FraPCA](https://github.com/FraPCA)
@@ -46,8 +46,7 @@ Follow these steps:
 
 1. Clone this repository locally;
 2. Create a virtual environment and install the libraries contained in the "requirements.txt" file;
-3. mettere info database
-4. Run the "main.py" file and open the web application available at the URL "http://localhost:5000"
+2. Run the "app.py" file and open the web application available at the URL "http://localhost:5000"
 
 ## Built With
 
