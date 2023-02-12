@@ -1,7 +1,9 @@
 import datetime
 
+
 class DatiMeteo():
-    def __init__(self, nome : str, data_rilevazione : datetime, estremo : bool, pressione : int, umidità : int, temperatura : int, vento_direzione : int, vento_intensità : float,terreno : str, id = 0):
+    def __init__(self, nome: str, data_rilevazione: datetime, estremo: bool, pressione: int, umidità: int,
+                 temperatura: int, vento_direzione: int, vento_intensità: float, terreno: str, id=0):
         self.nome = nome
         self.data_rilevazione = data_rilevazione
         self.estremo = estremo

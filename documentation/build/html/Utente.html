@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="it" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Utente package &mdash; EnIA 1.0 documentazione</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Indice" href="genindex.html" />
+    <link rel="search" title="Cerca" href="search.html" />
+    <link rel="next" title="model package" href="model.html" />
+    <link rel="prev" title="Storage package" href="Storage.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> EnIA
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cerca documenti" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu di navigazione">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Controllers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html#logic">logic</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="AmbienteAgricolo.html">AmbienteAgricolo package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Autenticazione.html">Autenticazione package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DecisionIntelligence.html">DecisionIntelligence package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GestioneEventi.html">GestioneEventi package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GestionePagamento.html">GestionePagamento package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Registrazione.html">Registrazione package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Storage.html">Storage package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Utente package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#utente-gestioneutentecontroller-module">Utente.GestioneUtenteController module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-Utente.GestioneUtenteService">Utente.GestioneUtenteService module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Utente.GestioneUtenteService.GestioneUtenteService"><code class="docutils literal notranslate"><span class="pre">GestioneUtenteService</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Utente.GestioneUtenteService.random_string"><code class="docutils literal notranslate"><span class="pre">random_string()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="model.html">model package</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu navigazione dispositivi mobili" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EnIA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Naviga tra le pagine">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Controllers</a></li>
+      <li class="breadcrumb-item active">Utente package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Utente.rst.txt" rel="nofollow"> Visualizza sorgente pagina</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="utente-package">
+<h1>Utente package<a class="headerlink" href="#utente-package" title="Permalink to this heading"></a></h1>
+<section id="utente-gestioneutentecontroller-module">
+<h2>Utente.GestioneUtenteController module<a class="headerlink" href="#utente-gestioneutentecontroller-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-Utente.GestioneUtenteService">
+<span id="utente-gestioneutenteservice-module"></span><h2>Utente.GestioneUtenteService module<a class="headerlink" href="#module-Utente.GestioneUtenteService" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Utente.GestioneUtenteService.GestioneUtenteService">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Utente.GestioneUtenteService.</span></span><span class="sig-name descname"><span class="pre">GestioneUtenteService</span></span><a class="headerlink" href="#Utente.GestioneUtenteService.GestioneUtenteService" title="Link a questa definizione"></a></dt>
+<dd><blockquote>
+<div><p>Basi: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</div></blockquote>
+<p>Classe Service di Gestione Utente</p>
+<p>…</p>
+<section id="attributi">
+<h3>Attributi<a class="headerlink" href="#attributi" title="Permalink to this heading"></a></h3>
+<p>None</p>
+</section>
+<section id="metodi">
+<h3>Metodi<a class="headerlink" href="#metodi" title="Permalink to this heading"></a></h3>
+<dl class="simple">
+<dt>modificaUtente(current_user):</dt><dd><p>Permette la modifica dei dati di un utente</p>
+</dd>
+<dt>modificaMetodo(mp: MetodoDiPagamento, num_carta:str, titolare:str, scadenza:str, cvv:str):</dt><dd><p>Permette la modifica dei dati di un metodo di pagamento</p>
+</dd>
+<dt>findLicenzaByProprietario(id:str):</dt><dd><p>Cerca la licenza di un utente farmer</p>
+</dd>
+<dt>getUtenti(id: str):</dt><dd><p>Permette di recuperare la lista dei dipendenti di un utente farmer</p>
+</dd>
+<dt>findMetodoByProprietario(id:str):</dt><dd><p>Cerca il metodo di un utente farmer</p>
+</dd>
+<dt>removeUtenteFromAzienda(id:str):</dt><dd><p>Rimuove un dipendente</p>
+</dd>
+<dt>GenerateCode(ruolo:str, datore:str):</dt><dd><p>Genera un codice di accesso per un dipendente</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="Utente.GestioneUtenteService.GestioneUtenteService.GenerateCode">
+<span class="sig-name descname"><span class="pre">GenerateCode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datore</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#Utente.GestioneUtenteService.GestioneUtenteService.GenerateCode" title="Link a questa definizione"></a></dt>
+<dd><p>Genera un codice di accesso per un dipendente</p>
+<section id="parametri">
+<h4>Parametri<a class="headerlink" href="#parametri" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>ruolo<span class="classifier">str</span></dt><dd><p>Ruolo del dipendente</p>
+</dd>
+<dt>datore<span class="classifier">str</span></dt><dd><p>Id utente farmer</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h4>Returns<a class="headerlink" href="#returns" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>codice<span class="classifier">str</span></dt><dd><p>Il codice di accesso</p>
+</dd>
+<dt>«Error»<span class="classifier">str</span></dt><dd><p>Non è stato possibile generare il codice</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Utente.GestioneUtenteService.GestioneUtenteService.findLicenzaByProprietario">
+<span class="sig-name descname"><span class="pre">findLicenzaByProprietario</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Licenza</span></span></span><a class="headerlink" href="#Utente.GestioneUtenteService.GestioneUtenteService.findLicenzaByProprietario" title="Link a questa definizione"></a></dt>
+<dd><p>Cerca la licenza di un utente farmer</p>
+<section id="id1">
+<h4>Parametri<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id<span class="classifier">str</span></dt><dd><p>Id utente farmer</p>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h4>Returns<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>LicenzaDAO.findLicenzaByProprietario(id)<span class="classifier">Licenza</span></dt><dd><p>Licenza recuperata</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Utente.GestioneUtenteService.GestioneUtenteService.findMetodoByProprietario">
+<span class="sig-name descname"><span class="pre">findMetodoByProprietario</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">MetodoDiPagamento</span></span></span><a class="headerlink" href="#Utente.GestioneUtenteService.GestioneUtenteService.findMetodoByProprietario" title="Link a questa definizione"></a></dt>
+<dd><p>Cerca il metodo di un utente farmer</p>
+<section id="id3">
+<h4>Parametri<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id<span class="classifier">str</span></dt><dd><p>Id utente farmer</p>
+</dd>
+</dl>
+</section>
+<section id="id4">
+<h4>Returns<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>MetodoDiPagamentoDAO.findMetodoByProprietario(id)<span class="classifier">MetodoDiPagamento</span></dt><dd><p>MetodoDiPagamento recuperato</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Utente.GestioneUtenteService.GestioneUtenteService.getUtenti">
+<span class="sig-name descname"><span class="pre">getUtenti</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#Utente.GestioneUtenteService.GestioneUtenteService.getUtenti" title="Link a questa definizione"></a></dt>
+<dd><p>Permette di recuperare la lista dei dipendenti di un utente farmer</p>
+<section id="id5">
+<h4>Parametri<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id<span class="classifier">str</span></dt><dd><p>Id utente farmer</p>
+</dd>
+</dl>
+</section>
+<section id="id6">
+<h4>Returns<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>AutenticazioneDAO.listaDipendenti(id)<span class="classifier">list</span></dt><dd><p>Lista dei dipendenti</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Utente.GestioneUtenteService.GestioneUtenteService.modificaLicenza">
+<span class="sig-name descname"><span class="pre">modificaLicenza</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nuovotipo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Utente.GestioneUtenteService.GestioneUtenteService.modificaLicenza" title="Link a questa definizione"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Utente.GestioneUtenteService.GestioneUtenteService.modificaMetodo">
+<span class="sig-name descname"><span class="pre">modificaMetodo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_carta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">titolare</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scadenza</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cvv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Utente.GestioneUtenteService.GestioneUtenteService.modificaMetodo" title="Link a questa definizione"></a></dt>
+<dd><p>Permette la modifica dei dati di un metodo di pagamento</p>
+<section id="id7">
+<h4>Parametri<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>mp<span class="classifier">MetodoDiPagamento</span></dt><dd><p>Metodo Di Pagamento da modificare</p>
+</dd>
+<dt>num_carta<span class="classifier">str</span></dt><dd><p>Numero della carta</p>
+</dd>
+<dt>titolare<span class="classifier">str</span></dt><dd><p>Titolare della carta</p>
+</dd>
+<dt>scadenza<span class="classifier">str</span></dt><dd><p>Scadenza della carta</p>
+</dd>
+<dt>cvv<span class="classifier">str</span></dt><dd><p>Cvv della carta</p>
+</dd>
+</dl>
+</section>
+<section id="id8">
+<h4>Returns<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h4>
+<p>None</p>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Utente.GestioneUtenteService.GestioneUtenteService.modificaUtente">
+<span class="sig-name descname"><span class="pre">modificaUtente</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Utente.GestioneUtenteService.GestioneUtenteService.modificaUtente" title="Link a questa definizione"></a></dt>
+<dd><p>Permette la modifica dei dati di un utente</p>
+<section id="id9">
+<h4>Parametri<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>current_user<span class="classifier">Utente</span></dt><dd><p>Utente da modificare</p>
+</dd>
+</dl>
+</section>
+<section id="id10">
+<h4>Returns<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h4>
+<p>None</p>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Utente.GestioneUtenteService.GestioneUtenteService.removeUtenteFromAzienda">
+<span class="sig-name descname"><span class="pre">removeUtenteFromAzienda</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#Utente.GestioneUtenteService.GestioneUtenteService.removeUtenteFromAzienda" title="Link a questa definizione"></a></dt>
+<dd><p>Rimuove un dipendente</p>
+<section id="id11">
+<h4>Parametri<a class="headerlink" href="#id11" title="Permalink to this heading"></a></h4>
+<dl class="simple">
+<dt>id<span class="classifier">str</span></dt><dd><p>Id utente da rimuovere</p>
+</dd>
+</dl>
+</section>
+<section id="id12">
+<h4>Returns<a class="headerlink" href="#id12" title="Permalink to this heading"></a></h4>
+<p>None</p>
+</section>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Utente.GestioneUtenteService.random_string">
+<span class="sig-prename descclassname"><span class="pre">Utente.GestioneUtenteService.</span></span><span class="sig-name descname"><span class="pre">random_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">length</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Utente.GestioneUtenteService.random_string" title="Link a questa definizione"></a></dt>
+<dd><p>Genera un stringa randomica</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Piè di pagina">
+        <a href="Storage.html" class="btn btn-neutral float-left" title="Storage package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Precedente</a>
+        <a href="model.html" class="btn btn-neutral float-right" title="model package" accesskey="n" rel="next">Prossimo <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Pierluigi Lambiase, Carmine Laudato, Francesco Maria Puca, Gerardo Frino, Maria Lombardi, Benedetto Scala, Francesco Fattorusso.</p>
+  </div>
+
+  Realizzato con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornito da <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

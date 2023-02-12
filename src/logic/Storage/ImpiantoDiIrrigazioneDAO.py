@@ -6,28 +6,76 @@ from bson.objectid import ObjectId
 
 
 class ImpiantoDiIrrigazioneDAO():
+    '''
+    Classe DAO di Impianto di Irrigazione 
 
+    ...
 
-    def findImpiantiByTerreno(idTerreno:str):
-        #trova impianti sul database con l'id del terreno
-        impiantiTrovati = impianti.find({"terreno" : ObjectId(idTerreno)})
-        impiantiTrovati = list(impiantiTrovati)
+    Attributi
+    ----------
+    None
+
+    Metodi
+    -------
+    findImpiantiByTerreno(idTerreno: str):
+        Questo metodo trova tutti gli impiati di irrigazioni associati a id del terreno 
+    findImpiantoById(id: str):
+        Questo metodo trova un Impianto di irrigazione sul database, usando il suo ObjectId
+    creaImpianto(impianto: ImpiantoDiIrrigazione, idTerreno: str)        
+        Questo metodo instanzia un impianto di irrigazione sul database
+    modificaImpianto(impianto: ImpiantoDiIrrigazione):
+        Questo metodo permette la modifica di un impianto di irrigazione sul database
+    attivaImpianto(id: str):
+        Questo metodo attiva un impianto di irrigazione sul database tramite il suo id 
+    disattivaImpianto(id: str):
+        Questo metodo disattiva un impianto di irrigazione sul database tramite il suo id 
+    eliminaImpianto(id: str):
+        Questo metodo elimina un impianto di irrigazione sul database tramite il suo id 
+
+    '''
+    
+    def findImpiantiByTerreno(idTerreno: str):
+        '''
+        Questo metodo trova tutti gli impiati di irrigazioni associati a id del terreno 
+
+        Parametri
+        ----------
+        idTerreno: str
+            id del Terreno
+
+        Returns
+        -------
+        impiantiTrovato : ImpiantoDiIrrigazione
+            Restituisce una lista contenete gli impianti trovati 
+        '''
         
-        #cast all objectid to string
+        # trova impianti sul database con l'id del terreno
+        impiantiTrovati = impianti.find({"terreno": ObjectId(idTerreno)})
+        impiantiTrovati = list(impiantiTrovati)
+
+        # cast all objectid to string
         for impianto in impiantiTrovati:
             impianto["_id"] = str(impianto["_id"])
             impianto["terreno"] = str(impianto["terreno"])
-        
-        
+
         return list(impiantiTrovati)
 
-    def findImpiantoById(id : str) -> ImpiantoDiIrrigazione:
-        """
-            Questo metodo trova un Impianto di irrigazione sul database, usando il suo ObjectId
-            :return: ImpiantoDiIrrigazione
-        """
-        trovato = impianti.find_one({"_id" : ObjectId(id)})
-        
+    def findImpiantoById(id: str) -> ImpiantoDiIrrigazione:
+        '''
+        Questo metodo trova un Impianto di irrigazione sul database, usando il suo ObjectId
+
+        Parametri
+        ----------
+        id: str
+            id del Impianto
+
+        Returns
+        -------
+        impiantoTrovato : ImpiantoDiIrrigazione
+            Restituisce l'occorenza trovata con quell id 
+        '''
+        trovato = impianti.find_one({"_id": ObjectId(id)})
+
         id = str(trovato.get("_id"))
         nome = str(trovato.get("nome"))
         tipo = str(trovato.get("tipo"))
@@ -35,81 +83,128 @@ class ImpiantoDiIrrigazioneDAO():
         attivo = bool(trovato.get("attivo"))
         posizione = trovato.get("posizione")
 
-        impiantoTrovato = ImpiantoDiIrrigazione(id, nome, tipo, codice, posizione, attivo)
+        impiantoTrovato = ImpiantoDiIrrigazione(
+            id, nome, tipo, codice, posizione, attivo)
 
         return impiantoTrovato
-    
-    def creaImpianto(impianto : ImpiantoDiIrrigazione, idTerreno: str) -> str:
-        """
-            Questo metodo instanzia un impianto di irrigazione sul database
-        """  
-           
+
+    def creaImpianto(impianto: ImpiantoDiIrrigazione, idTerreno: str) -> str:
+        '''
+        Questo metodo instanzia un impianto di irrigazione sul database
+
+        Parametri
+        ----------
+        idTerreno: str
+            id del Terreno
+        Impianto: ImpiantoDiIrrigazione
+            istanza da craeare nel DataBase
+
+        Returns
+        -------
+        result : str
+            Restituisce l'id del impianto appena craeato 
+        '''
+
         result = impianti.insert_one({
-            "nome" : impianto.nome,
-            "tipo" : impianto.tipo,
-            "codice" : impianto.codice,
-            "attivo" : impianto.attivo,
+            "nome": impianto.nome,
+            "tipo": impianto.tipo,
+            "codice": impianto.codice,
+            "attivo": impianto.attivo,
             "posizione": impianto.posizione,
             "terreno": ObjectId(idTerreno)
         })
-        
+
         return str(result.inserted_id)
-    
-    def modificaImpianto(impianto : ImpiantoDiIrrigazione):
-        """
-            Questo metodo modifica un impianto di irrigazione sul database
-        """  
+
+    def modificaImpianto(impianto: ImpiantoDiIrrigazione):
+        '''
+        Questo metodo permette la modifica di un impianto di irrigazione sul database
+
+        Parametri
+        ----------
+        impianto: ImpiantoDiIrrigazione
+            istanza su cui effetuare la modifica
+
+        Returns
+        -------
+        '''
         impianti.update_one(
-            {"_id" : ObjectId(impianto.id)},
+            {"_id": ObjectId(impianto.id)},
             {
-                "$set" : {
-                    "nome" : impianto.nome,
-                    "tipo" : impianto.tipo,
-                    "codice" : impianto.codice,
-                    "attivo" : impianto.attivo,
+                "$set": {
+                    "nome": impianto.nome,
+                    "tipo": impianto.tipo,
+                    "codice": impianto.codice,
+                    "attivo": impianto.attivo,
                     "posizione": impianto.posizione
                 }
             }
         )
-    
-    def attivaImpianto(id : str):
-        """
-            Questo metodo attiva un impianto di irrigazione sul database
-        """  
+
+    def attivaImpianto(id: str):
+        '''
+        Questo metodo attiva un impianto di irrigazione sul database tramite il suo id
+
+        Parametri
+        ----------
+        id: str
+            id del Impianto da attivare 
+
+        Returns
+        -------
+        Result : int
+            Restituisce un valore intero per il controllo
+        '''
         result = impianti.update_one(
-            {"_id" : ObjectId(id)},
+            {"_id": ObjectId(id)},
             {
-                "$set" : {
-                    "attivo" : True
+                "$set": {
+                    "attivo": True
                 }
             }
         )
-        #se non è stato trovato nessun impianto con quell'id
+        # se non è stato trovato nessun impianto con quell'id
         return result.modified_count == 1
-    
-    def disattivaImpianto(id : str):
-        """
-            Questo metodo disattiva un impianto di irrigazione sul database
-        """  
+
+    def disattivaImpianto(id: str):
+        '''
+        Questo metodo disattiva un impianto di irrigazione sul database tramite il suo id
+
+        Parametri
+        ----------
+        id: str
+            id del Impianto da disattivare 
+
+        Returns
+        -------
+        Result : int
+            Restituisce un valore intero per il controllo
+        '''
         result = impianti.update_one(
-            {"_id" : ObjectId(id)},
+            {"_id": ObjectId(id)},
             {
-                "$set" : {
-                    "attivo" : False
+                "$set": {
+                    "attivo": False
                 }
             }
         )
-        #se non è stato trovato nessun impianto con quell'id
+        # se non è stato trovato nessun impianto con quell'id
         return result.modified_count == 1
-    
-    def eliminaImpianto(id : str):
-        """
-            Questo metodo elimina un impianto di irrigazione sul database
-        """  
-        impianti.delete_one({"_id" : ObjectId(id)})
-        
 
+    def eliminaImpianto(id: str):
+        '''
+        Questo metodo elimina un impianto di irrigazione sul database tramite il suo id
 
+        Parametri
+        ----------
+        id: str
+            id del Impianto da eliminare
 
-
-
+        Returns
+        -------
+        '''
+        result = impianti.delete_one({"_id" : ObjectId(id)})
+        if(result.deleted_count == 1):
+            return True
+        else:
+            return False

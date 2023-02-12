@@ -34,10 +34,8 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="http://localhost:5000/index.html"><img src="/static/images/enia.png"
-            alt="logo"></a>
-        <a class="navbar-brand brand-logo-mini" href="http://localhost:5000/index.html"><img
-            src="/static/images/enia.png" alt="logo"></a>
+        <a class="brand-logo-mini" href="visualizzaTerreni"><img
+          src="/static/images/enia.png" alt="logo"></a>
         <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex" type="button"
           data-toggle="minimize">
           <span class="typcn typcn-th-menu"></span>
@@ -108,7 +106,7 @@
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle  pl-0 pr-0" data-toggle="dropdown" id="profileDropdown">
               <i class="typcn typcn-user-outline mr-0"></i>
-              <span class="nav-profile-name">User</span>
+              <span class="nav-profile-name">{{current_user.nome + " " + current_user.cognome}}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
               <a class="dropdown-item" href="/user">
@@ -163,13 +161,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="" aria-expanded="false" aria-controls="error">
-              <i class="typcn typcn-bell menu-icon"></i>
-              <span class="menu-title">Notifiche</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="https://unisalerno-my.sharepoint.com/:b:/g/personal/c_laudato2_studenti_unisa_it/EeOm2gosup5OsDa2tEJuCP4Bf5BqF05trtqCHoJ3fRbzGw?e=BnUdig" target="_blank" >
               <i class="typcn typcn-document-text menu-icon"></i>
               <span class="menu-title">Documentation</span>
             </a>
@@ -182,7 +174,7 @@
         <div class="content-wrapper">
           <div class="row">
             <div class="col-sm-6">
-              <h3 id="nomeTerreno" class="mb-0 font-weight-bold">UniSA25</h3>
+              <h3 id="nomeTerreno" class="mb-0 font-weight-bold">Benvenuto {{current_user.nome}} </h3>
             </div>
           </div>
           <div class="row  mt-3">
@@ -194,37 +186,44 @@
                     <div id="{{terreno.id}}" style="border-radius: 5%; z-index: 1;"></div>
                   </div>
                   <div class="d-flex flex-wrap justify-content-between rounded p-2 mt-2"
-                    style="background-color: #228B22;">
+                    style="background-color: #92E351;">
                     <p class="mb-0 text-white" style="font-size:large;">Nome Terreno:</p>
-                    <p class="text-left mb-0 bg-white border rounded">{{terreno.nome}}</p>
+                    <p class="text-left text-black mb-0">{{terreno.nome}}</p>
                   </div>
                   <div class="d-flex flex-wrap justify-content-between rounded p-2 mt-2"
-                    style="background-color: #228B22;">
+                    style="background-color: #92E351;">
                     <p class="mb-0 text-white" style="font-size:large;">Coltura:</p>
-                    <p class="text-left mb-0 bg-white border rounded">{{terreno.coltura}}</p>
+                    <p class="text-left text-black mb-0 ">{{terreno.coltura}}</p>
                   </div>
                   <a href="dettagliterreno?idTerreno={{terreno.id}}"
                     class="d-flex flex-wrap justify-content-center rounded p-2 mt-2 btn btn-success btn-fw"
-                    style="border-radius: 5%;">Dettagli</a>
+                    style="border-radius: 5%; background-color: #4DBAF6; border-color: #4DBAF6;">Dettagli</a>
                 </div>
               </div>
             </div>
             {%endfor%}
           </div>
 
+          <!--Spazio bottone + -->
+          <div class="d-flex justify-content-center">
+            <button type="button" style="background-color: #92E351; border-color: #92E351" class="btn btn-success rounded-circle" onclick = "rimandaAggiunta()" ><i class="typcn typcn-plus"></i>
+            </button>
+          </div>
+
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
-          <footer class="footer">
-            <div class="d-sm-flex justify-content-center justify-content-sm-between">
-              <span class="text-center text-sm-left d-block d-sm-inline-block">Progetto EnIA</span>
-            </div>
-          </footer>
           <!-- partial -->
         </div>
         <!-- main-panel ends -->
       </div>
       <!-- page-body-wrapper ends -->
     </div>
+    <footer class="footer" style= "background: border-box">
+      <div class="d-sm-flex justify-content-center justify-content-sm-between">
+        <span class="text-center text-sm-left d-block d-sm-inline-block">Progetto IS e GPS <a href="#" target="_blank">EnIA</a> 2023</span>
+        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Sviluppato da: Benedetto Scala, Maria Lombardi, Gerardo Frino, Francesco Maria Puca, Francesco Fattorusso</span>
+      </div>
+    </footer>
     <!-- container-scroller -->
     <!-- base:js -->
     <script src="/static/vendors/js/vendor.bundle.base.js"></script>
@@ -247,6 +246,11 @@
       integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
 
     <script>
+      function rimandaAggiunta()
+      {
+        window.location.href = "/aggiuntaTerreno"
+      }
+
       var arrayMappe = []
       var arrayPolygons = []
       //per ogni id assegna una mappa

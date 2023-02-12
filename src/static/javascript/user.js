@@ -189,3 +189,8 @@ function CheckMetodo() {
         form.submit();
     }
 }
+
+function CheckLicenza() {
+    var form = document.querySelector("#licenzaform")
+    form.submit();
+}

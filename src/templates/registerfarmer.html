@@ -16,9 +16,10 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="static/css/vertical-layout-light/style.css">
   <link rel="stylesheet" href="static/css/stile.css">
+
   <!-- endinject -->
   <link rel="shortcut icon" href="static/images/enia.png" />
-
+  <link rel="stylesheet" href="static/css/licenza.css">
   <style>
     p{
       color: red;
@@ -80,11 +81,31 @@
                   <input type="text" class="form-control form-control-sm" id="partitaiva" name="partitaiva">
                   <p id="partitaivaerr"></p>
                 </div>
-                <div class="form-group myform" id="2" style="display: none;">
-                  <input type="radio" id="standard" name="licenza" value="licenza standard" />
-                  <label for="radio">Licenza standard</label>
-                  <input type="radio" id="premium" name="licenza" value="licenza premium" />
-                  <label for="radio">Licenza premium</label>
+                <div class="container2 form-group myform" id="2" style="display: none;">
+                  <div class="plans">
+                    <div class="title">Scegli la tua Licenza</div>
+                    <label class="plan basic-plan" for="standard">
+                      <input checked type="radio" name="plan" id="standard" />
+                      <div class="plan-content">
+                        <img loading="lazy" src="https://raw.githubusercontent.com/ismailvtl/ismailvtl.github.io/master/images/life-saver-img.svg" style = "width:10%; height:10%" />
+                        <div class="plan-details">
+                          <span>Licenza Standard</span>
+                          <p>Per le piccole Aziende in grado di gestire la propria attivita</p>
+                        </div>
+                      </div>
+                    </label>
+                
+                    <label class="plan complete-plan" for="premium">
+                      <input type="radio" id="premium" name="plan" />
+                      <div class="plan-content">
+                        <img loading="lazy" src="https://raw.githubusercontent.com/ismailvtl/ismailvtl.github.io/master/images/potted-plant-img.svg" style = "width:10%; height:10%" />
+                        <div class="plan-details">
+                          <span>Licenza Premium</span>
+                          <p>Per le Grandi Aziende in grado di gestire la propria attivita</p>
+                        </div>
+                      </div>
+                    </label>
+                  </div>
                   <p id="licenzaerr"></p>
                 </div>
 

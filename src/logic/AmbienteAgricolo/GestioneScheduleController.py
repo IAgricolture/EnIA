@@ -1,6 +1,9 @@
+from datetime import datetime
 from flask import jsonify, request
 from src import app
-from src.logic.GestioneSchedule.GestioneScheduleService import GestioneScheduleService
+from src.logic.GestioneEventi.GestioneEventiService import GestioneEventiService
+from src.logic.DecisionIntelligence.GestioneScheduleService import GestioneScheduleService
+from src.logic.model.Evento import Evento
 
 class GestioneScheduleController:
     
@@ -22,7 +25,10 @@ class GestioneScheduleController:
         modalita = json.get("livello")
         
         GestioneScheduleService.modificaLivelloSchedule(id_terreno, data, modalita)
-        
+        evento = Evento("", "Scheduling", "Livello di irrigazione modificato per la data " + data +" con la modalità " + modalita
+                        , datetime.now().isoformat(' ', 'seconds'), "Scheduling", False, False, id_terreno)
+        print(evento)
+        GestioneEventiService.creaEvento(evento)        
         return jsonify({"success": True})
     
     @app.route(("/usaSchedulingConsigliato"), methods=["POST"])

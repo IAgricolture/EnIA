@@ -15,15 +15,19 @@
     <link rel="stylesheet" href="/static/css/vertical-layout-light/style.css">
     <!-- endinject -->
     <link rel="shortcut icon" href="/static/images/enia.png" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
      integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
      crossorigin=""/>
      <style>
+      .card{
+        border-radius: 3%;
+      }
       #datiMeteo{
         width: 100%;
       }
       #map{
+        border-radius: 3%;
           height: 400px;
           width: 100%;
           z-index: 1;
@@ -54,37 +58,9 @@
       height: 5rem; /* Adjust as desired */
     }
 
-    .my-custom-bg-color {
-      background-color: blue;
-      border-color: blue;
-    }
-      #heart {
-        position: absolute;
-        width: 50px;
-        height: 45px;
-        margin-top: 10px;
-      }
-      
-      #heart::before, #heart::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        width: 26px;
-        height: 40px;
-        border-radius: 25px 25px 0 0;
-        background: red;
-      }
-      
-      #heart::before {
-        left: 25px;
-        transform: rotate(-45deg);
-        transform-origin: 0 100%;
-      }
-      
-      #heart::after {
-        left: 0;
-        transform: rotate(45deg);
-        transform-origin: 100% 100%;
+      .fa-heart{
+        color:red;
+        font-size:40px;
       }
   </style>
   </head>
@@ -93,9 +69,7 @@
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo" href="http://localhost:5000/index.html"><img
-                        src="/static/images/enia.png" alt="logo"></a>
-                <a class="navbar-brand brand-logo-mini" href="http://localhost:5000/index.html"><img
+                <a class="brand-logo-mini" href="visualizzaTerreni"><img
                         src="/static/images/enia.png" alt="logo"></a>
                 <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex" type="button"
                     data-toggle="minimize">
@@ -167,7 +141,7 @@
                     <li class="nav-item nav-profile dropdown">
                         <a class="nav-link dropdown-toggle  pl-0 pr-0" data-toggle="dropdown" id="profileDropdown">
                             <i class="typcn typcn-user-outline mr-0"></i>
-                            <span class="nav-profile-name">User</span>
+                            <span class="nav-profile-name">{{current_user.nome + " " + current_user.cognome}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
                             aria-labelledby="profileDropdown">
@@ -204,7 +178,7 @@
                                     {{current_user.nome + " " + current_user.cognome}}
                                 </p>
                                 <p class="sidebar-designation">
-                                    Welcome
+                                    Benvenuto, {{current_user.ruolo}}
                                 </p>
                             </div>
                         </div>
@@ -223,13 +197,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="" aria-expanded="false" aria-controls="error">
-                            <i class="typcn typcn-bell menu-icon"></i>
-                            <span class="menu-title">Notifiche</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">
+                        <a class="nav-link" href="https://unisalerno-my.sharepoint.com/:b:/g/personal/c_laudato2_studenti_unisa_it/EeOm2gosup5OsDa2tEJuCP4Bf5BqF05trtqCHoJ3fRbzGw?e=BnUdig" target="_blank">
                             <i class="typcn typcn-document-text menu-icon"></i>
                             <span class="menu-title">Documentation</span>
                         </a>
@@ -247,10 +215,10 @@
               <div class="col-sm-6">
                 <div class="d-flex align-items-center justify-content-md-end">
                   <div class="mb-3 mb-xl-0 pr-1">
-                    <button type="button" class="btn btn-primary" onclick = "rimandamodifica()" >Modifica</button>
+                    <button type="button" class="btn btn-primary"  style= "background-color: #92E351 !important; border-color: #92E351;" onclick = "rimandamodifica()" >Modifica</button>
                   </div>
                   <div class="mb-3 mb-xl-0 pr-1">
-                    <button type="button" class="btn btn-danger" onclick = "rimandaelimina()" >Elimina</button>
+                    <button type="button" class="btn btn-primary" onclick = "rimandaelimina()" >Elimina</button>
                   </div>
                 </div>
               </div>
@@ -273,30 +241,23 @@
                   </div>
                 </div>
               </div>
-              <div class="col-xl-3 d-flex grid-margin stretch-card">
+              <div class="col-xl-4 d-flex grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
                     <div id="eventi">
                       <div class="d-flex flex-wrap justify-content-between">
                         <h4 class="card-title mb-3">Storico Eventi</h4>
                       </div>
-                      <table class="table">
-                        <thead>
-                          <tr>
-                            <th>Allert</th>
-                            <th>Notifica</th>
-                          </tr>
-                        </thead>
-                        <tbody id="table-body-storico">
-                          <!-- Rows will be added here dynamically using JavaScript -->
-                        </tbody>
-                      </table>
-                      <button type="button" class="btn col-12 btn-primary" style="margin-top: 6rem;" onclick = "createTableStorico()">testo</button>
+                      <div class="list-group overflow-auto" id="notifiche" style="max-height:300px; min-height:300px">
+                        
+                        <!--SPAZIO NOTIFICHE-->
+                    </div>
+                      <button type="button" class="btn col-12 btn-primary" style="margin-top: 3rem;" onclick = "cancellaTuttiEventi()">Cancella Tutte Le Notifiche</button>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-xl-4 d-flex grid-margin stretch-card">
+              <div class="col-xl-3 d-flex grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
                     <div class="d-flex flex-wrap justify-content-between">
@@ -322,13 +283,16 @@
                               <div>Priorità</div>
                               <div id = "priorita" class="text-muted"></div>
                             </div>
+                            <div class = "d-flex justify-content-between mb-4">
+                              <div>Preferito</div>
+                              <div><i class="fa fa-heart" onclick="like()" id="heart"></i></div>
+                            </div>
                             <div class="d-flex justify-content-center mb-4">
                               <div>Posizione</div>
                             </div>
                             <div id = "posizione" class="text-muted"></div>
-                            <div class = "d-flex justify-content-between mb-4"></div>
-                              <div id = "heart"></div>
-                            </div>
+                           </div>
+
                           </div>
                         </div>
                       </div>
@@ -337,7 +301,7 @@
               </div>
             </div>
           <div class="row  mt-3">
-            <div class="col-xl-6 d-flex grid-margin stretch-card">
+            <div class="col-xl-6 d-flex grid-margin stretch-card" id = "card-dati-meteo">
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex flex-wrap justify-content-between">
@@ -347,7 +311,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-xl-6 d-flex grid-margin stretch-card">
+            <div class="col-xl-6 d-flex grid-margin stretch-card" id="card-dati-inquinamento">
               <div class="card">
                 <div class="card-body">
                     <h4 id = "datiInquinamento" class="card-title mb-4">Dati inquinamento</h4>
@@ -380,11 +344,14 @@
                                 <div id = "pm10" class="text-muted"></div>
                               </div>
                           </div>
-                           <div class="btn-group-sm mr-2 mb-4" id = "bottoniInq" role="group">
-                            <button type="button" id="bottoneinq1" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Tabella</button>
-                            <button type="button" id="bottoneinq2" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Grafico1</button>
-                            <button type="button" id="bottoneinq3" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Grafico2</button>
-                            <button type="button" id="bottoneinq4" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Storico</button>
+                           <div class="btn-group-sm mr-2 mb-4" style = 
+                               "position: absolute;
+                               bottom: 0;"
+                               id = "bottoniInq" role="group">
+                            <button type="button" id="bottoneinq1"  style= "background-color: #92E351; border-color: #92E351" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Tabella</button>
+                            <button type="button" id="bottoneinq2"  style= "background-color: #92E351; border-color: #92E351" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Grafico1</button>
+                            <button type="button" id="bottoneinq3"  style= "background-color: #92E351; border-color: #92E351" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Grafico2</button>
+                            <button type="button" id="bottoneinq4"  style= "background-color: #92E351; border-color: #92E351" class="btn btn-primary" onclick = "gestisciViewInquinamento(this.id)">Storico</button>
                           </div>
                           <div class = "d-flex justify-content-end mb-4">
                             <div hidden class="btn-group" id = "spazioButtonDownload">
@@ -403,7 +370,7 @@
                </div>
             </div>
             <div class="row  mt-3">
-              <div class="col-xl-6 d-flex grid-margin stretch-card">
+              <div class="col-xl-6 d-flex grid-margin stretch-card" id="card-irrigazione-consigliati">
                 <div class="card">
                   <div class="card-body">
                     <div class="d-flex justify-content-center" id="loading-wheel-consigliati">
@@ -426,12 +393,12 @@
                           <!-- Rows will be added here dynamically using JavaScript -->
                         </tbody>
                       </table>
-                      <button type="button" class="btn col-12 btn-primary" style="margin-top: 6rem;" onclick = "usaSchedulingConsigliato()">Usa questi livelli di irrigazione</button>
+                      <button type="button" class="btn col-12 btn-primary" style="margin-top: 6rem; background-color: #92E351; border-color: #92E351" onclick = "usaSchedulingConsigliato()">Usa questi livelli di irrigazione</button>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-xl-6 d-flex grid-margin stretch-card">
+              <div class="col-xl-6 d-flex grid-margin stretch-card" id="card-irrigazione-impostati">
                 <div class="card">
                   <div class="card-body">
                     <div class="d-flex justify-content-center" id="loading-wheel-impostati">
@@ -460,20 +427,20 @@
               </div>
           </div>
             <div class="row  mt-3">
-              <div class="col-xl-6 d-flex grid-margin stretch-card">
+              <div class="col-xl-6 d-flex grid-margin stretch-card" id="card-gestione-irrigazione">
                 <div class="card">
                   <div class="card-body">
                       <div class="d-flex flex-wrap justify-content-between">
                             <h4 class="card-title">Gestione Irrigazione</h4>
-                            <button class="btn btn-success" id="btnIndietro" onclick="tornaIndietro()" hidden>Torna Indietro</button>
+                            <button class="btn btn-success btn-primary" id="btnIndietro" style= "background-color:#92E351 ; border-color: #92E351; margin-bottom: 1rem !important;" onclick="tornaIndietro()" hidden>Torna Indietro</button>
                       </div>
                       <div class="row">
                         <div class="col-12">
                           <div class="list-group" id="listaIrrigatori">
                             <div id="sprinklers"></div>
                             <div class="row mt-3">
-                              <button type="button" class="btn ml-3 btn-primary my-custom-bg-color btn-sm p-1" onclick="aggiungiIrrigatore()">Aggiungi Irrigatore</button>
-                              <button type="button" class="btn ml-3 btn-primary my-custom-bg-color btn-sm p-1" onclick="visualizzaMappaIrrigatori()">Visualizza Mappa Irrigatori</button>
+                              <button type="button" class="btn ml-3 btn-primary my-custom-bg-color btn-sm p-1 btn btn-primary"  style= "background-color:#4DBAF6 ; border-color: #4DBAF6; padding: 0.5rem 0.75rem!important;"  onclick="aggiungiIrrigatore()">Aggiungi Irrigatore</button>
+                              <button type="button" class="btn ml-3 btn-primary my-custom-bg-color btn-sm p-1 btn btn-primary" style= "background-color: #4DBAF6 ; border-color: #4DBAF6;  padding: 0.5rem 0.75rem!important;" onclick="visualizzaMappaIrrigatori()">Visualizza Mappa Irrigatori</button>
                             </div>
                           </div> 
                         </div>
@@ -497,7 +464,7 @@
                                 </div>
                                 <div class="form-group" id="mapIrrigazione">
                                 </div>
-                                <button type="submit" class="btn btn-primary" id="btnModificaIrrigatore">Submit</button>
+                                <button type="submit" class="btn ml-3 btn-primary my-custom-bg-color btn-sm p-1" id = "btnModificaIrrigatore">Modifica</button>
                             </div>
                           </div>
                         </div>
@@ -513,7 +480,7 @@
                                 </div>
                                 <div class="form-group" id="mapAggiungiIrrigatore">
                                 </div>
-                                <button type="submit" onclick="inviaIrrigatoreCreato()">Submit</button>
+                                <button type="submit" class="btn btn-primary" style= "background-color:#4DBAF6 ; border-color: #4DBAF6 " id="btnModificaIrrigatore" onclick="inviaIrrigatoreCreato()">Aggiungi</button>
                               </div>
                             </div>
                           </div>
@@ -527,17 +494,37 @@
           
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
-          <footer class="footer">
-            <div class="d-sm-flex justify-content-center justify-content-sm-between">
-              <span class="text-center text-sm-left d-block d-sm-inline-block">Progetto EnIA</span>
-            </div>
-          </footer>
+          
           <!-- partial -->
         </div>
         <!-- main-panel ends -->
       </div>
       <!-- page-body-wrapper ends -->
     </div>
+    <footer class="footer" style= "background: border-box">
+      <div class="d-sm-flex justify-content-center justify-content-sm-between">
+        <span class="text-center text-sm-left d-block d-sm-inline-block">Progetto IS e GPS <a href="#" target="_blank">EnIA</a> 2023</span>
+        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Sviluppato da: Benedetto Scala, Maria Lombardi, Gerardo Frino, Francesco Maria Puca, Francesco Fattorusso</span>
+      </div>
+    </footer>
+    <!--Lo script della divisione ruoli è più in alto perchè deve essere caricato prima di tutti gli altri-->
+    <script>
+      //Divisione Ruoli
+      //se è un irrigation analyst
+      if ("{{current_user.ruolo}}" == "irrigation manager"){
+        document.getElementById("card-dati-inquinamento").classList.remove("d-flex")
+        document.getElementById("card-dati-inquinamento").classList.add("d-none")
+        document.getElementById("card-dati-meteo").classList.remove("col-xl-6")
+        document.getElementById("card-dati-meteo").classList.add("col-12")
+      } else if ("{{current_user.ruolo}}" == "pollution analyst"){
+        document.getElementById("card-irrigazione-consigliati").classList.remove("d-flex")
+        document.getElementById("card-irrigazione-consigliati").classList.add("d-none")
+        document.getElementById("card-irrigazione-impostati").classList.remove("d-flex")
+        document.getElementById("card-irrigazione-impostati").classList.add("d-none")
+        document.getElementById("card-gestione-irrigazione").classList.remove("d-flex")
+        document.getElementById("card-gestione-irrigazione").classList.add("d-none")
+      }
+    </script>
     <!-- container-scroller -->
     <!-- base:js -->
     <script src="/static/vendors/js/vendor.bundle.base.js"></script>
@@ -566,6 +553,7 @@
 var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso', '25-01-2023': 'Basso', '26-01-2023': 'Basso', '27-01-2023': 'Basso', '28-01-2023': 'Basso'};
       
 
+
       function downloadStoricoInquinamento(formato)
       {
         /*
@@ -578,9 +566,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         Creo il nome del file, poi fa una fetch per ottenere la response, da cui tira fuori un blob che rappresenta il file.
         Fa poi i passi necessari per scaricarlo automaticamente.
         */
-        console.log(formato)
-        console.log(dataInizio)
-        console.log(dataFine)
         filename = "storico." + formato
         //Dati passati al fetch
         var body = {
@@ -601,7 +586,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
           return res.blob() //Va bene per tutti gli altri formati
         })
         .then(obj => {
-          console.log(obj)
           var file = window.URL.createObjectURL(obj)
           const link = document.createElement('a'); //Creo il link perchè è l'unico modo semplice per dargli filename
           link.href = file;
@@ -619,8 +603,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
 
         dataInizio = document.getElementById("dataInizioInq").value
         dataFine = document.getElementById("dataFineInq").value
-        console.log(dataInizio)
-        console.log(dataFine)
         var body = {
           dataInizio: dataInizio,
           dataFine: dataFine,
@@ -639,9 +621,7 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         }).then(function(response) {
           return response.json()
         }).then(function(data) {
-          console.log(data)
           var arrayGiorniInq = convertiStoricoInquinamento(data)
-          console.log(arrayGiorniInq)
           creaGraficoStoricoInquinamento(arrayGiorniInq)
           
           //Mostra il bottone per scaricare lo storico
@@ -688,9 +668,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         {
           labels.push(Object.keys(arrayGiorniInq[0])[i])
         }
-        /*console.log(labelsData)
-        console.log(labels)
-        console.log(values)    */
         //Ripristino timestamp, altrimenti non posso ricreare lo storico.
         for(var i = 0; i < timestamps.length; i++)
         {
@@ -704,7 +681,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
           {
             data.push(values[k][c])
           }
-          //console.log(data)
           //Adesso ho tutti i valori di una label, posso costruirne il dataset
           var dataset = {
             label : labels[c],
@@ -713,11 +689,9 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
             borderColor: colors[c],
             tension: 0.1
           }
-          //console.log(dataset)
           //Costruito, lo inserisco nell'insieme per creare il grafico
           datasets.push(dataset)
         }
-        //console.log(datasets)
         //Finito il parsing dei dati, posso creare finalmente il grafico
         new Chart(document.getElementById("lineChart"), {
           type: 'line',
@@ -784,7 +758,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
             }
             temp.push(temp2)
           }
-          console.log(temp)
         return temp
       }
 
@@ -826,10 +799,7 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         for(var i = 0; i < Object.keys(arrayGiorniMeteo[0]).length; i++) //Per ogni campo di un oggetto
         {
           labels.push(Object.keys(arrayGiorniMeteo[0])[i])
-        }
-        console.log(labelsData)
-        console.log(labels)
-        console.log(values)    
+        }   
         //Creo i dataset con i dati compilati, uno per lineChart
         for(var c = 0; c < labels.length; c++)
         {
@@ -838,7 +808,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
           {
             data.push(values[k][c])
           }
-          console.log(data)
           //Adesso ho tutti i valori di una label, posso costruirne il dataset
           var dataset = {
             label : labels[c],
@@ -847,11 +816,9 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
             borderColor: colors[c],
             tension: 0.1
           }
-          console.log(dataset)
           //Costruito, lo inserisco nell'insieme per creare il grafico
           datasets.push(dataset)
         }
-        console.log(datasets)
         //Finito il parsing dei dati, posso creare finalmente il grafico
         new Chart(document.getElementById("lineChartmeteo"), {
           type: 'line',
@@ -1081,7 +1048,8 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
               var button = document.createElement("button")
               button.type = "button"
               button.id = "buttonFormInq"
-              button.className = "btn btn-primary"
+              button.className = "btn btn-primary mt-4"
+             // button.style.marginTop = "1rem"
               button.addEventListener("click", getStoricoInquinamento)
               button.innerHTML = "Cerca"
               parent.appendChild(button)
@@ -1122,6 +1090,8 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         innerDiv.setAttribute("class", "d-flex w-100 justify-content-between");
 
         const h5 = document.createElement("h5");
+        //aggiungi id irrigatore
+        h5.id = "irrigatore"+idIrrigatore;
         h5.setAttribute("class", "mb-1");
         h5.innerText = nomeIrrigatore;
         innerDiv.appendChild(h5);
@@ -1130,7 +1100,7 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
 
         const deleteButton = document.createElement("button");
         deleteButton.setAttribute("type", "button");
-        deleteButton.setAttribute("class", "btn btn-primary btn-sm p-1");
+        deleteButton.setAttribute("class", "btn btn-primary btn-sm p-1 mr-1");
         deleteButton.setAttribute("onclick", "eliminaIrrigatore('"+idIrrigatore+"')");
         deleteButton.innerText = "Elimina";
         buttonsDiv.appendChild(deleteButton);
@@ -1175,11 +1145,9 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         }).then(function(response) {
             return response.json();
         }).then(function(data) {
-          console.log(data);
           for(var i = 0; i < data.length; i++){
             var lat = data[i].posizione.geometry.coordinates[1]
             var len = data[i].posizione.geometry.coordinates[0]
-            console.log(lat + " " + len)
             marker = L.marker([lat,len], {icon: sprinklerIcon}).addTo(mapTuttiIrrigatori);
             markers.push(marker);
             marker.bindPopup("<b>"+data[i].nome+"</b><br>Stato: "+data[i].attivo);
@@ -1212,7 +1180,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
       function inviaIrrigatoreCreato(){
         var nomeIrrigatore = document.getElementById("NomeImpiantoAggiungiIrrigatore").value;
         var posizioneIrrigatore = markerAggiungiIrrigatore.toGeoJSON();
-        console.log(posizioneIrrigatore)
 
         fetch('aggiungiIrrigatore', {
           method: 'POST',
@@ -1273,7 +1240,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         }).then(function(response) {
           return response.json()
         }).then(function(data) {
-          console.log(data)
           //elimina irrigatore dal document
           document.getElementById(idIrrigatore).remove()
         })
@@ -1287,7 +1253,9 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         document.getElementById("listaIrrigatori").setAttribute("hidden", "true");
         mapModificaIrrigatore.invalidateSize()
         mapModificaIrrigatore.fitBounds(polygon.getBounds())
-
+        //aggiungi un on click al bottone per salvare le modifiche
+        document.getElementById("btnModificaIrrigatore").setAttribute("onclick", "buttonModificaIrrigatore('"+idIrrigatore+"')");
+        
         //get posizione of irrigatore
         fetch('getIrrigatore', {
           method: 'POST',
@@ -1300,7 +1268,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         }).then(function(response) {
           return response.json();
         }).then(function(data) {
-          console.log(data)
           var lat = data.posizioneIrrigatore.geometry.coordinates[1]
           var len = data.posizioneIrrigatore.geometry.coordinates[0]
           //add marker to map
@@ -1314,10 +1281,14 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
 
         //set on click listener for submit
         
-        document.getElementById("btnModificaIrrigatore").addEventListener("click", function(){
+       
+        
+      }
+      
+      function buttonModificaIrrigatore(idIrrigatore)
+      {
           var nomeIrrigatore = document.getElementById("NomeImpiantoModificaIrrigatore").value;
           var posizioneIrrigatore = markerModificaIrrigatore.toGeoJSON();
-          console.log(posizioneIrrigatore)
 
           fetch('modificaIrrigatore', {
             method: 'POST',
@@ -1332,12 +1303,28 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
           }).then(function(response) {
             return response.json();
           }).then(function(data) {
-            console.log(data)
-            tornaIndietro();
+            //elimina gli irrigatori dal document
+            var listaIrrigatori = document.getElementById("sprinklers")
+            listaIrrigatori.innerHTML = ""
+            //aggiorna la lista degli irrigatori nel document dal db
+            fetch('visualizzaIrrigatori', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                idTerreno: terreno.id
+              })
+            }).then(function(response) {
+              return response.json();
+            }).then(function(data) {
+              tornaIndietro()
+              for(var i = 0; i < data.length; i++){
+                aggiungiIrrigatoreAlDom(data[i].nome, data[i]._id, data[i].attivo);
+              }
+            })
           })
-        })
-        
-      }
+        }
 
       function isMarkerInsidePolygon(marker, polygon) {
         // utilizziamo la funzione leaflet contains() per verificare se il marker è all'interno del poligono
@@ -1347,14 +1334,14 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
 
       function rimandamodifica()
       {
-        window.location.href = "http://localhost:5000/modificaTerreno?idTerreno=" + terreno.id 
+        window.location.href = "modificaTerreno?idTerreno=" + terreno.id 
       }
 
       function rimandaelimina()
       {
         if(confirm("ATTENZIONE: Si sta per eliminare il terreno PERMANENTEMENTE. Premere OK per confermare la propria scelta, o Cancel per tornare indietro."))
         {
-          window.location.href = "http://localhost:5000/eliminaTerreno?idTerreno=" + terreno.id 
+          window.location.href = "eliminaTerreno?idTerreno=" + terreno.id 
         }
       }
 
@@ -1416,7 +1403,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
       {
         for(var i = 0; i < indirizzoapi.length; i++)
         {
-          console.log(parseInt(indirizzoapi[i]))
           if(!(Number.isNaN(parseInt(indirizzoapi[i])))) //Controllo se la stringa rappresenta un numero
           {
             indirizzoapi.splice(i, 1, indirizzoapi[i + 1])  //Sostituisci codice postale con altro campo
@@ -1425,12 +1411,9 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         }
       }
       indirizzoapi = indirizzoapi.join()
-      console.log(indirizzoapi)
       var comune = posizioneapi.display_name.split(", ")[0]
-      console.log(comune)
       var messaggioInquinamento;
       var inquinamentoapi = {{inquinamentoapi | safe}} //NON togliere safe, altrimenti si rompe perchè flask inserisce caratteri di escape che rompono js
-      console.log(inquinamentoapi)
       var erroreinquinamentoapi = true
       //Controlla che il luogo sia abilitato, altrimenti dai un messaggio di errore.
       if(inquinamentoapi.message != "Impossibile soddisfare questa richiesta")
@@ -1440,7 +1423,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
         {
           erroreinquinamentoapi = false
           inquinamento = inquinamentoapi.result[comune]
-          console.log(inquinamento)
           //Tolgo i dati che non ci interessano per l'inquinamento
           delete inquinamento.comune
           delete inquinamento.nazione
@@ -1448,7 +1430,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
           delete inquinamento.provincia
           delete inquinamento.temperatura
           delete inquinamento.umidita
-          console.log(inquinamento)
           //Riempio le div con i dati dell'inquinamento
           //AGGIUNGERE CONTROLLO PER DATI CHE NON CI SONO SEMPRE, COME O3, SO2? Grafico poi diventa un problema
           document.getElementById("tsinq").innerHTML = "Orario rilevamento: " + inquinamento.timestamp
@@ -1479,15 +1460,11 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
 
       //Per il meteo
       var meteoapi = {{meteoapi | safe}}
-      console.log(meteoapi)
 
       var arrayGiorniMeteo = convertiMeteo(meteoapi)
       creaGraficoMeteo()
-      console.log(arrayGiorniMeteo)
 
 
-
-      console.log(terreno)
       document.getElementById("titolopagina").innerHTML = terreno.nome
       document.getElementById("nomeTerreno").innerHTML = terreno.nome
       document.getElementById("nomterreno").innerHTML = terreno.nome
@@ -1521,7 +1498,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
     .then(data=>{
       //per ogni irrigatore chiama aggiungiIrrigatoreAlDom con argomento il nome dell'irrigatore
       data.forEach(irrigatore => {
-        console.log(irrigatore.attivo)
         aggiungiIrrigatoreAlDom(irrigatore.nome, irrigatore._id, irrigatore.attivo)
       });
 
@@ -1584,52 +1560,161 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
       }
     }
 
+    function createListItem(imageSrc, title, description, time,visto, id) {
+      // Crea un nuovo elemento "div" con la classe "list-group-item"
+      var item = document.createElement("div");
+      item.classList.add("list-group-item");
+      
+      if( !visto )
+      {
+        item.classList.add("list-group-item-success");
+      }
+      else
+      {
+        item.classList.add("list-group-item-danger");
+      }
+
+      //assegna id all'elemento
+      item.id = id
+      // Crea un nuovo elemento "div" con la classe "media"
+      var media = document.createElement("div");
+      media.classList.add("media");
+      item.appendChild(media);
+    
+      // Crea un nuovo elemento "img"
+      var image = document.createElement("img");
+      image.src = imageSrc;
+      image.classList.add("mr-3");
+      media.appendChild(image);
+    
+      // Crea un nuovo elemento "div" con la classe "media-body"
+      var mediaBody = document.createElement("div");
+      mediaBody.classList.add("media-body");
+      media.appendChild(mediaBody);
+    
+      // Crea un nuovo elemento "h5" con la classe "mt-0"
+      var titleHeader = document.createElement("h5");
+      //make title smaller
+      titleHeader.classList.add("small");
+      titleHeader.classList.add("mt-0");
+      titleHeader.innerText = title;
+      mediaBody.appendChild(titleHeader);
+    
+      // Crea un nuovo elemento "p"
+      var descriptionParagraph = document.createElement("p");
+      //make text smaller
+      descriptionParagraph.classList.add("small");
+      descriptionParagraph.innerText = description;
+      mediaBody.appendChild(descriptionParagraph);
+      
+
+      var mediaBody2 = document.createElement("div");
+      mediaBody2.classList.add("media-body");
+      // Crea un nuovo elemento "div" con una classe personalizzata
+      var timeItem = document.createElement("p");
+      timeItem.classList.add("time-item");
+      //get the first 10 characters of the time string
+      day = time.substring(0, 10);
+      //get the last 10 characters of the time string
+      time = time.substring(11, 16);   
+      timeItem.innerText = day + " " + time;
+      //vai a capo nell'inner text
+      timeItem.innerHTML = timeItem.innerHTML.replace(" ", "<br>");
+      //allinea il testo a destra
+      timeItem.classList.add("text-right");
+      //make time smaller
+      timeItem.classList.add("small");
+      //aggiungi questo elemento <i class="fas fa-trash"></i> al mediaBody2
+      var trash = document.createElement("i");
+      trash.classList.add("fa");
+      trash.classList.add("fa-trash");
+      //mettilo in basso a destra
+      
+      trash.classList.add("text-danger");
+      trash.classList.add("small");
+      trash.classList.add("float-right");
+      //assenga la funzione eliminaNotifica(id) al click del trash
+      trash.setAttribute("onclick", "eliminaEvento('"+id+"')");
+      //trash.addEventListener("click", listenerDeleteNotifica);
+      //modifica pointer del mouse quando passa sopra il trash
+      trash.style.cursor = "pointer";
+
+      mediaBody2.appendChild(timeItem);
+      mediaBody2.appendChild(trash);
+      media.appendChild(mediaBody2);
+
+
+
+      //aumenta la weight del testo del titolo
+      titleHeader.classList.add("font-weight-bold");
+
+
+      return item;
+    }
+
+    function eliminaEvento(id){
+      //get notifica from /visualizzaEventi
+      fetch("eliminaEvento", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id_evento: id
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data)
+          // Loop through the data and add rows to the table
+          createTableStorico()
+        })
+    }
 
     function createTableStorico(){
       // Get a reference to the table body
-      var table = document.getElementById("table-body-storico");
-      var row = document.createElement("tr");
-      var cell1 = document.createElement("td");
-      var cell2 = document.createElement("td");
+      var table = document.getElementById("notifiche");
+      //svuota la tabella
+      table.innerHTML = ""
 
-
-      /*
-      fetch('visualizzaEventi' , {
-        method: 'POST',
+      //get notifica from /visualizzaEventi
+      fetch("eventi", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          idTerreno: terreno.id
-        })
-      }).then(function(response) {
-          return response.json();
-      }).then(function(data) {
-        console.log(data);
-          for (var date in data) {
-            var row = document.createElement("tr");
-            var dateCell = document.createElement("td");
-            var levelCell = document.createElement("td");
-            dateCell.innerHTML = date;
-            levelCell.innerHTML = data[date];
-            row.appendChild(dateCell);
-            row.appendChild(levelCell);
-            tableBody.appendChild(row);
-        }
-      });
-      */
-
-      //mio
-      cell1.innerHTML = "Scheduling Irrigazione Modificato";
-      cell2.innerHTML = "<img src='https://www.seekpng.com/png/full/67-678831_notification-ui-alarm-bell-round-notice-remind-reminder.png' alt='Notifica' width='50' height='50'>";
-      row.appendChild(cell1);
-      row.appendChild(cell2);
-    
-      // Append the row to the table
-      table.appendChild(row);
+          id_terreno: terreno.id
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data)
+          // Loop through the data and add rows to the table
+          for (var i = 0; i < data.length; i++) {
+            elem = createListItem("", data[i].titolo, data[i].descrizione, data[i].orario,data[i].visto, data[i]._id)
+            table.appendChild(elem);
+          }
+        });
     }
 
+    createTableStorico()
 
+    function cancellaTuttiEventi(){
+      fetch("cancellaTuttiEventi", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id_terreno: terreno.id
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          createTableStorico()
+        });
+    }
 
     function listenerLivelliIrrigazione(){
       //prendi il valore della select
@@ -1650,16 +1735,12 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          //aggiorna notifiche
+          createTableStorico()
         });
     }
 
     function usaSchedulingConsigliato(){
-
-      console.log(terreno.id)
-      console.log(terreno.posizione.geometry.coordinates[0][0][0])
-      console.log(terreno.posizione.geometry.coordinates[0][0][1])
-      console.log(terreno.stadio)
       var tableBody = document.getElementById("table-body-schedule");
       document.getElementById("data-impostati").classList.add("d-none")
       document.getElementById("loading-wheel-impostati").classList.add("d-flex")
@@ -1679,7 +1760,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           //delete table
           document.getElementById("data-impostati").classList.remove("d-none")
           document.getElementById("loading-wheel-impostati").classList.remove("d-flex")
@@ -1706,7 +1786,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
       .then((data) => {
         document.getElementById("loading-wheel-consigliati").remove()
         document.getElementById("data-consigliati").classList.remove("d-none")
-        console.log(data);
         createTable(data);
       });
 
@@ -1721,7 +1800,6 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           //set loading wheel to hidden
           document.getElementById("loading-wheel-impostati").classList.remove("d-flex")
           document.getElementById("loading-wheel-impostati").classList.add("d-none")
@@ -1729,6 +1807,8 @@ var data = {'22-01-2023': 'Basso', '23-01-2023': 'Basso', '24-01-2023': 'Basso',
           createTableImpostati(data);
         });
 
+
+        
     </script>
 
     <!-- End custom js for this page-->

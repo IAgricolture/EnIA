@@ -13,11 +13,13 @@
   <!-- endinject -->
   <!-- plugin css for this page -->
    <!-- plugin css for this page -->
+
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
      integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
      crossorigin=""/>
      <style>
       #map{
+        border-radius: 3%;
           height: 400px;
       }
   </style>
@@ -26,6 +28,9 @@
   <link rel="stylesheet" href="/static/css/vertical-layout-light/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="/static/images/enia.png" />
+  <link rel = "stylesheet" href ="/static/css/stile.css">
+  <link rel = "stylesheet" href = "/static/css/log.css">
+
 </head>
 
 <body>
@@ -33,10 +38,8 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="http://localhost:5000/index.html"><img src="/static/images/enia.png"
-            alt="logo"></a>
-        <a class="navbar-brand brand-logo-mini" href="http://localhost:5000/index.html"><img
-            src="/static/images/enia.png" alt="logo"></a>
+        <a class="brand-logo-mini" href="visualizzaTerreni"><img
+          src="/static/images/enia.png" alt="logo"></a>
         <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex" type="button"
           data-toggle="minimize">
           <span class="typcn typcn-th-menu"></span>
@@ -162,24 +165,18 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="" aria-expanded="false" aria-controls="error">
-              <i class="typcn typcn-bell menu-icon"></i>
-              <span class="menu-title">Notifiche</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="https://unisalerno-my.sharepoint.com/:b:/g/personal/c_laudato2_studenti_unisa_it/EeOm2gosup5OsDa2tEJuCP4Bf5BqF05trtqCHoJ3fRbzGw?e=BnUdig" target="_blank" >
               <i class="typcn typcn-document-text menu-icon"></i>
-              <span class="menu-title">Documentation</span>
+              <span class="menu-title"  >Documentation</span>
             </a>
           </li>
         </ul>
       </nav>
       <!-- partial -->
       <div class="main-panel">
-      <div class="content-wrapper d-flex align-items-center auth px-0" style="background-image: url('/static/images/carousel/banner.jpg'); background-repeat: no-repeat;">
+      <div class="content-wrapper d-flex align-items-center auth px-0"  style="background-image: url('/static/images/register.jpg'); background-repeat: no-repeat; background-size: cover;">>
         <div class="row w-100 mx-0">
-          <div class="col-lg-12 mx-auto">
+          <div class="col-lg-8 mb-3 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
               <div class="brand-logo">
                 <img src="/static/images/enia.png" alt="logo">
@@ -189,7 +186,7 @@
               <div id="map">
               </div>
               <div class="mt-3">
-                <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" onclick="resetMap(points)">MODIFICA CONFINI</a>
+                <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" style= "background-color: #92E351; border-color: #92E351" onclick="resetMapModifica(points)">Resetta I Confini</a>
               </div>
               <div id = "spazioNotifica" class="mb-4">
               </div>
@@ -232,7 +229,7 @@
                 <div class="mb-4">
                 </div>
                 <div class="mt-3">
-                  <a class="btn btn-block btn-success btn-lg font-weight-medium auth-form-btn" onclick="modifica()">MODIFICA TERRENO</a>
+                  <a class="btn btn-block btn-success btn-lg font-weight-medium auth-form-btn" style= "background-color: #92E351; border-color: #92E351" onclick="modifica()">MODIFICA TERRENO</a>
                 </div>
               </form>
             </div>
@@ -243,6 +240,12 @@
     </div>
     <!-- page-body-wrapper ends -->
   </div>
+  <footer class="footer" style= "background: border-box">
+    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+      <span class="text-center text-sm-left d-block d-sm-inline-block">Progetto IS e GPS <a href="#" target="_blank">EnIA</a> 2023</span>
+      <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Sviluppato da: Benedetto Scala, Maria Lombardi, Gerardo Frino, Francesco Maria Puca, Francesco Fattorusso</span>
+    </div>
+  </footer>
   <!-- container-scroller -->
   <!-- base:js -->
   <script src="/static/vendors/js/vendor.bundle.base.js"></script>
@@ -259,6 +262,7 @@
   <script src="/static/javascript/misc.js"></script>
   <script src="/static/javascript/terreno.js"></script>
   <script>
+    var terrenoModificato = false
     var map = L.map('map').setView([40.77393162437966, 14.789718084808584], 15);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
@@ -269,18 +273,35 @@
     var points = [];
     var polygon = L.geoJSON(u).addTo(map)
     map.fitBounds(polygon.getBounds())
+
+    var validMap = true
+
+    function resetMapModifica(points) {
+      if (validMap) {
+        window.map.removeLayer(polygon)
+        window.points = []
+        validMap = false
+        window.terrenoModificato = true
+      }
+    }
+
     map.on('click', function(e) {
         points.push(e.latlng);
+        validMap = true
         if (points.length >= 1) {
             if (polygon != null){
-                polygon.remove()
+                window.polygon.remove()
+                window.terrenoModificato = true
             }
             
-            polygon = L.polygon(points).addTo(map);
+            window.polygon = L.polygon(points).addTo(map);
         }
         console.log(points)
     });
 
+    function redirect() {
+      window.location.href = "/visualizzaTerreni";
+    }
     
     if("{{terreno.preferito}}" == "True"){
       document.getElementById("preferito").checked = true
@@ -303,9 +324,14 @@
                 preferito : document.getElementById('preferito').checked,
                 priorita : document.getElementById('priorita').value,
                 stadio_crescita: document.getElementById('stadio').value,
-                posizione : polygon.toGeoJSON()
+                posizione : window.polygon.toGeoJSON()
            }
-      
+      if( terrenoModificato != true)
+      {
+        console.log("non modificato")
+        
+        data["posizione"] = u 
+      }
       let response = fetch("modificaTerreno",
         {
           /*"method": "GET",
@@ -320,6 +346,7 @@
           console.log(data)
           if(data["modificato"] =="true"){
             creaNotifica("Terreno modificato correttamente!", "successo", document.getElementById("formnascosto"), "notificamodifica")
+            setTimeout(redirect, 1000);
             } else {
               creaNotifica("Si è verificato un errore durante la modifica del terreno.", "fallimento", document.getElementById("formnascosto"), "notificamodifica")
             }

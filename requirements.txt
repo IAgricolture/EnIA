@@ -4,3 +4,11 @@ flask_pymongo
 flask_cors
 pymongo
 requests
+geopy
+pybuilder
+mockito
+pybuilder
+sphinx
+sphinx-rtd-theme
+sphinxcontrib-httpdomain
+selenium

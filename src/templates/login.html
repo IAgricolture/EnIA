@@ -41,19 +41,20 @@
                 </div>
                 <input type = "hidden" name = "next" value = "{{request.args.get("next", "")}}">
                 <div class="mt-3">
-                  <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</button>
+                  <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" id="signin">SIGN IN</button>
                 </div>
                 <div class="my-2 d-flex justify-content-between align-items-center">
                   <div class="form-check">
                     <label class="form-check-label text-muted">
-                      <input type="checkbox" class="form-check-input">
+                      <input type="checkbox" class="form-check-input" style="border: solid  #4DBAF6 !important">
                       Ricordami
                     </label>
                   </div>
                   <a href="#" class="auth-link text-black">Password dimenticata?</a>
                 </div>
                 <div class="text-center mt-4 font-weight-light">
-                  Non sei ancora registrato? <a href="register.html" class="text-primary">Registrati</a>
+                  Non sei ancora registrato? <a href="/registerf" class="text-primary">Registrati</a><br>
+                  Hai un codice di accesso e vuoi Registrarti? <a href="/register" class="text-primary">Registrati qui</a>
                 </div>
               </form>
             </div>
